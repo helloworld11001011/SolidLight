@@ -8,10 +8,17 @@
        <h2>Index</h2>
         Willkommen in webarena, my name is <?php echo $myname;?> and the best fighter is <?php echo $bestFighter; ?>.
         
+      <!--</?php
+            echo $this->Form->create(fighter);
+            echo $this->Form->control("login");
+            
+            echo $this->submit();
+            echo $this->end();
+        /?> -->
         
- <!-- Pour faire un lien : <\?php echo $this->Html->link("Click Me", ["Controller"=>"Arenas"]) >      -->
+
         
-        
+       
         <navigation>
             <h5>Navigation</h5>
             <ul>
