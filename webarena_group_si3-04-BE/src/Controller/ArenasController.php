@@ -1,3 +1,4 @@
+
 <?php
 namespace App\Controller;
 use App\Controller\AppController;
@@ -42,5 +43,27 @@ class ArenasController  extends AppController
     {
         
     }
+   
+   /* 
+    * Cours du prof pour les formulaires, verifie que les info envoyez son bien en POST pour ensuite les traiter
+    * 
+    public function profile()
+    {
+        
+        $this->loadModel("Player");
+        
+         if($this->request->is("post")) {
+            
+            $this->request->getData("email");
+            ...
+                          
+        }
+        
+        $player = $this->gett(42);
+        $this->set("player", $player);
+        
+       
+    }
+    */
     
 }
