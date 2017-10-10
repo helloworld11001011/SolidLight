@@ -1,4 +1,4 @@
-<h1>Login</h1>
+<h2>Login</h2>
 <form action="">
     <input type="text" placeholder="Username">
     <input type="password" placeholder="Password">
@@ -6,12 +6,12 @@
 
 
 <navigation>
-   <h5>Navigation</h5>
-    <ul>
-        <li><a href="http://localhost/webarena_group_siA_00_00/Arenas/index">Index</a></li>
-        <li><a href="http://localhost/webarena_group_siA_00_00/Arenas/Login">Login</a></li>
-        <li><a href="http://localhost/webarena_group_siA_00_00/Arenas/fighter">Fighter</a></li>
-        <li><a href="http://localhost/webarena_group_siA_00_00/Arenas/sight">Sight</a></li>
-        <li><a href="http://localhost/webarena_group_siA_00_00/Arenas/diary">Diary</a></li>
-    </ul>
+        <h5>Navigation</h5>
+        <ul>
+            <li> <?php echo $this->Html->link("Index", ["controller"=>"Arenas", "action"=>"index"]); ?> </li>
+            <li> <?php echo $this->Html->link("Login", ["controller"=>"Arenas", "action"=>"login"]); ?> </li>
+            <li> <?php echo $this->Html->link("Fighter", ["controller"=>"Arenas", "action"=>"fighter"]); ?> </li>
+            <li> <?php echo $this->Html->link("Sight", ["controller"=>"Arenas", "action"=>"sight"]); ?> </li>
+            <li> <?php echo $this->Html->link("Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
+        </ul>
 </navigation>
