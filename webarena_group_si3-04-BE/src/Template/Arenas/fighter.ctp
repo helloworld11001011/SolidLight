@@ -1,7 +1,7 @@
 <h2>Fighter</h2>
 
 
-The best fighter is <?php echo $bestFighter; ?>, he is great!
+The best fighter is <?php echo $bestFighter; ?>
 
 <navigation>
             <h5>Navigation</h5>
@@ -12,5 +12,4 @@ The best fighter is <?php echo $bestFighter; ?>, he is great!
                 <li> <?php echo $this->Html->link("Sight", ["controller"=>"Arenas", "action"=>"sight"]); ?> </li>
                 <li> <?php echo $this->Html->link("Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
             </ul>
-            <h4>Julien fighter</h4>
 </navigation>
