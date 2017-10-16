@@ -7,18 +7,18 @@
     <body>
        <h2>Index</h2>
         Willkommen in webarena, my name is <?php echo $myname;?> and the best fighter is <?php echo $bestFighter; ?>.
-        
+
       <!--</?php
             echo $this->Form->create(fighter);
             echo $this->Form->control("login");
-            
+
             echo $this->submit();
             echo $this->end();
         /?> -->
-        
 
-        
-       
+
+        test new branch
+
         <navigation>
             <h5>Navigation</h5>
             <ul>
@@ -31,4 +31,3 @@
         </navigation>
     </body>
 </html>
-
