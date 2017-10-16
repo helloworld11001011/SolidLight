@@ -1,7 +1,7 @@
 <h2>Fighter</h2>
 
 
-The best fighter is <?php echo $bestFighter; ?>
+The best fighter is <?php echo $bestFighter; ?>, he is great!
 
 <navigation>
             <h5>Navigation</h5>
