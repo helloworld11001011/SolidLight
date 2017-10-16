@@ -10,4 +10,5 @@
                 <li> <?php echo $this->Html->link("Sight", ["controller"=>"Arenas", "action"=>"sight"]); ?> </li>
                 <li> <?php echo $this->Html->link("Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
             </ul>
+            <h4>testing bro</h4>
 </navigation>
