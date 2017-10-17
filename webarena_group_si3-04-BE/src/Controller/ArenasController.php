@@ -23,18 +23,17 @@ class ArenasController  extends AppController
     public function fighter()
     {
         $this -> loadModel('Fighters');
-        $figterlist = $this->Fighters->find('all');
-        //pr($figterlist -> toArray());
-
-        //Pass info to the view
+        $query = $this -> Fighters -> find('all');
+        foreach ($query as $row) {
+          //Executing each line of the query
+        }
+        $this -> set('fighterQuery', $this -> Fighters -> getFighterList());
         $this -> set('bestFighter', $this -> Fighters -> getBestFighter());
     }
 
     public function sight()
     {
-        $this -> loadModel('Fighters');
-        $this -> set('x', $this->Fighters->getX());
-        $this -> set('y', $this->Fighters->getY());
+
     }
 
     public function diary()
