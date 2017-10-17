@@ -10,7 +10,6 @@ class FightersTable extends Table
   //TODO: select fighters with 'where id = ' clause for query
   function getFighterList () {
     $fighterList = $this -> find('all');
-    // $fighterList = $this -> find('all');
     $fighterListArray = $fighterList -> toArray();
     return $fighterListArray;
   }
