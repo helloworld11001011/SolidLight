@@ -8,11 +8,28 @@ class FightersTable extends Table
   //Displaying all the fighters owned by a player
   //TODO: select fighters with 'where id = ' clause for query
   function getFighterList () {
-    $fighterList = $this -> find('all') -> order(["Fighters.player_id" => "Desc"]);
+    $fighterList = $this -> find('all', array (
+      'fields' => array (
+        'fighters.name',
+        'fighters.level',
+        'fighters.xp',
+        'fighters.current_health',
+        'fighters.coordinate_x',
+        'fighters.coordinate_y',
+        'fighters.skill_sight',
+        'fighters.skill_strength',
+        'fighters.skill_health',
+        'fighters.next_action_time'
+      )
+    ));
+    // $fighterList = $this -> find('all');
     $fighterListArray = $fighterList -> toArray();
-    foreach ($fighterListArray as $fighterElement) {
-      
-    }
+    pr($fighterList);
+    return $fighterListArray;
+  }
+
+  function getFighterTableWidth () {
+    return 9;
   }
 
   //For the player's fighter information
@@ -46,17 +63,17 @@ class FightersTable extends Table
     return $XP["xp"];
   }
 
-  function getSightSkill () {
+  function getSkillSight () {
     $Sight = $this->find('all')->first();
     return $Sight["skill_sight"];
   }
 
-  function getStrengthSkill () {
+  function getSkillStrength () {
     $Strength = $this->find('all')->first();
     return $Strength["skill_strength"];
   }
 
-  function getHealthSkill () {
+  function getSkillHealth () {
     $Health= $this->find('all')->first();
     return $Health["skill_health"];
   }

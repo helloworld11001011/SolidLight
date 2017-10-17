@@ -60,14 +60,13 @@ class ArenasController  extends AppController
     public function fighter ()
     {
         $this -> loadModel('Fighters');
-        $fighterList = $this -> Fighters -> find('all');
-
-        // foreach ($query as $row) {
-        //   //Executing each line of the query
-        // }
 
         //Retrieving the fighter list (for displaying a player's fighters)
         $this -> set('fighterList', $this -> Fighters -> getFighterList());
+        //Finding the amount of fighters available to the player
+        //TODO: get condition on player ID
+        $this -> set('playerFighterCount', $this -> Fighters -> find('all') -> count());
+        $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
 
         //Retrieving individual compopnents
         $this -> set('fighter_id', $this -> Fighters -> getFighterId());
@@ -76,9 +75,9 @@ class ArenasController  extends AppController
         $this -> set('coord_y', $this -> Fighters -> getCoordY());
         $this -> set('lvl', $this -> Fighters -> getLvl());
         $this -> set('XP', $this -> Fighters -> getXP());
-        $this -> set('sight_skill', $this -> Fighters -> getSightSkill());
-        $this -> set('strength_skill', $this -> Fighters -> getStrengthSkill());
-        $this -> set('health_skill', $this -> Fighters -> getHealthSkill());
+        $this -> set('sight_skill', $this -> Fighters -> getSkillSight());
+        $this -> set('strength_skill', $this -> Fighters -> getSkillStrength());
+        $this -> set('health_skill', $this -> Fighters -> getSkillHealth());
         $this -> set('current_health', $this -> Fighters -> getCurrentHealth());
         $this -> set('next_action', $this -> Fighters -> getNextAction());
     }
