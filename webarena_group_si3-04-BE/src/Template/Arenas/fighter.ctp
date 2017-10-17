@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <navigation>
             <h5>Navigation</h5>
             <ul>
@@ -13,7 +12,6 @@
 <h2>Fighter List</h2>
 
 <?php echo $fighterList; ?>
-=======
 
 <head>
         <title> Fighter </title>
@@ -36,7 +34,7 @@
                     <li>  Health: <?php echo $Health; ?></li>
                     <li>  Current Health: <?php echo $CHealth; ?></li>
     </ul>
-    
+
 
     <navigation>
                 <h5>Navigation</h5>
@@ -48,7 +46,6 @@
                     <li> <?php echo $this->Html->link("Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
                 </ul>
     </navigation>
-    
+
     </article>
 </body>
->>>>>>> Baptiste/_fighter_page
