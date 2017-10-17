@@ -65,21 +65,24 @@ class ArenasController  extends AppController
     public function fighter()
     {
         $this -> loadModel('Fighters');
-        $query = $this -> Fighters -> find('all');
-        foreach ($query as $row) {
-          //Executing each line of the query
-        }
+        $fighterList = $this -> Fighters -> find('all');
+
+        // foreach ($query as $row) {
+        //   //Executing each line of the query
+        // }
+
         $this -> set('fighterList', $this -> Fighters -> getFighterList());
-        $this -> set('bestFighter', $this -> Fighters -> getBestFighter());
-        $this -> set('id', $this -> Fighters -> getId() );
-        $this -> set('PosX', $this -> Fighters -> getPosX() );
-        $this -> set('PosY', $this -> Fighters -> getPosY() );
-        $this -> set('LVL', $this -> Fighters -> getlvl() );
-        $this -> set('Xp', $this -> Fighters -> getXp() );
-        $this -> set('Sight', $this -> Fighters -> getSight() );
-        $this -> set('Strength', $this -> Fighters -> getStrength() );
-        $this -> set('Health', $this -> Fighters -> getHealth() );
-        $this -> set('CHealth', $this -> Fighters -> getCHealth() );
+        $this -> set('fighter_id', $this -> Fighters -> getFighterId());
+        $this -> set('fighter_name', $this -> Fighters -> getFighterName());
+        $this -> set('coord_x', $this -> Fighters -> getCoordX());
+        $this -> set('coord_y', $this -> Fighters -> getCoordY());
+        $this -> set('lvl', $this -> Fighters -> getLvl());
+        $this -> set('XP', $this -> Fighters -> getXP());
+        $this -> set('sight_skill', $this -> Fighters -> getSightSkill());
+        $this -> set('strength_skill', $this -> Fighters -> getStrengthSkill());
+        $this -> set('health_skill', $this -> Fighters -> getHealthSkill());
+        $this -> set('current_health', $this -> Fighters -> getCurrentHealth());
+        $this -> set('next_action', $this -> Fighters -> getNextAction());
     }
 
     public function sight()

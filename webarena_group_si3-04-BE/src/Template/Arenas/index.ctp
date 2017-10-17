@@ -35,7 +35,7 @@
               <h3>Taunt your friends</h3>
               <p>Use our instant messaging system to easily taunt your opponent before, during or after the battle. Watch out though, you're at his mercy if he is declared the winner!</p>
             </div>
-          </div>
         </div>
+      </div>
     </body>
 </html>

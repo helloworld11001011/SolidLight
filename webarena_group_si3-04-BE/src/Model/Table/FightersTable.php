@@ -5,84 +5,79 @@ use Cake\ORM\Table;
 
 class FightersTable extends Table
 {
-  function test(){
-      return "Ok";
-  }
-
-  function getBestFighter(){
-
-      $bestFighter = $this->find('all')->where(["Fighters.player_id" => "b33"])->first();
-      return $bestFighter["name"];
-  }
-
-   function getId(){
-
-      $id = $this->find('all')->where(["Fighters.player_id" => "b33"])->first();
-      return $id["id"];
-  }
-
-  function getPosX(){
-
-      $PosX = $this->find('all')->where(["Fighters.player_id" => "b33"])->first();
-      return $PosX["coordinate_x"];
-  }
-
-  function getPosY(){
-
-      $PosY = $this->find('all')->where(["Fighters.player_id" => "b33"])->first();
-      return $PosY["coordinate_y"];
-  }
-
-  function getLvl(){
-
-      $LVL = $this->find('all')->where(["Fighters.player_id" => "b33"])->first();
-      return $LVL["level"];
-  }
-
-  function getXp(){
-
-      $Xp = $this->find('all')->where(["Fighters.player_id" => "b33"])->first();
-      return $Xp["xp"];
-  }
-
-  function getSight(){
-
-      $Sight = $this->find('all')->where(["Fighters.player_id" => "b33"])->first();
-      return $Sight["skill_sight"];
-  }
-
-   function getStrength(){
-
-      $Strength = $this->find('all')->where(["Fighters.player_id" => "b33"])->first();
-      return $Strength["skill_strength"];
-  }
-
-   function getHealth(){
-
-      $Health= $this->find('all')->where(["Fighters.player_id" => "b33"])->first();
-      return $Health["skill_health"];
-  }
-
-  function getCHealth(){
-
-      $CHealth= $this->find('all')->where(["Fighters.player_id" => "b33"])->first();
-      return $CHealth["current_health"];
-  }
-
+  //Displaying all the fighters owned by a player
+  //TODO: select fighters with 'where id = ' clause for query
   function getFighterList () {
-    $fighterQuery = $this -> find('all') -> order(["Fighters.level" => "Desc"]);
-    pr($fighterQuery);
-    return $fighterList;
+    $fighterList = $this -> find('all') -> order(["Fighters.player_id" => "Desc"]);
+    $fighterListArray = $fighterList -> toArray();
+    foreach ($fighterListArray as $fighterElement) {
+      pr($fighterElement);
+    }
   }
 
-  function createFighter () {
-
+  //For the player's fighter information
+  function getFighterId () {
+    $fighter_id = $this->find('all')->first();
+    return $fighter_id["id"];
   }
 
+  function getFighterName () {
+    $fighter_name = $this -> find('all')->first();
+    return $fighter_name["name"];
+  }
+
+  function getCoordX () {
+    $coord_x = $this->find('all')->first();
+    return $coord_x["coordinate_x"];
+  }
+
+  function getCoordY () {
+    $fighter = $this->find('all')->first();
+    return $fighter["coordinate_y"];
+  }
+
+  function getLvl () {
+    $lvl = $this->find('all')->first();
+    return $lvl["level"];
+  }
+
+  function getXP () {
+    $XP = $this->find('all')->first();
+    return $XP["xp"];
+  }
+
+  function getSightSkill () {
+    $Sight = $this->find('all')->first();
+    return $Sight["skill_sight"];
+  }
+
+  function getStrengthSkill () {
+    $Strength = $this->find('all')->first();
+    return $Strength["skill_strength"];
+  }
+
+  function getHealthSkill () {
+    $Health= $this->find('all')->first();
+    return $Health["skill_health"];
+  }
+
+  function getCurrentHealth () {
+    $current_health= $this->find('all')->first();
+    return $current_health["current_health"];
+  }
+
+  function getNextAction () {
+    $next_action = $this -> find('all')->first();
+    return $next_action["next_action_time"];
+  }
+
+  //For the player board
   function getX(){
-      return 15;
+    return 15;
   }
+
   function getY(){
-      return 10;
+    return 10;
   }
 }
+?>
