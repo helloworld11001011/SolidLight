@@ -3,69 +3,57 @@
 <?php 
 
 echo "<style>
+
 table, tr, td {
    border: 1px solid black;
+   padding: 0rem 0rem;
+   border-collapse: collapse;
 }
+
 table {
-  width: 1000px;
+  width: 1050px;
   margin: auto;
+  border-spacing: 0px;
+  padding: 0px;
 }
+
 td {
-  width: 6.666%;
+  width: 70px;
   position: relative;
+  padding: 0px; 
+  margin: 0px;
 }
-td:after {
-  content: '';
-  display: block;
-  margin-top: 100%;
+
+img {
+    display: block;
+    height: 70px;
+    width: 70px;
+    margin: 0px;
+    padding: 0px;
 }
-td .content {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: none;
-  text-align:center
-}
+
+
 /*
+
 .cell_1_1:before{
     background-color: red;
     content: 'o';
 }
-
-.cell_2_6:before{ 
-    height: 100%;
-    background-size:100% 100%;
-    background-color: #5BC8F7;
-    background-image: url('https://www.mediafire.com/convkey/7a01/xaagjmwa7yz1dgdzg.jpg?size_id=b');
-    content:'pi';
-    color: red;
-}
-
-.cell_5_3:before{ 
-    background-size: 100% 100%;
-    background-image: url('square.png');
-    content:'z';
-    color: red;
-}
-
 */
+
 </style>";
 
-echo "<table>"; 
+echo "<table cellspacing='0' cellpadding='0'>"; 
 for($i=0; $i<$y; $i++){
     echo "<tr>";
     for($j=0; $j<$x; $j++){
-        echo "<td><div class=\"content cell_".$i."_".$j." \" > ";
-        echo "";
-        echo "</div> </td>";
+        echo "<td>"; 
+        echo "<img src='http://moziru.com/images/square-clipart-colored-4.png' alt=''>";
+        echo "</td>";
     }
     echo "</tr>";
 } 
 echo "</table>";
-
-//echo " content cell_".$x."_".$y;
 
 ?>
 

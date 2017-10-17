@@ -96,5 +96,13 @@ class FightersTable extends Table
   function getY(){
     return 10;
   }
+    
+    function getFightersPos(){
+        $allFighters = $this -> find('all', array());
+        
+    }
+
+
+    
 }
 ?>
