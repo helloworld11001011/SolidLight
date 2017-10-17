@@ -11,7 +11,7 @@ class FightersTable extends Table
     $fighterList = $this -> find('all') -> order(["Fighters.player_id" => "Desc"]);
     $fighterListArray = $fighterList -> toArray();
     foreach ($fighterListArray as $fighterElement) {
-      pr($fighterElement);
+      
     }
   }
 

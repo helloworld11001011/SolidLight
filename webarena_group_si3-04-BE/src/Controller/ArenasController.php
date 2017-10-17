@@ -8,14 +8,9 @@ use App\Controller\AppController;
 */
 class ArenasController  extends AppController
 {
-    public function index()
-    {
-        $this -> loadModel('Fighters');
-        $this->set('myname', "Julien Elkhiati");
-        $this -> set('bestFighter', $this -> Fighters -> getBestFighter());
-    }
+    public function index () {}
 
-    public function login()
+    public function login ()
     {
         $this -> loadModel('Players');
         $newPlayer = $this->request->getData();
@@ -62,7 +57,7 @@ class ArenasController  extends AppController
         }
     }
 
-    public function fighter()
+    public function fighter ()
     {
         $this -> loadModel('Fighters');
         $fighterList = $this -> Fighters -> find('all');
@@ -71,7 +66,10 @@ class ArenasController  extends AppController
         //   //Executing each line of the query
         // }
 
+        //Retrieving the fighter list (for displaying a player's fighters)
         $this -> set('fighterList', $this -> Fighters -> getFighterList());
+
+        //Retrieving individual compopnents
         $this -> set('fighter_id', $this -> Fighters -> getFighterId());
         $this -> set('fighter_name', $this -> Fighters -> getFighterName());
         $this -> set('coord_x', $this -> Fighters -> getCoordX());
