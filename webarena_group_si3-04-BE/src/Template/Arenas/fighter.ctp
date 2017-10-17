@@ -53,6 +53,35 @@
         }
       echo "</table>";
     ?>
+    
+    <h2> Create fighter </h2>
+        
+<?php
+    
+    if($nameInDb)
+    echo $nameInDb;
+?>;
+    
+    <div class="create fighter">
+    <?php echo $this->Form->create('Create fighter');?>
+        <fieldset>
+            <legend><?php echo __('Create fighter'); ?></legend>
+            <?php echo $this->Form->input('name');
+            echo $this->Form->input('Coordinate_X');
+            echo $this->Form->input('Coordinate_Y');
+            echo $this->Form->input('level');
+            echo $this->Form->input('xp');
+            echo $this->Form->input('skill_sight');
+            echo $this->Form->input('skill_strength');
+            echo $this->Form->input('skill_health');
+            echo $this->Form->input('current_health');
+            
+        ?>
+        </fieldset>
+    </div>
+    
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
 
     <navigation>
       <h5>Navigation</h5>

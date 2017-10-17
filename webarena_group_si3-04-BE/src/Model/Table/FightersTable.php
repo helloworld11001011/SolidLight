@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 
 class FightersTable extends Table
 {
@@ -82,5 +83,24 @@ class FightersTable extends Table
   function getY(){
     return 10;
   }
+  
+  function addANewFighter($arg) {
+        $fighterData = $arg;
+        $fighterTable = TableRegistry::get('fighters');
+        $fighter = $fighterTable->newEntity();
+
+        $fighter->name = $fighterData['name'];
+        $fighter->player_id = 'b33';
+        $fighter->coordinate_x = $fighterData['Coordinate_X'];
+        $fighter->coordinate_y = $fighterData['Coordinate_Y'];
+        $fighter->level = $fighterData['level'];
+        $fighter->xp = $fighterData['xp'];
+        $fighter->skill_sight = $fighterData['skill_sight'];
+        $fighter->skill_strength = $fighterData['skill_strength'];
+        $fighter->skill_health = $fighterData['skill_health'];
+        $fighter->current_health = $fighterData['current_health'];
+
+        $fighterTable->save($fighter);
+    }
 }
-?>
+
