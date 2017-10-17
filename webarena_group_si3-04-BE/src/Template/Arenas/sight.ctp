@@ -31,13 +31,23 @@ td .content {
   background: none;
   text-align:center
 }
+
+.cell_1_1:before{
+    backround-image:url(\"square.png\");
+}
+
+.cell_2_6:before{ 
+    backround-color: blue;
+    content:'h';
+}
+
 </style>";
 
 echo "<table>";
 for($i=0; $i<$y; $i++){
     echo "<tr>";
     for($j=0; $j<$x; $j++){
-        echo "<td><div class=\"content\">";
+        echo "<td><div class=\"content cell_".$i."_".$j." \" > ";
         echo "";
         echo "</div>";
             echo "";
@@ -45,6 +55,9 @@ for($i=0; $i<$y; $i++){
     }
 } 
 echo "</table>";
+
+echo " content cell_".$x."_".$y;
+
 ?>
 
 
