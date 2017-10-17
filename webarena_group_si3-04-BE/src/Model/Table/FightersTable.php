@@ -8,23 +8,9 @@ class FightersTable extends Table
   //Displaying all the fighters owned by a player
   //TODO: select fighters with 'where id = ' clause for query
   function getFighterList () {
-    $fighterList = $this -> find('all', array (
-      'fields' => array (
-        'fighters.name',
-        'fighters.level',
-        'fighters.xp',
-        'fighters.current_health',
-        'fighters.coordinate_x',
-        'fighters.coordinate_y',
-        'fighters.skill_sight',
-        'fighters.skill_strength',
-        'fighters.skill_health',
-        'fighters.next_action_time'
-      )
-    ));
+    $fighterList = $this -> find('all');
     // $fighterList = $this -> find('all');
     $fighterListArray = $fighterList -> toArray();
-    pr($fighterList);
     return $fighterListArray;
   }
 

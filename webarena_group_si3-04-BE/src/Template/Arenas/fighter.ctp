@@ -5,18 +5,7 @@
   </head>
 
   <body>
-    <h1>Fighter</h1>
-    <?php echo $fighterList[1]->name ?>
-    <!-- <ul>
-      <li>Fighter: <?php echo $fighter_name ?></li>
-      <li>Level: <?php echo $lvl ?></li>
-      <li>Coordinates: <?php echo $coord_x ?>, <?php echo $coord_y ?></li>
-      <li>Health: <?php echo $current_health ?></li>
-      <li>Sight skill: <?php echo $sight_skill ?></li>
-      <li>Strength skill: <?php echo $strength_skill ?></li>
-      <li>Health_skill: <?php echo $health_skill ?></li>
-      <li>Next action: <?php echo $next_action ?></li>
-    </ul> -->
+    <h1>Your Fighters</h1>
 
     <?php
       echo "<table class = 'fighters-table'>";
@@ -29,16 +18,38 @@
         <th>Sight Skill</th>
         <th>Strength Skill</th>
         <th>Health Skill</th>
-        <th>Next Action</th>
         </tr>";
         for ($i=0; $i < $playerFighterCount; $i++) {
           echo "<tr>";
-          for ($j=0; $j < $fighterTableWidth; $j++) {
-            echo "<td>";
-            echo $fighterList[$i][$j];
-            echo "</td>";
-          }
-          "</tr>";
+          echo "<td>";
+          echo $fighterList[$i]->name;
+          echo "</td>";
+          echo "<td>";
+          echo $fighterList[$i]->level;
+          echo "</td>";
+          echo "<td>";
+          echo $fighterList[$i]->xp;
+          echo "</td>";
+          echo "<td>";
+          echo $fighterList[$i]->current_health;
+          echo "</td>";
+          echo "<td>";
+          echo "(";
+          echo $fighterList[$i]->coordinate_x;
+          echo ",";
+          echo $fighterList[$i]->coordinate_y;
+          echo ")";
+          echo "</td>";
+          echo "<td>";
+          echo $fighterList[$i]->skill_sight;
+          echo "</td>";
+          echo "<td>";
+          echo $fighterList[$i]->skill_strength;
+          echo "</td>";
+          echo "<td>";
+          echo $fighterList[$i]->skill_health;
+          echo "</td>";
+          echo "</tr>";
         }
       echo "</table>";
     ?>
