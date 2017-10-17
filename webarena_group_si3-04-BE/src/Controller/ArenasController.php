@@ -80,8 +80,6 @@ class ArenasController  extends AppController
         $this -> set('Strength', $this -> Fighters -> getStrength() );
         $this -> set('Health', $this -> Fighters -> getHealth() );
         $this -> set('CHealth', $this -> Fighters -> getCHealth() );
-
-
     }
 
     public function sight()
