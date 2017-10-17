@@ -88,8 +88,32 @@ class ArenasController  extends AppController
         $this -> set('health_skill', $this -> Fighters -> getSkillHealth());
         $this -> set('current_health', $this -> Fighters -> getCurrentHealth());
         $this -> set('next_action', $this -> Fighters -> getNextAction());
+        
+        $newFighter = $this->request->getData();
+        $nameInDb = 0;
+        $fighters = $this->Fighters->find('all');
+        $fightersArray = $fighters->toArray();
+        
+         if ($newFighter['name']) {
+            for ($i=0; $i<count($fightersArray); $i++) {
+                if($fightersArray[$i]['name'] == $newFighter['name']) {
+                    $nameInDb = 1;
+                }
+            }
+            if($nameInDb != 1) {
+                $this->Fighters->addANewFighter($this->request->getData());
+            }
+            if ($nameInDb == 1) {
+                $nameInDb = 'A fighter of this name is already in db';
+            }
+            else {
+                $nameInDb = 'Your fighter is saved';
+            }
+            $this->set('nameInDb', $nameInDb);
+        }
+        
     }
-
+    
     public function sight()
     {
         $this -> loadModel('Fighters');
