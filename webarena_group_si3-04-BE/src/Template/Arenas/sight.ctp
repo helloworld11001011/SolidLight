@@ -33,12 +33,15 @@ td .content {
 }
 
 .cell_1_1:before{
-    backround-image:url(\"square.png\");
+    background-color: red;
+    content: 'o';
 }
 
 .cell_2_6:before{ 
-    backround-color: blue;
+
+    background-color: #5BC8F7;
     content:'h';
+    color: red;
 }
 
 </style>";
@@ -50,7 +53,7 @@ for($i=0; $i<$y; $i++){
         echo "<td><div class=\"content cell_".$i."_".$j." \" > ";
         echo "";
         echo "</div>";
-            echo "";
+        echo "";
         echo"</td>";
     }
 } 
@@ -62,12 +65,12 @@ echo " content cell_".$x."_".$y;
 
 
 <navigation>
-        <h5>Navigation</h5>
-        <ul>
-            <li> <?php echo $this->Html->link("Index", ["controller"=>"Arenas", "action"=>"index"]); ?> </li>
-            <li> <?php echo $this->Html->link("Login", ["controller"=>"Arenas", "action"=>"login"]); ?> </li>
-            <li> <?php echo $this->Html->link("Fighter", ["controller"=>"Arenas", "action"=>"fighter"]); ?> </li>
-            <li> <?php echo $this->Html->link("Sight", ["controller"=>"Arenas", "action"=>"sight"]); ?> </li>
-            <li> <?php echo $this->Html->link("Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
-        </ul>
+    <h5>Navigation</h5>
+    <ul>
+        <li> <?php echo $this->Html->link("Index", ["controller"=>"Arenas", "action"=>"index"]); ?> </li>
+        <li> <?php echo $this->Html->link("Login", ["controller"=>"Arenas", "action"=>"login"]); ?> </li>
+        <li> <?php echo $this->Html->link("Fighter", ["controller"=>"Arenas", "action"=>"fighter"]); ?> </li>
+        <li> <?php echo $this->Html->link("Sight", ["controller"=>"Arenas", "action"=>"sight"]); ?> </li>
+        <li> <?php echo $this->Html->link("Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
+    </ul>
 </navigation>
