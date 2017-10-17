@@ -13,4 +13,13 @@ class FightersTable extends Table
         $bestFighter = $this->find('all')->order(["Fighters.level" => "DESC"])->first();
         return $bestFighter["name"];
     }
+    
+    function getX(){
+        return 15;
+    }
+    function getY(){
+        return 10;
+    }
+    
+    
 }

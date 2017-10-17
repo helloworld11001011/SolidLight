@@ -32,7 +32,9 @@ class ArenasController  extends AppController
 
     public function sight()
     {
-
+        $this -> loadModel('Fighters');
+        $this -> set('x', $this->Fighters->getX());
+        $this -> set('y', $this->Fighters->getY());
     }
 
     public function diary()
