@@ -1,6 +1,6 @@
 <h2>Sight</h2>
 
-<?php 
+<?php
 
 echo "<style>
 table, tr, td {
@@ -34,7 +34,7 @@ td .content {
     content: 'o';
 }
 
-.cell_2_6:before{ 
+.cell_2_6:before{
     height: 100%;
     background-size:100% 100%;
     background-color: #5BC8F7;
@@ -43,7 +43,7 @@ td .content {
     color: red;
 }
 
-.cell_5_3:before{ 
+.cell_5_3:before{
     background-size: 100% 100%;
     background-image: url('square.png');
     content:'z';
@@ -53,7 +53,7 @@ td .content {
 */
 </style>";
 
-echo "<table>"; 
+echo "<table>";
 for($i=0; $i<$y; $i++){
     echo "<tr>";
     for($j=0; $j<$x; $j++){
@@ -62,7 +62,7 @@ for($i=0; $i<$y; $i++){
         echo "</div> </td>";
     }
     echo "</tr>";
-} 
+}
 echo "</table>";
 
 //echo " content cell_".$x."_".$y;

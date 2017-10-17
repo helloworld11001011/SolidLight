@@ -1,6 +1,18 @@
 <h2>Login</h2>
 
 <?php
+    // On démarre la session AVANT d'écrire du code HTML
+    session_start();
+
+    // On s'amuse à créer quelques variables de session dans $_SESSION
+
+    if($playerLogin) {
+        $_SESSION['playerLogin'] = $playerLogin;
+    }
+    else {
+        $_SESSION['playerLogin'] = 0;
+    }
+
     if($goodToGo)
     echo $goodToGo;
     echo " ";
@@ -23,29 +35,7 @@
         ?>
         </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
+    <button onclick="location.href='sight'" type="button">Go to Sight</button>
     <?= $this->Form->end() ?>
     </br>
 </div>
-
-<!-- <div class="users form">
-    <?php echo $this->Form->create('Login');?>
-        <fieldset>
-            <legend><?php echo __('Login'); ?></legend>
-            <?php echo $this->Form->input('emailLogin');
-            echo $this->Form->input('passwordLogin');
-        ?>
-        </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div> -->
-
-<!-- <navigation>
-        <h5>Navigation</h5>
-        <ul>
-            <li> <?php echo $this->Html->link("Index", ["controller"=>"Arenas", "action"=>"index"]); ?> </li>
-            <li> <?php echo $this->Html->link("Login", ["controller"=>"Arenas", "action"=>"login"]); ?> </li>
-            <li> <?php echo $this->Html->link("Fighter", ["controller"=>"Arenas", "action"=>"fighter"]); ?> </li>
-            <li> <?php echo $this->Html->link("Sight", ["controller"=>"Arenas", "action"=>"sight"]); ?> </li>
-            <li> <?php echo $this->Html->link("Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
-        </ul>
-</navigation> -->

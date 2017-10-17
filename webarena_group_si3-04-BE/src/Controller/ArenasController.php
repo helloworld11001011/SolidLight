@@ -16,6 +16,7 @@ class ArenasController  extends AppController
         $newPlayer = $this->request->getData();
         $goodToGo = 0;
         $emailInDB = 0;
+        $playerLogin  = 0;
         $players = $this->Players->find('all');
         $playersArray = $players->toArray();
         //pr($newPlayer);die();
@@ -24,19 +25,26 @@ class ArenasController  extends AppController
             for ($i=0; $i<count($playersArray); $i++) {
                 if($playersArray[$i]['email'] == $newPlayer['emailLogin'] && $playersArray[$i]['password'] == $newPlayer['passwordLogin']) {
                     $goodToGo = 1;
+                    $playerLogin = $newPlayer['emailLogin'];
                 }
             }
         }
-        //$this->set('newPlayer', $newPlayer);
-        //$this->set('players', $players['email']);
+
         if ($goodToGo == 1) {
             $goodToGo = 'Good to go';
         }
         else {
             $goodToGo = 'Not good to go';
         }
+        if($playerLogin) {
+            $this->set('playerLogin', $playerLogin);
+        }
 
         $this->set('goodToGo', $goodToGo);
+
+        //if($playerLogin) {
+
+        //}
 
         if ($newPlayer['email'] && $newPlayer['password']) {
             for ($i=0; $i<count($playersArray); $i++) {
