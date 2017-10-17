@@ -1,12 +1,4 @@
 <h2>Login</h2>
-<<<<<<< HEAD
-
-<form action="">
-    <input type="text" placeholder="Username">
-    <input type="password" placeholder="Password">
-</form>
-=======
->>>>>>> julien/login
 
 <?php
     if($goodToGo)
