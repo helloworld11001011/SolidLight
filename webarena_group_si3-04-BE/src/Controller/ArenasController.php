@@ -29,6 +29,17 @@ class ArenasController  extends AppController
         }
         $this -> set('fighterList', $this -> Fighters -> getFighterList());
         $this -> set('bestFighter', $this -> Fighters -> getBestFighter());
+        $this -> set('id', $this -> Fighters -> getId() );
+        $this -> set('PosX', $this -> Fighters -> getPosX() );
+        $this -> set('PosY', $this -> Fighters -> getPosY() );
+        $this -> set('LVL', $this -> Fighters -> getlvl() );
+        $this -> set('Xp', $this -> Fighters -> getXp() );
+        $this -> set('Sight', $this -> Fighters -> getSight() );
+        $this -> set('Strength', $this -> Fighters -> getStrength() );
+        $this -> set('Health', $this -> Fighters -> getHealth() );
+        $this -> set('CHealth', $this -> Fighters -> getCHealth() );
+
+
     }
 
     public function sight()
