@@ -5,12 +5,18 @@ use Cake\ORM\Table;
 
 class FightersTable extends Table
 {
-    function test(){
-        return "Ok";
-    }
+  function getBestFighter () {
+    $bestFighter = $this->find('all')->order(["Fighters.level" => "DESC"])->first();
+    return $bestFighter["name"];
+  }
 
-    function getBestFighter(){
-        $bestFighter = $this->find('all')->order(["Fighters.level" => "DESC"])->first();
-        return $bestFighter["name"];
-    }
+  function getFighterList () {
+    $fighterQuery = $this -> find('all') -> order(["Fighters.level" => "Desc"]);
+    pr($fighterQuery);
+    return $fighterList;
+  }
+
+  function createFighter () {
+
+  }
 }

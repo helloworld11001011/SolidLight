@@ -1,8 +1,3 @@
-<h2>Fighter</h2>
-
-
-The best fighter is <?php echo $bestFighter; ?>
-
 <navigation>
             <h5>Navigation</h5>
             <ul>
@@ -13,3 +8,7 @@ The best fighter is <?php echo $bestFighter; ?>
                 <li> <?php echo $this->Html->link("Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
             </ul>
 </navigation>
+
+<h2>Fighter List</h2>
+
+<?php echo $fighterList; ?>
