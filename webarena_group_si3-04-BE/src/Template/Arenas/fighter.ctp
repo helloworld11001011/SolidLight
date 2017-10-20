@@ -2,6 +2,8 @@
   <head>
           <title> Fighter </title>
           <meta charset="UTF-8">
+          <!-- cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css -->
+          <!-- TODO: get datatables working -->
   </head>
 
   <body>
