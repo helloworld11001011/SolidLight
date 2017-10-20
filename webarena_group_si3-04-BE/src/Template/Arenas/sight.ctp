@@ -3,13 +3,6 @@
 <?php 
 
 echo "<style>
-
-table, tr, td {
-   border: 1px solid black;
-   padding: 0rem 0rem;
-   border-collapse: collapse;
-}
-
 table {
   width: 1050px;
   margin: auto;
@@ -17,11 +10,19 @@ table {
   padding: 0px;
 }
 
+table tr th, table tr td {
+   padding: 0rem 0rem;
+   border-collapse: collapse;
+   border-width:0px;
+}
+
 td {
   width: 70px;
+  height: 70px;
   position: relative;
   padding: 0px; 
   margin: 0px;
+  border-width:0px;
 }
 
 img {
@@ -30,6 +31,7 @@ img {
     width: 70px;
     margin: 0px;
     padding: 0px;
+    border-width:0px;
 }
 
 
