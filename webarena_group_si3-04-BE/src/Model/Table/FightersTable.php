@@ -2,29 +2,16 @@
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 
 class FightersTable extends Table
 {
   //Displaying all the fighters owned by a player
   //TODO: select fighters with 'where id = ' clause for query
   function getFighterList () {
-    $fighterList = $this -> find('all', array (
-      'fields' => array (
-        'fighters.name',
-        'fighters.level',
-        'fighters.xp',
-        'fighters.current_health',
-        'fighters.coordinate_x',
-        'fighters.coordinate_y',
-        'fighters.skill_sight',
-        'fighters.skill_strength',
-        'fighters.skill_health',
-        'fighters.next_action_time'
-      )
-    ));
-    // $fighterList = $this -> find('all');
+    $fighterList = $this -> find('all');
     $fighterListArray = $fighterList -> toArray();
-    pr($fighterList);
+    // pr($fighterListArray);
     return $fighterListArray;
   }
 
@@ -83,11 +70,6 @@ class FightersTable extends Table
     return $current_health["current_health"];
   }
 
-  function getNextAction () {
-    $next_action = $this -> find('all')->first();
-    return $next_action["next_action_time"];
-  }
-
   //For the player board
   function getX(){
     return 15;
@@ -96,13 +78,28 @@ class FightersTable extends Table
   function getY(){
     return 10;
   }
-    
-    function getFightersPos(){
-        $allFighters = $this -> find('all', array());
-        
-    }
 
+  function addANewFighter($arg) {
+    $fighterData = $arg;
+    $fighterTable = TableRegistry::get('fighters');
+    $fighter = $fighterTable->newEntity();
 
-    
+    $fighter->name = $fighterData['name'];
+    $fighter->player_id = 'b33';  //
+    $fighter->coordinate_x = $fighterData['Coordinate_X'];
+    $fighter->coordinate_y = $fighterData['Coordinate_Y'];
+    $fighter->level = $fighterData['level'];
+    $fighter->xp = $fighterData['xp'];
+    $fighter->skill_sight = $fighterData['skill_sight'];
+    $fighter->skill_strength = $fighterData['skill_strength'];
+    $fighter->skill_health = $fighterData['skill_health'];
+    $fighter->current_health = $fighterData['current_health'];
+
+    $fighterTable->save($fighter);
+  }
+
+  function getFightersPos(){
+      $allFighters = $this -> find('all', array());
+  }
 }
 ?>

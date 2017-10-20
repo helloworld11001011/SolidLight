@@ -53,15 +53,15 @@
         }
       echo "</table>";
     ?>
-    
+
     <h2> Create fighter </h2>
-        
+
 <?php
-    
+
     if($nameInDb)
     echo $nameInDb;
 ?>;
-    
+
     <div class="create fighter">
     <?php echo $this->Form->create('Create fighter');?>
         <fieldset>
@@ -75,11 +75,10 @@
             echo $this->Form->input('skill_strength');
             echo $this->Form->input('skill_health');
             echo $this->Form->input('current_health');
-            
         ?>
         </fieldset>
     </div>
-    
+
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 
