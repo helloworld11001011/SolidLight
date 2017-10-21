@@ -69,9 +69,14 @@ class ArenasController  extends AppController
     {
         $this -> loadModel('Fighters');
 
-        //Retrieving the fighter list (for displaying a player's fighters)
+        //Retrieving every fighter currently in the game (for leaderboards)
         $this -> set('fighterList', $this -> Fighters -> getFighterList());
-        //Finding the amount of fighters available to the player
+
+        //Retrieving the fighter list (for displaying a player's fighters)
+        //TODO: get list based on current player ID
+        $this -> set('playerFighterList', $this -> Fighters -> getPlayerFighterList());
+
+        //Finding the amount of fighters available to the player and the amount of columns we want for the player fighter table
         //TODO: get condition on player ID
         $this -> set('playerFighterCount', $this -> Fighters -> find('all') -> count());
         $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
