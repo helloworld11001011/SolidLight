@@ -17,7 +17,7 @@ for($i=0; $i<$fighterCount; $i++){
     $matrix[$fighterList[$i]->coordinate_y][$fighterList[$i]->coordinate_x] = 1;
 }
 
-echo "<table cellspacing='0' cellpadding='0'>"; 
+echo "<table cellspacing='0' cellpadding='0'><thead></thead>"; 
 // for every row
 for($i=0; $i<$y; $i++){
     echo "<tr>";
@@ -28,7 +28,7 @@ for($i=0; $i<$y; $i++){
         if($matrix[$i][$j] == 1){
             echo $this->Html->image('red_square.png', ['alt' => 'square_img']);
         }else{
-            echo $this->Html->image('square.png', ['alt' => 'square_img']);
+            echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
         }
         
         echo "</td>";
