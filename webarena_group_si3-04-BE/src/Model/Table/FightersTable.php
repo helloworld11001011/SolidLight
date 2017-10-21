@@ -78,12 +78,13 @@ class FightersTable extends Table
     return $current_health["current_health"];
   }
 
-  //For the player board
+  // The game board's dimensions
   function getX(){
+    // width
     return 15;
   }
-
   function getY(){
+    // height
     return 10;
   }
 
@@ -110,7 +111,12 @@ class FightersTable extends Table
   }
 
   function getFightersPos(){
-      $allFighters = $this -> find('all', array());
+  /*    $allFighters = $this -> find('all');
+      $allFightersPos = $allFighters -> toArray();
+      pr($allFightersPos);
+      
+      $tab[][]= $allFightersPos["coordinate_"]
+      return $allFightersPos;*/
   }
 }
 ?>
