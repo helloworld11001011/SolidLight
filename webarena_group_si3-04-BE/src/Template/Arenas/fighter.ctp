@@ -10,7 +10,7 @@
         <h1>Your Fighters</h1>
 
         <?php
-        echo "<table class = 'fighters-table'>";
+        echo "<table class='cake-table' id='fighters-table'>";
         echo "<tr>
         <th>Fighter Name</th>
         <th>Fighter Level</th>
