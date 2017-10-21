@@ -7,12 +7,20 @@ use Cake\ORM\TableRegistry;
 class FightersTable extends Table
 {
   //Displaying all the fighters owned by a player
-  //TODO: select fighters with 'where id = ' clause for query
+
+  //Get all fighters currently existing (for the scoreboard)
   function getFighterList () {
     $fighterList = $this -> find('all');
     $fighterListArray = $fighterList -> toArray();
-    // pr($fighterListArray);
     return $fighterListArray;
+  }
+
+  //TODO: select fighters with 'where id = ' clause for query
+  function getPlayerFighterList () {
+    $playerFighterList = $this -> find('all');
+    $playerFighterListArray = $playerFighterList -> toArray();
+    // pr($fighterListArray);
+    return $playerFighterListArray;
   }
 
   function getFighterTableWidth () {
