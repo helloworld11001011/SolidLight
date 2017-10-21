@@ -69,10 +69,6 @@
         <fieldset>
             <legend><?php echo __('Create fighter'); ?></legend>
             <?php echo $this->Form->input('name');
-            echo $this->Form->input('Coordinate_X');
-            echo $this->Form->input('Coordinate_Y');
-            echo $this->Form->input('level');
-            echo $this->Form->input('xp');
             echo $this->Form->input('skill_sight');
             echo $this->Form->input('skill_strength');
             echo $this->Form->input('skill_health');

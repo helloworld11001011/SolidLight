@@ -89,10 +89,13 @@ class FightersTable extends Table
 
     $fighter->name = $fighterData['name'];
     $fighter->player_id = 'b33';  //
-    $fighter->coordinate_x = $fighterData['Coordinate_X'];
-    $fighter->coordinate_y = $fighterData['Coordinate_Y'];
-    $fighter->level = $fighterData['level'];
-    $fighter->xp = $fighterData['xp'];
+    $fighter->coordinate_x = '0';
+    $fighter->coordinate_y = '0';
+    $fighter->level = '0';
+    $fighter->xp = '0';
+    
+ 
+    
     $fighter->skill_sight = $fighterData['skill_sight'];
     $fighter->skill_strength = $fighterData['skill_strength'];
     $fighter->skill_health = $fighterData['skill_health'];
