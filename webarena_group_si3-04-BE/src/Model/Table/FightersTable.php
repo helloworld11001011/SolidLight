@@ -91,10 +91,15 @@ class FightersTable extends Table
         // height
         return 10;
     }
-    function fight($arg1, $arg2) {
+    function fight() {
 
-        $attack = $arg1;
-        $defense = $arg2;
+         $fighterList = $this -> find('all', array(
+            'order' => 'Fighters.level DESC'
+        ));
+        $fighterListArray = $fighterList -> toArray();
+        
+        $attack = $fighterList[0];
+        $defense = $fighterList[1];
         $random = rand(0, 20);
         $succes = 0;
         $currentxp = $attack->getXP();
