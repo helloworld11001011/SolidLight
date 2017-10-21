@@ -94,20 +94,37 @@ class FightersTable extends Table
     $fighterData = $arg;
     $fighterTable = TableRegistry::get('fighters');
     $fighter = $fighterTable->newEntity();
-
     $fighter->name = $fighterData['name'];
     $fighter->player_id = 'b33';  //
     $fighter->coordinate_x = '0';
     $fighter->coordinate_y = '0';
-    $fighter->level = '0';
+    $fighter->level = '1';
     $fighter->xp = '0';
     
- 
+    if ($fighterData['Class'] == 0) {
+         $fighter->skill_sight = '1';
+         $fighter->skill_strength = '2';
+         $fighter->skill_health = '2';
+         $fighter->current_health = '2';
     
-    $fighter->skill_sight = $fighterData['skill_sight'];
-    $fighter->skill_strength = $fighterData['skill_strength'];
-    $fighter->skill_health = $fighterData['skill_health'];
-    $fighter->current_health = $fighterData['current_health'];
+    }
+    
+    if ($fighterData['Class'] == 1) {
+         $fighter->skill_sight = '2';
+         $fighter->skill_strength = '1';
+         $fighter->skill_health = '2';
+         $fighter->current_health = '2';
+    
+    }
+    
+    if ($fighterData['Class'] == 2) {
+         $fighter->skill_sight = '1';
+         $fighter->skill_strength = '1';
+         $fighter->skill_health = '1';
+         $fighter->current_health = '3';
+    
+    }
+    
 
     $fighterTable->save($fighter);
   }

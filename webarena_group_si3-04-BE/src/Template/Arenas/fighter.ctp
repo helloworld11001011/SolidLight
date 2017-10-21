@@ -69,10 +69,8 @@
         <fieldset>
             <legend><?php echo __('Create fighter'); ?></legend>
             <?php echo $this->Form->input('name');
-            echo $this->Form->input('skill_sight');
-            echo $this->Form->input('skill_strength');
-            echo $this->Form->input('skill_health');
-            echo $this->Form->input('current_health');
+            echo 'Class';
+            echo $this->Form->radio('Class', ['Destructor','Archer','Giant']);
         ?>
         </fieldset>
     </div>
