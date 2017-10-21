@@ -82,15 +82,40 @@ class FightersTable extends Table
     return $current_health["current_health"];
   }
 
-  //For the player board
+  // The game board's dimensions
   function getX(){
+    // width
     return 15;
   }
-
   function getY(){
+    // height
     return 10;
   }
+function fight($arg1, $arg2) {
 
+        $attack = $arg1;
+        $defense = $arg2;
+        $random = rand(0, 20);
+        $succes = 0;
+        $currentxp = $attack->getXP();
+
+        if ($random > (10 + $defense['lvl'] - $attack['lvl'])) {
+            $succes = 1;
+        }
+
+        if ($succes) {
+            if ($defense->getCurrentHealth() == 0) {
+                $attack->set($currentxp + $defense->getLvl(), $this->Recipe->findById('xp'));
+            } else {
+                $attack->set($currentxp + 1, $this->Recipe->findById('xp'));
+            }
+        }
+
+        function getFightersPos() {
+            $allFighters = $this->find('all', array());
+        }
+
+    }
   //Allows the player to create his fighter
   //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
   //TODO: X and Y position must be decided when the fighter joins the arena
@@ -98,23 +123,48 @@ class FightersTable extends Table
     $fighterData = $arg;
     $fighterTable = TableRegistry::get('fighters');
     $fighter = $fighterTable->newEntity();
-
     $fighter->name = $fighterData['name'];
     $fighter->player_id = 'b33';  //
-    $fighter->coordinate_x = $fighterData['Coordinate_X'];
-    $fighter->coordinate_y = $fighterData['Coordinate_Y'];
-    $fighter->level = $fighterData['level'];
-    $fighter->xp = $fighterData['xp'];
-    $fighter->skill_sight = $fighterData['skill_sight'];
-    $fighter->skill_strength = $fighterData['skill_strength'];
-    $fighter->skill_health = $fighterData['skill_health'];
-    $fighter->current_health = $fighterData['current_health'];
+    $fighter->coordinate_x = '0';
+    $fighter->coordinate_y = '0';
+    $fighter->level = '1';
+    $fighter->xp = '0';
+    
+    if ($fighterData['Class'] == 0) {
+         $fighter->skill_sight = '1';
+         $fighter->skill_strength = '2';
+         $fighter->skill_health = '2';
+         $fighter->current_health = '2';
+    
+    }
+    
+    if ($fighterData['Class'] == 1) {
+         $fighter->skill_sight = '2';
+         $fighter->skill_strength = '1';
+         $fighter->skill_health = '2';
+         $fighter->current_health = '2';
+    
+    }
+    
+    if ($fighterData['Class'] == 2) {
+         $fighter->skill_sight = '1';
+         $fighter->skill_strength = '1';
+         $fighter->skill_health = '1';
+         $fighter->current_health = '3';
+    
+    }
+    
 
     $fighterTable->save($fighter);
   }
 
   function getFightersPos(){
-      $allFighters = $this -> find('all', array());
+  /*    $allFighters = $this -> find('all');
+      $allFightersPos = $allFighters -> toArray();
+      pr($allFightersPos);
+      
+      $tab[][]= $allFightersPos["coordinate_"]
+      return $allFightersPos;*/
   }
 }
 ?>

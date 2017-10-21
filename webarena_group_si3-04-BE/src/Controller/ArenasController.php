@@ -125,6 +125,10 @@ class ArenasController  extends AppController
         $this -> loadModel('Fighters');
         $this -> set('x', $this->Fighters->getX());
         $this -> set('y', $this->Fighters->getY());
+        
+        //Retrieving every fighter currently in the game (for positions)
+        $this -> set('fighterList', $this -> Fighters -> getFighterList());
+        $this -> set('fighterCount', $this -> Fighters -> find('all') -> count());
     }
 
     public function diary()
