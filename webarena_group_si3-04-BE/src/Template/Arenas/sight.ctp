@@ -1,7 +1,6 @@
 <h2>Sight</h2>
 
 <?php 
-
 // refs to the style.css file in webroot/css/
 echo $this->Html->css('style');
 
@@ -36,7 +35,21 @@ for($i=0; $i<$y; $i++){
     echo "</tr>";
 } 
 echo "</table>";
+
+
+echo $this->Form->create('Fighter');
+echo $this->Form->input('direction',array(
+    'options' => array(
+        'up'=>'up',
+        'right'=>'right',
+        'down'=>'down',
+        'left'=>'left'),
+    'default' => 'up'));
+echo $this->Form->end();
+
 ?>
+
+
 
 
 <navigation>
