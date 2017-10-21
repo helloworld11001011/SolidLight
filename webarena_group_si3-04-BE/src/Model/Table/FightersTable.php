@@ -91,31 +91,36 @@ class FightersTable extends Table
         // height
         return 10;
     }
+    
+    //fonction qui fait se battre 2 fighter avec les modif (dans la base de données) qui vont avec
     function fight() {
 
-         $fighterList = $this -> find('all', array(
-            'order' => 'Fighters.level DESC'
-        ));
+        $fighterList = $this -> find('all');
         $fighterListArray = $fighterList -> toArray();
         
-        $attack = $fighterList[0];
-        $defense = $fighterList[1];
+        $attack = $fighterListArray[0];
+        $defense = $fighterListArray[1];
         $random = rand(0, 20);
         $succes = 0;
-        $currentxp = $attack->getXP();
+        $currentxp = $attack['xp'];
 
-        if ($random > (10 + $defense['lvl'] - $attack['lvl'])) {
+        if ($random > (10 + $defense['level'] - $attack['level'])) {
             $succes = 1;
         }
-
+/*
         if ($succes) {
-            if ($defense->getCurrentHealth() == 0) {
-                $attack->set($currentxp + $defense->getLvl(), $this->Recipe->findById('xp'));
+            
+            $defense->set($defense['current_health'], $defense['current_health'] - $attack['skill_strength']);
+            $defense->save();
+            
+            if ($defense['current_health'] == 0) {
+                $attack->set($attack['xp'], $currentxp + $defense['xp']);
+                $attack->save();
             } else {
-                $attack->set($currentxp + 1, $this->Recipe->findById('xp'));
+                $attack->set($attack['xp'], $currentxp + 1);
             }
         }
-
+*/
         function getFightersPos() {
             $allFighters = $this->find('all', array());
         }

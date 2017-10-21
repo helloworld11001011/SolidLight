@@ -118,6 +118,9 @@ class ArenasController  extends AppController
             }
             $this->set('nameInDb', $nameInDb);
         }
+        
+        $this -> set('fight', $this -> Fighters -> fight());
+        
     }
 
     public function sight()
