@@ -2,55 +2,18 @@
 
 <?php 
 
-echo "<style>
-table {
-  width: 1050px;
-  margin: auto;
-  border-spacing: 0px;
-  padding: 0px;
-}
-
-table tr th, table tr td {
-   padding: 0rem 0rem;
-   border-collapse: collapse;
-   border-width:0px;
-}
-
-td {
-  width: 70px;
-  height: 70px;
-  position: relative;
-  padding: 0px; 
-  margin: 0px;
-  border-width:0px;
-}
-
-img {
-    display: block;
-    height: 70px;
-    width: 70px;
-    margin: 0px;
-    padding: 0px;
-    border-width:0px;
-}
-
-
-/*
-
-.cell_1_1:before{
-    background-color: red;
-    content: 'o';
-}
-*/
-
-</style>";
+// refs to the style.css file in webroot/css/
+echo $this->Html->css('style');
 
 echo "<table cellspacing='0' cellpadding='0'>"; 
+// for every row
 for($i=0; $i<$y; $i++){
     echo "<tr>";
+    // for every column
     for($j=0; $j<$x; $j++){
         echo "<td>"; 
-        echo "<img src='http://moziru.com/images/square-clipart-colored-4.png' alt=''>";
+        // get image from webroot/img/
+        echo $this->Html->image('square.png', ['alt' => 'square_img']);
         echo "</td>";
     }
     echo "</tr>";
