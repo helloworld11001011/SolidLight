@@ -30,7 +30,7 @@ for($i=0; $i<$y; $i++){
         }else{
             echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
         }
-        
+
         echo "</td>";
     }
     echo "</tr>";

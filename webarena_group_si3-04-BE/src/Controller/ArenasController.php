@@ -103,20 +103,20 @@ class ArenasController  extends AppController
         $fightersArray = $fighters->toArray();
 
         if ($newFighter['name']) {  //What is being tested?
-          for ($i=0; $i<count($fightersArray); $i++) {
-            if($fightersArray[$i]['name'] == $newFighter['name']) {
-                $nameInDb = 1;
+            for ($i=0; $i<count($fightersArray); $i++) {
+                if($fightersArray[$i]['name'] == $newFighter['name']) {
+                    $nameInDb = 1;
+                }
             }
-          }
-          if($nameInDb != 1) {
-            $this->Fighters->addANewFighter($this->request->getData());
-          }
-          if ($nameInDb == 1) {
-            $nameInDb = 'A fighter of this name already exists';
-          } else {
-            $nameInDb = 'Your fighter has been created!';
-          }
-          $this->set('nameInDb', $nameInDb);
+            if($nameInDb != 1) {
+                $this->Fighters->addANewFighter($this->request->getData());
+            }
+            if ($nameInDb == 1) {
+                $nameInDb = 'A fighter of this name already exists';
+            } else {
+                $nameInDb = 'Your fighter has been created!';
+            }
+            $this->set('nameInDb', $nameInDb);
         }
     }
 
@@ -125,7 +125,7 @@ class ArenasController  extends AppController
         $this -> loadModel('Fighters');
         $this -> set('x', $this->Fighters->getX());
         $this -> set('y', $this->Fighters->getY());
-        
+
         //Retrieving every fighter currently in the game (for positions)
         $this -> set('fighterList', $this -> Fighters -> getFighterList());
         $this -> set('fighterCount', $this -> Fighters -> find('all') -> count());
@@ -136,7 +136,7 @@ class ArenasController  extends AppController
 
     }
 
-   /*
+    /*
     * Cours du prof pour les formulaires, verifie que les info envoyez son bien en POST pour ensuite les traiter
     *
     public function profile()
