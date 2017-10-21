@@ -87,7 +87,31 @@ class FightersTable extends Table
     // height
     return 10;
   }
+function fight($arg1, $arg2) {
 
+        $attack = $arg1;
+        $defense = $arg2;
+        $random = rand(0, 20);
+        $succes = 0;
+        $currentxp = $attack->getXP();
+
+        if ($random > (10 + $defense['lvl'] - $attack['lvl'])) {
+            $succes = 1;
+        }
+
+        if ($succes) {
+            if ($defense->getCurrentHealth() == 0) {
+                $attack->set($currentxp + $defense->getLvl(), $this->Recipe->findById('xp'));
+            } else {
+                $attack->set($currentxp + 1, $this->Recipe->findById('xp'));
+            }
+        }
+
+        function getFightersPos() {
+            $allFighters = $this->find('all', array());
+        }
+
+    }
   //Allows the player to create his fighter
   //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
   //TODO: X and Y position must be decided when the fighter joins the arena
