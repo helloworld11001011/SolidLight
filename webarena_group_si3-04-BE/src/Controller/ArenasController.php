@@ -8,7 +8,14 @@ use App\Controller\AppController;
 */
 class ArenasController  extends AppController
 {
-    public function index () {}
+    public function index () {
+        $this -> loadModel('Fighters');
+
+        //Retrieving every fighter currently in the game (for leaderboards)
+        $this -> set('fighterList', $this -> Fighters -> getFighterList());
+        $this -> set('fighterCount', $this -> Fighters -> find('all') -> count());
+        $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
+    }
 
     public function login ()
     {
@@ -68,9 +75,6 @@ class ArenasController  extends AppController
     public function fighter ()
     {
         $this -> loadModel('Fighters');
-
-        //Retrieving every fighter currently in the game (for leaderboards)
-        $this -> set('fighterList', $this -> Fighters -> getFighterList());
 
         //Retrieving the fighter list (for displaying a player's fighters)
         //TODO: get list based on current player ID

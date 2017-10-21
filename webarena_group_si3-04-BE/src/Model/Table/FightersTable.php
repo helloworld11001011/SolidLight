@@ -10,14 +10,18 @@ class FightersTable extends Table
 
   //Get all fighters currently existing (for the scoreboard)
   function getFighterList () {
-    $fighterList = $this -> find('all');
+    $fighterList = $this -> find('all', array(
+        'order' => 'Fighters.level DESC'
+    ));
     $fighterListArray = $fighterList -> toArray();
     return $fighterListArray;
   }
 
   //TODO: select fighters with 'where id = ' clause for query
   function getPlayerFighterList () {
-    $playerFighterList = $this -> find('all');
+    $playerFighterList = $this -> find('all', array(
+        'order' => 'Fighters.level DESC' 
+    ));
     $playerFighterListArray = $playerFighterList -> toArray();
     // pr($fighterListArray);
     return $playerFighterListArray;
