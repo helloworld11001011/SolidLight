@@ -4,14 +4,22 @@
         <meta charset="UTF-8">
         <title>Index</title>
         <?php echo $this->Html->css('https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css') ?>
+        <?php echo $this->Html->script(['https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#leaderboard-table').DataTable();
+                if ($.fn.DataTable.isDataTable('#leaderboard-table')) {
+                    console.log('YEP');
+                } else console.log('NO');
+            });
+        </script>
     </head>
+
     <body>
         <div class="main-container">
 
             <div class="title presentation-pane">
                 <h1>Welcome to SolidLight</h1>
-                <p></p>
-
                 <div class="left-box">
                     <h3>Fight the world!</h3>
                     <p>Join your friends in glorious and bloody arena fights. In the SolidLight Arena, you may form alliances, but in the end, there is only one winner!</p>
@@ -32,8 +40,8 @@
             <div class="leaderboards">
                 <h3>Top Fighters</h3>
                 <?php
-    echo "<table class = 'leaderboard-table'>";
-        echo "<tr>
+    echo "<table class='cake-table' id='leaderboard-table'>";
+        echo "<thead><tr>
                 <th>Fighter Name</th>
                 <th>Fighter Level</th>
                 <th>Current Health</th>
@@ -41,7 +49,7 @@
                 <th>Sight Skill</th>
                 <th>Strength Skill</th>
                 <th>Health Skill</th>
-                </tr>";
+                </tr></thead><tbody>";
         for ($i=0; $i < $fighterCount; $i++) {
             echo "<tr>";
             echo "<td>";
@@ -71,7 +79,7 @@
             echo "</td>";
             echo "</tr>";
         }
-        echo "</table>";
+        echo "</tbody></table>";
                 ?>
             </div>
             <!-- End of leaderboards div -->
