@@ -188,7 +188,13 @@ class FightersTable extends Table {
 
             // si lvl up -> permettre au joueur de choirir une carac à améliorer  vue +1 ou force+1 ou point de vie+3.
             // la vie courant revient automatiquement a sa valeur max (health_skill) 
+        } else {
+            
+            echo " The attack did not succed ! la honte ";
+            
         }
+        
+        
     }
 
     //Allows the player to create his fighter
