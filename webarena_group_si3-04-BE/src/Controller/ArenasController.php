@@ -8,6 +8,18 @@ use App\Controller\AppController;
 */
 class ArenasController  extends AppController
 {
+    public function inbox() {
+        $this -> loadModel('Messages');
+        $messages = $this->Messages->find('all');
+        $messagesArray = $messages->toArray();
+        $messageValue = $messagesArray[0]["message"];
+        $nbMessages = count($messagesArray);
+        //pr($messageValue);die();
+        $this->set('messagesArray', $messagesArray);
+        $this->set('nbMessages', $nbMessages);
+
+    }
+
     public function index () {
         $this -> loadModel('Fighters');
 
@@ -101,7 +113,7 @@ class ArenasController  extends AppController
         $nameInDb = 0;  //Variable testing if fighter name already exists
         $fighters = $this->Fighters->find('all');
         $fightersArray = $fighters->toArray();
-        
+
         $this->Fighters->fight();
 
         if ($newFighter['name']) {  //What is being tested?
@@ -120,11 +132,11 @@ class ArenasController  extends AppController
           }
           $this->set('nameInDb', $nameInDb);
         }
-        
+
 
         $this->Fighters->fight();
 
-        
+
     }
 
     public function sight()

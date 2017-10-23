@@ -1,0 +1,66 @@
+.mainContainer {
+    height: 650px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boxDialog {
+    display: flex;
+    flex-direction: column;
+    height: 550px;
+    width: 30%;
+    border-radius: 10px;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.messagesBox {
+    height: 90%;
+    width: 100%;
+    background-color: #fffacc;
+    display: flex;
+    flex-direction: column;
+}
+
+.writeBox {
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+    width: 100%;
+    background-color: #ffd299;
+}
+
+.messageType {
+    height: 100%;
+    width: 80%;
+}
+
+.sendBtnDiv {
+    height: 100%;
+    width: 20%;
+    background-color: #ffb251;
+}
+
+.messageBubbleDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 15px;
+    width: 100%;
+    height: 60px;
+}
+
+.messageBubble {
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    background-color: #c49c6b;
+}
