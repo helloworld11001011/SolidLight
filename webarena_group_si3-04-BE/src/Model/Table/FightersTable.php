@@ -1,131 +1,167 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 
-class FightersTable extends Table
-{
-    //Displaying all the fighters owned by a player
+class FightersTable extends Table {
 
+    //Displaying all the fighters owned by a player
     //Get all fighters currently existing (for the scoreboard)
-    function getFighterList () {
-        $fighterList = $this -> find('all', array(
+    function getFighterList() {
+        $fighterList = $this->find('all', array(
             'order' => 'Fighters.level DESC'
         ));
-        $fighterListArray = $fighterList -> toArray();
+        $fighterListArray = $fighterList->toArray();
         return $fighterListArray;
     }
 
     //TODO: select fighters with 'where id = ' clause for query
-    function getPlayerFighterList () {
-        $playerFighterList = $this -> find('all', array(
-            'order' => 'Fighters.level DESC' 
+    function getPlayerFighterList() {
+        $playerFighterList = $this->find('all', array(
+            'order' => 'Fighters.level DESC'
         ));
-        $playerFighterListArray = $playerFighterList -> toArray();
+        $playerFighterListArray = $playerFighterList->toArray();
         // pr($fighterListArray);
         return $playerFighterListArray;
     }
 
-    function getFighterTableWidth () {
+    function getFighterTableWidth() {
         return 9;
     }
 
     //For the player's fighter information
-    function getFighterId () {
+    function getFighterId() {
         $fighter_id = $this->find('all')->first();
         return $fighter_id["id"];
     }
 
-    function getFighterName () {
-        $fighter_name = $this -> find('all')->first();
+    function getFighterName() {
+        $fighter_name = $this->find('all')->first();
         return $fighter_name["name"];
     }
 
-    function getCoordX () {
+    function getCoordX() {
         $coord_x = $this->find('all')->first();
         return $coord_x["coordinate_x"];
     }
 
-    function getCoordY () {
+    function getCoordY() {
         $fighter = $this->find('all')->first();
         return $fighter["coordinate_y"];
     }
 
-    function getLvl () {
+    function getLvl() {
         $lvl = $this->find('all')->first();
         return $lvl["level"];
     }
 
-    function getXP () {
+    function getXP() {
         $XP = $this->find('all')->first();
         return $XP["xp"];
     }
 
-    function getSkillSight () {
+    function getSkillSight() {
         $Sight = $this->find('all')->first();
         return $Sight["skill_sight"];
     }
 
-    function getSkillStrength () {
+    function getSkillStrength() {
         $Strength = $this->find('all')->first();
         return $Strength["skill_strength"];
     }
 
-    function getSkillHealth () {
-        $Health= $this->find('all')->first();
+    function getSkillHealth() {
+        $Health = $this->find('all')->first();
         return $Health["skill_health"];
     }
 
-    function getCurrentHealth () {
-        $current_health= $this->find('all')->first();
+    function getCurrentHealth() {
+        $current_health = $this->find('all')->first();
         return $current_health["current_health"];
     }
 
     // The game board's dimensions
-    function getX(){
+    function getX() {
         // width
         return 15;
     }
-    function getY(){
+
+    function getY() {
         // height
         return 10;
     }
-    
+
     //fonction qui fait se battre 2 fighter avec les modif (dans la base de données) qui vont avec
     function fight() {
 
-        $fighterList = $this -> find('all');
-        $fighterListArray = $fighterList -> toArray();
-        
+        $fighterList = $this->find('all');
+        $fighterListArray = $fighterList->toArray();
+
         $attack = $fighterListArray[0];
         $defense = $fighterListArray[1];
+        $attackId = $attack['id'];
+        $defenseId = $defense['id'];
         $random = rand(0, 20);
         $succes = 0;
         $currentxp = $attack['xp'];
 
+        echo $attack['name'];
+        echo " attacks ";
+        echo $defense['name'];
+        echo " with a total attack of ";
+        echo $attack['skill_strength'];
+        echo "<br>";
+
         if ($random > (10 + $defense['level'] - $attack['level'])) {
+
             $succes = 1;
-        }
-/*
-        if ($succes) {
-            
-            $defense->set($defense['current_health'], $defense['current_health'] - $attack['skill_strength']);
-            $defense->save();
-            
-            if ($defense['current_health'] == 0) {
-                $attack->set($attack['xp'], $currentxp + $defense['xp']);
-                $attack->save();
+
+            echo "The attack succeeded ! ";
+            echo "<br>";
+
+            $newHealth = $defense['current_health'] - $attack['skill_strength'];
+            $killXp = $currentxp + $defense['level'] + 1;
+            $succesXp = $currentxp + 1;
+
+            if ($newHealth == 0) {
+                
+                $fighterTable = TableRegistry::get('fighters');
+                $test = $fighterTable->get($attack);
+
+
+                $test->xp = $killXp;
+                $fighterTable->save($test);
+                
+                echo $defense['name'];
+                echo " is dead :'( ; ";
+                echo  $attack['skill_strength'];
+                echo " wins the xp : ";
+                echo $killXp;
+                
+                
+                //supprimer fighter si celui du joueur
+                
             } else {
-                $attack->set($attack['xp'], $currentxp + 1);
+                
+                $fighterTable = TableRegistry::get('fighters');
+                $test = $fighterTable->get($defenseId);
+
+
+                $test->current_health = $newHealth;
+                $fighterTable->save($test);
+                
+                echo $defense['name'];
+                echo " didn't die ; ";
+                echo  $attack['skill_strength'];
+                echo " wins the xp : ";
+                echo $succesXp;
+                
             }
         }
-*/
-        function getFightersPos() {
-            $allFighters = $this->find('all', array());
-        }
-
     }
+
     //Allows the player to create his fighter
     //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
     //TODO: X and Y position must be decided when the fighter joins the arena
@@ -145,7 +181,6 @@ class FightersTable extends Table
             $fighter->skill_strength = '2';
             $fighter->skill_health = '2';
             $fighter->current_health = '2';
-
         }
 
         if ($fighterData['Class'] == 1) {
@@ -153,7 +188,6 @@ class FightersTable extends Table
             $fighter->skill_strength = '1';
             $fighter->skill_health = '2';
             $fighter->current_health = '2';
-
         }
 
         if ($fighterData['Class'] == 2) {
@@ -161,20 +195,20 @@ class FightersTable extends Table
             $fighter->skill_strength = '1';
             $fighter->skill_health = '1';
             $fighter->current_health = '3';
-
         }
 
 
         $fighterTable->save($fighter);
     }
 
-    function getFightersPos(){
-        /*    $allFighters = $this -> find('all');
+    /*
+      function getFightersPos(){
+      /*    $allFighters = $this -> find('all');
       $allFightersPos = $allFighters -> toArray();
       pr($allFightersPos);
 
       $tab[][]= $allFightersPos["coordinate_"]
-      return $allFightersPos;*/
-    }
+      return $allFightersPos; */
 }
+
 ?>
