@@ -113,7 +113,7 @@ class ArenasController  extends AppController
         $nameInDb = 0;  //Variable testing if fighter name already exists
         $fighters = $this->Fighters->find('all');
         $fightersArray = $fighters->toArray();
-        
+
         $this->Fighters->fight();
 
         if ($newFighter['name']) {  //What is being tested?
@@ -132,17 +132,11 @@ class ArenasController  extends AppController
           }
           $this->set('nameInDb', $nameInDb);
         }
-<<<<<<< HEAD
 
-        $this -> set('fight', $this -> Fighters -> fight());
-
-=======
-        
 
         $this->Fighters->fight();
 
-        
->>>>>>> 7008e339ba8290cac3be55f0656177e7b9d56b07
+
     }
 
     public function sight()
