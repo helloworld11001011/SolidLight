@@ -4,13 +4,13 @@
         <meta charset="UTF-8">
         <title>Index</title>
         <?php echo $this->Html->css('https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css') ?>
-        <?php echo $this->Html->script(['https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
+        <?php echo $this->Html->script(['https://code.jquery.com/jquery-3.2.1.min.js"
+			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			  crossorigin="anonymous"', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
+
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#leaderboard-table').DataTable();
-                if ($.fn.DataTable.isDataTable('#leaderboard-table')) {
-                    console.log('YEP');
-                } else console.log('NO');
             });
         </script>
     </head>
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="center-box">
-                    <h3>Taunt your friends</h3>
+                    <h3>Taunt friend like foe</h3>
                     <p>Use our instant messaging system to easily taunt your opponent before, during or after the battle. Watch out though, you're at his mercy if he is declared the winner!</p>
                 </div>
             </div>

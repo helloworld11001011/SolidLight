@@ -4,6 +4,16 @@
         <meta charset="UTF-8">
         <!-- cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css -->
         <!-- TODO: get datatables working -->
+        <?php echo $this->Html->css('https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css') ?>
+        <?php echo $this->Html->script(['https://code.jquery.com/jquery-3.2.1.min.js"
+			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			  crossorigin="anonymous"', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#fighters-table').DataTable();
+            });
+        </script>
     </head>
 
     <body>
@@ -11,7 +21,7 @@
 
         <?php
         echo "<table class='cake-table' id='fighters-table'>";
-        echo "<tr>
+        echo "<thead><tr>
         <th>Fighter Name</th>
         <th>Fighter Level</th>
         <th>Fighter XP</th>
@@ -20,7 +30,7 @@
         <th>Sight Skill</th>
         <th>Strength Skill</th>
         <th>Health Skill</th>
-        </tr>";
+        </tr></thead>";
         for ($i=0; $i < $playerFighterCount; $i++) {
             echo "<tr>";
             echo "<td>";
