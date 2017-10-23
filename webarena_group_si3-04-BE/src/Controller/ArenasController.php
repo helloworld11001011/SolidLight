@@ -114,8 +114,6 @@ class ArenasController  extends AppController
         $fighters = $this->Fighters->find('all');
         $fightersArray = $fighters->toArray();
 
-        $this->Fighters->fight();
-
         if ($newFighter['name']) {  //What is being tested?
           for ($i=0; $i<count($fightersArray); $i++) {
             if($fightersArray[$i]['name'] == $newFighter['name']) {
