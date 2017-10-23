@@ -39,18 +39,16 @@ $fighterCoId = $_SESSION['figtherCoId'];
                                 echo "</div>";
                             echo "</div>";
                         }
-
-
                     }
                     ?>
 
                 </div>
                 <div class="writeBox">
                     <div class="messageType">
-
+                        <input id="messageInput" type="text" name="message" />
                     </div>
                     <div class="sendBtnDiv">
-
+                        <button id="btnSend">SEND</button>
                     </div>
                 </div>
             </div>
