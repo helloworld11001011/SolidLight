@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     height: 550px;
-    width: 30%;
+    width: 480px;
     border-radius: 10px;
     box-shadow: 10px 10px 5px #888888;
 }
@@ -40,6 +40,19 @@ body {
 .messageType {
     height: 100%;
     width: 80%;
+}
+
+input[type="text"] {
+    background-color: #ffd299;
+    height: 100%;
+    font-size: 15px;
+}
+
+#btnSend {
+    height: 100%;
+    width: 100%;
+    background-color: #ffb251;
+    padding-left: 25px;
 }
 
 .sendBtnDiv {
