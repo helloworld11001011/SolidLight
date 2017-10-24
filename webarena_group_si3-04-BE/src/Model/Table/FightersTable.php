@@ -264,20 +264,12 @@ class FightersTable extends Table {
     function move($data){
 
         $f = $this->get($data["id"]);
-<<<<<<< HEAD
-
-        switch ($data["direction"]) {
-            case "up":
-                $f->coordinate_y = $f->coordinate_y - 1;
-                $this->save($f);
-=======
         switch ($data["direction"]) {
             case "up": 
                 if(!$this->getCase($f->coordinate_x, $f->coordinate_y-1) && $f->coordinate_y > 0 ){
                     $f->coordinate_y = $f->coordinate_y - 1;
                     $this->save($f);
                 }
->>>>>>> 356933871729986a1e42a19301bdae1197fb17e6
                 break;
             case "down":
                 if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < $this->getY()-1 ){
