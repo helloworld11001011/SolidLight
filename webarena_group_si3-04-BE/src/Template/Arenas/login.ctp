@@ -1,7 +1,7 @@
 <h2>Login</h2>
 
 <?php
-// On démarre la session AVANT d'écrire du code HTML
+/* // On démarre la session AVANT d'écrire du code HTML
 session_start();
 
 // On s'amuse à créer quelques variables de session dans $_SESSION
@@ -11,7 +11,7 @@ if(isset($playerLogin)) {
 }
 else {
     $_SESSION['playerLogin'] = 0;
-}
+} */
 
 if(isset($goodToGo))
     echo $goodToGo;
