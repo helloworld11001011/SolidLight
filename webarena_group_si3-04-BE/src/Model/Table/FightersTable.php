@@ -106,6 +106,10 @@ class FightersTable extends Table {
         $random = rand(0, 20);
         $succes = 0;
         $currentxp = $attack['xp'];
+        
+        echo "current xp:";
+        echo $currentxp;
+        echo "<br>";
 
         echo $attack['name'];
         echo " attacks ";
@@ -114,6 +118,11 @@ class FightersTable extends Table {
         echo $attack['skill_strength'];
         echo "<br>";
 
+        $fighterTable = TableRegistry::get('fighters');
+        $defender = $fighterTable->get($defenseId);
+        $attackant = $fighterTable->get($attackId);
+
+
         if ($random > (10 + $defense['level'] - $attack['level'])) {
 
             $succes = 1;
@@ -121,25 +130,28 @@ class FightersTable extends Table {
             echo "The attack succeeded ! ";
             echo "<br>";
 
+
             $newHealth = $defense['current_health'] - $attack['skill_strength'];
             $killXp = $currentxp + $defense['level'] + 1;
             $succesXp = $currentxp + 1;
+            echo "success xp ::";
+            echo $succesXp;
 
             if ($newHealth == 0) {
 
-                $fighterTable1 = TableRegistry::get('fighters');
-                $test1 = $fighterTable1->get($defenseId);
-
-                $test1->current_health = $newHealth;
-                $fighterTable1->save($test1);
-
+                //changes the current health of defender in db
+                $defender->current_health = $newHealth;
+                $fighterTable->save($defender);
 
                 if ($killXp == 4) {
+
                     $killXp = 0;
                     $level = $attack['level'] + 1;
-                }
 
-                if ($killXp > 4) {
+                    $attackant->xp = $killXp;
+                    $attackant->level = $level;
+                    $fighterTable->save($attackant);
+                } else if ($killXp > 4) {
 
                     echo $killXp;
 
@@ -147,16 +159,14 @@ class FightersTable extends Table {
 
                         $killXp = $killXp - 4;
                         $level = $attack['level'] + 1;
+                        
                     } while ($killXp > 4);
 
                     echo $killXp;
                 }
 
-                $fighterTable2 = TableRegistry::get('fighters');
-                $test2 = $fighterTable2->get($attackId);
-
-                $test2->xp = $killXp;
-                $fighterTable2->save($test2);
+                //$attackant->xp = $killXp;
+                $fighterTable->save($attackant);
 
                 echo $defense['name'];
                 echo " is dead :'( ; ";
@@ -169,19 +179,43 @@ class FightersTable extends Table {
                 // gerer l'xp en plus -> tant que le total d xp en plus est > 4, le fighter gagne un niveau (1 lvl par tour de boucle
                 // le reste de l'xp est stocké dans la db
             } else {
+                
+               
+                //$attackant->xp = $successXp;
+                $fighterTable->save($attackant);
 
-                $fighterTable = TableRegistry::get('fighters');
-                $test = $fighterTable->get($defenseId);
+                if ($succesXp == 4) {
 
+                    $succesXp = 0;
+                    $level = $attack['level'] + 1;
 
-                $test->current_health = $newHealth;
-                $fighterTable->save($test);
+                    $attackant->xp = $succesXp;
+                    $attackant->level = $level;
+                    $fighterTable->save($attackant);
+                    
+                } else if ($killXp > 4) {
+
+                    do {
+
+                        $succesXp = $succesXp - 4;
+                        $level = $attack['level'] + 1;
+                        
+                    } while ($succesXp > 4);
+
+                }
+
+                $attackant->xp = $succesXp;
+                $fighterTable->save($attackant);
+                
+                $defender->current_health = $newHealth;
+                $fighterTable->save($defender);
 
                 echo $defense['name'];
                 echo " didn't die ; ";
                 echo $attack['name'];
                 echo " wins the xp : ";
                 echo $succesXp;
+               
 
                 // gerer l'xp
             }
@@ -189,11 +223,23 @@ class FightersTable extends Table {
             // si lvl up -> permettre au joueur de choirir une carac à améliorer  vue +1 ou force+1 ou point de vie+3.
             // la vie courant revient automatiquement a sa valeur max (health_skill) 
         } else {
-            
+
             echo " The attack did not succed ! la honte ";
-            
         }
-        
+    }
+
+    function xp() {
+
+        $fighterList = $this->find('all');
+        $fighterListArray = $fighterList->toArray();
+
+        $attack = $fighterListArray[0];
+        $defense = $fighterListArray[1];
+        $attackId = $attack['id'];
+        $defenseId = $defense['id'];
+    }
+
+    function deleteFighter() {
         
     }
 
@@ -236,12 +282,12 @@ class FightersTable extends Table {
         $fighterTable->save($fighter);
     }
 
-    function move($data){
-        
+    function move($data) {
+
         $f = $this->get($data["id"]);
-        
+
         switch ($data["direction"]) {
-            case "up": 
+            case "up":
                 $f->coordinate_y = $f->coordinate_y - 1;
                 $this->save($f);
                 break;
@@ -261,6 +307,7 @@ class FightersTable extends Table {
                 pr("Direction is undefined");
         }
     }
+
 }
 
 ?>
