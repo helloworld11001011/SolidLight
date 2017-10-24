@@ -6,17 +6,17 @@ session_start();
 
 // On s'amuse à créer quelques variables de session dans $_SESSION
 
-if($playerLogin) {
+if(isset($playerLogin)) {
     $_SESSION['playerLogin'] = $playerLogin;
 }
 else {
     $_SESSION['playerLogin'] = 0;
 }
 
-if($goodToGo)
+if(isset($goodToGo))
     echo $goodToGo;
 echo " ";
-if($emailInDB)
+if(isset($emailInDB))
     echo $emailInDB;
 ?>;
 
