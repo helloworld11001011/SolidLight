@@ -19,6 +19,7 @@
 body {
     height: 100%;
     width: 100%;
+    background-color: blue;
 }
 
 .messagesBox {
@@ -34,8 +35,7 @@ body {
     flex-direction: row;
     height: 10%;
     width: 100%;
-    background-color: #ffd299;
-    border: 1px solid red;
+    border: 1px solid blue;
 }
 
 .messageType {
@@ -48,7 +48,7 @@ input[type="text"] {
     height: 100px;
     width: 80%;
     font-size: 15px;
-    border: 1px solid green;
+
 }
 
 #btnSend {
@@ -105,4 +105,16 @@ input[type="text"] {
     padding-right: 10px;
     border-radius: 10px;
     background-color: #baa891;
+}
+
+.coco {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border: 1px solid blue;
+}
+
+input[type="submit"] {
+    width: 80%;
+    height: 100%;
 }
