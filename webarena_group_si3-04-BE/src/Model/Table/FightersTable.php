@@ -236,14 +236,31 @@ class FightersTable extends Table {
         $fighterTable->save($fighter);
     }
 
-    /*
-      function getFightersPos(){
-      /*    $allFighters = $this -> find('all');
-      $allFightersPos = $allFighters -> toArray();
-      pr($allFightersPos);
-
-      $tab[][]= $allFightersPos["coordinate_"]
-      return $allFightersPos; */
+    function move($data){
+        
+        $f = $this->get($data["id"]);
+        
+        switch ($data["direction"]) {
+            case "up": 
+                $f->coordinate_y = $f->coordinate_y - 1;
+                $this->save($f);
+                break;
+            case "down":
+                $f->coordinate_y = $f->coordinate_y + 1;
+                $this->save($f);
+                break;
+            case "right":
+                $f->coordinate_x = $f->coordinate_x + 1;
+                $this->save($f);
+                break;
+            case "left":
+                $f->coordinate_x = $f->coordinate_x - 1;
+                $this->save($f);
+                break;
+            default :
+                pr("Direction is undefined");
+        }
+    }
 }
 
 ?>

@@ -10,13 +10,20 @@ class ArenasController  extends AppController
 {
     public function inbox() {
         $this -> loadModel('Messages');
+
+        if($this->request->is('post'))
+        {
+            $this->Messages->addANewMessage($this->request->getData());
+        }
+
         $messages = $this->Messages->find('all');
         $messagesArray = $messages->toArray();
         $messageValue = $messagesArray[0]["message"];
         $nbMessages = count($messagesArray);
-        //pr($messageValue);die();
         $this->set('messagesArray', $messagesArray);
         $this->set('nbMessages', $nbMessages);
+
+
 
     }
 
@@ -44,6 +51,8 @@ class ArenasController  extends AppController
         $players = $this->Players->find('all');
         $playersArray = $players->toArray();
         //pr($newPlayer);die();
+        if($this->request->is('post'))
+        {
         if($newPlayer['emailLogin']) {
             //pr($players->toArray());die();
             for ($i=0; $i<count($playersArray); $i++) {
@@ -86,6 +95,7 @@ class ArenasController  extends AppController
                 $emailInDB = 'Your player is saved';
             }
             $this->set('emailInDB', $emailInDB);
+        }
         }
     }
 
@@ -147,6 +157,12 @@ class ArenasController  extends AppController
         $this -> loadModel('Fighters');
         $this -> set('x', $this->Fighters->getX());
         $this -> set('y', $this->Fighters->getY());
+        
+        // Call the move function
+        if($this->request->is("post"))
+        {
+            $this->Fighters->move($this->request->getData());
+        }
 
         //Retrieving every fighter currently in the game (for positions)
         $this -> set('fighterList', $this -> Fighters -> getFighterList());

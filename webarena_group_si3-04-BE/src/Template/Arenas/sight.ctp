@@ -2,7 +2,7 @@
 
 <?php 
 // refs to the style.css file in webroot/css/
-echo $this->Html->css('style');
+echo $this->Html->css('sight');
 
 // Initialises a matrix of the size of the board
 for($i=0; $i<$y; $i++){
@@ -16,7 +16,7 @@ for($i=0; $i<$fighterCount; $i++){
     $matrix[$fighterList[$i]->coordinate_y][$fighterList[$i]->coordinate_x] = 1;
 }
 
-echo "<table cellspacing='0' cellpadding='0'><thead></thead>"; 
+echo "<table>"; 
 // for every row
 for($i=0; $i<$y; $i++){
     echo "<tr>";
@@ -36,16 +36,32 @@ for($i=0; $i<$y; $i++){
 } 
 echo "</table>";
 
+echo "<table class='nav'>";
+echo "<tr>"; // tr1
+echo "<td></td>";
+echo "<td>";
+echo $this->Form->postButton('Button up', null, [ "data" => ["direction" => "up", "id" => 1]]);
+echo "</td>";
+echo "<td></td>";
+echo "</tr>"; // fin tr1
+echo "<tr>"; // tr2
+echo "<td>";
+echo $this->Form->postButton('Button left', null, [ "data" => ["direction" => "left", "id" => 1]]);
+echo "</td>";
+echo "<td></td>";
+echo "<td>";
+echo $this->Form->postButton('Button right', null, [ "data" => ["direction" => "right", "id" => 1]]);
+echo "</td>";
+echo "</tr>"; // fin tr2
+echo "<tr>"; // tr3
+echo "<td></td>";
+echo "<td>";
+echo $this->Form->postButton('Button down', null, [ "data" => ["direction" => "down", "id" => 1]]);
+echo "</td>";
+echo "<td></td>";
+echo "</tr>"; // fin tr3
+echo "</table>";
 
-echo $this->Form->create('Fighter');
-echo $this->Form->input('direction',array(
-    'options' => array(
-        'up'=>'up',
-        'right'=>'right',
-        'down'=>'down',
-        'left'=>'left'),
-    'default' => 'up'));
-echo $this->Form->end();
 
 ?>
 
