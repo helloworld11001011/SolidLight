@@ -36,16 +36,32 @@ for($i=0; $i<$y; $i++){
 } 
 echo "</table>";
 
+echo "<table id='nav'>";
+echo "<tr>"; // tr1
+echo "<td></td>";
+echo "<td>";
+echo $this->Form->postButton('Button up', ['type' => 'button'], ["data" => ["direction" => "up", "id"]]);
+echo "</td>";
+echo "<td></td>";
+echo "</tr>"; // fin tr1
+echo "<tr>"; // tr2
+echo "<td>";
+echo $this->Form->postButton('Button left', ['type' => 'button'], ["data" => ["direction" => "left", "id"]]);
+echo "</td>";
+echo "<td></td>";
+echo "<td>";
+echo $this->Form->postButton('Button right', ['type' => 'button'], ["data" => ["direction" => "right", "id"]]);
+echo "</td>";
+echo "</tr>"; // fin tr2
+echo "<tr>"; // tr3
+echo "<td></td>";
+echo "<td>";
+echo $this->Form->postButton('Button down', ['type' => 'button'], ["data" => ["direction" => "down", "id"]]);
+echo "</td>";
+echo "<td></td>";
+echo "</tr>"; // fin tr3
+echo "</table>";
 
-echo $this->Form->create('Fighter');
-echo $this->Form->input('direction',array(
-    'options' => array(
-        'up'=>'up',
-        'right'=>'right',
-        'down'=>'down',
-        'left'=>'left'),
-    'default' => 'up'));
-echo $this->Form->end();
 
 ?>
 
