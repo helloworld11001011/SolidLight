@@ -32,7 +32,7 @@
 
                 <div class="center-box">
                     <h3>Taunt friend like foe</h3>
-                    <p>Use our instant messaging system to easily taunt your opponent before, during or after the battle. Watch out though, you're at his mercy if he is declared the winner!</p>
+                    <p>Use our instant messaging system to easily taunt your opponent before, during or after the battle. Watch out - you're at his mercy if he is declared the winner!</p>
                 </div>
             </div>
             <!-- End of presentation pane -->

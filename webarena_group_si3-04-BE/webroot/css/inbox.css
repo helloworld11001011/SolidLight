@@ -35,6 +35,7 @@ body {
     height: 10%;
     width: 100%;
     background-color: #ffd299;
+    border: 1px solid red;
 }
 
 .messageType {
@@ -44,15 +45,22 @@ body {
 
 input[type="text"] {
     background-color: #ffd299;
-    height: 100%;
+    height: 100px;
+    width: 80%;
     font-size: 15px;
+    border: 1px solid green;
 }
 
 #btnSend {
-    height: 100%;
+    height: 300px;
     width: 100%;
     background-color: #ffb251;
     padding-left: 25px;
+}
+
+#messageInput {
+    height: 100%;
+    width: 80%;
 }
 
 .sendBtnDiv {

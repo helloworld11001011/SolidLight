@@ -2,7 +2,7 @@
 
 session_start();
 
-$_SESSION['figtherCoId'] = 1;
+$_SESSION['figtherCoId'] = 2;
 
 $fighterCoId = $_SESSION['figtherCoId'];
 
@@ -44,12 +44,23 @@ $fighterCoId = $_SESSION['figtherCoId'];
 
                 </div>
                 <div class="writeBox">
-                    <div class="messageType">
+
+                    <?php
+                    echo $this->Form->create('Message');
+                    echo $this->Form->input('message',['id'=>'messageInput', 'label'=>false]);
+                    echo $this->Form->input('fighterCo', ['type' => 'hidden', 'value' => $fighterCoId]);
+                    echo $this->Form->input('fighterTo', ['type' => 'hidden', 'value' => 1]);
+                    echo $this->Form->submit(__('SEND'));
+                    echo $this->Form->end();
+                    ?>
+
+
+                   <!--  <div class="messageType">
                         <input id="messageInput" type="text" name="message" />
                     </div>
                     <div class="sendBtnDiv">
                         <button id="btnSend">SEND</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
