@@ -17,6 +17,31 @@ class FightersTable extends Table {
         return $fighterListArray;
     }
 
+    function getFighterDistribution () {
+        //TODO: send back an array with count() of each fighter distribution
+        $fighterDistribution = [
+            $this->find('all', array(
+                'conditions' => array('Fighters.level >= 10')
+            ))->count(),
+            $this->find('all', array(
+                'conditions' => array ('Fighters.level BETWEEN 8.1 AND 10')
+            ))->count(),
+            $this->find('all', array(
+                'conditions' => array ('Fighters.level BETWEEN 6.1 AND 8')
+            ))->count(),
+            $this->find('all', array(
+                'conditions' => array ('Fighters.level BETWEEN 4.1 AND 6')
+            ))->count(),
+            $this->find('all', array(
+                'conditions' => array ('Fighters.level BETWEEN 2.1 AND 4')
+            ))->count(),
+            $this->find('all', array(
+                'conditions' => array ('Fighters.level BETWEEN 0 AND 2')
+            ))->count()
+        ];
+        return $fighterDistribution;
+    }
+
     //TODO: select fighters with 'where id = ' clause for query
     function getPlayerFighterList() {
         $playerFighterList = $this->find('all', array(
@@ -187,14 +212,14 @@ class FightersTable extends Table {
             }
 
             // si lvl up -> permettre au joueur de choirir une carac à améliorer  vue +1 ou force+1 ou point de vie+3.
-            // la vie courant revient automatiquement a sa valeur max (health_skill) 
+            // la vie courant revient automatiquement a sa valeur max (health_skill)
         } else {
-            
+
             echo " The attack did not succed ! la honte ";
-            
+
         }
-        
-        
+
+
     }
 
     //Allows the player to create his fighter
@@ -237,14 +262,22 @@ class FightersTable extends Table {
     }
 
     function move($data){
-        
+
         $f = $this->get($data["id"]);
+<<<<<<< HEAD
+
+        switch ($data["direction"]) {
+            case "up":
+                $f->coordinate_y = $f->coordinate_y - 1;
+                $this->save($f);
+=======
         switch ($data["direction"]) {
             case "up": 
                 if(!$this->getCase($f->coordinate_x, $f->coordinate_y-1) && $f->coordinate_y > 0 ){
                     $f->coordinate_y = $f->coordinate_y - 1;
                     $this->save($f);
                 }
+>>>>>>> 356933871729986a1e42a19301bdae1197fb17e6
                 break;
             case "down":
                 if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < $this->getY()-1 ){

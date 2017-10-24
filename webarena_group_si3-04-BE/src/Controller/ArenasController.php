@@ -27,6 +27,7 @@ class ArenasController  extends AppController
     public function hallOfFame () {
         $this->loadModel('Fighters');
 
+        $this -> set('fighterDistribution', $this->Fighters->getFighterDistribution());
     }
 
     public function index () {
