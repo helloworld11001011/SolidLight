@@ -247,13 +247,13 @@ class FightersTable extends Table {
                 }
                 break;
             case "down":
-                if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < 9 ){
+                if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < $this->getY()-1 ){
                     $f->coordinate_y = $f->coordinate_y + 1;
                     $this->save($f);
                 }
                 break;
             case "right":
-                if(!$this->getCase($f->coordinate_x+1, $f->coordinate_y) && $f->coordinate_x < 14 ){
+                if(!$this->getCase($f->coordinate_x+1, $f->coordinate_y) && $f->coordinate_x < $this->getX()-1 ){
                     $f->coordinate_x = $f->coordinate_x + 1;
                     $this->save($f);
                 }

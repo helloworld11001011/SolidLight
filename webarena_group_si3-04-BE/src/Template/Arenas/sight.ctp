@@ -29,7 +29,6 @@ for($i=0; $i<$y; $i++){
         }else{
             echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
         }
-
         echo "</td>";
     }
     echo "</tr>";
@@ -45,7 +44,6 @@ echo $this->Form->postButton('RIGHT', null, [ "data" => ["direction" => "right",
 echo "</td></tr><tr><td></td><td>";
 echo $this->Form->postButton('DOWN', null, [ "data" => ["direction" => "down", "id" => 1]]);
 echo "</td><td></td></tr></table></div></div>";
-
 
 ?>
 
