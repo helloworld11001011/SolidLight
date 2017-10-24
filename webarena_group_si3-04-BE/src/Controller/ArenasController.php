@@ -133,8 +133,6 @@ class ArenasController  extends AppController
 
 
         $this->Fighters->fight();
-
-
     }
 
     public function sight()
@@ -144,8 +142,7 @@ class ArenasController  extends AppController
         $this -> set('y', $this->Fighters->getY());
         
         // Call the move function
-        if($this->request->is("post"))
-        {
+        if($this->request->is("post")) {
             $this->Fighters->move($this->request->getData());
         }
 
@@ -156,7 +153,7 @@ class ArenasController  extends AppController
 
     public function diary()
     {
-
+        
     }
 
    /*
