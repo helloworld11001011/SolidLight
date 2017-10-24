@@ -20,14 +20,14 @@ td {
     position: relative;
     padding: 0px; 
     margin: 0px;
-    border-width:0px;
+    border-width: 0px;
 }
 
 tr{
     height: 70px;
     padding: 0px; 
     margin: 0px;
-    border-width:0px;
+    border-width: 0px;
     border-bottom: 0px !important;
 }
 
@@ -37,5 +37,13 @@ img {
     width: 70px;
     margin: 0px;
     padding: 0px;
-    border-width:0px;
+    border-width: 0px;
 }
+
+.nav table{
+        width: 500px;
+        margin: auto;
+        border-spacing: 0px;
+        padding: 0px;
+    }
+
