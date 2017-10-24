@@ -239,28 +239,45 @@ class FightersTable extends Table {
     function move($data){
         
         $f = $this->get($data["id"]);
-        
         switch ($data["direction"]) {
             case "up": 
-                $f->coordinate_y = $f->coordinate_y - 1;
-                $this->save($f);
+                if(!$this->getCase($f->coordinate_x, $f->coordinate_y-1) && $f->coordinate_y > 0 ){
+                    $f->coordinate_y = $f->coordinate_y - 1;
+                    $this->save($f);
+                }
                 break;
             case "down":
-                $f->coordinate_y = $f->coordinate_y + 1;
-                $this->save($f);
+                if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < 9 ){
+                    $f->coordinate_y = $f->coordinate_y + 1;
+                    $this->save($f);
+                }
                 break;
             case "right":
-                $f->coordinate_x = $f->coordinate_x + 1;
-                $this->save($f);
+                if(!$this->getCase($f->coordinate_x+1, $f->coordinate_y) && $f->coordinate_x < 14 ){
+                    $f->coordinate_x = $f->coordinate_x + 1;
+                    $this->save($f);
+                }
+                
                 break;
             case "left":
-                $f->coordinate_x = $f->coordinate_x - 1;
-                $this->save($f);
+                if(!$this->getCase($f->coordinate_x-1, $f->coordinate_y) && $f->coordinate_x > 0 ){
+                    $f->coordinate_x = $f->coordinate_x - 1;
+                    $this->save($f);
+                }
                 break;
             default :
-                pr("Direction is undefined");
+                pr("Direction is invalid");
         }
     }
+    
+    function getCase($x, $y){
+        
+        $case= $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x, 
+                                                    "Fighters.coordinate_y" => $y]]);
+        return $case->toArray();
+    }
+    
+    
 }
 
 ?>
