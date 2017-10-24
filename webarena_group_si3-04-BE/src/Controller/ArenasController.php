@@ -29,7 +29,8 @@ class ArenasController  extends AppController
 
     public function hallOfFame () {
         $this->loadModel('Fighters');
-        
+
+        $this -> set('fighterDistribution', $this->Fighters->getFighterDistribution());
     }
 
     public function index () {
@@ -157,7 +158,7 @@ class ArenasController  extends AppController
         $this -> loadModel('Fighters');
         $this -> set('x', $this->Fighters->getX());
         $this -> set('y', $this->Fighters->getY());
-        
+
         // Call the move function
         if($this->request->is("post"))
         {
