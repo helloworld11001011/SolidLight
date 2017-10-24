@@ -11,8 +11,8 @@
         <script type="text/javascript">
         $(document).ready(function(){
                 var data = [
-                    ['>10', <?php echo $10fighters; ?>],['8 - 10', ], ['6 - 8', 14],
-                    ['4 - 6', 16],['2 - 4', 7], ['Newbie (<2)', 9]
+                        ['>10', <?php echo $fighterDistribution[0]; ?>],['8 - 10', <?php  echo $fighterDistribution[1]; ?>], ['6 - 8', <?php  echo $fighterDistribution[2]; ?>],
+                        ['4 - 6', <?php echo $fighterDistribution[3] ?>],['2 - 4', <?php  echo $fighterDistribution[4]; ?>], ['Newbie (<2)', <?php  echo $fighterDistribution[5]; ?>]
                     ];
 
                 var plot1 = jQuery.jqplot ('levels-chart', [data],
