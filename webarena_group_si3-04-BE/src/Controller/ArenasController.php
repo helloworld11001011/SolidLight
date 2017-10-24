@@ -20,6 +20,11 @@ class ArenasController  extends AppController
 
     }
 
+    public function hallOfFame () {
+        $this->loadModel('Fighters');
+        
+    }
+
     public function index () {
         $this -> loadModel('Fighters');
 
