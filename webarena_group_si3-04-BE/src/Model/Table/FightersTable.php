@@ -130,7 +130,7 @@ class FightersTable extends Table {
         $random = rand(0, 20);
         $succes = 0;
         $currentxp = $attack['xp'];
-        
+
         echo "current xp:";
         echo $currentxp;
         echo "<br>";
@@ -183,7 +183,7 @@ class FightersTable extends Table {
 
                         $killXp = $killXp - 4;
                         $level = $attack['level'] + 1;
-                        
+
                     } while ($killXp > 4);
 
                     echo $killXp;
@@ -203,8 +203,8 @@ class FightersTable extends Table {
                 // gerer l'xp en plus -> tant que le total d xp en plus est > 4, le fighter gagne un niveau (1 lvl par tour de boucle
                 // le reste de l'xp est stocké dans la db
             } else {
-                
-               
+
+
                 //$attackant->xp = $successXp;
                 $fighterTable->save($attackant);
 
@@ -216,21 +216,21 @@ class FightersTable extends Table {
                     $attackant->xp = $succesXp;
                     $attackant->level = $level;
                     $fighterTable->save($attackant);
-                    
+
                 } else if ($killXp > 4) {
 
                     do {
 
                         $succesXp = $succesXp - 4;
                         $level = $attack['level'] + 1;
-                        
+
                     } while ($succesXp > 4);
 
                 }
 
                 $attackant->xp = $succesXp;
                 $fighterTable->save($attackant);
-                
+
                 $defender->current_health = $newHealth;
                 $fighterTable->save($defender);
 
@@ -239,7 +239,7 @@ class FightersTable extends Table {
                 echo $attack['name'];
                 echo " wins the xp : ";
                 echo $succesXp;
-               
+
 
                 // gerer l'xp
             }
@@ -249,7 +249,6 @@ class FightersTable extends Table {
         } else {
 
             echo " The attack did not succed ! la honte ";
-<<<<<<< HEAD
         }
     }
 
@@ -265,14 +264,11 @@ class FightersTable extends Table {
     }
 
     function deleteFighter() {
-        
-=======
-
-        }
 
 
->>>>>>> 6ad26027aaf185fc82c8c5559848056158060888
     }
+
+
 
     //Allows the player to create his fighter
     //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
@@ -313,16 +309,6 @@ class FightersTable extends Table {
         $fighterTable->save($fighter);
     }
 
-<<<<<<< HEAD
-    function move($data) {
-
-        $f = $this->get($data["id"]);
-
-        switch ($data["direction"]) {
-            case "up":
-                $f->coordinate_y = $f->coordinate_y - 1;
-                $this->save($f);
-=======
     function move($data){
 
         $f = $this->get($data["id"]);
@@ -332,7 +318,6 @@ class FightersTable extends Table {
                     $f->coordinate_y = $f->coordinate_y - 1;
                     $this->save($f);
                 }
->>>>>>> 6ad26027aaf185fc82c8c5559848056158060888
                 break;
             case "down":
                 if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < $this->getY()-1 ){
@@ -357,28 +342,13 @@ class FightersTable extends Table {
                 pr("Direction is invalid");
         }
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-    
-=======
-
->>>>>>> 8c7605436acec56fe65fb19cafbd58454738f479
     function getCase($x, $y){
 
         $case= $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x,
                                                     "Fighters.coordinate_y" => $y]]);
         return $case->toArray();
-    }
-<<<<<<< HEAD
-    
-    
->>>>>>> 6ad26027aaf185fc82c8c5559848056158060888
-=======
 
-
->>>>>>> 8c7605436acec56fe65fb19cafbd58454738f479
 }
 
 ?>

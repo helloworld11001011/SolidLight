@@ -6,7 +6,7 @@
         <?php
         echo $this->Html->css('hallOfFame');
         echo $this->Html->css('jquery.jqplot.min.css');
-        echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', "jqplot.pieRenderer.js"]);
+        echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', 'jqplot.pieRenderer.js', 'jqplot.dateAxisRenderer.js', 'jqplot.logAxisRenderer.js', 'jqplot.canvasTextRenderer.js', 'jqplot.canvasAxisTickRenderer.js', 'jqplot.highlighter.js']);
         ?>
 
         <script type="text/javascript">
