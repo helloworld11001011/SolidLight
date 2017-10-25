@@ -26,7 +26,7 @@ for($i=0; $i<$matY; $i++){
             echo $this->Html->image('fog_square.png', ['alt' => 'square_img']);
         }else{
             // Show the case that is curently being targeted
-            if($i == $targetedCase["y"] && $j == $targetedCase["x"]){
+            if($i == $targetedCase["y"] && $j == $targetedCase["x"] && !$matrix[$i][$j]){
                 echo $this->Html->image('red_square.png', ['alt' => 'square_img']);
             }else{
                 // Show the fighter if there is one there
