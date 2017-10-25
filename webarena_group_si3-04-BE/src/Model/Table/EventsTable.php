@@ -20,14 +20,20 @@ class EventsTable extends Table {
                 ->where(['Events.name LIKE "Death %"'])
                 ->group('MONTH(Events.date)');
         $Array = $Query->toArray();
-        return $Array;
+
+        //Converting the CakePHP Object Array into a regular array
+        for ($i=0; $i < $Query->count(); $i++) {
+            $deadFightersArray[$i][0] = $Array[$i]->date;
+            $deadFightersArray[$i][1] = $Array[$i]->count;
+        }
+        return $deadFightersArray;
     }
 
     function addNewEvent($arg) {
 
         $eventTable = TableRegistry::get('events');
         $event = $eventTable->newEntity();
-        
+
         echo "ok";
 
         if ($arg == 1) {
@@ -36,14 +42,14 @@ class EventsTable extends Table {
             $event->date = Time::now();
             $event->coordinate_x = 1;
             $event->coordinate_y = 1;
-            
+
         } else if ($arg == 2) {
 
             $event->name = "Bobby attaque Paul et le touche";
             $event->date = Time::now();
             $event->coordinate_x = 1;
             $event->coordinate_y = 1;
-            
+
         } else if ($arg == 3) {
 
             $event = "Bobby attaque Paul et le rate";
