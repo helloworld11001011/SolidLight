@@ -18,7 +18,6 @@ class FightersTable extends Table {
     }
 
     function getFighterDistribution () {
-        //TODO: send back an array with count() of each fighter distribution
         $fighterDistribution = [
             $this->find('all', array(
                 'conditions' => array('Fighters.level >= 10')
@@ -132,12 +131,21 @@ class FightersTable extends Table {
         $succes = 0;
         $currentxp = $attack['xp'];
 
+        echo "current xp:";
+        echo $currentxp;
+        echo "<br>";
+
         echo $attack['name'];
         echo " attacks ";
         echo $defense['name'];
         echo " with a total attack of ";
         echo $attack['skill_strength'];
         echo "<br>";
+
+        $fighterTable = TableRegistry::get('fighters');
+        $defender = $fighterTable->get($defenseId);
+        $attackant = $fighterTable->get($attackId);
+
 
         if ($random > (10 + $defense['level'] - $attack['level'])) {
 
@@ -146,25 +154,28 @@ class FightersTable extends Table {
             echo "The attack succeeded ! ";
             echo "<br>";
 
+
             $newHealth = $defense['current_health'] - $attack['skill_strength'];
             $killXp = $currentxp + $defense['level'] + 1;
             $succesXp = $currentxp + 1;
+            echo "success xp ::";
+            echo $succesXp;
 
             if ($newHealth == 0) {
 
-                $fighterTable1 = TableRegistry::get('fighters');
-                $test1 = $fighterTable1->get($defenseId);
-
-                $test1->current_health = $newHealth;
-                $fighterTable1->save($test1);
-
+                //changes the current health of defender in db
+                $defender->current_health = $newHealth;
+                $fighterTable->save($defender);
 
                 if ($killXp == 4) {
+
                     $killXp = 0;
                     $level = $attack['level'] + 1;
-                }
 
-                if ($killXp > 4) {
+                    $attackant->xp = $killXp;
+                    $attackant->level = $level;
+                    $fighterTable->save($attackant);
+                } else if ($killXp > 4) {
 
                     echo $killXp;
 
@@ -172,16 +183,14 @@ class FightersTable extends Table {
 
                         $killXp = $killXp - 4;
                         $level = $attack['level'] + 1;
+
                     } while ($killXp > 4);
 
                     echo $killXp;
                 }
 
-                $fighterTable2 = TableRegistry::get('fighters');
-                $test2 = $fighterTable2->get($attackId);
-
-                $test2->xp = $killXp;
-                $fighterTable2->save($test2);
+                //$attackant->xp = $killXp;
+                $fighterTable->save($attackant);
 
                 echo $defense['name'];
                 echo " is dead :'( ; ";
@@ -195,18 +204,42 @@ class FightersTable extends Table {
                 // le reste de l'xp est stocké dans la db
             } else {
 
-                $fighterTable = TableRegistry::get('fighters');
-                $test = $fighterTable->get($defenseId);
 
+                //$attackant->xp = $successXp;
+                $fighterTable->save($attackant);
 
-                $test->current_health = $newHealth;
-                $fighterTable->save($test);
+                if ($succesXp == 4) {
+
+                    $succesXp = 0;
+                    $level = $attack['level'] + 1;
+
+                    $attackant->xp = $succesXp;
+                    $attackant->level = $level;
+                    $fighterTable->save($attackant);
+
+                } else if ($killXp > 4) {
+
+                    do {
+
+                        $succesXp = $succesXp - 4;
+                        $level = $attack['level'] + 1;
+
+                    } while ($succesXp > 4);
+
+                }
+
+                $attackant->xp = $succesXp;
+                $fighterTable->save($attackant);
+
+                $defender->current_health = $newHealth;
+                $fighterTable->save($defender);
 
                 echo $defense['name'];
                 echo " didn't die ; ";
                 echo $attack['name'];
                 echo " wins the xp : ";
                 echo $succesXp;
+
 
                 // gerer l'xp
             }
@@ -216,11 +249,26 @@ class FightersTable extends Table {
         } else {
 
             echo " The attack did not succed ! la honte ";
-
         }
+    }
+
+    function xp() {
+
+        $fighterList = $this->find('all');
+        $fighterListArray = $fighterList->toArray();
+
+        $attack = $fighterListArray[0];
+        $defense = $fighterListArray[1];
+        $attackId = $attack['id'];
+        $defenseId = $defense['id'];
+    }
+
+    function deleteFighter() {
 
 
     }
+
+
 
     //Allows the player to create his fighter
     //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
@@ -265,7 +313,7 @@ class FightersTable extends Table {
 
         $f = $this->get($data["id"]);
         switch ($data["direction"]) {
-            case "up": 
+            case "up":
                 if(!$this->getCase($f->coordinate_x, $f->coordinate_y-1) && $f->coordinate_y > 0 ){
                     $f->coordinate_y = $f->coordinate_y - 1;
                     $this->save($f);
@@ -282,7 +330,7 @@ class FightersTable extends Table {
                     $f->coordinate_x = $f->coordinate_x + 1;
                     $this->save($f);
                 }
-                
+
                 break;
             case "left":
                 if(!$this->getCase($f->coordinate_x-1, $f->coordinate_y) && $f->coordinate_x > 0 ){
@@ -294,15 +342,13 @@ class FightersTable extends Table {
                 pr("Direction is invalid");
         }
     }
-    
+
     function getCase($x, $y){
-        
-        $case= $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x, 
+
+        $case= $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x,
                                                     "Fighters.coordinate_y" => $y]]);
         return $case->toArray();
     }
-    
-    
 }
 
 ?>

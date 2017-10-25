@@ -6,10 +6,11 @@
         <?php
         echo $this->Html->css('hallOfFame');
         echo $this->Html->css('jquery.jqplot.min.css');
-        echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', "jqplot.pieRenderer.js"]);
+        echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', 'jqplot.pieRenderer.js', 'jqplot.dateAxisRenderer.js', 'jqplot.logAxisRenderer.js', 'jqplot.canvasTextRenderer.js', 'jqplot.canvasAxisTickRenderer.js', 'jqplot.highlighter.js']);
         ?>
+
         <script type="text/javascript">
-        $(document).ready(function(){
+            $(document).ready(function(){
                 var data = [
                         ['>10', <?php echo $fighterDistribution[0]; ?>],['8 - 10', <?php  echo $fighterDistribution[1]; ?>], ['6 - 8', <?php  echo $fighterDistribution[2]; ?>],
                         ['4 - 6', <?php echo $fighterDistribution[3] ?>],['2 - 4', <?php  echo $fighterDistribution[4]; ?>], ['Newbie (<2)', <?php  echo $fighterDistribution[5]; ?>]
@@ -39,6 +40,9 @@
         </h1>
         <div class="main-container">
             <div id="levels-chart">
+
+            </div>
+            <div id="deadfighters-chart">
 
             </div>
         </div>
