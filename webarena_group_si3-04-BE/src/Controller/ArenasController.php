@@ -146,7 +146,23 @@ class ArenasController  extends AppController
         }
 
 
-        $this->Fighters->fight();
+        
+        switch($this->Fighters->fight()) {
+            
+            case 1:
+                $this->Fighters->xp(1);
+                break;
+            
+            case 2:
+                $this->Fighters->xp(2);
+                break;
+            
+            case 3:
+                $this->Fighters->xp(3);
+                break;
+        }
+        
+        
     }
 
     public function sight()
