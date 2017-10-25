@@ -22,14 +22,12 @@ class ArenasController  extends AppController
         $nbMessages = count($messagesArray);
         $this->set('messagesArray', $messagesArray);
         $this->set('nbMessages', $nbMessages);
-
-
-
     }
 
     public function hallOfFame () {
         $this->loadModel('Fighters');
 
+        $this -> set('fighterDistribution', $this->Fighters->getFighterDistribution());
     }
 
     public function index () {
@@ -52,57 +50,50 @@ class ArenasController  extends AppController
         $playerLogin  = 0;
         $players = $this->Players->find('all');
         $playersArray = $players->toArray();
-        //pr($newPlayer);die();
+
         if($this->request->is('post'))
         {
-        if($newPlayer['emailLogin']) {
-            //pr($players->toArray());die();
-            for ($i=0; $i<count($playersArray); $i++) {
-                if($playersArray[$i]['email'] == $newPlayer['emailLogin'] && $playersArray[$i]['password'] == $newPlayer['passwordLogin']) {
-                    $goodToGo = 1;
-                    $playerLogin = $newPlayer['emailLogin'];
-                    $session->write('playerEmailLogin', $playerLogin);
-                    $playerEmailLogin = $session->read('playerEmailLogin');
-                    pr($playerEmailLogin);
+            if($newPlayer['emailLogin']) {
+                for ($i=0; $i<count($playersArray); $i++) {
+                    if($playersArray[$i]['email'] == $newPlayer['emailLogin'] && $playersArray[$i]['password'] == $newPlayer['passwordLogin']) {
+                        $goodToGo = 1;
+                        $playerLogin = $newPlayer['emailLogin'];
+                        $session->write('playerEmailLogin', $playerLogin);
+                        $playerEmailLogin = $session->read('playerEmailLogin');
+                        pr($playerEmailLogin);
+                    }
                 }
             }
-        }
 
-
-
-        if ($goodToGo == 1) {
-            $goodToGo = 'Good to go';
-        }
-        else {
-            $goodToGo = 'Not good to go';
-        }
-        if($playerLogin) {
-            $this->set('playerLogin', $playerLogin);
-        }
-
-        $this->set('goodToGo', $goodToGo);
-
-        //if($playerLogin) {
-
-        //}
-
-        if ($newPlayer['email'] && $newPlayer['password']) {
-            for ($i=0; $i<count($playersArray); $i++) {
-                if($playersArray[$i]['email'] == $newPlayer['email']) {
-                    $emailInDB = 1;
-                }
-            }
-            if($emailInDB != 1) {
-                $this->Players->addANewPlayer($this->request->getData());
-            }
-            if ($emailInDB == 1) {
-                $emailInDB = 'Your player is already in DB';
+            if ($goodToGo == 1) {
+                $goodToGo = 'Good to go';
             }
             else {
-                $emailInDB = 'Your player is saved';
+                $goodToGo = 'Not good to go';
             }
-            $this->set('emailInDB', $emailInDB);
-        }
+            if($playerLogin) {
+                $this->set('playerLogin', $playerLogin);
+            }
+
+            $this->set('goodToGo', $goodToGo);
+
+            if ($newPlayer['email'] && $newPlayer['password']) {
+                for ($i=0; $i<count($playersArray); $i++) {
+                    if($playersArray[$i]['email'] == $newPlayer['email']) {
+                        $emailInDB = 1;
+                    }
+                }
+                if($emailInDB != 1) {
+                    $this->Players->addANewPlayer($this->request->getData());
+                }
+                if ($emailInDB == 1) {
+                    $emailInDB = 'Your player is already in DB';
+                }
+                else {
+                    $emailInDB = 'Your player is saved';
+                }
+                $this->set('emailInDB', $emailInDB);
+            }
         }
     }
 
@@ -175,7 +166,7 @@ class ArenasController  extends AppController
 
     public function diary()
     {
-        
+
     }
 
    /*
