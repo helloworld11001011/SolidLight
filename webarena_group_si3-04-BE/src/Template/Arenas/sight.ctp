@@ -1,14 +1,10 @@
 <?php
-// echo "<h2>Sight</h2>"
-
 // refs to the style.css file in webroot/css/
 echo $this->Html->css('sight');
 
-//pr($currentFighter[0]->coordinate_y);
-
 // Initialises a matrix of the size of the board
-for($i=0; $i<$y; $i++){
-    for($j=0; $j<$x; $j++){
+for($i=0; $i<$matY; $i++){
+    for($j=0; $j<$matX; $j++){
         $matrix[$i][$j] = 0;
     }
 }
@@ -20,22 +16,26 @@ for($i=0; $i<$fighterCount; $i++){
 
 echo "<div id='maindiv'><div id='matdiv'><table class='mat'>";
 // for every row
-for($i=0; $i<$y; $i++){
+for($i=0; $i<$matY; $i++){
     echo "<tr>";
     // for every column
-    for($j=0; $j<$x; $j++){
+    for($j=0; $j<$matX; $j++){
         echo "<td>";
-        
         // Don't show the cases that are futher away than the sight skill of the fighter
         if(abs($currentFighter[0]->coordinate_y - $i) + abs($currentFighter[0]->coordinate_x - $j) > $currentFighter[0]->skill_sight){
             echo $this->Html->image('fog_square.png', ['alt' => 'square_img']);
         }else{
-            // get image from webroot/img/
-            if($matrix[$i][$j]){
-                $pic= strval($matrix[$i][$j]) .'.png';            
-                echo $this->Html->image($pic, ['alt' => 'square_img']);
+            // Show the case that is curently being targeted
+            if($i == $targetedCase["y"] && $j == $targetedCase["x"]){
+                echo $this->Html->image('red_square.png', ['alt' => 'square_img']);
             }else{
-                echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
+                // Show the fighter if there is one there
+                if($matrix[$i][$j]){
+                    $pic= strval($matrix[$i][$j]) .'.png';            
+                    echo $this->Html->image($pic, ['alt' => 'square_img']);
+                }else{
+                    echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
+                }
             }
             echo "</td>";
         }
@@ -47,11 +47,11 @@ echo "</table></div>";
 echo "<div id='navdiv'><table class='nav'><tr><td></td><td>";
 echo $this->Form->postButton('UP', null, [ "data" => ["direction" => "up", "id" => $currentFighter[0]->id]]);
 echo "</td><td></td></tr><tr><td>";
-echo $this->Form->postButton('LEFT', null, [ "data" => ["direction" => "left", "id" => $currentFighter[0]->id]]);
+echo $this->Form->postButton('LEFT', null, [ "data" => ["attack" => "no", "direction" => "left", "id" => $currentFighter[0]->id]]);
 echo "</td><td></td><td>";
-echo $this->Form->postButton('RIGHT', null, [ "data" => ["direction" => "right", "id" => $currentFighter[0]->id]]);
+echo $this->Form->postButton('RIGHT', null, [ "data" => ["attack" => "no", "direction" => "right", "id" => $currentFighter[0]->id]]);
 echo "</td></tr><tr><td></td><td>";
-echo $this->Form->postButton('DOWN', null, [ "data" => ["direction" => "down", "id" => $currentFighter[0]->id]]);
+echo $this->Form->postButton('DOWN', null, [ "data" => ["attack" => "no", "direction" => "down", "id" => $currentFighter[0]->id]]);
 echo "</td><td></td></tr></table></div></div>";
 
 ?>
