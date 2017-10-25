@@ -18,7 +18,6 @@ class FightersTable extends Table {
     }
 
     function getFighterDistribution () {
-        //TODO: send back an array with count() of each fighter distribution
         $fighterDistribution = [
             $this->find('all', array(
                 'conditions' => array('Fighters.level >= 10')
@@ -265,7 +264,7 @@ class FightersTable extends Table {
 
         $f = $this->get($data["id"]);
         switch ($data["direction"]) {
-            case "up": 
+            case "up":
                 if(!$this->getCase($f->coordinate_x, $f->coordinate_y-1) && $f->coordinate_y > 0 ){
                     $f->coordinate_y = $f->coordinate_y - 1;
                     $this->save($f);
@@ -282,7 +281,7 @@ class FightersTable extends Table {
                     $f->coordinate_x = $f->coordinate_x + 1;
                     $this->save($f);
                 }
-                
+
                 break;
             case "left":
                 if(!$this->getCase($f->coordinate_x-1, $f->coordinate_y) && $f->coordinate_x > 0 ){
@@ -294,15 +293,15 @@ class FightersTable extends Table {
                 pr("Direction is invalid");
         }
     }
-    
+
     function getCase($x, $y){
-        
-        $case= $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x, 
+
+        $case= $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x,
                                                     "Fighters.coordinate_y" => $y]]);
         return $case->toArray();
     }
-    
-    
+
+
 }
 
 ?>
