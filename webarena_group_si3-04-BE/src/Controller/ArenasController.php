@@ -69,6 +69,7 @@ class ArenasController extends AppController {
 
             if ($goodToGo == 1) {
                 $goodToGo = 'Good to go';
+            }
             else {
                 $session->write('playerEmailLogin', null);
                 $playerEmailLogin = $session->read('playerEmailLogin');
