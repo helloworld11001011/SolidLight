@@ -7,8 +7,8 @@ use Cake\ORM\TableRegistry;
 
 class FightersTable extends Table {
 
-    //Displaying all the fighters owned by a player
-    //Get all fighters currently existing (for the scoreboard)
+//Displaying all the fighters owned by a player
+//Get all fighters currently existing (for the scoreboard)
     function getFighterList() {
         $fighterList = $this->find('all', array(
             'order' => 'Fighters.level DESC'
@@ -17,37 +17,37 @@ class FightersTable extends Table {
         return $fighterListArray;
     }
 
-    function getFighterDistribution () {
+    function getFighterDistribution() {
         $fighterDistribution = [
             $this->find('all', array(
                 'conditions' => array('Fighters.level >= 10')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array ('Fighters.level BETWEEN 8.1 AND 10')
+                'conditions' => array('Fighters.level BETWEEN 8.1 AND 10')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array ('Fighters.level BETWEEN 6.1 AND 8')
+                'conditions' => array('Fighters.level BETWEEN 6.1 AND 8')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array ('Fighters.level BETWEEN 4.1 AND 6')
+                'conditions' => array('Fighters.level BETWEEN 4.1 AND 6')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array ('Fighters.level BETWEEN 2.1 AND 4')
+                'conditions' => array('Fighters.level BETWEEN 2.1 AND 4')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array ('Fighters.level BETWEEN 0 AND 2')
+                'conditions' => array('Fighters.level BETWEEN 0 AND 2')
             ))->count()
         ];
         return $fighterDistribution;
     }
 
-    //TODO: select fighters with 'where id = ' clause for query
+//TODO: select fighters with 'where id = ' clause for query
     function getPlayerFighterList() {
         $playerFighterList = $this->find('all', array(
             'order' => 'Fighters.level DESC'
         ));
         $playerFighterListArray = $playerFighterList->toArray();
-        // pr($fighterListArray);
+// pr($fighterListArray);
         return $playerFighterListArray;
     }
 
@@ -55,7 +55,7 @@ class FightersTable extends Table {
         return 9;
     }
 
-    //For the player's fighter information
+//For the player's fighter information
     function getFighterId() {
         $fighter_id = $this->find('all')->first();
         return $fighter_id["id"];
@@ -106,18 +106,18 @@ class FightersTable extends Table {
         return $current_health["current_health"];
     }
 
-    // The game board's dimensions
+// The game board's dimensions
     function getX() {
-        // width
+// width
         return 15;
     }
 
     function getY() {
-        // height
+// height
         return 10;
     }
 
-    //fonction qui fait se battre 2 fighter avec les modif (dans la base de données) qui vont avec
+//fonction qui fait se battre 2 fighter avec les modif (dans la base de données) qui vont avec
     function fight() {
 
         $fighterList = $this->find('all');
@@ -163,7 +163,7 @@ class FightersTable extends Table {
 
             if ($newHealth == 0) {
 
-                //changes the current health of defender in db
+//changes the current health of defender in db
                 $defender->current_health = $newHealth;
                 $fighterTable->save($defender);
 
@@ -183,13 +183,12 @@ class FightersTable extends Table {
 
                         $killXp = $killXp - 4;
                         $level = $attack['level'] + 1;
-
                     } while ($killXp > 4);
 
                     echo $killXp;
                 }
 
-                //$attackant->xp = $killXp;
+//$attackant->xp = $killXp;
                 $fighterTable->save($attackant);
 
                 echo $defense['name'];
@@ -199,13 +198,13 @@ class FightersTable extends Table {
                 echo $killXp;
 
 
-                //supprimer fighter si celui du joueur
-                // gerer l'xp en plus -> tant que le total d xp en plus est > 4, le fighter gagne un niveau (1 lvl par tour de boucle
-                // le reste de l'xp est stocké dans la db
+//supprimer fighter si celui du joueur
+// gerer l'xp en plus -> tant que le total d xp en plus est > 4, le fighter gagne un niveau (1 lvl par tour de boucle
+// le reste de l'xp est stocké dans la db
             } else {
 
 
-                //$attackant->xp = $successXp;
+//$attackant->xp = $successXp;
                 $fighterTable->save($attackant);
 
                 if ($succesXp == 4) {
@@ -216,16 +215,13 @@ class FightersTable extends Table {
                     $attackant->xp = $succesXp;
                     $attackant->level = $level;
                     $fighterTable->save($attackant);
-
                 } else if ($killXp > 4) {
 
                     do {
 
                         $succesXp = $succesXp - 4;
                         $level = $attack['level'] + 1;
-
                     } while ($succesXp > 4);
-
                 }
 
                 $attackant->xp = $succesXp;
@@ -241,18 +237,18 @@ class FightersTable extends Table {
                 echo $succesXp;
 
 
-                // gerer l'xp
+// gerer l'xp
             }
 
-            // si lvl up -> permettre au joueur de choirir une carac à améliorer  vue +1 ou force+1 ou point de vie+3.
-            // la vie courant revient automatiquement a sa valeur max (health_skill)
+// si lvl up -> permettre au joueur de choirir une carac à améliorer  vue +1 ou force+1 ou point de vie+3.
+// la vie courant revient automatiquement a sa valeur max (health_skill)
         } else {
 
             echo " The attack did not succed ! la honte ";
         }
     }
 
-    function xp() {
+    function xp($arg) {
 
         $fighterList = $this->find('all');
         $fighterListArray = $fighterList->toArray();
@@ -261,94 +257,122 @@ class FightersTable extends Table {
         $defense = $fighterListArray[1];
         $attackId = $attack['id'];
         $defenseId = $defense['id'];
-    }
+        $currentxp = $attack['xp'];
 
-    function deleteFighter() {
-
-
-    }
-
-
-
-    //Allows the player to create his fighter
-    //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
-    //TODO: X and Y position must be decided when the fighter joins the arena
-    function addANewFighter($arg) {
-        $fighterData = $arg;
         $fighterTable = TableRegistry::get('fighters');
-        $fighter = $fighterTable->newEntity();
-        $fighter->name = $fighterData['name'];
-        $fighter->player_id = 'b33';  //
-        $fighter->coordinate_x = '0';
-        $fighter->coordinate_y = '0';
-        $fighter->level = '1';
-        $fighter->xp = '0';
+        $defender = $fighterTable->get($defenseId);
+        $attackant = $fighterTable->get($attackId);
 
-        if ($fighterData['Class'] == 0) {
-            $fighter->skill_sight = '1';
-            $fighter->skill_strength = '2';
-            $fighter->skill_health = '2';
-            $fighter->current_health = '2';
+
+//xp if the defense is killed
+        if ($arg == 1) {
+
+            $killXp = $currentxp + $defense['level'] + 1;
+
+
+            while ($killXp > 4) {
+
+                $killXp = $killXp - 4;
+                $level = $attack['level'] + 1;
+            };
+
+            if ($killXp == 4) {
+
+                $killXp = 0;
+                $level = $attack['level'] + 1;
+
+                $attackant->xp = $killXp;
+                $attackant->level = $level;
+                $fighterTable->save($attackant);
+            }
         }
 
-        if ($fighterData['Class'] == 1) {
-            $fighter->skill_sight = '2';
-            $fighter->skill_strength = '1';
-            $fighter->skill_health = '2';
-            $fighter->current_health = '2';
-        }
-
-        if ($fighterData['Class'] == 2) {
-            $fighter->skill_sight = '1';
-            $fighter->skill_strength = '1';
-            $fighter->skill_health = '1';
-            $fighter->current_health = '3';
-        }
-
-
-        $fighterTable->save($fighter);
+//$attackant->xp = $killXp;
+        $fighterTable->save($attackant);
     }
 
-    function move($data){
+}
 
-        $f = $this->get($data["id"]);
-        switch ($data["direction"]) {
-            case "up":
-                if(!$this->getCase($f->coordinate_x, $f->coordinate_y-1) && $f->coordinate_y > 0 ){
-                    $f->coordinate_y = $f->coordinate_y - 1;
-                    $this->save($f);
-                }
-                break;
-            case "down":
-                if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < $this->getY()-1 ){
-                    $f->coordinate_y = $f->coordinate_y + 1;
-                    $this->save($f);
-                }
-                break;
-            case "right":
-                if(!$this->getCase($f->coordinate_x+1, $f->coordinate_y) && $f->coordinate_x < $this->getX()-1 ){
-                    $f->coordinate_x = $f->coordinate_x + 1;
-                    $this->save($f);
-                }
 
-                break;
-            case "left":
-                if(!$this->getCase($f->coordinate_x-1, $f->coordinate_y) && $f->coordinate_x > 0 ){
-                    $f->coordinate_x = $f->coordinate_x - 1;
-                    $this->save($f);
-                }
-                break;
-            default :
-                pr("Direction is invalid");
-        }
+//Allows the player to create his fighter
+//TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
+//TODO: X and Y position must be decided when the fighter joins the arena
+function addANewFighter($arg) {
+    $fighterData = $arg;
+    $fighterTable = TableRegistry::get('fighters');
+    $fighter = $fighterTable->newEntity();
+    $fighter->name = $fighterData['name'];
+    $fighter->player_id = 'b33';  //
+    $fighter->coordinate_x = '0';
+    $fighter->coordinate_y = '0';
+    $fighter->level = '1';
+    $fighter->xp = '0';
+
+    if ($fighterData['Class'] == 0) {
+        $fighter->skill_sight = '1';
+        $fighter->skill_strength = '2';
+        $fighter->skill_health = '2';
+        $fighter->current_health = '2';
     }
 
-    function getCase($x, $y){
+    if ($fighterData['Class'] == 1) {
+        $fighter->skill_sight = '2';
+        $fighter->skill_strength = '1';
+        $fighter->skill_health = '2';
+        $fighter->current_health = '2';
+    }
 
-        $case= $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x,
-                                                    "Fighters.coordinate_y" => $y]]);
+    if ($fighterData['Class'] == 2) {
+        $fighter->skill_sight = '1';
+        $fighter->skill_strength = '1';
+        $fighter->skill_health = '1';
+        $fighter->current_health = '3';
+    }
+
+
+    $fighterTable->save($fighter);
+}
+
+function move($data) {
+
+    $f = $this->get($data["id"]);
+    switch ($data["direction"]) {
+        case "up":
+            if (!$this->getCase($f->coordinate_x, $f->coordinate_y - 1) && $f->coordinate_y > 0) {
+                $f->coordinate_y = $f->coordinate_y - 1;
+                $this->save($f);
+            }
+            break;
+        case "down":
+            if (!$this->getCase($f->coordinate_x, $f->coordinate_y + 1) && $f->coordinate_y < $this->getY() - 1) {
+                $f->coordinate_y = $f->coordinate_y + 1;
+                $this->save($f);
+            }
+            break;
+        case "right":
+            if (!$this->getCase($f->coordinate_x + 1, $f->coordinate_y) && $f->coordinate_x < $this->getX() - 1) {
+                $f->coordinate_x = $f->coordinate_x + 1;
+                $this->save($f);
+            }
+
+            break;
+        case "left":
+            if (!$this->getCase($f->coordinate_x - 1, $f->coordinate_y) && $f->coordinate_x > 0) {
+                $f->coordinate_x = $f->coordinate_x - 1;
+                $this->save($f);
+            }
+            break;
+        default :
+            pr("Direction is invalid");
+    }
+
+    function getCase($x, $y) {
+
+        $case = $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x,
+                "Fighters.coordinate_y" => $y]]);
         return $case->toArray();
     }
+
 }
 
 ?>
