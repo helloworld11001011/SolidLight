@@ -4,6 +4,8 @@
 // refs to the style.css file in webroot/css/
 echo $this->Html->css('sight');
 
+//pr($currentFighter[0]->coordinate_y);
+
 // Initialises a matrix of the size of the board
 for($i=0; $i<$y; $i++){
     for($j=0; $j<$x; $j++){
@@ -23,27 +25,33 @@ for($i=0; $i<$y; $i++){
     // for every column
     for($j=0; $j<$x; $j++){
         echo "<td>";
-        // get image from webroot/img/
-        if($matrix[$i][$j]){
-            $pic= strval($matrix[$i][$j]) .'.png';            
-            echo $this->Html->image($pic, ['alt' => 'square_img']);
+        
+        // Don't show the cases that are futher away than the sight skill of the fighter
+        if(abs($currentFighter[0]->coordinate_y - $i) + abs($currentFighter[0]->coordinate_x - $j) > $currentFighter[0]->skill_sight){
+            echo $this->Html->image('fog_square.png', ['alt' => 'square_img']);
         }else{
-            echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
+            // get image from webroot/img/
+            if($matrix[$i][$j]){
+                $pic= strval($matrix[$i][$j]) .'.png';            
+                echo $this->Html->image($pic, ['alt' => 'square_img']);
+            }else{
+                echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
+            }
+            echo "</td>";
         }
-        echo "</td>";
     }
     echo "</tr>";
 }
 echo "</table></div>";
 
 echo "<div id='navdiv'><table class='nav'><tr><td></td><td>";
-echo $this->Form->postButton('UP', null, [ "data" => ["direction" => "up", "id" => 1]]);
+echo $this->Form->postButton('UP', null, [ "data" => ["direction" => "up", "id" => $currentFighter[0]->id]]);
 echo "</td><td></td></tr><tr><td>";
-echo $this->Form->postButton('LEFT', null, [ "data" => ["direction" => "left", "id" => 1]]);
+echo $this->Form->postButton('LEFT', null, [ "data" => ["direction" => "left", "id" => $currentFighter[0]->id]]);
 echo "</td><td></td><td>";
-echo $this->Form->postButton('RIGHT', null, [ "data" => ["direction" => "right", "id" => 1]]);
+echo $this->Form->postButton('RIGHT', null, [ "data" => ["direction" => "right", "id" => $currentFighter[0]->id]]);
 echo "</td></tr><tr><td></td><td>";
-echo $this->Form->postButton('DOWN', null, [ "data" => ["direction" => "down", "id" => 1]]);
+echo $this->Form->postButton('DOWN', null, [ "data" => ["direction" => "down", "id" => $currentFighter[0]->id]]);
 echo "</td><td></td></tr></table></div></div>";
 
 ?>

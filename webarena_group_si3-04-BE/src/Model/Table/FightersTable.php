@@ -17,25 +17,25 @@ class FightersTable extends Table {
         return $fighterListArray;
     }
 
-    function getFighterDistribution () {
+    function getFighterDistribution() {
         $fighterDistribution = [
             $this->find('all', array(
                 'conditions' => array('Fighters.level >= 10')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array ('Fighters.level BETWEEN 8.1 AND 10')
+                'conditions' => array('Fighters.level BETWEEN 8.1 AND 10')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array ('Fighters.level BETWEEN 6.1 AND 8')
+                'conditions' => array('Fighters.level BETWEEN 6.1 AND 8')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array ('Fighters.level BETWEEN 4.1 AND 6')
+                'conditions' => array('Fighters.level BETWEEN 4.1 AND 6')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array ('Fighters.level BETWEEN 2.1 AND 4')
+                'conditions' => array('Fighters.level BETWEEN 2.1 AND 4')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array ('Fighters.level BETWEEN 0 AND 2')
+                'conditions' => array('Fighters.level BETWEEN 0 AND 2')
             ))->count()
         ];
         return $fighterDistribution;
@@ -132,15 +132,9 @@ class FightersTable extends Table {
 
         $attack = $fighterListArray[0];
         $defense = $fighterListArray[1];
-        $attackId = $attack['id'];
         $defenseId = $defense['id'];
         $random = rand(0, 20);
-        $succes = 0;
-        $currentxp = $attack['xp'];
-
-        echo "current xp:";
-        echo $currentxp;
-        echo "<br>";
+        $success = 0;
 
         echo $attack['name'];
         echo " attacks ";
@@ -151,115 +145,49 @@ class FightersTable extends Table {
 
         $fighterTable = TableRegistry::get('fighters');
         $defender = $fighterTable->get($defenseId);
-        $attackant = $fighterTable->get($attackId);
-
 
         if ($random > (10 + $defense['level'] - $attack['level'])) {
 
-            $succes = 1;
 
             echo "The attack succeeded ! ";
             echo "<br>";
 
-
             $newHealth = $defense['current_health'] - $attack['skill_strength'];
-            $killXp = $currentxp + $defense['level'] + 1;
-            $succesXp = $currentxp + 1;
-            echo "success xp ::";
-            echo $succesXp;
 
             if ($newHealth == 0) {
 
-                //changes the current health of defender in db
+                $success = 1;
+
+//changes the current health of defender in db
                 $defender->current_health = $newHealth;
                 $fighterTable->save($defender);
-
-                if ($killXp == 4) {
-
-                    $killXp = 0;
-                    $level = $attack['level'] + 1;
-
-                    $attackant->xp = $killXp;
-                    $attackant->level = $level;
-                    $fighterTable->save($attackant);
-                } else if ($killXp > 4) {
-
-                    echo $killXp;
-
-                    do {
-
-                        $killXp = $killXp - 4;
-                        $level = $attack['level'] + 1;
-
-                    } while ($killXp > 4);
-
-                    echo $killXp;
-                }
-
-                //$attackant->xp = $killXp;
-                $fighterTable->save($attackant);
 
                 echo $defense['name'];
                 echo " is dead :'( ; ";
-                echo $attack['name'];
-                echo " wins the xp : ";
-                echo $killXp;
+            } else if ($newHealth != 0) {
 
+                echo $defense['name'];
+                echo " did not die ! ";
 
-                //supprimer fighter si celui du joueur
-                // gerer l'xp en plus -> tant que le total d xp en plus est > 4, le fighter gagne un niveau (1 lvl par tour de boucle
-                // le reste de l'xp est stocké dans la db
-            } else {
-
-
-                //$attackant->xp = $successXp;
-                $fighterTable->save($attackant);
-
-                if ($succesXp == 4) {
-
-                    $succesXp = 0;
-                    $level = $attack['level'] + 1;
-
-                    $attackant->xp = $succesXp;
-                    $attackant->level = $level;
-                    $fighterTable->save($attackant);
-
-                } else if ($killXp > 4) {
-
-                    do {
-
-                        $succesXp = $succesXp - 4;
-                        $level = $attack['level'] + 1;
-
-                    } while ($succesXp > 4);
-
-                }
-
-                $attackant->xp = $succesXp;
-                $fighterTable->save($attackant);
+                $success = 2;
 
                 $defender->current_health = $newHealth;
                 $fighterTable->save($defender);
-
-                echo $defense['name'];
-                echo " didn't die ; ";
-                echo $attack['name'];
-                echo " wins the xp : ";
-                echo $succesXp;
-
-
-                // gerer l'xp
             }
 
-            // si lvl up -> permettre au joueur de choirir une carac à améliorer  vue +1 ou force+1 ou point de vie+3.
-            // la vie courant revient automatiquement a sa valeur max (health_skill)
+            return $success;
         } else {
 
-            echo " The attack did not succed ! la honte ";
+            $success = 3;
+
+            echo $defense['name'];
+            echo " blocked the attack ! ";
+
+            return $success;
         }
     }
 
-    function xp() {
+    function xp($arg) {
 
         $fighterList = $this->find('all');
         $fighterListArray = $fighterList->toArray();
@@ -267,15 +195,72 @@ class FightersTable extends Table {
         $attack = $fighterListArray[0];
         $defense = $fighterListArray[1];
         $attackId = $attack['id'];
-        $defenseId = $defense['id'];
+        $currentxp = $attack['xp'];
+
+        $fighterTable = TableRegistry::get('fighters');
+        $attackant = $fighterTable->get($attackId);
+
+
+//xp if the defense is killed
+        if ($arg == 1) {
+
+
+
+            $killXp = $currentxp + $defense['level'] + 1;
+            $level = $attack['level'];
+
+
+            while ($killXp > 4) {
+
+                $killXp = $killXp - 4;
+                $level = $level + 1;
+                echo 'Level up !';
+            }
+
+            if ($killXp == 4) {
+
+                $killXp = 0;
+                $level = $level + 1;
+                echo 'Level up !';
+            }
+        } else if ($arg == 2) {
+
+            $killXp = ($currentxp) + 1;
+            $level = $attack['level'];
+
+            if ($killXp == 4) {
+
+                $killXp = 0;
+                $level = $level + 1;
+                echo 'Level up !';
+            }
+        } else if ($arg == 3) {
+
+            $killXp = $currentxp;
+            $level = $attack['level'];
+            echo 'no xp won';
+        }
+
+        $attackant->xp = $killXp;
+        $attackant->level = $level;
+        $fighterTable->save($attackant);
     }
 
     function deleteFighter() {
+        
+        $fighterList = $this->find('all');
+        $fighterListArray = $fighterList->toArray();
 
+        $defense = $fighterListArray[1];
+        $defenseId = $defense['id'];
 
+        $fighterTable = TableRegistry::get('fighters');
+        $defender = $fighterTable->get($defenseId);
+        
+        $fighterTable->delete($defender);
+        
+        
     }
-
-
 
     //Allows the player to create his fighter
     //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
@@ -316,31 +301,31 @@ class FightersTable extends Table {
         $fighterTable->save($fighter);
     }
 
-    function move($data){
+    function move($data) {
 
         $f = $this->get($data["id"]);
         switch ($data["direction"]) {
             case "up":
-                if(!$this->getCase($f->coordinate_x, $f->coordinate_y-1) && $f->coordinate_y > 0 ){
+                if (!$this->getCase($f->coordinate_x, $f->coordinate_y - 1) && $f->coordinate_y > 0) {
                     $f->coordinate_y = $f->coordinate_y - 1;
                     $this->save($f);
                 }
                 break;
             case "down":
-                if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < $this->getY()-1 ){
+                if (!$this->getCase($f->coordinate_x, $f->coordinate_y + 1) && $f->coordinate_y < $this->getY() - 1) {
                     $f->coordinate_y = $f->coordinate_y + 1;
                     $this->save($f);
                 }
                 break;
             case "right":
-                if(!$this->getCase($f->coordinate_x+1, $f->coordinate_y) && $f->coordinate_x < $this->getX()-1 ){
+                if (!$this->getCase($f->coordinate_x + 1, $f->coordinate_y) && $f->coordinate_x < $this->getX() - 1) {
                     $f->coordinate_x = $f->coordinate_x + 1;
                     $this->save($f);
                 }
 
                 break;
             case "left":
-                if(!$this->getCase($f->coordinate_x-1, $f->coordinate_y) && $f->coordinate_x > 0 ){
+                if (!$this->getCase($f->coordinate_x - 1, $f->coordinate_y) && $f->coordinate_x > 0) {
                     $f->coordinate_x = $f->coordinate_x - 1;
                     $this->save($f);
                 }
@@ -350,12 +335,18 @@ class FightersTable extends Table {
         }
     }
 
-    function getCase($x, $y){
+    function getCase($x, $y) {
 
-        $case= $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x,
-                                                    "Fighters.coordinate_y" => $y]]);
+        $case = $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x,
+                "Fighters.coordinate_y" => $y]]);
         return $case->toArray();
     }
+
+    function getFighterById($id) {
+        $fighter = $this->find("all", ["conditions" => ["Fighters.id" => $id]]);
+        return $fighter->toArray();
+    }
+
 }
 
 ?>
