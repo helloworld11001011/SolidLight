@@ -60,6 +60,7 @@ class ArenasController  extends AppController
                         $goodToGo = 1;
                         $playerLogin = $newPlayer['emailLogin'];
                         $session->write('playerEmailLogin', $playerLogin);
+                        $session->write('playerIdLogin', $playersArray[$i]['id']);
                         $playerEmailLogin = $session->read('playerEmailLogin');
                         pr($playerEmailLogin);
                     }
@@ -70,6 +71,9 @@ class ArenasController  extends AppController
                 $goodToGo = 'Good to go';
             }
             else {
+                $session->write('playerEmailLogin', null);
+                $playerEmailLogin = $session->read('playerEmailLogin');
+                pr($playerEmailLogin);
                 $goodToGo = 'Not good to go';
             }
             if($playerLogin) {
@@ -104,49 +108,49 @@ class ArenasController  extends AppController
 
         //Retrieving the fighter list (for displaying a player's fighters)
         //TODO: get list based on current player ID
-        $this -> set('playerFighterList', $this -> Fighters -> getPlayerFighterList());
+        $session = $this->request->session();
+        if($session->check('playerEmailLogin')) {
+            $playerIdLogin = $session->read('playerIdLogin');
+            pr($playerIdLogin);
 
-        //Finding the amount of fighters available to the player and the amount of columns we want for the player fighter table
-        //TODO: get condition on player ID
-        $this -> set('playerFighterCount', $this -> Fighters -> find('all') -> count());
-        $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
+            $this->set('playerIsLogin', 1);
+            $this -> set('playerFighterList', $this -> Fighters -> getPlayerFighterList($playerIdLogin));
 
-        //Retrieving individual compopnents
-        $this -> set('fighter_id', $this -> Fighters -> getFighterId());
-        $this -> set('fighter_name', $this -> Fighters -> getFighterName());
-        $this -> set('coord_x', $this -> Fighters -> getCoordX());
-        $this -> set('coord_y', $this -> Fighters -> getCoordY());
-        $this -> set('lvl', $this -> Fighters -> getLvl());
-        $this -> set('XP', $this -> Fighters -> getXP());
-        $this -> set('sight_skill', $this -> Fighters -> getSkillSight());
-        $this -> set('strength_skill', $this -> Fighters -> getSkillStrength());
-        $this -> set('health_skill', $this -> Fighters -> getSkillHealth());
-        $this -> set('current_health', $this -> Fighters -> getCurrentHealth());
+            //Finding the amount of fighters available to the player and the amount of columns we want for the player fighter table
+            //TODO: get condition on player ID
+            $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
 
-        $newFighter = $this->request->getData();  //getData()?
-        $nameInDb = 0;  //Variable testing if fighter name already exists
-        $fighters = $this->Fighters->find('all');
-        $fightersArray = $fighters->toArray();
+            $newFighter = $this->request->getData();  //getData()?
+            $nameInDb = 0;  //Variable testing if fighter name already exists
+            $fighters = $this->Fighters->find('all');
+            $fightersArray = $fighters->toArray();
 
-        if ($newFighter['name']) {  //What is being tested?
-          for ($i=0; $i<count($fightersArray); $i++) {
-            if($fightersArray[$i]['name'] == $newFighter['name']) {
-                $nameInDb = 1;
+            if ($newFighter['name']) {  //What is being tested?
+            for ($i=0; $i<count($fightersArray); $i++) {
+                if($fightersArray[$i]['name'] == $newFighter['name']) {
+                    $nameInDb = 1;
+                }
             }
-          }
-          if($nameInDb != 1) {
-            $this->Fighters->addANewFighter($this->request->getData());
-          }
-          if ($nameInDb == 1) {
-            $nameInDb = 'A fighter of this name already exists';
-          } else {
-            $nameInDb = 'Your fighter has been created!';
-          }
-          $this->set('nameInDb', $nameInDb);
+            if($nameInDb != 1) {
+                $this->Fighters->addANewFighter($this->request->getData());
+            }
+            if ($nameInDb == 1) {
+                $nameInDb = 'A fighter of this name already exists';
+            } else {
+                $nameInDb = 'Your fighter has been created!';
+            }
+            $this->set('nameInDb', $nameInDb);
+            }
+
+
+            $this->Fighters->fight();
+
         }
 
+        else {
+            $this->set('playerIsLogin', 0);
+        }
 
-        $this->Fighters->fight();
     }
 
     public function sight()

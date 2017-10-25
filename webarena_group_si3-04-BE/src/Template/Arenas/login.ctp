@@ -35,7 +35,7 @@ if(isset($emailInDB))
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
-    <button onclick="location.href='sight'" type="button">Go to Sight</button>
+    <button onclick="location.href='fighter'" type="button">Go to Fighter</button>
     <?= $this->Form->end() ?>
     </br>
 </div>
