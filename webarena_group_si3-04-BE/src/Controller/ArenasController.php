@@ -18,7 +18,6 @@ class ArenasController  extends AppController
 
         $messages = $this->Messages->find('all');
         $messagesArray = $messages->toArray();
-        $messageValue = $messagesArray[0]["message"];
         $nbMessages = count($messagesArray);
         $this->set('messagesArray', $messagesArray);
         $this->set('nbMessages', $nbMessages);
@@ -147,7 +146,23 @@ class ArenasController  extends AppController
         }
 
 
-        $this->Fighters->fight();
+        
+        switch($this->Fighters->fight()) {
+            
+            case 1:
+                $this->Fighters->xp(1);
+                break;
+            
+            case 2:
+                $this->Fighters->xp(2);
+                break;
+            
+            case 3:
+                $this->Fighters->xp(3);
+                break;
+        }
+        
+        
     }
 
     public function sight()
@@ -155,11 +170,15 @@ class ArenasController  extends AppController
         $this -> loadModel('Fighters');
         $this -> set('x', $this->Fighters->getX());
         $this -> set('y', $this->Fighters->getY());
+        
+        
 
         // Call the move function
         if($this->request->is("post")) {
             $this->Fighters->move($this->request->getData());
         }
+        $currentFighterId= 1; /// For testing only, has to be replaced
+        $this -> set('currentFighter', $this->Fighters->getFighterById($currentFighterId));
 
         //Retrieving every fighter currently in the game (for positions)
         $this -> set('fighterList', $this -> Fighters -> getFighterList());
