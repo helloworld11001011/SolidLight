@@ -31,7 +31,7 @@ for($i=0; $i<$matY; $i++){
             }else{
                 // Show the fighter if there is one there
                 if($matrix[$i][$j]){
-                    $pic= strval($matrix[$i][$j]) .'.png';            
+                    $pic= strval($matrix[$i][$j]) .'.png';
                     echo $this->Html->image($pic, ['alt' => 'square_img']);
                 }else{
                     echo $this->Html->image('green_square.png', ['alt' => 'square_img']);

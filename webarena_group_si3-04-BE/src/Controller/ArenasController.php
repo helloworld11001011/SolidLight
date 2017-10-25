@@ -170,47 +170,28 @@ class ArenasController extends AppController {
         }
     }
 
-<<<<<<< HEAD
     public function sight()
     {
         $direction["direction"] = "up"; // For the initial aparition and whenever you reload the page
         $this -> loadModel('Fighters');
         $this -> set('matX', $this->Fighters->getMatrixX());
         $this -> set('matY', $this->Fighters->getMatrixY());
-        
-        $currentFighterId= 2; /// For testing only, has to be replaced
-        //$this -> set('oldPosX', $this->Fighters->getFighterById($currentFighterId)[0]->coordinate_x);
-        //$this -> set('oldPosY', $this->Fighters->getFighterById($currentFighterId)[0]->coordinate_y);
-        
-        //$oldPosX= $this->Fighters->getFighterById($currentFighterId)[0]->coordinate_x;
-        //$oldPosY= $this->Fighters->getFighterById($currentFighterId)[0]->coordinate_y;
-        
+
+        $currentFighterId= 1; /// For testing only, has to be replaced
+
+
         // Call the move function
         if($this->request->is("post")) {
             $direction = $this->request->getData();
             $this->Fighters->move($direction);
         }
-        
+
         $targetedCase= $this->Fighters->getTargetedCase($direction, $this->Fighters->getFighterById($currentFighterId));
         $this -> set('targetedCase', $targetedCase);
 
-        
+
         $this -> set('currentFighter', $this->Fighters->getFighterById($currentFighterId));
-=======
-    public function sight() {
-        $this->loadModel('Fighters');
-        $this->set('x', $this->Fighters->getX());
-        $this->set('y', $this->Fighters->getY());
 
-
-
-        // Call the move function
-        if ($this->request->is("post")) {
-            $this->Fighters->move($this->request->getData());
-        }
-        $currentFighterId = 1; /// For testing only, has to be replaced
-        $this->set('currentFighter', $this->Fighters->getFighterById($currentFighterId));
->>>>>>> fbb335b57cdf2e33719e5e91fa8c5953208cca3f
 
         //Retrieving every fighter currently in the game (for positions)
         $this->set('fighterList', $this->Fighters->getFighterList());
@@ -223,26 +204,4 @@ class ArenasController extends AppController {
 
         $this->Events->addNewEvent();
     }
-
-    /*
-     * Cours du prof pour les formulaires, verifie que les info envoyez son bien en POST pour ensuite les traiter
-     *
-      public function profile()
-      {
-
-      $this->loadModel("Player");
-
-      if($this->request->is("post")) {
-
-      $this->request->getData("email");
-      ...
-
-      }
-
-      $player = $this->gett(42);
-      $this->set("player", $player);
-
-
-      }
-     */
 }

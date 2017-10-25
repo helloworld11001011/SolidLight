@@ -62,57 +62,6 @@ class FightersTable extends Table {
         return 9;
     }
 
-    //For the player's fighter information
-    function getFighterId() {
-        $fighter_id = $this->find('all')->first();
-        return $fighter_id["id"];
-    }
-
-    function getFighterName() {
-        $fighter_name = $this->find('all')->first();
-        return $fighter_name["name"];
-    }
-
-    function getCoordX() {
-        $coord_x = $this->find('all')->first();
-        return $coord_x["coordinate_x"];
-    }
-
-    function getCoordY() {
-        $fighter = $this->find('all')->first();
-        return $fighter["coordinate_y"];
-    }
-
-    function getLvl() {
-        $lvl = $this->find('all')->first();
-        return $lvl["level"];
-    }
-
-    function getXP() {
-        $XP = $this->find('all')->first();
-        return $XP["xp"];
-    }
-
-    function getSkillSight() {
-        $Sight = $this->find('all')->first();
-        return $Sight["skill_sight"];
-    }
-
-    function getSkillStrength() {
-        $Strength = $this->find('all')->first();
-        return $Strength["skill_strength"];
-    }
-
-    function getSkillHealth() {
-        $Health = $this->find('all')->first();
-        return $Health["skill_health"];
-    }
-
-    function getCurrentHealth() {
-        $current_health = $this->find('all')->first();
-        return $current_health["current_health"];
-    }
-
     // The game board's dimensions
     function getMatrixX() {
         // width
@@ -247,7 +196,7 @@ class FightersTable extends Table {
     }
 
     function deleteFighter() {
-        
+
         $fighterList = $this->find('all');
         $fighterListArray = $fighterList->toArray();
 
@@ -256,10 +205,10 @@ class FightersTable extends Table {
 
         $fighterTable = TableRegistry::get('fighters');
         $defender = $fighterTable->get($defenseId);
-        
+
         $fighterTable->delete($defender);
-        
-        
+
+
     }
 
     //Allows the player to create his fighter
@@ -312,21 +261,17 @@ class FightersTable extends Table {
                 }
                 break;
             case "down":
-<<<<<<< HEAD
+
                 if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < $this->getMatrixY()-1 ){
-=======
-                if (!$this->getCase($f->coordinate_x, $f->coordinate_y + 1) && $f->coordinate_y < $this->getY() - 1) {
->>>>>>> fbb335b57cdf2e33719e5e91fa8c5953208cca3f
+
                     $f->coordinate_y = $f->coordinate_y + 1;
                     $this->save($f);
                 }
                 break;
             case "right":
-<<<<<<< HEAD
+
                 if(!$this->getCase($f->coordinate_x+1, $f->coordinate_y) && $f->coordinate_x < $this->getMatrixX()-1 ){
-=======
-                if (!$this->getCase($f->coordinate_x + 1, $f->coordinate_y) && $f->coordinate_x < $this->getX() - 1) {
->>>>>>> fbb335b57cdf2e33719e5e91fa8c5953208cca3f
+
                     $f->coordinate_x = $f->coordinate_x + 1;
                     $this->save($f);
                 }
@@ -356,8 +301,8 @@ class FightersTable extends Table {
         $fighter = $this->find("all", ["conditions" => ["Fighters.id" => $id]]);
         return $fighter->toArray();
     }
-<<<<<<< HEAD
-    
+
+
     function getTargetedCase($direction, $currentFighter){
         switch ($direction["direction"]) {
             case "up":
@@ -377,11 +322,9 @@ class FightersTable extends Table {
             default:
                 pr("Invalid direction value in getTargetedCase()");
         }
-        return $targetedCase;     
+        return $targetedCase;
     }
-=======
 
->>>>>>> fbb335b57cdf2e33719e5e91fa8c5953208cca3f
 }
 
 ?>
