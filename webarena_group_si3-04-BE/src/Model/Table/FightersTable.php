@@ -42,12 +42,19 @@ class FightersTable extends Table {
     }
 
     //TODO: select fighters with 'where id = ' clause for query
-    function getPlayerFighterList() {
+    function getPlayerFighterList($playerIdLogin) {
         $playerFighterList = $this->find('all', array(
             'order' => 'Fighters.level DESC'
         ));
-        $playerFighterListArray = $playerFighterList->toArray();
-        // pr($fighterListArray);
+        $fighterListArray = $playerFighterList->toArray();
+        $playerFighterListArray = [];
+        for ($i=0; $i<count($fighterListArray); $i++) {
+            //pr($fighterListArray[$i]['player_id']);
+            if($fighterListArray[$i]['player_id'] == $playerIdLogin) {
+                array_push($playerFighterListArray, $fighterListArray[$i]);
+            }
+        }
+
         return $playerFighterListArray;
     }
 
