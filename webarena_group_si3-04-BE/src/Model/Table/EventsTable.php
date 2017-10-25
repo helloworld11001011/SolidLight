@@ -61,7 +61,7 @@ class EventsTable extends Table {
         echo "<br>";
         echo " evenement: Bobby attaque Paul et le touche --> créé";
 
-        $eventTable->save($event);
+        //$eventTable->save($event);
     }
 
 }
