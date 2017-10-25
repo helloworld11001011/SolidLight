@@ -170,11 +170,15 @@ class ArenasController  extends AppController
         $this -> loadModel('Fighters');
         $this -> set('x', $this->Fighters->getX());
         $this -> set('y', $this->Fighters->getY());
+        
+        
 
         // Call the move function
         if($this->request->is("post")) {
             $this->Fighters->move($this->request->getData());
         }
+        $currentFighterId= 1; /// For testing only, has to be replaced
+        $this -> set('currentFighter', $this->Fighters->getFighterById($currentFighterId));
 
         //Retrieving every fighter currently in the game (for positions)
         $this -> set('fighterList', $this -> Fighters -> getFighterList());
