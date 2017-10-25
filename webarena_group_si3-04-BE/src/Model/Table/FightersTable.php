@@ -348,7 +348,7 @@ class FightersTable extends Table {
         $case= $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x,
                                                     "Fighters.coordinate_y" => $y]]);
         return $case->toArray();
-
+    }
 }
 
 ?>
