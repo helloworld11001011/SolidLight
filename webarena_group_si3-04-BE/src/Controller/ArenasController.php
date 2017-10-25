@@ -18,7 +18,6 @@ class ArenasController  extends AppController
 
         $messages = $this->Messages->find('all');
         $messagesArray = $messages->toArray();
-        $messageValue = $messagesArray[0]["message"];
         $nbMessages = count($messagesArray);
         $this->set('messagesArray', $messagesArray);
         $this->set('nbMessages', $nbMessages);
