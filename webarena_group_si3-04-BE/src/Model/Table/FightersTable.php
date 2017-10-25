@@ -107,12 +107,12 @@ class FightersTable extends Table {
     }
 
     // The game board's dimensions
-    function getX() {
+    function getMatrixX() {
         // width
         return 15;
     }
 
-    function getY() {
+    function getMatrixY() {
         // height
         return 10;
     }
@@ -320,13 +320,13 @@ class FightersTable extends Table {
                 }
                 break;
             case "down":
-                if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < $this->getY()-1 ){
+                if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < $this->getMatrixY()-1 ){
                     $f->coordinate_y = $f->coordinate_y + 1;
                     $this->save($f);
                 }
                 break;
             case "right":
-                if(!$this->getCase($f->coordinate_x+1, $f->coordinate_y) && $f->coordinate_x < $this->getX()-1 ){
+                if(!$this->getCase($f->coordinate_x+1, $f->coordinate_y) && $f->coordinate_x < $this->getMatrixX()-1 ){
                     $f->coordinate_x = $f->coordinate_x + 1;
                     $this->save($f);
                 }
@@ -338,8 +338,10 @@ class FightersTable extends Table {
                     $this->save($f);
                 }
                 break;
+            case "none":
+                break;
             default :
-                pr("Direction is invalid");
+                pr("Direction is invalid in move()");
         }
     }
 
@@ -353,6 +355,28 @@ class FightersTable extends Table {
     function getFighterById($id){
         $fighter= $this->find("all", ["conditions" => ["Fighters.id" => $id]]);
         return $fighter->toArray();
+    }
+    
+    function getTargetedCase($direction, $currentFighter){
+        switch ($direction["direction"]) {
+            case "up":
+                $targetedCase = array("y" => $currentFighter[0]->coordinate_y - 1, "x" => $currentFighter[0]->coordinate_x);
+                break;
+            case "right":
+                $targetedCase = array("y" => $currentFighter[0]->coordinate_y, "x" => $currentFighter[0]->coordinate_x + 1);
+                break;
+            case "down":
+                $targetedCase = array("y" => $currentFighter[0]->coordinate_y + 1, "x" => $currentFighter[0]->coordinate_x);
+                break;
+            case "left":
+                $targetedCase = array("y" => $currentFighter[0]->coordinate_y, "x" => $currentFighter[0]->coordinate_x - 1);
+                break;
+            case "none":
+                break;
+            default:
+                pr("Invalid direction value in getTargetedCase()");
+        }
+        return $targetedCase;     
     }
 }
 

@@ -151,17 +151,28 @@ class ArenasController  extends AppController
 
     public function sight()
     {
+        $direction["direction"] = "up"; // For the initial aparition and whenever you reload the page
         $this -> loadModel('Fighters');
-        $this -> set('x', $this->Fighters->getX());
-        $this -> set('y', $this->Fighters->getY());
+        $this -> set('matX', $this->Fighters->getMatrixX());
+        $this -> set('matY', $this->Fighters->getMatrixY());
         
+        $currentFighterId= 2; /// For testing only, has to be replaced
+        //$this -> set('oldPosX', $this->Fighters->getFighterById($currentFighterId)[0]->coordinate_x);
+        //$this -> set('oldPosY', $this->Fighters->getFighterById($currentFighterId)[0]->coordinate_y);
         
-
+        //$oldPosX= $this->Fighters->getFighterById($currentFighterId)[0]->coordinate_x;
+        //$oldPosY= $this->Fighters->getFighterById($currentFighterId)[0]->coordinate_y;
+        
         // Call the move function
         if($this->request->is("post")) {
-            $this->Fighters->move($this->request->getData());
+            $direction = $this->request->getData();
+            $this->Fighters->move($direction);
         }
-        $currentFighterId= 1; /// For testing only, has to be replaced
+        
+        $targetedCase= $this->Fighters->getTargetedCase($direction, $this->Fighters->getFighterById($currentFighterId));
+        $this -> set('targetedCase', $targetedCase);
+
+        
         $this -> set('currentFighter', $this->Fighters->getFighterById($currentFighterId));
 
         //Retrieving every fighter currently in the game (for positions)
