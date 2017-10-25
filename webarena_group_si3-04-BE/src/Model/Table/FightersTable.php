@@ -349,6 +349,11 @@ class FightersTable extends Table {
                                                     "Fighters.coordinate_y" => $y]]);
         return $case->toArray();
     }
+    
+    function getFighterById($id){
+        $fighter= $this->find("all", ["conditions" => ["Fighters.id" => $id]]);
+        return $fighter->toArray();
+    }
 }
 
 ?>
