@@ -50,7 +50,6 @@ $fighterCoId = 2;
                     echo $this->Form->end();
                     ?>
 
-
                    <!--  <div class="messageType">
                         <input id="messageInput" type="text" name="message" />
                     </div>

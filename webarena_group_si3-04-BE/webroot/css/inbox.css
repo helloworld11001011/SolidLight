@@ -19,7 +19,6 @@
 body {
     height: 100%;
     width: 100%;
-    background-color: blue;
 }
 
 .messagesBox {
@@ -35,7 +34,6 @@ body {
     flex-direction: row;
     height: 10%;
     width: 100%;
-    border: 1px solid blue;
 }
 
 .messageType {
@@ -46,9 +44,8 @@ body {
 input[type="text"] {
     background-color: #ffd299;
     height: 100px;
-    width: 80%;
+    width: 330px;
     font-size: 15px;
-
 }
 
 #btnSend {
@@ -111,10 +108,9 @@ input[type="text"] {
     display: flex;
     flex-direction: row;
     width: 100%;
-    border: 1px solid blue;
 }
 
 input[type="submit"] {
-    width: 80%;
+    width: 300px;
     height: 100%;
 }
