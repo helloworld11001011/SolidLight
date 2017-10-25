@@ -1,18 +1,20 @@
 <?php
-namespace App\Controller;
-use App\Controller\AppController;
-/**
-* Personal Controller
-* User personal interface
-*
-*/
-class ArenasController  extends AppController
-{
-    public function inbox() {
-        $this -> loadModel('Messages');
 
-        if($this->request->is('post'))
-        {
+namespace App\Controller;
+
+use App\Controller\AppController;
+
+/**
+ * Personal Controller
+ * User personal interface
+ *
+ */
+class ArenasController extends AppController {
+
+    public function inbox() {
+        $this->loadModel('Messages');
+
+        if ($this->request->is('post')) {
             $this->Messages->addANewMessage($this->request->getData());
         }
 
@@ -23,43 +25,42 @@ class ArenasController  extends AppController
         $this->set('nbMessages', $nbMessages);
     }
 
-    public function hallOfFame () {
+    public function hallOfFame() {
         $this->loadModel('Fighters');
         $this->loadModel('Events');
 
-        $this -> set('fighterDistribution', $this->Fighters->getFighterDistribution());
-        $this -> set('deadFighterCount', $this->Events->getDeadFighters());
+        $this->set('fighterDistribution', $this->Fighters->getFighterDistribution());
+        $this->set('deadFighterCount', $this->Events->getDeadFighters());
     }
 
-    public function index () {
-        $this -> loadModel('Fighters');
+    public function index() {
+        $this->loadModel('Fighters');
 
         //Retrieving every fighter currently in the game (for leaderboards)
-        $this -> set('fighterList', $this -> Fighters -> getFighterList());
-        $this -> set('fighterCount', $this -> Fighters -> find('all') -> count());
-        $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
+        $this->set('fighterList', $this->Fighters->getFighterList());
+        $this->set('fighterCount', $this->Fighters->find('all')->count());
+        $this->set('fighterTableWidth', $this->Fighters->getFighterTableWidth());
     }
 
-    public function login ()
-    {
-        $this -> loadModel('Players');
+    public function login() {
+        $this->loadModel('Players');
         $newPlayer = $this->request->getData();
         $session = $this->request->session();
 
         $goodToGo = 0;
         $emailInDB = 0;
-        $playerLogin  = 0;
+        $playerLogin = 0;
         $players = $this->Players->find('all');
         $playersArray = $players->toArray();
 
-        if($this->request->is('post'))
-        {
-            if($newPlayer['emailLogin']) {
-                for ($i=0; $i<count($playersArray); $i++) {
-                    if($playersArray[$i]['email'] == $newPlayer['emailLogin'] && $playersArray[$i]['password'] == $newPlayer['passwordLogin']) {
+        if ($this->request->is('post')) {
+            if ($newPlayer['emailLogin']) {
+                for ($i = 0; $i < count($playersArray); $i++) {
+                    if ($playersArray[$i]['email'] == $newPlayer['emailLogin'] && $playersArray[$i]['password'] == $newPlayer['passwordLogin']) {
                         $goodToGo = 1;
                         $playerLogin = $newPlayer['emailLogin'];
                         $session->write('playerEmailLogin', $playerLogin);
+                        $session->write('playerIdLogin', $playersArray[$i]['id']);
                         $playerEmailLogin = $session->read('playerEmailLogin');
                         pr($playerEmailLogin);
                     }
@@ -70,27 +71,26 @@ class ArenasController  extends AppController
                 $goodToGo = 'Good to go';
             }
             else {
+                $session->write('playerEmailLogin', null);
+                $playerEmailLogin = $session->read('playerEmailLogin');
+                pr($playerEmailLogin);
                 $goodToGo = 'Not good to go';
-            }
-            if($playerLogin) {
-                $this->set('playerLogin', $playerLogin);
             }
 
             $this->set('goodToGo', $goodToGo);
 
             if ($newPlayer['email'] && $newPlayer['password']) {
-                for ($i=0; $i<count($playersArray); $i++) {
-                    if($playersArray[$i]['email'] == $newPlayer['email']) {
+                for ($i = 0; $i < count($playersArray); $i++) {
+                    if ($playersArray[$i]['email'] == $newPlayer['email']) {
                         $emailInDB = 1;
                     }
                 }
-                if($emailInDB != 1) {
+                if ($emailInDB != 1) {
                     $this->Players->addANewPlayer($this->request->getData());
                 }
                 if ($emailInDB == 1) {
                     $emailInDB = 'Your player is already in DB';
-                }
-                else {
+                } else {
                     $emailInDB = 'Your player is saved';
                 }
                 $this->set('emailInDB', $emailInDB);
@@ -98,57 +98,79 @@ class ArenasController  extends AppController
         }
     }
 
-    public function fighter ()
-    {
-        $this -> loadModel('Fighters');
+    public function fighter() {
+        $this->loadModel('Fighters');
+        $this->loadModel('Events');
+
 
         //Retrieving the fighter list (for displaying a player's fighters)
         //TODO: get list based on current player ID
-        $this -> set('playerFighterList', $this -> Fighters -> getPlayerFighterList());
+        $session = $this->request->session();
+        if($session->check('playerEmailLogin')) {
+            $playerIdLogin = $session->read('playerIdLogin');
+            pr($playerIdLogin);
 
-        //Finding the amount of fighters available to the player and the amount of columns we want for the player fighter table
-        //TODO: get condition on player ID
-        $this -> set('playerFighterCount', $this -> Fighters -> find('all') -> count());
-        $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
+            $this->set('playerIsLogin', 1);
+            $this -> set('playerFighterList', $this -> Fighters -> getPlayerFighterList($playerIdLogin));
 
-        //Retrieving individual compopnents
-        $this -> set('fighter_id', $this -> Fighters -> getFighterId());
-        $this -> set('fighter_name', $this -> Fighters -> getFighterName());
-        $this -> set('coord_x', $this -> Fighters -> getCoordX());
-        $this -> set('coord_y', $this -> Fighters -> getCoordY());
-        $this -> set('lvl', $this -> Fighters -> getLvl());
-        $this -> set('XP', $this -> Fighters -> getXP());
-        $this -> set('sight_skill', $this -> Fighters -> getSkillSight());
-        $this -> set('strength_skill', $this -> Fighters -> getSkillStrength());
-        $this -> set('health_skill', $this -> Fighters -> getSkillHealth());
-        $this -> set('current_health', $this -> Fighters -> getCurrentHealth());
+            //Finding the amount of fighters available to the player and the amount of columns we want for the player fighter table
+            //TODO: get condition on player ID
+            $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
 
-        $newFighter = $this->request->getData();  //getData()?
-        $nameInDb = 0;  //Variable testing if fighter name already exists
-        $fighters = $this->Fighters->find('all');
-        $fightersArray = $fighters->toArray();
+            $newFighter = $this->request->getData();  //getData()?
+            $nameInDb = 0;  //Variable testing if fighter name already exists
+            $fighters = $this->Fighters->find('all');
+            $fightersArray = $fighters->toArray();
 
-        if ($newFighter['name']) {  //What is being tested?
-          for ($i=0; $i<count($fightersArray); $i++) {
-            if($fightersArray[$i]['name'] == $newFighter['name']) {
-                $nameInDb = 1;
+            if ($newFighter['name']) {  //What is being tested?
+            for ($i=0; $i<count($fightersArray); $i++) {
+                if($fightersArray[$i]['name'] == $newFighter['name']) {
+                    $nameInDb = 1;
+                }
             }
-          }
-          if($nameInDb != 1) {
-            $this->Fighters->addANewFighter($this->request->getData());
-          }
-          if ($nameInDb == 1) {
-            $nameInDb = 'A fighter of this name already exists';
-          } else {
-            $nameInDb = 'Your fighter has been created!';
-          }
-          $this->set('nameInDb', $nameInDb);
+            if($nameInDb != 1) {
+                $this->Fighters->addANewFighter($this->request->getData());
+            }
+            if ($nameInDb == 1) {
+                $nameInDb = 'A fighter of this name already exists';
+            } else {
+                $nameInDb = 'Your fighter has been created!';
+            }
+            $this->set('nameInDb', $nameInDb);
+            }
+
+
+            $this->Fighters->fight();
+
+        }
+
+        else {
+            $this->set('playerIsLogin', 0);
         }
 
 
-        $this->Fighters->fight();
+        switch ($this->Fighters->fight()) {
+
+            case 1:
+                $this->Fighters->xp(1);
+                $this->Events->addNewEvent(1);
+                $this->Fighters->deleteFighter();
+
+                break;
+
+            case 2:
+                $this->Fighters->xp(2);
+                $this->Events->addNewEvent(2);
+                break;
+
+            case 3:
+                $this->Fighters->xp(3);
+                $this->Events->addNewEvent(3);
+                break;
+        }
     }
 
+<<<<<<< HEAD
     public function sight()
     {
         $direction["direction"] = "up"; // For the initial aparition and whenever you reload the page
@@ -174,37 +196,53 @@ class ArenasController  extends AppController
 
         
         $this -> set('currentFighter', $this->Fighters->getFighterById($currentFighterId));
+=======
+    public function sight() {
+        $this->loadModel('Fighters');
+        $this->set('x', $this->Fighters->getX());
+        $this->set('y', $this->Fighters->getY());
+
+
+
+        // Call the move function
+        if ($this->request->is("post")) {
+            $this->Fighters->move($this->request->getData());
+        }
+        $currentFighterId = 1; /// For testing only, has to be replaced
+        $this->set('currentFighter', $this->Fighters->getFighterById($currentFighterId));
+>>>>>>> fbb335b57cdf2e33719e5e91fa8c5953208cca3f
 
         //Retrieving every fighter currently in the game (for positions)
-        $this -> set('fighterList', $this -> Fighters -> getFighterList());
-        $this -> set('fighterCount', $this -> Fighters -> find('all') -> count());
+        $this->set('fighterList', $this->Fighters->getFighterList());
+        $this->set('fighterCount', $this->Fighters->find('all')->count());
     }
 
-    public function diary()
-    {
+    public function diary() {
 
+        $this->loadModel('Events');
+
+        $this->Events->addNewEvent();
     }
 
-   /*
-    * Cours du prof pour les formulaires, verifie que les info envoyez son bien en POST pour ensuite les traiter
-    *
-    public function profile()
-    {
+    /*
+     * Cours du prof pour les formulaires, verifie que les info envoyez son bien en POST pour ensuite les traiter
+     *
+      public function profile()
+      {
 
-        $this->loadModel("Player");
+      $this->loadModel("Player");
 
-         if($this->request->is("post")) {
+      if($this->request->is("post")) {
 
-            $this->request->getData("email");
-            ...
+      $this->request->getData("email");
+      ...
 
-        }
+      }
 
-        $player = $this->gett(42);
-        $this->set("player", $player);
+      $player = $this->gett(42);
+      $this->set("player", $player);
 
 
-    }
-    */
-
+      }
+     */
 }
