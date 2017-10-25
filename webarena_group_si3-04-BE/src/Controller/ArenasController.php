@@ -151,6 +151,7 @@ class ArenasController  extends AppController
             
             case 1:
                 $this->Fighters->xp(1);
+                $this->Fighters->deleteFighter();
                 break;
             
             case 2:
@@ -188,6 +189,10 @@ class ArenasController  extends AppController
     public function diary()
     {
 
+        $this ->loadModel('Events');
+        
+        $this->Events->addNewEvent();
+        
     }
 
    /*

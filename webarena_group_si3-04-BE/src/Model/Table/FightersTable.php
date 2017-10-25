@@ -241,6 +241,18 @@ class FightersTable extends Table {
 
     function deleteFighter() {
         
+        $fighterList = $this->find('all');
+        $fighterListArray = $fighterList->toArray();
+
+        $defense = $fighterListArray[1];
+        $defenseId = $defense['id'];
+
+        $fighterTable = TableRegistry::get('fighters');
+        $defender = $fighterTable->get($defenseId);
+        
+        $fighterTable->delete($defender);
+        
+        
     }
 
     //Allows the player to create his fighter
