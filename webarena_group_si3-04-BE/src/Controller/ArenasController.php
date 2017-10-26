@@ -108,14 +108,6 @@ class ArenasController extends AppController {
         $session = $this->request->session();
         if($session->check('playerEmailLogin')) {
             $playerIdLogin = $session->read('playerIdLogin');
-            pr($playerIdLogin);
-
-            $this->set('playerIsLogin', 1);
-            $this -> set('playerFighterList', $this -> Fighters -> getPlayerFighterList($playerIdLogin));
-
-            //Finding the amount of fighters available to the player and the amount of columns we want for the player fighter table
-            //TODO: get condition on player ID
-            $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
 
             $newFighter = $this->request->getData();  //getData()?
             $nameInDb = 0;  //Variable testing if fighter name already exists
@@ -129,7 +121,7 @@ class ArenasController extends AppController {
                 }
             }
             if($nameInDb != 1) {
-                $this->Fighters->addANewFighter($this->request->getData());
+                $this->Fighters->addANewFighter($this->request->getData(), $playerIdLogin);
             }
             if ($nameInDb == 1) {
                 $nameInDb = 'A fighter of this name already exists';
@@ -139,6 +131,12 @@ class ArenasController extends AppController {
             $this->set('nameInDb', $nameInDb);
             }
 
+            $this->set('playerIsLogin', 1);
+            $this -> set('playerFighterList', $this -> Fighters -> getPlayerFighterList($playerIdLogin));
+
+            //Finding the amount of fighters available to the player and the amount of columns we want for the player fighter table
+            //TODO: get condition on player ID
+            $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
 
             $this->Fighters->fight();
 
