@@ -170,25 +170,32 @@ class ArenasController extends AppController {
 
     public function sight()
     {
-        $direction["direction"] = "up"; // For the initial aparition and whenever you reload the page
+        // Default for the initial aparition and whenever you reload the page
+        $direction["direction"] = "up"; 
+        
+        // Load model and set the matrix's size
         $this -> loadModel('Fighters');
         $this -> set('matX', $this->Fighters->getMatrixX());
         $this -> set('matY', $this->Fighters->getMatrixY());
-
-        $currentFighterId= 1; /// For testing only, has to be replaced
-
+        
+        // For testing only, has to be replaced
+        $currentFighterId= 2; 
 
         // Call the move function
         if($this->request->is("post")) {
             $direction = $this->request->getData();
             $this->Fighters->move($direction);
         }
-
-        $targetedCase= $this->Fighters->getTargetedCase($direction, $this->Fighters->getFighterById($currentFighterId));
+        
+        // Get the current fighter after it's position is updated by move()
+        $currentFighter= $this->Fighters->getFighterById($currentFighterId);
+        
+        // Get the case that is being targeted and send it to the view for displaying
+        $targetedCase= $this->Fighters->getTargetedCase($direction, $currentFighter);
         $this -> set('targetedCase', $targetedCase);
 
-
-        $this -> set('currentFighter', $this->Fighters->getFighterById($currentFighterId));
+        // Send the current fighter to the view for displaying the war fog
+        $this -> set('currentFighter', $currentFighter);
 
 
         //Retrieving every fighter currently in the game (for positions)
