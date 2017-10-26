@@ -214,12 +214,12 @@ class FightersTable extends Table {
     //Allows the player to create his fighter
     //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
     //TODO: X and Y position must be decided when the fighter joins the arena
-    function addANewFighter($arg) {
+    function addANewFighter($arg, $playerIdLogin) {
         $fighterData = $arg;
         $fighterTable = TableRegistry::get('fighters');
         $fighter = $fighterTable->newEntity();
         $fighter->name = $fighterData['name'];
-        $fighter->player_id = 'b33';  //
+        $fighter->player_id = $playerIdLogin;
         $fighter->coordinate_x = '0';
         $fighter->coordinate_y = '0';
         $fighter->level = '1';
