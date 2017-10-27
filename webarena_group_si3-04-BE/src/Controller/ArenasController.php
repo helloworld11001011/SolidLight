@@ -171,7 +171,7 @@ class ArenasController extends AppController {
     public function sight()
     {
         // Default for the initial aparition and whenever you reload the page
-        $direction["direction"] = "up"; 
+        $data["direction"] = "right";
         
         // Load model and set the matrix's size
         $this -> loadModel('Fighters');
@@ -183,15 +183,21 @@ class ArenasController extends AppController {
 
         // Call the move function
         if($this->request->is("post")) {
-            $direction = $this->request->getData();
-            $this->Fighters->move($direction);
+            $data = $this->request->getData();
+            
+            if($data["attack"] == "no"){
+                $this->Fighters->move($data);
+            }else{
+                $targetedCase= $data["targetedCase"];
+            }
+            
         }
         
         // Get the current fighter after it's position is updated by move()
         $currentFighter= $this->Fighters->getFighterById($currentFighterId);
         
         // Get the case that is being targeted and send it to the view for displaying
-        $targetedCase= $this->Fighters->getTargetedCase($direction, $currentFighter);
+        $targetedCase= $this->Fighters->getTargetedCase($data, $currentFighter);
         $this -> set('targetedCase', $targetedCase);
 
         // Send the current fighter to the view for displaying the war fog

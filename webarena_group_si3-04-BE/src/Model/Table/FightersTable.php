@@ -304,6 +304,7 @@ class FightersTable extends Table {
 
 
     function getTargetedCase($direction, $currentFighter){
+        
         switch ($direction["direction"]) {
             case "up":
                 $targetedCase = array("y" => $currentFighter[0]->coordinate_y - 1, "x" => $currentFighter[0]->coordinate_x);
@@ -317,10 +318,11 @@ class FightersTable extends Table {
             case "left":
                 $targetedCase = array("y" => $currentFighter[0]->coordinate_y, "x" => $currentFighter[0]->coordinate_x - 1);
                 break;
-            case "none":
+            case "null":
+                $targetedCase = $direction["targetedCase"];
                 break;
             default:
-                pr("Invalid direction value in getTargetedCase()");
+                pr("Invalid data in getTargetedCase()");
         }
         return $targetedCase;
     }
