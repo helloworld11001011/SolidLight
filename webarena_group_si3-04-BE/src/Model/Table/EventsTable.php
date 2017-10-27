@@ -30,8 +30,15 @@ class EventsTable extends Table {
             $deadFightersArray[$i][0] = $Array[$i]->month;
             $deadFightersArray[$i][1] = $Array[$i]->count;
         }
-        pr($deadFightersArray);
         return $deadFightersArray;
+    }
+
+    function getDeadFightersAmount () {
+        $deadFighterCountAmount = $this->find('all', array(
+            'conditions' => array('name like "Death %"')
+        ))->count();
+        pr($deadFighterCountAmount);
+        return $deadFighterCountAmount;
     }
 
     function addNewEvent($arg) {

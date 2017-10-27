@@ -31,6 +31,7 @@ class ArenasController extends AppController {
 
         $this->set('fighterDistribution', $this->Fighters->getFighterDistribution());
         $this->set('deadFighterCount', $this->Events->getDeadFighters());
+        $this->set('deadFighterCountAmount', $this->Events->getDeadFightersAmount());
     }
 
     public function index() {
