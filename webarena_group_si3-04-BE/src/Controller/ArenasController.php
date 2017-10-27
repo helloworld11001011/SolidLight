@@ -138,7 +138,7 @@ class ArenasController extends AppController {
             //TODO: get condition on player ID
             $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
 
-            $this->Fighters->fight();
+            //$this->Fighters->fight();
 
         }
 
@@ -185,15 +185,21 @@ class ArenasController extends AppController {
         if($this->request->is("post")) {
             $data = $this->request->getData();
             
+            // If this is not an attack
             if($data["attack"] == "no"){
+                // Then move()
                 $this->Fighters->move($data);
-            }else{
+            }else{ // Else, if this is an attack, fight()
+                // Get the targeted case from the sight data
                 $targetedCase= $data["targetedCase"];
+                // Call the fight() function with the contenders as parameters if the targeted case si in fact a fighter
+                if($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"]))
+                    $this->Fighters->fight($this->Fighters->getFighterById($currentFighterId)[0], $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0]);
             }
             
         }
         
-        // Get the current fighter after it's position is updated by move()
+        // Get the current fighter after it's position has been updated by move()
         $currentFighter= $this->Fighters->getFighterById($currentFighterId);
         
         // Get the case that is being targeted and send it to the view for displaying

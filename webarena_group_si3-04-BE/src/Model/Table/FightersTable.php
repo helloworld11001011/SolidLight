@@ -74,13 +74,14 @@ class FightersTable extends Table {
     }
 
     //fonction qui fait se battre 2 fighter avec les modif (dans la base de données) qui vont avec
-    function fight() {
+    function fight($attack, $defense) {
+        
+        //$fighterList = $this->find('all');
+        //$fighterListArray = $fighterList->toArray();
 
-        $fighterList = $this->find('all');
-        $fighterListArray = $fighterList->toArray();
-
-        $attack = $fighterListArray[0];
-        $defense = $fighterListArray[1];
+        //$attack = $fighterListArray[0];
+        //$defense = $fighterListArray[1];
+        
         $defenseId = $defense['id'];
         $random = rand(0, 20);
         $success = 0;
