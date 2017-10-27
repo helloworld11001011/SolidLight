@@ -74,13 +74,14 @@ class FightersTable extends Table {
     }
 
     //fonction qui fait se battre 2 fighter avec les modif (dans la base de données) qui vont avec
-    function fight() {
+    function fight($attack, $defense) {
+        
+        //$fighterList = $this->find('all');
+        //$fighterListArray = $fighterList->toArray();
 
-        $fighterList = $this->find('all');
-        $fighterListArray = $fighterList->toArray();
-
-        $attack = $fighterListArray[0];
-        $defense = $fighterListArray[1];
+        //$attack = $fighterListArray[0];
+        //$defense = $fighterListArray[1];
+        
         $defenseId = $defense['id'];
         $random = rand(0, 20);
         $success = 0;
@@ -304,6 +305,7 @@ class FightersTable extends Table {
 
 
     function getTargetedCase($direction, $currentFighter){
+        
         switch ($direction["direction"]) {
             case "up":
                 $targetedCase = array("y" => $currentFighter[0]->coordinate_y - 1, "x" => $currentFighter[0]->coordinate_x);
@@ -317,10 +319,11 @@ class FightersTable extends Table {
             case "left":
                 $targetedCase = array("y" => $currentFighter[0]->coordinate_y, "x" => $currentFighter[0]->coordinate_x - 1);
                 break;
-            case "none":
+            case "null":
+                $targetedCase = $direction["targetedCase"];
                 break;
             default:
-                pr("Invalid direction value in getTargetedCase()");
+                pr("Invalid data in getTargetedCase()");
         }
         return $targetedCase;
     }
