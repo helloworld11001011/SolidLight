@@ -10,12 +10,13 @@ class MessagesTable extends Table
         $messageData = $arg;
         $messagesTable = TableRegistry::get('messages');
         $messages = $messagesTable->newEntity();
-        //pr($messageData); die();
-        if(isset($messages->message)) {
-            $messages->fighter_id_from = $messageData['fighterCo'];
-            $messages->fighter_id = $messageData['fighterTo'];
-            $messages->message = $messageData['message'];
-            $messagesTable->save($messages);
+        if(isset($messageData['message'])) {
+            if($messageData['message'] != '') {
+                $messages->fighter_id_from = $messageData['fighterCo'];
+                $messages->fighter_id = $messageData['fighterTo'];
+                $messages->message = $messageData['message'];
+                $messagesTable->save($messages);
+            }
         }
     }
 }

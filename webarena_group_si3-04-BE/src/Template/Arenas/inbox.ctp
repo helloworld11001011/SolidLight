@@ -15,27 +15,57 @@
                 <div class='maxiContainer'>
                 <div id='fightersContainer'>
                     <?php
+                    if(isset($otherFightersList)) {
+                        for($i=0; $i<count($otherFightersList); $i++) {
+                            if($otherFightersList[$i]['id'] == $fighterFrom) {
+                            ?>
+                                <div id='fighterChosenDiv'>
+                                    <?php
+                                    $pic= strval($otherFightersList[$i]['id']) .'.png';
+                                    echo $this->Html->image($pic);
+                                    echo $otherFightersList[$i]['name'];
+                                    echo $this->Form->postButton('', null, [ "class"=>"btnTalk", "data" => [ "fighterWithId" => $otherFightersList[$i]['id']]]);
+                                    ?>
+                                </div>
+                            <?php
+                            }
+                            else {
+                                ?>
+                                    <div id='fighterDiv'>
+                                        <?php
+                                        $pic= strval($otherFightersList[$i]['id']) .'.png';
+                                        echo $this->Html->image($pic);
+                                        echo $otherFightersList[$i]['name'];
+                                        echo $this->Form->postButton('', null, [ "class"=>"btnTalk", "data" => [ "fighterWithId" => $otherFightersList[$i]['id']]]);
+                                        ?>
+                                    </div>
+                                <?php
+                            }
+                        }
+                    }
                     ?>
                 </div>
                 <div class="boxDialog">
                     <div class="messagesBox">
 
                         <?php
-                        for($i=0; $i<$nbMessages; $i++) {
+                        if(isset($messagesArray)) {
+                            for($i=0; $i<count($messagesArray); $i++) {
 
-                            if($messagesArray[$i]["fighter_id_from"] == $fighterChosenId){
-                                echo "<div class='messageBubbleDivMine'>";
-                                    echo "<div class='messageBubbleMine'>";
-                                        echo $messagesArray[$i]["message"];
+                                if($messagesArray[$i]["fighter_id_from"] == $fighterChosenId){
+                                    echo "<div class='messageBubbleDivMine'>";
+                                        echo "<div class='messageBubbleMine'>";
+                                            echo $messagesArray[$i]["message"];
+                                        echo "</div>";
                                     echo "</div>";
-                                echo "</div>";
-                            }
-                            else {
-                                echo "<div class='messageBubbleDiv'>";
-                                    echo "<div class='messageBubble'>";
-                                        echo $messagesArray[$i]["message"];
+                                }
+                                else {
+                                    echo "<div class='messageBubbleDiv'>";
+                                        echo "<div class='messageBubble'>";
+                                            echo $messagesArray[$i]["message"];
+                                        echo "</div>";
                                     echo "</div>";
-                                echo "</div>";
+                                }
                             }
                         }
                         ?>
@@ -47,7 +77,7 @@
                         echo $this->Form->create('Message', ['class'=>'coco']);
                         echo $this->Form->input('message',['id'=>'messageInput', 'label'=>false]);
                         echo $this->Form->input('fighterCo', ['type' => 'hidden', 'value' => $fighterChosenId]);
-                        echo $this->Form->input('fighterTo', ['type' => 'hidden', 'value' => 2]);
+                        echo $this->Form->input('fighterTo', ['type' => 'hidden', 'value' => $fighterFrom]);
                         echo $this->Form->submit(__('SEND'));
                         echo $this->Form->end();
                         ?>

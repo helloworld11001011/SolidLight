@@ -19,22 +19,42 @@ class ArenasController extends AppController {
             $this->loadModel('Messages');
             $this->loadModel('Fighters');
 
-            if ($this->request->is('post')) {
+            $dataSent = $this->request->getData();
+
+            if(isset($dataSent['fighterWithId'])) {
+                $session->write('fighterFrom', $dataSent['fighterWithId']);
+            }
+
+            if($session->check('fighterFrom')) {
+                $fighterFrom = $session->read('fighterFrom');
+            }
+            else {
+                $fighterFrom = -1;
+            }
+
+            if ($this->request->is('post') && $session->check('fighterFrom')) {
                 $this->Messages->addANewMessage($this->request->getData());
             }
 
             $otherFightersList = $this->Fighters->getOtherFightersList($session->read('playerIdLogin'));
             $this->set('otherFightersList', $otherFightersList);
 
+
             $messages = $this->Messages->find('all');
             $messagesArray = $messages->toArray();
-            $nbMessages = count($messagesArray);
+            $goodMessages = [];
+            for($i=0; $i<count($messagesArray); $i++) {
+                if(($messagesArray[$i]['fighter_id_from']==$fighterFrom && $messagesArray[$i]['fighter_id']==$session->read('fighterChosenId')) || ($messagesArray[$i]['fighter_id_from']== $session->read('fighterChosenId') && $messagesArray[$i]['fighter_id']==$fighterFrom)) {
+                    array_push($goodMessages, $messagesArray[$i]);
+                }
+            }
 
             $this->set('fighterIsChosen', 1);
+            $this->set('fighterFrom', $fighterFrom);
             $this->set('fighterChosenId', $session->read('fighterChosenId'));
             $this->set('fighterChosenName', $session->read('fighterChosenName'));
-            $this->set('messagesArray', $messagesArray);
-            $this->set('nbMessages', $nbMessages);
+            $this->set('messagesArray', $goodMessages);
+
         }
         else {
             if($session->check('playerEmailLogin')) {
@@ -86,7 +106,6 @@ class ArenasController extends AppController {
                         $session->write('playerEmailLogin', $playerLogin);
                         $session->write('playerIdLogin', $playersArray[$i]['id']);
                         $playerEmailLogin = $session->read('playerEmailLogin');
-                        pr($playerEmailLogin);
                     }
                 }
             }
@@ -96,7 +115,6 @@ class ArenasController extends AppController {
             } else {
                 $session->write('playerEmailLogin', null);
                 $playerEmailLogin = $session->read('playerEmailLogin');
-                pr($playerEmailLogin);
                 $goodToGo = 'Not good to go';
             }
 
@@ -157,12 +175,10 @@ class ArenasController extends AppController {
             $this->set('playerIsLogin', 1);
             $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
             $this->set('playerFighterList', $playerFighterList);
-
             if (isset($newFighter['fighterChosen'])) {
                 $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
                 $session->write('fighterChosenName', $fighterChosen['name']);
                 $session->write('fighterChosenId', $fighterChosen['id']);
-                pr($session->read('fighterChosenName'));
             }
         } else {
             $this->set('playerIsLogin', 0);
