@@ -32,107 +32,103 @@
             });
 
             $(document).ready(function () {
-                $.jqplot._noToImageButton = true;
-                console.log(
-                    <?php for ($i = 0; $i < $deadFighterCountAmount; $i++) {
-                        for ($j = 0; $j < 2; $j++) {
-                            $deadFighterCount[$i][$j];
-                        }
-                    } ?>
-                );
+                var s1 = [
+                    [<?php echo $deadFighterDistribution[0][0]; ?>, <?php echo $deadFighterDistribution[0][1]; ?>], [<?php echo $deadFighterDistribution[1][0]; ?>, <?php echo $deadFighterDistribution[1][1]; ?>], [<?php echo $deadFighterDistribution[2][0]; ?>, <?php echo $deadFighterDistribution[2][1]; ?>], [<?php echo $deadFighterDistribution[3][0]; ?>, <?php echo $deadFighterDistribution[3][1]; ?>], [<?php echo $deadFighterDistribution[4][0]; ?>, <?php echo $deadFighterDistribution[4][1]; ?>], [<?php echo $deadFighterDistribution[5][0]; ?>, <?php echo $deadFighterDistribution[5][1]; ?>], [<?php echo $deadFighterDistribution[6][0]; ?>, <?php echo $deadFighterDistribution[6][1]; ?>], [<?php echo $deadFighterDistribution[7][0]; ?>, <?php echo $deadFighterDistribution[7][1]; ?>], [<?php echo $deadFighterDistribution[8][0]; ?>, <?php echo $deadFighterDistribution[8][1]; ?>], [<?php echo $deadFighterDistribution[9][0]; ?>, <?php echo $deadFighterDistribution[9][1]; ?>], [<?php echo $deadFighterDistribution[10][0]; ?>, <?php echo $deadFighterDistribution[10][1]; ?>], [<?php echo $deadFighterDistribution[11][0]; ?>, <?php echo $deadFighterDistribution[11][1]; ?>]
+                ];
 
-                var prevYear = [["2011-08-01",398], ["2011-08-02",255.25], ["2011-08-03",263.9], ["2011-08-04",154.24],
-                ["2011-08-05",210.18], ["2011-08-06",109.73], ["2011-08-07",166.91], ["2011-08-08",330.27], ["2011-08-09",546.6],
-                ["2011-08-10",260.5], ["2011-08-11",330.34], ["2011-08-12",464.32], ["2011-08-13",432.13], ["2011-08-14",197.78],
-                ["2011-08-15",311.93], ["2011-08-16",650.02], ["2011-08-17",486.13], ["2011-08-18",330.99], ["2011-08-19",504.33],
-                ["2011-08-20",773.12], ["2011-08-21",296.5], ["2011-08-22",280.13], ["2011-08-23",428.9], ["2011-08-24",469.75],
-                ["2011-08-25",628.07], ["2011-08-26",516.5], ["2011-08-27",405.81], ["2011-08-28",367.5], ["2011-08-29",492.68],
-                ["2011-08-30",700.79], ["2011-08-31",588.5], ["2011-09-01",511.83], ["2011-09-02",721.15], ["2011-09-03",649.62],
-                ["2011-09-04",653.14], ["2011-09-06",900.31], ["2011-09-07",803.59], ["2011-09-08",851.19], ["2011-09-09",2059.24],
-                ["2011-09-10",994.05], ["2011-09-11",742.95], ["2011-09-12",1340.98], ["2011-09-13",839.78], ["2011-09-14",1769.21],
-                ["2011-09-15",1559.01], ["2011-09-16",2099.49], ["2011-09-17",1510.22], ["2011-09-18",1691.72],
-                ["2011-09-19",1074.45], ["2011-09-20",1529.41], ["2011-09-21",1876.44], ["2011-09-22",1986.02],
-                ["2011-09-23",1461.91], ["2011-09-24",1460.3], ["2011-09-25",1392.96], ["2011-09-26",2164.85],
-                ["2011-09-27",1746.86], ["2011-09-28",2220.28], ["2011-09-29",2617.91], ["2011-09-30",3236.63]];
+                var s2 = [
+                    [<?php echo $deadFighterDistribution[0][0]; ?>, <?php echo $deadFighterDistribution[0][1]; ?>], [<?php echo $deadFighterDistribution[1][0]; ?>, <?php echo $deadFighterDistribution[1][1]; ?>], [<?php echo $deadFighterDistribution[2][0]; ?>, <?php echo $deadFighterDistribution[2][1]; ?>], [<?php echo $deadFighterDistribution[3][0]; ?>, <?php echo $deadFighterDistribution[3][1]; ?>], [<?php echo $deadFighterDistribution[4][0]; ?>, <?php echo $deadFighterDistribution[4][1]; ?>], [<?php echo $deadFighterDistribution[5][0]; ?>, <?php echo $deadFighterDistribution[5][1]; ?>], [<?php echo $deadFighterDistribution[6][0]; ?>, <?php echo $deadFighterDistribution[6][1]; ?>], [<?php echo $deadFighterDistribution[7][0]; ?>, <?php echo $deadFighterDistribution[7][1]; ?>], [<?php echo $deadFighterDistribution[8][0]; ?>, <?php echo $deadFighterDistribution[8][1]; ?>], [<?php echo $deadFighterDistribution[9][0]; ?>, <?php echo $deadFighterDistribution[9][1]; ?>], [<?php echo $deadFighterDistribution[10][0]; ?>, <?php echo $deadFighterDistribution[10][1]; ?>], [<?php echo $deadFighterDistribution[11][0]; ?>, <?php echo $deadFighterDistribution[11][1]; ?>]
+                ];
 
-                // var deadCount = [0];
-
-                var currYear = [0];
-
-                var plot1 = $.jqplot("death-count-chart", [prevYear, currYear], {
-                    seriesColors: ["rgba(78, 135, 194, 0.7)", "rgb(211, 235, 59)"],
-                    title: 'Monthly TurnKey Revenue',
-                    highlighter: {
+                plot1 = $.jqplot("death-count-chart", [s2, s1], {
+                    // Turns on animatino for all series in this plot.
+                    animate: true,
+                    // Will animate plot on calls to plot1.replot({resetAxes:true})
+                    animateReplot: true,
+                    cursor: {
                         show: true,
-                        sizeAdjust: 1,
-                        tooltipOffset: 9
+                        zoom: false,
+                        looseZoom: false,
+                        showTooltip: false
                     },
-                    grid: {
-                        background: 'rgba(57,57,57,0.0)',
-                        drawBorder: false,
-                        shadow: false,
-                        gridLineColor: '#666666',
-                        gridLineWidth: 2
-                    },
-                    legend: {
-                        show: true,
-                        placement: 'outside'
-                    },
-                    seriesDefaults: {
-                        rendererOptions: {
-                            smooth: true,
-                            animation: {
-                                show: true
+                    series:[
+                        {
+                            pointLabels: {
+                                show: false
+                            },
+                            renderer: $.jqplot.BarRenderer,
+                            yaxis: 'y2axis',
+                            showHighlight: true,
+                            rendererOptions: {
+                                // Speed up the animation a little bit.
+                                // This is a number of milliseconds.
+                                // Default for bar series is 3000.
+                                animation: {
+                                    speed: 2500
+                                },
+                                barWidth: 15,
+                                barPadding: -15,
+                                barMargin: 0,
+                                highlightMouseOver: false
                             }
                         },
-                        showMarker: false
-                    },
-                    series: [
                         {
-                            fill: true,
-                            label: '2010'
-                        },
-                        {
-                            label: '2011'
+                            rendererOptions: {
+                                // speed up the animation a little bit.
+                                // This is a number of milliseconds.
+                                // Default for a line series is 2500.
+                                animation: {
+                                    speed: 2000
+                                }
+                            }
                         }
                     ],
                     axesDefaults: {
-                        rendererOptions: {
-                            baselineWidth: 1.5,
-                            baselineColor: '#444444',
-                            drawBaseline: false
-                        }
+                        pad: 1.1
                     },
                     axes: {
+                        // These options will set up the x axis like a category axis.
                         xaxis: {
-                            renderer: $.jqplot.DateAxisRenderer,
-                            tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-                            tickOptions: {
-                                formatString: "%b %e",
-                                angle: -30,
-                                textColor: '#dddddd'
-                            },
-                            min: "2011-08-01",
-                            max: "2011-09-30",
-                            tickInterval: "7 days",
-                            drawMajorGridlines: false
+                            tickInterval: 1,
+                            drawMajorGridlines: true,
+                            drawMinorGridlines: true,
+                            drawMajorTickMarks: true,
+                            rendererOptions: {
+                                tickInset: 0,
+                                forceTickAt0: false
+                            }
                         },
                         yaxis: {
-                            renderer: $.jqplot.LogAxisRenderer,
-                            pad: 0,
-                            rendererOptions: {
-                                minorTicks: 1
-                            },
+                            tickInterval: 1,
                             tickOptions: {
-                                formatString: "$%'d",
-                                showMark: false
+                                formatString: "%'d dead"
+                            },
+                            rendererOptions: {
+                                tickInset: 0,
+                                forceTickAt0: false
+                            }
+                        },
+                        y2axis: {
+                            tickInterval: 1,
+                            tickOptions: {
+                                formatString: "%'d dead"
+                            },
+                            rendererOptions: {
+                                // align the ticks on the y2 axis with the y axis.
+                                alignTicks: true,
+                                tickInset: 0,
+                                forceTickAt0: false
                             }
                         }
+                    },
+                    highlighter: {
+                        show: true,
+                        showLabel: true,
+                        tooltipAxes: 'y',
+                        sizeAdjust: 7.5 , tooltipLocation : 'ne'
                     }
                 });
-
-                $('.jqplot-highlighter-tooltip').addClass('ui-corner-all')
-              });
+            });
         </script>
     </head>
 
@@ -149,6 +145,5 @@
 
             </div>
         </div>
-
     </body>
 </html>

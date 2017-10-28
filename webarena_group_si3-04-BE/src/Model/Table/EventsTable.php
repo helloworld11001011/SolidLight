@@ -37,7 +37,6 @@ class EventsTable extends Table {
         $deadFighterCountAmount = $this->find('all', array(
             'conditions' => array('name like "Death %"')
         ))->count();
-        pr($deadFighterCountAmount);
         return $deadFighterCountAmount;
     }
 

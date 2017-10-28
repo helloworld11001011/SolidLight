@@ -30,8 +30,8 @@ class ArenasController extends AppController {
         $this->loadModel('Events');
 
         $this->set('fighterDistribution', $this->Fighters->getFighterDistribution());
-        $this->set('deadFighterCount', $this->Events->getDeadFighters());
-        $this->set('deadFighterCountAmount', $this->Events->getDeadFightersAmount());
+        $this->set('deadFighterDistribution', $this->Events->getDeadFighters());
+        $this->set('deadFighterCount', $this->Events->getDeadFightersAmount());
     }
 
     public function index() {
@@ -173,19 +173,19 @@ class ArenasController extends AppController {
     {
         // Default for the initial aparition and whenever you reload the page
         $data["direction"] = "right";
-        
+
         // Load model and set the matrix's size
         $this -> loadModel('Fighters');
         $this -> set('matX', $this->Fighters->getMatrixX());
         $this -> set('matY', $this->Fighters->getMatrixY());
-        
+
         // For testing only, has to be replaced
-        $currentFighterId= 2; 
+        $currentFighterId= 2;
 
         // Call the move function
         if($this->request->is("post")) {
             $data = $this->request->getData();
-            
+
             // If this is not an attack
             if($data["attack"] == "no"){
                 // Then move()
@@ -197,12 +197,12 @@ class ArenasController extends AppController {
                 if($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"]))
                     $this->Fighters->fight($this->Fighters->getFighterById($currentFighterId)[0], $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0]);
             }
-            
+
         }
-        
+
         // Get the current fighter after it's position has been updated by move()
         $currentFighter= $this->Fighters->getFighterById($currentFighterId);
-        
+
         // Get the case that is being targeted and send it to the view for displaying
         $targetedCase= $this->Fighters->getTargetedCase($data, $currentFighter);
         $this -> set('targetedCase', $targetedCase);
