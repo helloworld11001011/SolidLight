@@ -256,36 +256,63 @@ class FightersTable extends Table {
     //Allows the player to create his fighter
     //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
     //TODO: X and Y position must be decided when the fighter joins the arena
-    function addANewFighter($arg, $playerIdLogin) {
+     function addANewFighter($arg, $playerIdLogin) {
+
         $fighterData = $arg;
         $fighterTable = TableRegistry::get('fighters');
         $fighter = $fighterTable->newEntity();
         $fighter->name = $fighterData['name'];
         $fighter->player_id = $playerIdLogin;
-        $fighter->coordinate_x = '0';
-        $fighter->coordinate_y = '0';
+
+        $fighters = $this->find('all');
+        $fightersArray = $fighters->toArray();
+
+        $restart = 1;
+        
+        while ($restart == 1) {
+
+            $randX = rand(0, 14);
+            $randY = rand(0, 14);
+            $restart = 0;
+
+            for ($i = 0; $i < count($fightersArray); $i++) {
+                if (($fightersArray[$i]['coordinate_x'] == $randX) && ($fightersArray[$i]['coordinate_y'] == $randY)) {
+                    $restart = 1;
+                }
+            }
+        }
+
+        $fighter->coordinate_x = $randX;
+        $fighter->coordinate_y = $randY;
         $fighter->level = '1';
         $fighter->xp = '0';
 
         if ($fighterData['Class'] == 0) {
-            $fighter->skill_sight = '1';
-            $fighter->skill_strength = '2';
-            $fighter->skill_health = '2';
-            $fighter->current_health = '2';
+            $fighter->skill_sight = '2';
+            $fighter->skill_strength = '1';
+            $fighter->skill_health = '5';
+            $fighter->current_health = '5';
         }
 
         if ($fighterData['Class'] == 1) {
-            $fighter->skill_sight = '2';
+            $fighter->skill_sight = '3';
             $fighter->skill_strength = '1';
-            $fighter->skill_health = '2';
-            $fighter->current_health = '2';
+            $fighter->skill_health = '5';
+            $fighter->current_health = '5';
         }
 
         if ($fighterData['Class'] == 2) {
-            $fighter->skill_sight = '1';
+            $fighter->skill_sight = '2';
             $fighter->skill_strength = '1';
-            $fighter->skill_health = '1';
-            $fighter->current_health = '3';
+            $fighter->skill_health = '7';
+            $fighter->current_health = '7';
+        }
+        
+        if ($fighterData['Class'] == 3) {
+            $fighter->skill_sight = '2';
+            $fighter->skill_strength = '2';
+            $fighter->skill_health = '5';
+            $fighter->current_health = '5';
         }
 
 
