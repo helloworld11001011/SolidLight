@@ -48,7 +48,7 @@ button{
     width: 100%;
 }
 
-#attack-btn{
+.attack-btn{
     
 }
 
@@ -60,8 +60,12 @@ button{
     display: flex;
     flex-direction: column;
     float: right;
-    margin-bottom: 0px !important;
 }
 #maindiv{
     display: flex;
+}
+
+#info{
+    padding-bottom: 240px;
+    color: blueviolet;
 }
