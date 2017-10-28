@@ -48,6 +48,10 @@ button{
     width: 100%;
 }
 
+#attack-btn{
+    
+}
+
 #matdiv{
     display: flex;
     flex-direction: column;
@@ -56,6 +60,7 @@ button{
     display: flex;
     flex-direction: column;
     float: right;
+    margin-bottom: 0px !important;
 }
 #maindiv{
     display: flex;
