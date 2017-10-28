@@ -235,19 +235,19 @@ class FightersTable extends Table {
 
             case 1:
                 $this->xp(1, $attack, $defense);
-                //$this->Events->addNewEvent(1);
+                $this->Events->addNewEvent(1);
                 $this->deleteFighter($defense);
 
                 break;
 
             case 2:
                 $this->xp(2, $attack, $defense);
-                //$this->Events->addNewEvent(2);
+                $this->Events->addNewEvent(2);
                 break;
 
             case 3:
                 $this->xp(3, $attack, $defense);
-                //$this->Events->addNewEvent(3);
+                $this->Events->addNewEvent(3);
                 break;
         }
 
