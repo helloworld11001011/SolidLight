@@ -6,7 +6,7 @@
         <?php
         echo $this->Html->css('hallOfFame');
         echo $this->Html->css('jquery.jqplot.min.css');
-        echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', 'jqplot.pieRenderer.js', 'jqplot.dateAxisRenderer.js', 'jqplot.logAxisRenderer.js', 'jqplot.canvasTextRenderer.js', 'jqplot.canvasAxisTickRenderer.js', 'jqplot.highlighter.js']);
+        echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', 'jqplot.pieRenderer.js', 'jqplot.dateAxisRenderer.js', 'jqplot.logAxisRenderer.js', 'jqplot.canvasTextRenderer.js', 'jqplot.canvasAxisTickRenderer.js', 'jqplot.highlighter.js', 'jqplot.barRenderer.js', 'jqplot.categoryAxisRenderer.js', 'jqplot.pointLabels.js']);
         ?>
 
         <script type="text/javascript">
@@ -66,7 +66,7 @@
                                 animation: {
                                     speed: 2500
                                 },
-                                barWidth: 150,
+                                barWidth: 0,
                                 barPadding: -15,
                                 barMargin: 0,
                                 highlightMouseOver: false
@@ -84,8 +84,6 @@
                         }
                     ],
                     axesDefaults: {
-                        pad: 1.1,
-                        min: 0,
                         tickInterval: 1,
                         tickOptions: {
                             formatString: '%d'
@@ -94,6 +92,8 @@
                     axes: {
                         // These options will set up the x axis like a category axis.
                         xaxis: {
+                            min: 1,
+                            max: 12,
                             tickInterval: 1,
                             drawMajorGridlines: true,
                             drawMinorGridlines: true,
@@ -134,6 +134,28 @@
                     }
                 });
             });
+
+            $(document).ready(function(){
+                $.jqplot.config.enablePlugins = true;
+                var s1 = [<?php echo $averageSkills[0]->avg_sight; ?>, <?php echo $averageSkills[0]->avg_strength; ?>, <?php echo $averageSkills[0]->avg_health; ?>];
+                var ticks = ['Sight Skill', 'Strength Skill', 'Health Skill'];
+
+                plot1 = $.jqplot('averag-skills-chart', [s1], {
+                    // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
+                    animate: !$.jqplot.use_excanvas,
+                    seriesDefaults:{
+                        renderer:$.jqplot.BarRenderer,
+                        pointLabels: { show: true }
+                    },
+                    axes: {
+                        xaxis: {
+                            renderer: $.jqplot.CategoryAxisRenderer,
+                            ticks: ticks
+                        }
+                    },
+                    highlighter: { show: false }
+                });
+            });
         </script>
     </head>
 
@@ -147,6 +169,9 @@
 
             </div>
             <div id="death-count-chart">
+
+            </div>
+            <div id="averag-skills-chart">
 
             </div>
         </div>
