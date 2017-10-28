@@ -207,6 +207,30 @@ class FightersTable extends Table {
 
 
     }
+    
+    function totalFight($arg){
+    
+        switch ($arg) {
+
+            case 1:
+                $this->Fighters->xp(1);
+                $this->Events->addNewEvent(1);
+                $this->Fighters->deleteFighter();
+
+                break;
+
+            case 2:
+                $this->Fighters->xp(2);
+                $this->Events->addNewEvent(2);
+                break;
+
+            case 3:
+                $this->Fighters->xp(3);
+                $this->Events->addNewEvent(3);
+                break;
+        }
+        
+    }
 
     //Allows the player to create his fighter
     //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)

@@ -149,7 +149,7 @@ class ArenasController extends AppController {
             $this->set('playerIsLogin', 0);
         }
 
-
+/*
         switch ($this->Fighters->fight()) {
 
             case 1:
@@ -169,7 +169,11 @@ class ArenasController extends AppController {
                 $this->Events->addNewEvent(3);
                 break;
         }
+ *  */
+ 
     }
+ 
+
 
     public function sight()
     {
@@ -182,7 +186,7 @@ class ArenasController extends AppController {
         $this -> set('matY', $this->Fighters->getMatrixY());
 
         // For testing only, has to be replaced
-        $currentFighterId= 2;
+        $currentFighterId= 1;
 
         // Call the move function
         if($this->request->is("post")) {
