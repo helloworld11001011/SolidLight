@@ -95,7 +95,7 @@
                     <legend><?php echo __('Create fighter'); ?></legend>
                     <?php echo $this->Form->input('name');
                     echo 'Class';
-                    echo $this->Form->radio('Class', ['Destructor','Archer','Giant']);
+                    echo $this->Form->radio('Class', ['Classic', 'Archer','Giant', 'Destructor']);
                     ?>
                 </fieldset>
             </div>
