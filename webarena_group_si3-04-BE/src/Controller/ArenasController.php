@@ -171,6 +171,7 @@ class ArenasController extends AppController {
 
     public function sight() {
 
+        $this->loadModel('Events');
         //session
         $session = $this->request->session();
 
@@ -201,7 +202,7 @@ class ArenasController extends AppController {
                 $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
                 // Call the fight() function with the contenders as parameters if the targeted case si in fact a fighter
                 if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"]))
-                    $this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense);
+                    $this->Events->addNewEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
             }
         }
 
@@ -228,4 +229,14 @@ class ArenasController extends AppController {
         $this->Events->addNewEvent();
     }
 
+    public function guild () {
+        $this->loadModel('Guilds');
+        $this->loadModel('Fighters');
+
+        $this->set('guildList', $this->Guilds->getGuildList());
+        $this->set('guildCount', $this->Guilds->find('all')->count());
+        $this->set('fightersPerGuild', $this->Fighters->getFightersPerGuild());
+    }
+
 }
+?>
