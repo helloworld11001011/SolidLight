@@ -207,9 +207,9 @@ class FightersTable extends Table {
 
 
     }
-    
+
     function totalFight($arg){
-    
+
         switch ($arg) {
 
             case 1:
@@ -229,7 +229,7 @@ class FightersTable extends Table {
                 $this->Events->addNewEvent(3);
                 break;
         }
-        
+
     }
 
     //Allows the player to create his fighter
@@ -346,6 +346,17 @@ class FightersTable extends Table {
                 pr("Invalid data in getTargetedCase()");
         }
         return $targetedCase;
+    }
+
+    function getAverageForSkills () {
+        $Query = $this->find();
+        $Query->select([
+            'avg_sight' => $Query->func()->avg('skill_sight'),
+            'avg_strength' => $Query->func()->avg('skill_strength'),
+            'avg_health' => $Query->func()->avg('skill_health')
+        ]);
+        $averageSkills = $Query->toArray();
+        return $averageSkills;
     }
 
 }

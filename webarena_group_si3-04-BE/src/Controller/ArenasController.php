@@ -32,6 +32,7 @@ class ArenasController extends AppController {
         $this->set('fighterDistribution', $this->Fighters->getFighterDistribution());
         $this->set('deadFighterDistribution', $this->Events->getDeadFighters());
         $this->set('deadFighterCount', $this->Events->getDeadFightersAmount());
+        $this->set('averageSkills', $this->Fighters->getAverageForSkills());
     }
 
     public function index() {
@@ -170,9 +171,9 @@ class ArenasController extends AppController {
                 break;
         }
  *  */
- 
+
     }
- 
+
 
 
     public function sight()
