@@ -14,7 +14,7 @@ class ArenasController extends AppController {
     public function inbox() {
         $session = $this->request->session();
 
-        if($session->check('fighterChosenId')) {
+        if ($session->check('fighterChosenId')) {
 
             $this->loadModel('Messages');
             $this->loadModel('Fighters');
@@ -35,12 +35,10 @@ class ArenasController extends AppController {
             $this->set('fighterChosenName', $session->read('fighterChosenName'));
             $this->set('messagesArray', $messagesArray);
             $this->set('nbMessages', $nbMessages);
-        }
-        else {
-            if($session->check('playerEmailLogin')) {
+        } else {
+            if ($session->check('playerEmailLogin')) {
                 $this->set('playerIsLogin', 1);
-            }
-            else {
+            } else {
                 $this->set('playerIsLogin', 0);
             }
             $this->set('fighterIsChosen', 0);
@@ -131,7 +129,7 @@ class ArenasController extends AppController {
         if ($session->check('playerEmailLogin')) {
             $playerIdLogin = $session->read('playerIdLogin');
 
-            $newFighter = $this->request->getData();  //getData()?
+            $newFighter = $this->request->getData();
 
             $nameInDb = 0;  //Variable testing if fighter name already exists
             $fighters = $this->Fighters->find('all');
@@ -140,11 +138,14 @@ class ArenasController extends AppController {
             if (isset($newFighter['name'])) {  //What is being tested?
                 for ($i = 0; $i < count($fightersArray); $i++) {
                     if ($fightersArray[$i]['name'] == $newFighter['name']) {
+
                         $nameInDb = 1;
                     }
                 }
                 if ($nameInDb != 1) {
                     $this->Fighters->addANewFighter($this->request->getData(), $playerIdLogin);
+                    $fighterEvent = $this->Fighters->getFighterByName($newFighter['name'])[0];
+                    $this->Events->addNewPlayerEvent($fighterEvent);
                 }
                 if ($nameInDb == 1) {
                     $nameInDb = 'A fighter of this name already exists';
@@ -202,7 +203,7 @@ class ArenasController extends AppController {
                 $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
                 // Call the fight() function with the contenders as parameters if the targeted case si in fact a fighter
                 if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"]))
-                    $this->Events->addNewEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
+                    $this->Events->addNewFightEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
             }
         }
 
@@ -229,7 +230,7 @@ class ArenasController extends AppController {
         $this->Events->addNewEvent();
     }
 
-    public function guild () {
+    public function guild() {
         $this->loadModel('Guilds');
         $this->loadModel('Fighters');
 
@@ -239,4 +240,5 @@ class ArenasController extends AppController {
     }
 
 }
+
 ?>
