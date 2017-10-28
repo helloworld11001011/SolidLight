@@ -1,6 +1,6 @@
 <?php
 
-$fighterCoId = 2;
+$fighterCoId = 1;
 
 ?>
 
@@ -45,17 +45,11 @@ $fighterCoId = 2;
                     echo $this->Form->create('Message', ['class'=>'coco']);
                     echo $this->Form->input('message',['id'=>'messageInput', 'label'=>false]);
                     echo $this->Form->input('fighterCo', ['type' => 'hidden', 'value' => $fighterCoId]);
-                    echo $this->Form->input('fighterTo', ['type' => 'hidden', 'value' => 1]);
+                    echo $this->Form->input('fighterTo', ['type' => 'hidden', 'value' => 2]);
                     echo $this->Form->submit(__('SEND'));
                     echo $this->Form->end();
                     ?>
 
-                   <!--  <div class="messageType">
-                        <input id="messageInput" type="text" name="message" />
-                    </div>
-                    <div class="sendBtnDiv">
-                        <button id="btnSend">SEND</button>
-                    </div> -->
                 </div>
             </div>
         </div>

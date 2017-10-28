@@ -66,9 +66,27 @@
             }
             echo "</table>";
             ?>
+
+            <h2> Choose your fighter </h2>
+
+            <?php
+            $playerFighterListName = [];
+            for($i=0; $i < count($playerFighterList); $i++) {
+                array_push($playerFighterListName, $playerFighterList[$i]->name);
+            }
+
+            echo $this->Form->create('ChooseFighter');
+            echo $this->Form->select(
+                'fighterChosen',
+                $playerFighterListName,
+                ['empty' => '(choisissez)']
+            );
+            echo $this->Form->submit(__('CHOOSE'));
+            ?>
+
             <h2> Create fighter </h2>
             <?php
-            if($nameInDb)
+            if(isset($nameInDb))
                 echo $nameInDb;
             ?>
             <div class="create fighter">

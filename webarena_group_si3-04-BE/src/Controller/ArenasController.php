@@ -103,7 +103,6 @@ class ArenasController extends AppController {
         $this->loadModel('Fighters');
         $this->loadModel('Events');
 
-
         //Retrieving the fighter list (for displaying a player's fighters)
         //TODO: get list based on current player ID
         $session = $this->request->session();
@@ -111,6 +110,7 @@ class ArenasController extends AppController {
             $playerIdLogin = $session->read('playerIdLogin');
 
             $newFighter = $this->request->getData();  //getData()?
+
             $nameInDb = 0;  //Variable testing if fighter name already exists
             $fighters = $this->Fighters->find('all');
             $fightersArray = $fighters->toArray();
@@ -133,13 +133,15 @@ class ArenasController extends AppController {
             }
 
             $this->set('playerIsLogin', 1);
-            $this -> set('playerFighterList', $this -> Fighters -> getPlayerFighterList($playerIdLogin));
+            $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
+            $this -> set('playerFighterList', $playerFighterList);
 
-            //Finding the amount of fighters available to the player and the amount of columns we want for the player fighter table
-            //TODO: get condition on player ID
-            $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
-
-            //$this->Fighters->fight();
+            if(isset($newFighter['fighterChosen'])) {
+                $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
+                $session->write('fighterChosenName', $fighterChosen['name']);
+                $session->write('fighterChosenId', $fighterChosen['id']);
+                pr($session->read('fighterChosenName'));
+            }
 
         }
 
