@@ -47,8 +47,8 @@ class FightersTable extends Table {
         ));
         $fighterListArray = $fighterList->toArray();
         $playerFighterListArray = [];
-        for ($i=0; $i<count($fighterListArray); $i++) {
-            if($fighterListArray[$i]['player_id'] == $playerIdLogin) {
+        for ($i = 0; $i < count($fighterListArray); $i++) {
+            if ($fighterListArray[$i]['player_id'] == $playerIdLogin) {
                 array_push($playerFighterListArray, $fighterListArray[$i]);
             }
         }
@@ -62,8 +62,8 @@ class FightersTable extends Table {
         ));
         $fighterListArray = $fighterList->toArray();
         $otherFighterListArray = [];
-        for ($i=0; $i<count($fighterListArray); $i++) {
-            if($fighterListArray[$i]['player_id'] != $playerIdLogin) {
+        for ($i = 0; $i < count($fighterListArray); $i++) {
+            if ($fighterListArray[$i]['player_id'] != $playerIdLogin) {
                 array_push($otherFighterListArray, $fighterListArray[$i]);
             }
         }
@@ -87,7 +87,6 @@ class FightersTable extends Table {
 
         //$fighterList = $this->find('all');
         //$fighterListArray = $fighterList->toArray();
-
         //$attack = $fighterListArray[0];
         //$defense = $fighterListArray[1];
 
@@ -149,12 +148,12 @@ class FightersTable extends Table {
     function xp($case, $attack, $defense) {
 
         /*
-        $fighterList = $this->find('all');
-        $fighterListArray = $fighterList->toArray();
+          $fighterList = $this->find('all');
+          $fighterListArray = $fighterList->toArray();
 
-        $attack = $fighterListArray[0];
-        $defense = $fighterListArray[1];
-        */
+          $attack = $fighterListArray[0];
+          $defense = $fighterListArray[1];
+         */
         $attackId = $attack['id'];
         $currentxp = $attack['xp'];
 
@@ -212,50 +211,57 @@ class FightersTable extends Table {
     function deleteFighter($defense) {
 
         /*
-        $fighterList = $this->find('all');
-        $fighterListArray = $fighterList->toArray();
+          $fighterList = $this->find('all');
+          $fighterListArray = $fighterList->toArray();
 
-        $defense = $fighterListArray[1];
-        */
+          $defense = $fighterListArray[1];
+         */
         $defenseId = $defense['id'];
 
         $fighterTable = TableRegistry::get('fighters');
         $defender = $fighterTable->get($defenseId);
 
         $fighterTable->delete($defender);
-
-
     }
 
-    function totalFight($arg, $attack, $defense){
-
+    function totalFight($arg, $attack, $defense) {
 
         switch ($arg) {
 
             case 1:
                 $this->xp(1, $attack, $defense);
-                $this->Events->addNewEvent(1);
+                //$this->Events->addNewEvent(1);
                 $this->deleteFighter($defense);
+
+                $event = 1;
+                return $event;
 
                 break;
 
             case 2:
                 $this->xp(2, $attack, $defense);
-                $this->Events->addNewEvent(2);
+                //$this->Events->addNewEvent(2);
+
+                $event = 2;
+                return $event;
+
                 break;
 
             case 3:
                 $this->xp(3, $attack, $defense);
-                $this->Events->addNewEvent(3);
+                //$this->Events->addNewEvent(3);
+
+                $event = 3;
+                return $event;
+
                 break;
         }
-
     }
 
     //Allows the player to create his fighter
     //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
     //TODO: X and Y position must be decided when the fighter joins the arena
-     function addANewFighter($arg, $playerIdLogin) {
+    function addANewFighter($arg, $playerIdLogin) {
 
         $fighterData = $arg;
         $fighterTable = TableRegistry::get('fighters');
@@ -267,7 +273,7 @@ class FightersTable extends Table {
         $fightersArray = $fighters->toArray();
 
         $restart = 1;
-        
+
         while ($restart == 1) {
 
             $randX = rand(0, 14);
@@ -306,7 +312,7 @@ class FightersTable extends Table {
             $fighter->skill_health = '7';
             $fighter->current_health = '7';
         }
-        
+
         if ($fighterData['Class'] == 3) {
             $fighter->skill_sight = '2';
             $fighter->skill_strength = '2';
@@ -330,7 +336,7 @@ class FightersTable extends Table {
                 break;
             case "down":
 
-                if(!$this->getCase($f->coordinate_x, $f->coordinate_y+1) && $f->coordinate_y < $this->getMatrixY()-1 ){
+                if (!$this->getCase($f->coordinate_x, $f->coordinate_y + 1) && $f->coordinate_y < $this->getMatrixY() - 1) {
 
                     $f->coordinate_y = $f->coordinate_y + 1;
                     $this->save($f);
@@ -338,7 +344,7 @@ class FightersTable extends Table {
                 break;
             case "right":
 
-                if(!$this->getCase($f->coordinate_x+1, $f->coordinate_y) && $f->coordinate_x < $this->getMatrixX()-1 ){
+                if (!$this->getCase($f->coordinate_x + 1, $f->coordinate_y) && $f->coordinate_x < $this->getMatrixX() - 1) {
 
                     $f->coordinate_x = $f->coordinate_x + 1;
                     $this->save($f);
@@ -370,8 +376,7 @@ class FightersTable extends Table {
         return $fighter->toArray();
     }
 
-
-    function getTargetedCase($direction, $currentFighter){
+    function getTargetedCase($direction, $currentFighter) {
 
         switch ($direction["direction"]) {
             case "up":
@@ -395,7 +400,7 @@ class FightersTable extends Table {
         return $targetedCase;
     }
 
-    function getAverageForSkills () {
+    function getAverageForSkills() {
         $Query = $this->find();
         $Query->select([
             'avg_sight' => $Query->func()->avg('skill_sight'),
