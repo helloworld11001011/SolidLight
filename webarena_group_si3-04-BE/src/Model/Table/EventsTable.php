@@ -26,53 +26,66 @@ class EventsTable extends Table {
         $Array = $Query->toArray();
 
         //Converting the CakePHP Object Array into a regular array
-        for ($i=0; $i < $Query->count(); $i++) {
+        for ($i = 0; $i < $Query->count(); $i++) {
             $deadFightersArray[$i][0] = $Array[$i]->month;
             $deadFightersArray[$i][1] = $Array[$i]->count;
         }
         return $deadFightersArray;
     }
 
-    function getDeadFightersAmount () {
+    function getDeadFightersAmount() {
         $deadFighterCountAmount = $this->find('all', array(
-            'conditions' => array('name like "Death %"')
-        ))->count();
+                    'conditions' => array('name like "Death %"')
+                ))->count();
         return $deadFighterCountAmount;
     }
 
-    function addNewEvent($arg) {
+    function addNewFightEvent($arg, $attack, $defense) {
 
         $eventTable = TableRegistry::get('events');
         $event = $eventTable->newEntity();
 
-        echo "ok";
 
         if ($arg == 1) {
 
-            $event->name = "Bobby attaque Paul et le tue";
+            $event->name = "Death of " . $defense['name'] . " by " . $attack['name'] . " ! ";
             $event->date = Time::now();
-            $event->coordinate_x = 1;
-            $event->coordinate_y = 1;
-
+            $event->coordinate_x = $defense["coordinate_x"];
+            $event->coordinate_y = $defense["coordinate_y"];
+            echo "<br>";
+            echo "event kill";
         } else if ($arg == 2) {
 
-            $event->name = "Bobby attaque Paul et le touche";
-            $event->date = Time::now();
-            $event->coordinate_x = 1;
-            $event->coordinate_y = 1;
 
+            $event->name = $attack['name'] . " acttaks " . $defense['name'] . " but he survived ! ";
+            $event->date = Time::now();
+            $event->coordinate_x = $defense["coordinate_x"];
+            $event->coordinate_y = $defense["coordinate_y"];
+            echo "<br>";
+            echo "event no kill";
         } else if ($arg == 3) {
 
-            $event = "Bobby attaque Paul et le rate";
+            $event->name = $attack['name'] . " acttaks " . $defense['name'] . " but misses him ! ";
             $event->date = Time::now();
-            $event->coordinate_x = 1;
-            $event->coordinate_y = 1;
+            $event->coordinate_x = $defense["coordinate_x"];
+            $event->coordinate_y = $defense["coordinate_y"];
+            echo "<br>";
+            echo "event block ";
         }
+        $eventTable->save($event);
+    }
 
-        echo "<br>";
-        echo " evenement: Bobby attaque Paul et le touche --> créé";
+    function addNewPlayerEvent($newfighter) {
 
-        //$eventTable->save($event);
+        $eventTable = TableRegistry::get('events');
+        $event = $eventTable->newEntity();
+
+        $event->name = $newfighter['name'] . " entered the arena ! ";
+        $event->date = Time::now();
+        $event->coordinate_x = $newfighter["coordinate_x"];
+        $event->coordinate_y = $newfighter["coordinate_y"];
+
+        $eventTable->save($event);
     }
 
 }

@@ -1,6 +1,8 @@
 <?php
-// refs to the style.css file in webroot/css/
+// refs to the css and js files in webroot
 echo $this->Html->css('sight');
+echo $this->Html->script('http://code.jquery.com/jquery.min.js');
+echo $this->Html->script('sightScript');
 
 // Initialises a matrix of the size of the board
 for($i=0; $i<$matY; $i++){
@@ -20,9 +22,12 @@ for($i=0; $i<$matY; $i++){
     echo "<tr>";
     // for every column
     for($j=0; $j<$matX; $j++){
-        echo "<td>";
+        // Boolean, true if the current case is too far to be seen
+        $isTooFar= abs($currentFighter[0]->coordinate_y - $i) + abs($currentFighter[0]->coordinate_x - $j) > $currentFighter[0]->skill_sight;
+        // Call js function hoverOver when the mouse hovers over the case
+        echo "<td onmouseover='hoverOver(", $matrix[$i][$j], ", ", $isTooFar, ")'>";
         // Don't show the cases that are futher away than the sight skill of the fighter
-        if(abs($currentFighter[0]->coordinate_y - $i) + abs($currentFighter[0]->coordinate_x - $j) > $currentFighter[0]->skill_sight){
+        if($isTooFar){
             echo $this->Html->image('fog_square.png', ['alt' => 'square_img']);
         }else{
             // Show the case that is curently being targeted except if there is a fighter on it
@@ -53,8 +58,8 @@ echo $this->Form->postButton('RIGHT', null, [ "data" => [ "direction" => "right"
 echo "</td></tr><tr><td></td><td>";
 echo $this->Form->postButton('DOWN', null, [ "data" => [ "direction" => "down", "id" => $currentFighter[0]->id, "attack" => "no"]]);
 echo "</td><td></td></tr></table>";
-echo $this->Form->postButton('ATTACK', null, [ "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
-echo "</div></div>";
+echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
+echo "<div id='info'> hello test  </div> </div></div>";
 
 ?>
 
