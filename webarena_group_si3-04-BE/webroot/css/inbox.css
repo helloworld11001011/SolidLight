@@ -1,10 +1,29 @@
 .mainContainer {
-    height: 650px;
-    width: 100%;
+    height: 100%;
+    width: 70%;
     display: flex;
+    margin: auto;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.maxiContainer {
+    display: flex;
+    flex-direction: row;
+    height: 550px;
+    width: 700px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+#fightersContainer {
+    display: flex;
+    flex-direction: column;
+    height: 550px;
+    width: 220px;
+    background-color: #eeefb6;
 }
 
 .boxDialog {
@@ -13,7 +32,6 @@
     height: 550px;
     width: 480px;
     border-radius: 10px;
-    box-shadow: 10px 10px 5px #888888;
 }
 
 body {
@@ -57,7 +75,7 @@ input[type="text"] {
 
 #messageInput {
     height: 100%;
-    width: 80%;
+    width: 330px;
 }
 
 .sendBtnDiv {
@@ -111,6 +129,8 @@ input[type="text"] {
 }
 
 input[type="submit"] {
-    width: 300px;
+    width: 150px;
     height: 100%;
+    border: none;
+    background-color: #acad83;
 }
