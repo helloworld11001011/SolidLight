@@ -375,6 +375,11 @@ class FightersTable extends Table {
         $fighter = $this->find("all", ["conditions" => ["Fighters.id" => $id]]);
         return $fighter->toArray();
     }
+    
+     function getFighterByName($name) {
+        $fighter = $this->find("all", ["conditions" => ["Fighters.name" => $name]]);
+        return $fighter->toArray();
+    }
 
     function getTargetedCase($direction, $currentFighter) {
 
