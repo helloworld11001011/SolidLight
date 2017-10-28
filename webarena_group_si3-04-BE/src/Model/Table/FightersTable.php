@@ -6,7 +6,6 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 
 class FightersTable extends Table {
-
     //Displaying all the fighters owned by a player
     //Get all fighters currently existing (for the scoreboard)
     function getFighterList() {
@@ -366,6 +365,21 @@ class FightersTable extends Table {
         return $averageSkills;
     }
 
+    function getFightersPerGuild () {
+        $Query = $this->find();
+        $Query->select([
+            'guild_id',
+            'members' => $Query->func()->count('*')
+        ])
+        ->group('guild_id');
+        $Data = $Query->toArray();
+        for ($i=0; $i < $Query->count(); $i++) {
+            $fightersPerGuild[$i][0] = $Data[$i]->guild_id;
+            $fightersPerGuild[$i][1] = $Data[$i]->members;
+        }
+        pr($fightersPerGuild);
+        return $fightersPerGuild;
+    }
 }
 
 ?>

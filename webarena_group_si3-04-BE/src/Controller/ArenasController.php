@@ -206,4 +206,14 @@ class ArenasController extends AppController {
         $this->Events->addNewEvent();
     }
 
+    public function guild () {
+        $this->loadModel('Guilds');
+        $this->loadModel('Fighters');
+
+        $this->set('guildList', $this->Guilds->getGuildList());
+        $this->set('guildCount', $this->Guilds->find('all')->count());
+        $this->set('fightersPerGuild', $this->Fighters->getFightersPerGuild());
+    }
+
 }
+?>
