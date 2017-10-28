@@ -1,11 +1,7 @@
-function hoverOver(mat, isTooFar) {
-        
-    
+function hoverOver(mat, isTooFar, health) {
     if(!isTooFar){
-        $("#info").text(mat);
+        $("#info").text(health);
     }else{
         $("#info").text("Doesn't look like anything to me.");
     }
-    
-    
 }

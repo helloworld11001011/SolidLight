@@ -24,8 +24,11 @@ for($i=0; $i<$matY; $i++){
     for($j=0; $j<$matX; $j++){
         // Boolean, true if the current case is too far to be seen
         $isTooFar= abs($currentFighter[0]->coordinate_y - $i) + abs($currentFighter[0]->coordinate_x - $j) > $currentFighter[0]->skill_sight;
+        
         // Call js function hoverOver when the mouse hovers over the case
-        echo "<td onmouseover='hoverOver(", $matrix[$i][$j], ", ", $isTooFar, ")'>";
+        //echo "<td onmouseover='hoverOver(", $matrix[$i][$j], ", ", $isTooFar, ")'>";
+        echo getFighterInfo($matrix[$i][$j], $isTooFar, $fighterList, $fighterCount);
+        
         // Don't show the cases that are futher away than the sight skill of the fighter
         if($isTooFar){
             echo $this->Html->image('fog_square.png', ['alt' => 'square_img']);
@@ -49,7 +52,7 @@ for($i=0; $i<$matY; $i++){
 }
 echo "</table></div>";
 
-echo "<div id='navdiv'><table class='nav'><tr><td></td><td>";
+echo "<div id='navdiv'> <table class='nav'> <tr> <td> </td> <td>";
 echo $this->Form->postButton('UP', null, [ "data" => [ "direction" => "up", "id" => $currentFighter[0]->id, "attack" => "no"]]);
 echo "</td><td></td></tr><tr><td>";
 echo $this->Form->postButton('LEFT', null, [ "data" => [ "direction" => "left", "id" => $currentFighter[0]->id, "attack" => "no"]]);
@@ -60,6 +63,19 @@ echo $this->Form->postButton('DOWN', null, [ "data" => [ "direction" => "down", 
 echo "</td><td></td></tr></table>";
 echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
 echo "<div id='info'> hello test  </div> </div></div>";
+
+function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
+    $s= "<td onmouseover='hoverOver(0, 1, 0)'>";
+    
+    if(!$isTooFar) $isTooFar= 0;
+    
+    for($i=0; $i<$fighterCount; $i++){
+        if($fighterList[$i]->id == $id){
+            $s= "<td onmouseover='hoverOver(" . strval($id) . "," . strval($isTooFar). ", " . strval($fighterList[$i]->skill_health) . ")'>" ;
+        }
+    }
+    return $s;
+}
 
 ?>
 
