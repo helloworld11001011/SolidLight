@@ -22,9 +22,12 @@ for($i=0; $i<$matY; $i++){
     echo "<tr>";
     // for every column
     for($j=0; $j<$matX; $j++){
-        echo "<td onmouseover='myOverFunction(", $matrix[$i][$j], ")'>";
+        // Boolean, true if the current case is too far to be seen
+        $isTooFar= abs($currentFighter[0]->coordinate_y - $i) + abs($currentFighter[0]->coordinate_x - $j) > $currentFighter[0]->skill_sight;
+        // Call js function hoverOver when the mouse hovers over the case
+        echo "<td onmouseover='hoverOver(", $matrix[$i][$j], ", ", $isTooFar, ")'>";
         // Don't show the cases that are futher away than the sight skill of the fighter
-        if(abs($currentFighter[0]->coordinate_y - $i) + abs($currentFighter[0]->coordinate_x - $j) > $currentFighter[0]->skill_sight){
+        if($isTooFar){
             echo $this->Html->image('fog_square.png', ['alt' => 'square_img']);
         }else{
             // Show the case that is curently being targeted except if there is a fighter on it

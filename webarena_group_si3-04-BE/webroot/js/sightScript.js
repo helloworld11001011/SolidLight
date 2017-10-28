@@ -1,3 +1,11 @@
-function myOverFunction(mat) {
-    $("#info").text(mat);
+function hoverOver(mat, isTooFar) {
+        
+    
+    if(!isTooFar){
+        $("#info").text(mat);
+    }else{
+        $("#info").text("Doesn't look like anything to me.");
+    }
+    
+    
 }
