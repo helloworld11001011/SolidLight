@@ -58,10 +58,6 @@ class FightersTable extends Table {
         return $playerFighterListArray;
     }
 
-    function getFighterTableWidth() {
-        return 9;
-    }
-
     // The game board's dimensions
     function getMatrixX() {
         // width
@@ -75,13 +71,13 @@ class FightersTable extends Table {
 
     //fonction qui fait se battre 2 fighter avec les modif (dans la base de données) qui vont avec
     function fight($attack, $defense) {
-        
+
         //$fighterList = $this->find('all');
         //$fighterListArray = $fighterList->toArray();
 
         //$attack = $fighterListArray[0];
         //$defense = $fighterListArray[1];
-        
+
         $defenseId = $defense['id'];
         $random = rand(0, 20);
         $success = 0;
@@ -305,7 +301,7 @@ class FightersTable extends Table {
 
 
     function getTargetedCase($direction, $currentFighter){
-        
+
         switch ($direction["direction"]) {
             case "up":
                 $targetedCase = array("y" => $currentFighter[0]->coordinate_y - 1, "x" => $currentFighter[0]->coordinate_x);
