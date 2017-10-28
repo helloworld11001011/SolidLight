@@ -66,7 +66,7 @@
                                 animation: {
                                     speed: 2500
                                 },
-                                barWidth: 15,
+                                barWidth: 150,
                                 barPadding: -15,
                                 barMargin: 0,
                                 highlightMouseOver: false
@@ -84,7 +84,12 @@
                         }
                     ],
                     axesDefaults: {
-                        pad: 1.1
+                        pad: 1.1,
+                        min: 0,
+                        tickInterval: 1,
+                        tickOptions: {
+                            formatString: '%d'
+                        }
                     },
                     axes: {
                         // These options will set up the x axis like a category axis.
@@ -94,14 +99,14 @@
                             drawMinorGridlines: true,
                             drawMajorTickMarks: true,
                             rendererOptions: {
-                                tickInset: 0,
+                                // tickInset: 0,
                                 forceTickAt0: false
                             }
                         },
                         yaxis: {
                             tickInterval: 1,
                             tickOptions: {
-                                formatString: "%'d dead"
+                                formatString: "%d dead"
                             },
                             rendererOptions: {
                                 tickInset: 0,
@@ -111,7 +116,7 @@
                         y2axis: {
                             tickInterval: 1,
                             tickOptions: {
-                                formatString: "%'d dead"
+                                formatString: "%d dead"
                             },
                             rendererOptions: {
                                 // align the ticks on the y2 axis with the y axis.
