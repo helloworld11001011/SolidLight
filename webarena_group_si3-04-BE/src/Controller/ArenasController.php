@@ -144,7 +144,7 @@ class ArenasController extends AppController {
 
             $this -> set('fighterTableWidth', $this -> Fighters -> getFighterTableWidth());
 
-            $this->Fighters->fight();
+            //$this->Fighters->fight();
 
         }
 
@@ -176,25 +176,44 @@ class ArenasController extends AppController {
 
     public function sight()
     {
-        $direction["direction"] = "up"; // For the initial aparition and whenever you reload the page
+        // Default for the initial aparition and whenever you reload the page
+        $data["direction"] = "right";
+        
+        // Load model and set the matrix's size
         $this -> loadModel('Fighters');
         $this -> set('matX', $this->Fighters->getMatrixX());
         $this -> set('matY', $this->Fighters->getMatrixY());
-
-        $currentFighterId= 1; /// For testing only, has to be replaced
-
+        
+        // For testing only, has to be replaced
+        $currentFighterId= 2; 
 
         // Call the move function
         if($this->request->is("post")) {
-            $direction = $this->request->getData();
-            $this->Fighters->move($direction);
+            $data = $this->request->getData();
+            
+            // If this is not an attack
+            if($data["attack"] == "no"){
+                // Then move()
+                $this->Fighters->move($data);
+            }else{ // Else, if this is an attack, fight()
+                // Get the targeted case from the sight data
+                $targetedCase= $data["targetedCase"];
+                // Call the fight() function with the contenders as parameters if the targeted case si in fact a fighter
+                if($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"]))
+                    $this->Fighters->fight($this->Fighters->getFighterById($currentFighterId)[0], $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0]);
+            }
+            
         }
-
-        $targetedCase= $this->Fighters->getTargetedCase($direction, $this->Fighters->getFighterById($currentFighterId));
+        
+        // Get the current fighter after it's position has been updated by move()
+        $currentFighter= $this->Fighters->getFighterById($currentFighterId);
+        
+        // Get the case that is being targeted and send it to the view for displaying
+        $targetedCase= $this->Fighters->getTargetedCase($data, $currentFighter);
         $this -> set('targetedCase', $targetedCase);
 
-
-        $this -> set('currentFighter', $this->Fighters->getFighterById($currentFighterId));
+        // Send the current fighter to the view for displaying the war fog
+        $this -> set('currentFighter', $currentFighter);
 
 
         //Retrieving every fighter currently in the game (for positions)

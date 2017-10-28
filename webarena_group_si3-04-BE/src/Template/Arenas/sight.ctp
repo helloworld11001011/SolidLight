@@ -25,7 +25,7 @@ for($i=0; $i<$matY; $i++){
         if(abs($currentFighter[0]->coordinate_y - $i) + abs($currentFighter[0]->coordinate_x - $j) > $currentFighter[0]->skill_sight){
             echo $this->Html->image('fog_square.png', ['alt' => 'square_img']);
         }else{
-            // Show the case that is curently being targeted
+            // Show the case that is curently being targeted except if there is a fighter on it
             if($i == $targetedCase["y"] && $j == $targetedCase["x"] && !$matrix[$i][$j]){
                 echo $this->Html->image('red_square.png', ['alt' => 'square_img']);
             }else{
@@ -45,14 +45,16 @@ for($i=0; $i<$matY; $i++){
 echo "</table></div>";
 
 echo "<div id='navdiv'><table class='nav'><tr><td></td><td>";
-echo $this->Form->postButton('UP', null, [ "data" => ["direction" => "up", "id" => $currentFighter[0]->id]]);
+echo $this->Form->postButton('UP', null, [ "data" => [ "direction" => "up", "id" => $currentFighter[0]->id, "attack" => "no"]]);
 echo "</td><td></td></tr><tr><td>";
-echo $this->Form->postButton('LEFT', null, [ "data" => ["attack" => "no", "direction" => "left", "id" => $currentFighter[0]->id]]);
+echo $this->Form->postButton('LEFT', null, [ "data" => [ "direction" => "left", "id" => $currentFighter[0]->id, "attack" => "no"]]);
 echo "</td><td></td><td>";
-echo $this->Form->postButton('RIGHT', null, [ "data" => ["attack" => "no", "direction" => "right", "id" => $currentFighter[0]->id]]);
+echo $this->Form->postButton('RIGHT', null, [ "data" => [ "direction" => "right", "id" => $currentFighter[0]->id, "attack" => "no"]]);
 echo "</td></tr><tr><td></td><td>";
-echo $this->Form->postButton('DOWN', null, [ "data" => ["attack" => "no", "direction" => "down", "id" => $currentFighter[0]->id]]);
-echo "</td><td></td></tr></table></div></div>";
+echo $this->Form->postButton('DOWN', null, [ "data" => [ "direction" => "down", "id" => $currentFighter[0]->id, "attack" => "no"]]);
+echo "</td><td></td></tr></table>";
+echo $this->Form->postButton('ATTACK', null, [ "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
+echo "</div></div>";
 
 ?>
 
