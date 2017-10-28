@@ -14,7 +14,8 @@
                 <h2>INBOX</h2>
                 <div class='maxiContainer'>
                 <div id='fightersContainer'>
-
+                    <?php
+                    ?>
                 </div>
                 <div class="boxDialog">
                     <div class="messagesBox">
