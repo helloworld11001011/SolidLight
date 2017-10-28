@@ -115,7 +115,7 @@ class ArenasController extends AppController {
             $fighters = $this->Fighters->find('all');
             $fightersArray = $fighters->toArray();
 
-            if ($newFighter['name']) {  //What is being tested?
+            if (isset($newFighter['name'])) {  //What is being tested?
             for ($i=0; $i<count($fightersArray); $i++) {
                 if($fightersArray[$i]['name'] == $newFighter['name']) {
                     $nameInDb = 1;
@@ -170,9 +170,9 @@ class ArenasController extends AppController {
                 break;
         }
  *  */
- 
+
     }
- 
+
 
 
     public function sight()
