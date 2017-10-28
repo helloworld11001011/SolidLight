@@ -216,11 +216,14 @@ class ArenasController extends AppController {
             } else { // Else, if this is an attack, fight()
                 // Get the targeted case from the sight data
                 $targetedCase = $data["targetedCase"];
-                $attack = $this->Fighters->getFighterById($currentFighterId)[0];
-                $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
-                // Call the fight() function with the contenders as parameters if the targeted case si in fact a fighter
-                if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"]))
+                
+                // Call the fight() function with the contenders as parameters if the targeted case is in fact a fighter
+                if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])){
+                    $attack = $this->Fighters->getFighterById($currentFighterId)[0];
+                    $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
                     $this->Events->addNewFightEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
+                }
+                    
             }
         }
 

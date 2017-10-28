@@ -4,6 +4,7 @@ echo $this->Html->css('sight');
 echo $this->Html->script('http://code.jquery.com/jquery.min.js');
 echo $this->Html->script('sightScript');
 
+
 // Initialises a matrix of the size of the board
 for($i=0; $i<$matY; $i++){
     for($j=0; $j<$matX; $j++){
@@ -26,7 +27,7 @@ for($i=0; $i<$matY; $i++){
         $isTooFar= abs($currentFighter[0]->coordinate_y - $i) + abs($currentFighter[0]->coordinate_x - $j) > $currentFighter[0]->skill_sight;
         
         // Call js function hoverOver when the mouse hovers over the case
-        //echo "<td onmouseover='hoverOver(", $matrix[$i][$j], ", ", $isTooFar, ")'>";
+        // This also creates the opening <td> tag 
         echo getFighterInfo($matrix[$i][$j], $isTooFar, $fighterList, $fighterCount);
         
         // Don't show the cases that are futher away than the sight skill of the fighter
