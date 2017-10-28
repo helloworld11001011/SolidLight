@@ -17,10 +17,14 @@ class ArenasController extends AppController {
         if($session->check('fighterChosenId')) {
 
             $this->loadModel('Messages');
+            $this->loadModel('Fighters');
 
             if ($this->request->is('post')) {
                 $this->Messages->addANewMessage($this->request->getData());
             }
+
+            $otherFightersList = $this->Fighters->getOtherFightersList($session->read('playerIdLogin'));
+            $this->set('otherFightersList', $otherFightersList);
 
             $messages = $this->Messages->find('all');
             $messagesArray = $messages->toArray();

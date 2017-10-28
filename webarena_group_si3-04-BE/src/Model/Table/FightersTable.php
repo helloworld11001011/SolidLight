@@ -43,19 +43,33 @@ class FightersTable extends Table {
 
     //TODO: select fighters with 'where id = ' clause for query
     function getPlayerFighterList($playerIdLogin) {
-        $playerFighterList = $this->find('all', array(
+        $fighterList = $this->find('all', array(
             'order' => 'Fighters.level DESC'
         ));
-        $fighterListArray = $playerFighterList->toArray();
+        $fighterListArray = $fighterList->toArray();
         $playerFighterListArray = [];
         for ($i=0; $i<count($fighterListArray); $i++) {
-            //pr($fighterListArray[$i]['player_id']);
             if($fighterListArray[$i]['player_id'] == $playerIdLogin) {
                 array_push($playerFighterListArray, $fighterListArray[$i]);
             }
         }
 
         return $playerFighterListArray;
+    }
+
+    function getOtherFightersList($playerIdLogin) {
+        $fighterList = $this->find('all', array(
+            'order' => 'Fighters.level DESC'
+        ));
+        $fighterListArray = $fighterList->toArray();
+        $otherFighterListArray = [];
+        for ($i=0; $i<count($fighterListArray); $i++) {
+            if($fighterListArray[$i]['player_id'] != $playerIdLogin) {
+                array_push($otherFighterListArray, $fighterListArray[$i]);
+            }
+        }
+
+        return $otherFighterListArray;
     }
 
     // The game board's dimensions
