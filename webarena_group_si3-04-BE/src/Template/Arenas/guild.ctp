@@ -22,15 +22,20 @@
             echo "<table class='cake-table' id='guilds-table'>";
             echo "<thead><tr>
             <th>Guild Name</th>
+            <th>Guild ID</th>
+            <th>Number of Fighters</th>
             </tr></thead><tbody>";
             for ($i=0; $i < $guildCount; $i++) {
                 echo "<tr>";
                 echo "<td>";
-                echo $guildList[$i]->name;
+                echo $guildCountTable[$i][0];
                 echo "</td>";
-                // if ($guildList[$i]->guild_id) {
-                //     # code...
-                // }
+                echo "<td>";
+                echo $guildCountTable[$i][1];
+                echo "</td>";
+                echo "<td>";
+                echo $guildCountTable[$i][2];
+                echo "</td>";
                 echo "</tr>";
             }
             echo "</tbody></table>";

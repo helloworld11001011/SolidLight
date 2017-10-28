@@ -411,20 +411,22 @@ class FightersTable extends Table {
         return $averageSkills;
     }
 
-    function getFightersPerGuild () {
-        $Query = $this->find();
-        $Query->select([
-            'guild_id',
-            'members' => $Query->func()->count('*')
-        ])
-        ->group('guild_id');
-        $Data = $Query->toArray();
-        for ($i=0; $i < $Query->count(); $i++) {
-            $fightersPerGuild[$i][0] = $Data[$i]->guild_id;
-            $fightersPerGuild[$i][1] = $Data[$i]->members;
-        }
-        pr($fightersPerGuild);
-        return $fightersPerGuild;
+    function getFightersPerTopGuilds () {   //Use this to create another statistic table in HallOfFame
+        // $Query = $this->find();
+        // $Query->select([
+        //     'guild_id',
+        //     'members' => $Query->func()->count('*')
+        // ])
+        // ->limit('2')
+        // ->order('members' => 'DESC')
+        // ->group('guild_id');
+        // $Data = $Query->toArray();
+        // for ($i=0; $i < $Query->count(); $i++) {
+        //     $fightersPerGuild[$i][0] = $Data[$i]->guild_id;
+        //     $fightersPerGuild[$i][1] = $Data[$i]->members;
+        // }
+        // pr($fightersPerGuild);
+        // return $fightersPerGuild;
     }
 }
 

@@ -233,9 +233,21 @@ class ArenasController extends AppController {
         $this->loadModel('Guilds');
         $this->loadModel('Fighters');
 
-        $this->set('guildList', $this->Guilds->getGuildList());
         $this->set('guildCount', $this->Guilds->find('all')->count());
-        $this->set('fightersPerGuild', $this->Fighters->getFightersPerGuild());
+        // $this->set('fightersPerGuild', $this->Fighters->getFightersPerGuild());
+        $fighterPerGuildCounter = 0;
+        for ($i=0; $i < $this->Guilds->find('all')->count(); $i++) {
+            $guildCountTable[$i][0] = $this->Guilds->find('all')->toArray()[$i]->name;
+            $guildCountTable[$i][1] = $this->Guilds->find('all')->toArray()[$i]->id;
+            for ($j=0; $j < $this->Fighters->find('all')->count(); $j++) {
+                if($this->Fighters->find('all')->toArray()[$j]->guild_id == $this->Guilds->find('all')->toArray()[$i]->id){
+                    $fighterPerGuildCounter++;
+                }
+                $guildCountTable[$i][2] = $fighterPerGuildCounter;
+            }
+            $fighterPerGuildCounter = 0;
+        }
+        $this->set('guildCountTable', $guildCountTable);
     }
 
 }
