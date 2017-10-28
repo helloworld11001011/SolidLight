@@ -11,10 +11,11 @@ class MessagesTable extends Table
         $messagesTable = TableRegistry::get('messages');
         $messages = $messagesTable->newEntity();
         //pr($messageData); die();
-        $messages->fighter_id_from = $messageData['fighterCo'];
-        $messages->fighter_id = $messageData['fighterTo'];
-        $messages->message = $messageData['message'];
-
-        $messagesTable->save($messages);
+        if(isset($messages->message)) {
+            $messages->fighter_id_from = $messageData['fighterCo'];
+            $messages->fighter_id = $messageData['fighterTo'];
+            $messages->message = $messageData['message'];
+            $messagesTable->save($messages);
+        }
     }
 }

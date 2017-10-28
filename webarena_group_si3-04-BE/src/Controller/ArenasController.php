@@ -12,17 +12,39 @@ use App\Controller\AppController;
 class ArenasController extends AppController {
 
     public function inbox() {
-        $this->loadModel('Messages');
+        $session = $this->request->session();
 
-        if ($this->request->is('post')) {
-            $this->Messages->addANewMessage($this->request->getData());
+        if($session->check('fighterChosenId')) {
+
+            $this->loadModel('Messages');
+            $this->loadModel('Fighters');
+
+            if ($this->request->is('post')) {
+                $this->Messages->addANewMessage($this->request->getData());
+            }
+
+            $otherFightersList = $this->Fighters->getOtherFightersList($session->read('playerIdLogin'));
+            $this->set('otherFightersList', $otherFightersList);
+
+            $messages = $this->Messages->find('all');
+            $messagesArray = $messages->toArray();
+            $nbMessages = count($messagesArray);
+
+            $this->set('fighterIsChosen', 1);
+            $this->set('fighterChosenId', $session->read('fighterChosenId'));
+            $this->set('fighterChosenName', $session->read('fighterChosenName'));
+            $this->set('messagesArray', $messagesArray);
+            $this->set('nbMessages', $nbMessages);
         }
-
-        $messages = $this->Messages->find('all');
-        $messagesArray = $messages->toArray();
-        $nbMessages = count($messagesArray);
-        $this->set('messagesArray', $messagesArray);
-        $this->set('nbMessages', $nbMessages);
+        else {
+            if($session->check('playerEmailLogin')) {
+                $this->set('playerIsLogin', 1);
+            }
+            else {
+                $this->set('playerIsLogin', 0);
+            }
+            $this->set('fighterIsChosen', 0);
+        }
     }
 
     public function hallOfFame() {

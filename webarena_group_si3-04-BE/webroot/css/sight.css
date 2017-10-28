@@ -48,6 +48,10 @@ button{
     width: 100%;
 }
 
+.attack-btn{
+    
+}
+
 #matdiv{
     display: flex;
     flex-direction: column;
@@ -59,4 +63,9 @@ button{
 }
 #maindiv{
     display: flex;
+}
+
+#info{
+    padding-bottom: 240px;
+    color: blueviolet;
 }
