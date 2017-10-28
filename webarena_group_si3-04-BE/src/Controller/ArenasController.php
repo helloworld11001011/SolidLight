@@ -70,8 +70,7 @@ class ArenasController extends AppController {
 
             if ($goodToGo == 1) {
                 $goodToGo = 'Good to go';
-            }
-            else {
+            } else {
                 $session->write('playerEmailLogin', null);
                 $playerEmailLogin = $session->read('playerEmailLogin');
                 pr($playerEmailLogin);
@@ -106,7 +105,7 @@ class ArenasController extends AppController {
         //Retrieving the fighter list (for displaying a player's fighters)
         //TODO: get list based on current player ID
         $session = $this->request->session();
-        if($session->check('playerEmailLogin')) {
+        if ($session->check('playerEmailLogin')) {
             $playerIdLogin = $session->read('playerIdLogin');
 
             $newFighter = $this->request->getData();  //getData()?
@@ -116,105 +115,104 @@ class ArenasController extends AppController {
             $fightersArray = $fighters->toArray();
 
             if (isset($newFighter['name'])) {  //What is being tested?
-            for ($i=0; $i<count($fightersArray); $i++) {
-                if($fightersArray[$i]['name'] == $newFighter['name']) {
-                    $nameInDb = 1;
+                for ($i = 0; $i < count($fightersArray); $i++) {
+                    if ($fightersArray[$i]['name'] == $newFighter['name']) {
+                        $nameInDb = 1;
+                    }
                 }
-            }
-            if($nameInDb != 1) {
-                $this->Fighters->addANewFighter($this->request->getData(), $playerIdLogin);
-            }
-            if ($nameInDb == 1) {
-                $nameInDb = 'A fighter of this name already exists';
-            } else {
-                $nameInDb = 'Your fighter has been created!';
-            }
-            $this->set('nameInDb', $nameInDb);
+                if ($nameInDb != 1) {
+                    $this->Fighters->addANewFighter($this->request->getData(), $playerIdLogin);
+                }
+                if ($nameInDb == 1) {
+                    $nameInDb = 'A fighter of this name already exists';
+                } else {
+                    $nameInDb = 'Your fighter has been created!';
+                }
+                $this->set('nameInDb', $nameInDb);
             }
 
             $this->set('playerIsLogin', 1);
             $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
-            $this -> set('playerFighterList', $playerFighterList);
+            $this->set('playerFighterList', $playerFighterList);
 
-            if(isset($newFighter['fighterChosen'])) {
+            if (isset($newFighter['fighterChosen'])) {
                 $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
                 $session->write('fighterChosenName', $fighterChosen['name']);
                 $session->write('fighterChosenId', $fighterChosen['id']);
                 pr($session->read('fighterChosenName'));
             }
-
-        }
-
-        else {
+        } else {
             $this->set('playerIsLogin', 0);
         }
 
-/*
-        switch ($this->Fighters->fight()) {
+        /*
+          switch ($this->Fighters->fight()) {
 
-            case 1:
-                $this->Fighters->xp(1);
-                $this->Events->addNewEvent(1);
-                $this->Fighters->deleteFighter();
+          case 1:
+          $this->Fighters->xp(1);
+          $this->Events->addNewEvent(1);
+          $this->Fighters->deleteFighter();
 
-                break;
+          break;
 
-            case 2:
-                $this->Fighters->xp(2);
-                $this->Events->addNewEvent(2);
-                break;
+          case 2:
+          $this->Fighters->xp(2);
+          $this->Events->addNewEvent(2);
+          break;
 
-            case 3:
-                $this->Fighters->xp(3);
-                $this->Events->addNewEvent(3);
-                break;
-        }
- *  */
-
+          case 3:
+          $this->Fighters->xp(3);
+          $this->Events->addNewEvent(3);
+          break;
+          }
+         *  */
     }
 
+    public function sight() {
+
+        //session
+        $session = $this->request->session();
 
 
-    public function sight()
-    {
         // Default for the initial aparition and whenever you reload the page
         $data["direction"] = "right";
 
         // Load model and set the matrix's size
-        $this -> loadModel('Fighters');
-        $this -> set('matX', $this->Fighters->getMatrixX());
-        $this -> set('matY', $this->Fighters->getMatrixY());
+        $this->loadModel('Fighters');
+        $this->set('matX', $this->Fighters->getMatrixX());
+        $this->set('matY', $this->Fighters->getMatrixY());
 
         // For testing only, has to be replaced
-        $currentFighterId= 1;
+        $currentFighterId = $session->read("fighterChosenId");
 
         // Call the move function
-        if($this->request->is("post")) {
+        if ($this->request->is("post")) {
             $data = $this->request->getData();
 
             // If this is not an attack
-            if($data["attack"] == "no"){
+            if ($data["attack"] == "no") {
                 // Then move()
                 $this->Fighters->move($data);
-            }else{ // Else, if this is an attack, fight()
+            } else { // Else, if this is an attack, fight()
                 // Get the targeted case from the sight data
-                $targetedCase= $data["targetedCase"];
+                $targetedCase = $data["targetedCase"];
+                $attack = $this->Fighters->getFighterById($currentFighterId)[0];
+                $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
                 // Call the fight() function with the contenders as parameters if the targeted case si in fact a fighter
-                if($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"]))
-                    $this->Fighters->fight($this->Fighters->getFighterById($currentFighterId)[0], $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0]);
+                if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"]))
+                    $this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense);
             }
-
         }
 
         // Get the current fighter after it's position has been updated by move()
-        $currentFighter= $this->Fighters->getFighterById($currentFighterId);
+        $currentFighter = $this->Fighters->getFighterById($currentFighterId);
 
         // Get the case that is being targeted and send it to the view for displaying
-        $targetedCase= $this->Fighters->getTargetedCase($data, $currentFighter);
-        $this -> set('targetedCase', $targetedCase);
+        $targetedCase = $this->Fighters->getTargetedCase($data, $currentFighter);
+        $this->set('targetedCase', $targetedCase);
 
         // Send the current fighter to the view for displaying the war fog
-        $this -> set('currentFighter', $currentFighter);
+        $this->set('currentFighter', $currentFighter);
 
 
         //Retrieving every fighter currently in the game (for positions)
@@ -228,4 +226,5 @@ class ArenasController extends AppController {
 
         $this->Events->addNewEvent();
     }
+
 }
