@@ -258,7 +258,7 @@ class FightersTable extends Table {
         while ($restart == 1) {
 
             $randX = rand(0, 14);
-            $randY = rand(0, 14);
+            $randY = rand(0, 9);
             $restart = 0;
 
             for ($i = 0; $i < count($fightersArray); $i++) {
