@@ -133,13 +133,15 @@ class FightersTable extends Table {
         }
     }
 
-    function xp($arg) {
+    function xp($case, $attack, $defense) {
 
+        /*
         $fighterList = $this->find('all');
         $fighterListArray = $fighterList->toArray();
 
         $attack = $fighterListArray[0];
         $defense = $fighterListArray[1];
+        */
         $attackId = $attack['id'];
         $currentxp = $attack['xp'];
 
@@ -147,8 +149,10 @@ class FightersTable extends Table {
         $attackant = $fighterTable->get($attackId);
 
 
+
+
 //xp if the defense is killed
-        if ($arg == 1) {
+        if ($case == 1) {
 
 
 
@@ -169,7 +173,7 @@ class FightersTable extends Table {
                 $level = $level + 1;
                 echo 'Level up !';
             }
-        } else if ($arg == 2) {
+        } else if ($case == 2) {
 
             $killXp = ($currentxp) + 1;
             $level = $attack['level'];
@@ -180,7 +184,7 @@ class FightersTable extends Table {
                 $level = $level + 1;
                 echo 'Level up !';
             }
-        } else if ($arg == 3) {
+        } else if ($case == 3) {
 
             $killXp = $currentxp;
             $level = $attack['level'];
@@ -192,12 +196,14 @@ class FightersTable extends Table {
         $fighterTable->save($attackant);
     }
 
-    function deleteFighter() {
+    function deleteFighter($defense) {
 
+        /*
         $fighterList = $this->find('all');
         $fighterListArray = $fighterList->toArray();
 
         $defense = $fighterListArray[1];
+        */
         $defenseId = $defense['id'];
 
         $fighterTable = TableRegistry::get('fighters');
@@ -208,25 +214,26 @@ class FightersTable extends Table {
 
     }
 
-    function totalFight($arg){
+    function totalFight($arg, $attack, $defense){
+
 
         switch ($arg) {
 
             case 1:
-                $this->Fighters->xp(1);
-                $this->Events->addNewEvent(1);
-                $this->Fighters->deleteFighter();
+                $this->xp(1, $attack, $defense);
+                //$this->Events->addNewEvent(1);
+                $this->deleteFighter($defense);
 
                 break;
 
             case 2:
-                $this->Fighters->xp(2);
-                $this->Events->addNewEvent(2);
+                $this->xp(2, $attack, $defense);
+                //$this->Events->addNewEvent(2);
                 break;
 
             case 3:
-                $this->Fighters->xp(3);
-                $this->Events->addNewEvent(3);
+                $this->xp(3, $attack, $defense);
+                //$this->Events->addNewEvent(3);
                 break;
         }
 
