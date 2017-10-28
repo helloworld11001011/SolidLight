@@ -32,6 +32,7 @@ class ArenasController extends AppController {
         $this->set('fighterDistribution', $this->Fighters->getFighterDistribution());
         $this->set('deadFighterDistribution', $this->Events->getDeadFighters());
         $this->set('deadFighterCount', $this->Events->getDeadFightersAmount());
+        $this->set('averageSkills', $this->Fighters->getAverageForSkills());
     }
 
     public function index() {
@@ -144,28 +145,6 @@ class ArenasController extends AppController {
         } else {
             $this->set('playerIsLogin', 0);
         }
-
-        /*
-          switch ($this->Fighters->fight()) {
-
-          case 1:
-          $this->Fighters->xp(1);
-          $this->Events->addNewEvent(1);
-          $this->Fighters->deleteFighter();
-
-          break;
-
-          case 2:
-          $this->Fighters->xp(2);
-          $this->Events->addNewEvent(2);
-          break;
-
-          case 3:
-          $this->Fighters->xp(3);
-          $this->Events->addNewEvent(3);
-          break;
-          }
-         *  */
     }
 
     public function sight() {
