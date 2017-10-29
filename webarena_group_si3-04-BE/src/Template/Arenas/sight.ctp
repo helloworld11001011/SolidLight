@@ -63,12 +63,13 @@ echo "</td></tr><tr><td></td><td>";
 echo $this->Form->postButton('DOWN', null, [ "data" => [ "direction" => "down", "id" => $currentFighter[0]->id, "attack" => "no"]]);
 echo "</td><td></td></tr></table>";
 echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
-echo "<div id='info'> hello test  </div> </div></div>";
+echo "<div id='info'>Hover info</div> </div></div>";
 
 function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     if(!$isTooFar) $isTooFar= 0;
     
-    $s= "<td onmouseover='hoverOver(0, " . strval($isTooFar) . ", -1, -1, -1, -1)'>";
+    //$s= "<td onmouseover='hoverOver(0, " . strval($isTooFar) . ", -1, -1, -1, -1)'>";
+    $s= "<td title=\"Doesn't look like anything to me...\">";
     
     for($i=0; $i<$fighterCount; $i++){
         if($fighterList[$i]->id == $id){
@@ -78,7 +79,9 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
                 $name = "Fantome";
             }
             
-            $s= "<td onmouseover=\"hoverOver(" . strval($id) . ", " . strval($isTooFar). ", '" . $name . "', " . strval($fighterList[$i]->level) . ", " . strval($fighterList[$i]->skill_strength). ", " . strval($fighterList[$i]->skill_health) . ")\">" ;
+            $s= "<td title='$name\nLevel: ".strval($fighterList[$i]->level)."\nStrength: ".strval($fighterList[$i]->skill_strength)."\nHealth: ". strval($fighterList[$i]->skill_health)."'>";
+            
+            //onmouseover=\"hoverOver(" . strval($id) . ", " . strval($isTooFar). ", '" . $name . "', " . strval($fighterList[$i]->level) . ", " . strval($fighterList[$i]->skill_strength). ", " . strval($fighterList[$i]->skill_health) . ")\">" ;
         }
     }
     return $s;
