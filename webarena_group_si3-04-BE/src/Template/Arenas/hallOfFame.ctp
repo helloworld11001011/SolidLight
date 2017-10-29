@@ -219,7 +219,7 @@
 
             </div>
             <div id="death-count-chart">
-
+                <!-- Also set the amount of created fighters per month? -->
             </div>
             <div id="averag-skills-chart">
 

@@ -248,10 +248,10 @@ class ArenasController extends AppController {
     }
 
     public function diary() {
-
         $this->loadModel('Events');
 
-        $this->Events->addNewEvent();
+        $this->set('eventsList', $this->Events->getEventsList());
+        $this->set('eventsCount', $this->Events->find('all')->count());
     }
 
     public function guild() {

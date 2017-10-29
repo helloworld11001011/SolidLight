@@ -88,6 +88,11 @@ class EventsTable extends Table {
         $eventTable->save($event);
     }
 
+    function getEventsList () {
+        $Query = $this->find('all')->order(['date' => 'DESC']);
+        $eventsList = $Query->toArray();
+        return $eventsList;
+    }
 }
 
 ?>
