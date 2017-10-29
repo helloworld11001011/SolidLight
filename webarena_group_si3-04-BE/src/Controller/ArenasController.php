@@ -21,14 +21,13 @@ class ArenasController extends AppController {
 
             $dataSent = $this->request->getData();
 
-            if(isset($dataSent['fighterWithId'])) {
+            if (isset($dataSent['fighterWithId'])) {
                 $session->write('fighterFrom', $dataSent['fighterWithId']);
             }
 
-            if($session->check('fighterFrom')) {
+            if ($session->check('fighterFrom')) {
                 $fighterFrom = $session->read('fighterFrom');
-            }
-            else {
+            } else {
                 $fighterFrom = -1;
             }
 
@@ -43,8 +42,8 @@ class ArenasController extends AppController {
             $messages = $this->Messages->find('all');
             $messagesArray = $messages->toArray();
             $goodMessages = [];
-            for($i=0; $i<count($messagesArray); $i++) {
-                if(($messagesArray[$i]['fighter_id_from']==$fighterFrom && $messagesArray[$i]['fighter_id']==$session->read('fighterChosenId')) || ($messagesArray[$i]['fighter_id_from']== $session->read('fighterChosenId') && $messagesArray[$i]['fighter_id']==$fighterFrom)) {
+            for ($i = 0; $i < count($messagesArray); $i++) {
+                if (($messagesArray[$i]['fighter_id_from'] == $fighterFrom && $messagesArray[$i]['fighter_id'] == $session->read('fighterChosenId')) || ($messagesArray[$i]['fighter_id_from'] == $session->read('fighterChosenId') && $messagesArray[$i]['fighter_id'] == $fighterFrom)) {
                     array_push($goodMessages, $messagesArray[$i]);
                 }
             }
@@ -54,10 +53,8 @@ class ArenasController extends AppController {
             $this->set('fighterChosenId', $session->read('fighterChosenId'));
             $this->set('fighterChosenName', $session->read('fighterChosenName'));
             $this->set('messagesArray', $goodMessages);
-
-        }
-        else {
-            if($session->check('playerEmailLogin')) {
+        } else {
+            if ($session->check('playerEmailLogin')) {
                 $this->set('playerIsLogin', 1);
             } else {
                 $this->set('playerIsLogin', 0);
@@ -216,14 +213,13 @@ class ArenasController extends AppController {
             } else { // Else, if this is an attack, fight()
                 // Get the targeted case from the sight data
                 $targetedCase = $data["targetedCase"];
-                
+
                 // Call the fight() function with the contenders as parameters if the targeted case is in fact a fighter
-                if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])){
+                if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])) {
                     $attack = $this->Fighters->getFighterById($currentFighterId)[0];
                     $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
                     $this->Events->addNewFightEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
                 }
-                    
             }
         }
 
@@ -254,21 +250,55 @@ class ArenasController extends AppController {
         $this->loadModel('Guilds');
         $this->loadModel('Fighters');
 
-        $this->set('guildCount', $this->Guilds->find('all')->count());
-        // $this->set('fightersPerGuild', $this->Fighters->getFightersPerGuild());
-        $fighterPerGuildCounter = 0;
-        for ($i=0; $i < $this->Guilds->find('all')->count(); $i++) {
-            $guildCountTable[$i][0] = $this->Guilds->find('all')->toArray()[$i]->name;
-            $guildCountTable[$i][1] = $this->Guilds->find('all')->toArray()[$i]->id;
-            for ($j=0; $j < $this->Fighters->find('all')->count(); $j++) {
-                if($this->Fighters->find('all')->toArray()[$j]->guild_id == $this->Guilds->find('all')->toArray()[$i]->id){
-                    $fighterPerGuildCounter++;
-                }
-                $guildCountTable[$i][2] = $fighterPerGuildCounter;
-            }
+        $session = $this->request->session();
+        if ($session->check('playerEmailLogin')) {
+            $playerIdLogin = $session->read('playerIdLogin');
+
+            $this->set('guildCount', $this->Guilds->find('all')->count());
+            // $this->set('fightersPerGuild', $this->Fighters->getFightersPerGuild());
             $fighterPerGuildCounter = 0;
+            for ($i = 0; $i < $this->Guilds->find('all')->count(); $i++) {
+                $guildCountTable[$i][0] = $this->Guilds->find('all')->toArray()[$i]->name;
+                $guildCountTable[$i][1] = $this->Guilds->find('all')->toArray()[$i]->id;
+                for ($j = 0; $j < $this->Fighters->find('all')->count(); $j++) {
+                    if ($this->Fighters->find('all')->toArray()[$j]->guild_id == $this->Guilds->find('all')->toArray()[$i]->id) {
+                        $fighterPerGuildCounter++;
+                    }
+                    $guildCountTable[$i][2] = $fighterPerGuildCounter;
+                }
+                $fighterPerGuildCounter = 0;
+            }
+            $this->set('guildCountTable', $guildCountTable);
+
+
+
+
+            $newGuild = $this->request->getData();
+
+            $guildNameInDb = 0;  //Variable testing if fighter name already exists
+            $guild = $this->Guilds->find('all');
+            $guildArray = $guild->toArray();
+
+            if (isset($newGuild['name'])) {  //What is being tested?
+                for ($i = 0; $i < count($guildArray); $i++) {
+                    if ($guildArray[$i]['name'] == $newGuild['name']) {
+
+                        $guildNameInDb = 1;
+                    }
+                }
+                if ($guildNameInDb != 1) {
+                    $this->Guilds->addANewGuild($this->request->getData());
+                    //$fighterEvent = $this->Fighters->getFighterByName($newFighter['name'])[0];
+                    //$this->Events->addNewPlayerEvent($fighterEvent);
+                }
+                if ($guildNameInDb == 1) {
+                    $guildNameInDb = 'A guild of this name already exists';
+                } else {
+                    $guildNameInDb = 'Your guild has been created!';
+                }
+                $this->set('guildNameInDb', $guildNameInDb);
+            }
         }
-        $this->set('guildCountTable', $guildCountTable);
     }
 
 }
