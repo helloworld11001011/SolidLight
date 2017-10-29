@@ -15,8 +15,16 @@ class GuildsTable extends Table {
         $guild->name = $guildData['name'];
 
         $guildTable->save($guild);
+        
     }
-
+    
+    function getGuildList() {
+        $guildList = $this->find('all', array(
+            'order' => 'Guilds.id DESC'
+        ));
+        $guildListArray = $guildList->toArray();
+        return $guildListArray;
+    }
 }
 
 ?>

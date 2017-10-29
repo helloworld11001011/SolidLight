@@ -44,7 +44,8 @@ class EventsTable extends Table {
 
         $eventTable = TableRegistry::get('events');
         $event = $eventTable->newEntity();
-
+        
+        $message="";
 
         if ($arg == 1) {
 
@@ -52,8 +53,8 @@ class EventsTable extends Table {
             $event->date = Time::now();
             $event->coordinate_x = $defense["coordinate_x"];
             $event->coordinate_y = $defense["coordinate_y"];
-            echo "<br>";
-            echo "event kill";
+            $message.= "<br>";
+            $message.= "event kill";
         } else if ($arg == 2) {
 
 
@@ -61,18 +62,20 @@ class EventsTable extends Table {
             $event->date = Time::now();
             $event->coordinate_x = $defense["coordinate_x"];
             $event->coordinate_y = $defense["coordinate_y"];
-            echo "<br>";
-            echo "event no kill";
+            $message.= "<br>";
+            $message.= "event no kill";
         } else if ($arg == 3) {
 
             $event->name = $attack['name'] . " acttaks " . $defense['name'] . " but misses him ! ";
             $event->date = Time::now();
             $event->coordinate_x = $defense["coordinate_x"];
             $event->coordinate_y = $defense["coordinate_y"];
-            echo "<br>";
-            echo "event block ";
+            $message.= "<br>";
+            $message.= "event block ";
         }
         $eventTable->save($event);
+        
+        echo $message;
     }
 
     function addNewPlayerEvent($newfighter) {

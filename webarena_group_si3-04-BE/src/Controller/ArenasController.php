@@ -245,7 +245,7 @@ class ArenasController extends AppController {
                 if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])) {
                     $attack = $this->Fighters->getFighterById($currentFighterId)[0];
                     $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
-                    $this->Events->addNewFightEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
+                    $message= $this->Events->addNewFightEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
                 }
             }
         }
@@ -282,6 +282,7 @@ class ArenasController extends AppController {
         if ($session->check('playerEmailLogin')) {
             $playerIdLogin = $session->read('playerIdLogin');
             $this->set('playerFighterList', $this->Fighters->getPlayerFighterList($playerIdLogin));
+            $this->set('guildList', $this->Guilds->getGuildList());
 
             $this->set('guildCount', $this->Guilds->find('all')->count());
             //Function that counts how many fighters there are per guild AND shows all guilds (even when there are no fighters. Much harder to do than the idea suggests...)
