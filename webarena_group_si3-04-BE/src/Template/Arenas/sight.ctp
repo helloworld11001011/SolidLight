@@ -17,10 +17,10 @@ for($i=0; $i<$fighterCount; $i++){
     $matrix[$fighterList[$i]->coordinate_y][$fighterList[$i]->coordinate_x] = $fighterList[$i]->id;
 }
 
-echo "<div id='maindiv'><div id='matdiv'><table class='mat'>";
+echo "<div id='maindiv'><div id='matdiv'><table class='mat'>\n";
 // for every row
 for($i=0; $i<$matY; $i++){
-    echo "<tr>";
+    echo "<tr>\n";
     // for every column
     for($j=0; $j<$matX; $j++){
         // Boolean, true if the current case is too far to be seen
@@ -46,10 +46,10 @@ for($i=0; $i<$matY; $i++){
                     echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
                 }
             }
-            echo "</td>";
         }
+        echo "</td>\n";
     }
-    echo "</tr>";
+    echo "</tr>\n";
 }
 echo "</table></div>";
 
@@ -66,13 +66,15 @@ echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => 
 echo "<div id='info'> hello test  </div> </div></div>";
 
 function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
-    $s= "<td onmouseover='hoverOver(0, 1, 0)'>";
-    
     if(!$isTooFar) $isTooFar= 0;
+    
+    $s= "<td onmouseover='hoverOver(0," . strval($isTooFar) . ", -1, -1, -1, -1)'>";
     
     for($i=0; $i<$fighterCount; $i++){
         if($fighterList[$i]->id == $id){
-            $s= "<td onmouseover='hoverOver(" . strval($id) . "," . strval($isTooFar). ", " . strval($fighterList[$i]->skill_health) . ")'>" ;
+            // Name Level strenght health    $fighterList[$i]->skill_strength
+            //$s= "<td onmouseover='hoverOver(" . strval($id) . ", " . strval($isTooFar). ", " . strval($fighterList[$i]->name) . ", " . strval($fighterList[$i]->level) . ", 99, " . strval($fighterList[$i]->skill_health) . ")'>" ;
+            $s= "<td onmouseover='hoverOver(1, 0, testname, 4, 5, 6)'>" ; 
         }
     }
     return $s;
