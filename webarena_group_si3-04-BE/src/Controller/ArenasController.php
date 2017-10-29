@@ -73,20 +73,27 @@ class ArenasController extends AppController {
         $this->set('deadFighterCount', $this->Events->getDeadFightersAmount());
         $this->set('averageSkills', $this->Fighters->getAverageForSkills());
 
-        $fighterPerGuildCounter = 0;
-        for ($i = 0; $i < $this->Guilds->find('all')->count(); $i++) {
-            for ($j = 0; $j < $this->Fighters->find('all')->count(); $j++) {
-                if ($this->Fighters->find('all')->toArray()[$j]->guild_id == $this->Guilds->find('all')->toArray()[$i]->id) {
-                    $fighterPerGuildCounter++;
+        $Query = $this->Fighters->find();
+        $Query->select([
+            'guild_id',
+            'members' => $Query->func()->count('*')
+        ])
+        ->where(['not' => ['guild_id' => 'null']])
+        ->group(['guild_id'])
+        ->order(['members' => 'DESC']);
+        $QueryArray = $Query->toArray();
+
+        for ($i=0; $i < 4; $i++) {
+            $guildCountTable[$i][0] = $QueryArray[$i]->members;
+            for ($j=0; $j < $this->Guilds->find('all')->count(); $j++) {
+                if ($QueryArray[$i]->guild_id == $this->Guilds->find('all')->toArray()[$j]->id) {
+                    $guildName = strval($this->Guilds->find('all')->toArray()[$j]->name);
+                    $guildCountTable[$i][1] = $guildName;
                 }
-                $guildCountTable[$i][0] = $fighterPerGuildCounter;
             }
-            $fighterPerGuildCounter = 0;
-            $guildCountTable[$i][1] = $this->Guilds->find('all')->toArray()[$i]->name;
-            $guildCountTable[$i][2] = $this->Guilds->find('all')->toArray()[$i]->id;
         }
         pr($guildCountTable);
-        $this->set('$guildCountTable', $guildCountTable);
+        $this->set('guildCountTable', $guildCountTable);
     }
 
     public function index() {
@@ -270,7 +277,7 @@ class ArenasController extends AppController {
         $this->loadModel('Guilds');
         $this->loadModel('Fighters');
 
-        
+
         $session = $this->request->session();
         if ($session->check('playerEmailLogin')) {
             $playerIdLogin = $session->read('playerIdLogin');

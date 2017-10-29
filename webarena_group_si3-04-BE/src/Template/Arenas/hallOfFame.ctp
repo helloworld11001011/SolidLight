@@ -157,56 +157,27 @@
                 });
             });
 
-            //Guild chart using jqplot - use only if necessary, chart.js is superior
-            //Not $fightersPerTopGuild anymore!!!
-
-            // $(document).ready(function(){
-            //     //TODO: get name of guild on mouse hover?
-            //         var data = [
-            //             ['', <?php echo $fightersPerTopGuild[0]; ?>],['', <?php echo $fightersPerTopGuild[1]; ?>], ['', <?php echo $fightersPerTopGuild[2]; ?>], ['', <?php echo $fightersPerTopGuild[3]; ?>]
-            //         ];
-            //
-            //         var plot4 = $.jqplot('top-guilds-chart', [data], {
-            //         seriesDefaults: {
-            //             // make this a donut chart.
-            //             renderer:$.jqplot.DonutRenderer,
-            //             rendererOptions:{
-            //                 // Donut's can be cut into slices like pies.
-            //                 sliceMargin: 3,
-            //                 // Pies and donuts can start at any arbitrary angle.
-            //                 startAngle: -90,
-            //                 showDataLabels: true,
-            //                 // By default, data labels show the percentage of the donut/pie.
-            //                 // You can show the data 'value' or data 'label' instead.
-            //                 dataLabels: 'value',
-            //                 // "totalLabel=true" uses the centre of the donut for the total amount
-            //                 totalLabel: false
-            //             }
-            //         }
-            //     });
-            // });
-
             $(document).ready(function(){
-                console.log(<?php echo $guildCountTable[9][0]; ?>);
-                // var ctx = document.getElementById("top-guilds-chart").getContext('2d');
-                // data = {
-                //     datasets: [{
-                //         data: [<?php echo $guildCountTable[0][0]; ?>, <?php echo $guildCountTable[1][0]; ?>, <?php echo $guildCountTable[2][0]; ?>, <?php echo $guildCountTable[3][0]; ?>]
-                //     }],
-                //
-                //     // These labels appear in the legend and in the tooltips when hovering different arcs
-                //     labels: [
-                //         'Red',
-                //         'Yellow',
-                //         'Blue',
-                //         'Green'
-                //     ]
-                // };
-                // var myDoughnutChart = new Chart(ctx, {
-                //     type: 'doughnut',
-                //     data: data
-                //     // options: options
-                // });
+                //TODO: VERIFY NULL VALUES
+                var ctx = document.getElementById("top-guilds-chart").getContext('2d');
+                data = {
+                    datasets: [{
+                        data: [<?php echo $guildCountTable[0][0]; ?>, <?php echo $guildCountTable[1][0]; ?>, <?php echo $guildCountTable[2][0]; ?>, <?php echo $guildCountTable[3][0]; ?>]
+                    }],
+
+                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: [
+                        <?php echo $guildCountTable[0][1]; ?>,
+                        <?php echo $guildCountTable[0][1]; ?>,
+                        <?php echo $guildCountTable[0][1]; ?>,
+                        <?php echo $guildCountTable[0][1]; ?>
+                    ]
+                };
+                var myDoughnutChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data
+                    // options: options
+                });
             });
         </script>
     </head>
