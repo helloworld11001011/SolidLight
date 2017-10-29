@@ -79,13 +79,27 @@
                 array_push($playerFighterListName, $playerFighterList[$i]->name);
             }
 
-            echo $this->Form->create('ChooseFighterForGuild');
+            echo $this->Form->create('ChooseFighterAndGuild');
             echo $this->Form->select(
                 'fighterChosenForGuild',
                 $playerFighterListName,
                 ['empty' => '(choisissez)']
             );
+        
+            echo "<h3> Choose a fighter </h3>";
+  
+            $guildListName = [];
+            for($i=0; $i < count($guildList); $i++) {
+                array_push($guildListName, $guildList[$i]->name);
+            }
+
+            echo $this->Form->select(
+                'guildChosenForFighter',
+                $guildListName,
+                ['empty' => '(choisissez)']
+            );
             echo $this->Form->submit(__('CHOOSE'));
             ?>
+        
     </body>
 </html>
