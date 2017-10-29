@@ -6,6 +6,7 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 
 class FightersTable extends Table {
+
     //Displaying all the fighters owned by a player
     //Get all fighters currently existing (for the scoreboard)
     function getFighterList() {
@@ -147,21 +148,11 @@ class FightersTable extends Table {
 
     function xp($case, $attack, $defense) {
 
-        /*
-          $fighterList = $this->find('all');
-          $fighterListArray = $fighterList->toArray();
-
-          $attack = $fighterListArray[0];
-          $defense = $fighterListArray[1];
-         */
         $attackId = $attack['id'];
         $currentxp = $attack['xp'];
 
         $fighterTable = TableRegistry::get('fighters');
         $attackant = $fighterTable->get($attackId);
-
-
-
 
 //xp if the defense is killed
         if ($case == 1) {
@@ -169,42 +160,33 @@ class FightersTable extends Table {
 
 
             $killXp = $currentxp + $defense['level'] + 1;
-            $level = $attack['level'];
+            echo ($killXp - $currentxp) . " xp won ! ";
+            //$level = $attack['level'];
 
+            /*  while ($killXp > 4) {
 
-            while ($killXp > 4) {
+              $killXp = $killXp - 4;
+              $level = $level + 1;
+              echo 'Level up !';
+              }
 
-                $killXp = $killXp - 4;
-                $level = $level + 1;
-                echo 'Level up !';
-            }
+              if ($killXp == 4) {
 
-            if ($killXp == 4) {
-
-                $killXp = 0;
-                $level = $level + 1;
-                echo 'Level up !';
-            }
+              $killXp = 0;
+              $level = $level + 1;
+              echo 'Level up !';
+              } */
         } else if ($case == 2) {
 
             $killXp = ($currentxp) + 1;
-            $level = $attack['level'];
-
-            if ($killXp == 4) {
-
-                $killXp = 0;
-                $level = $level + 1;
-                echo 'Level up !';
-            }
+            echo ($killXp - $currentxp) . 'xp won';
         } else if ($case == 3) {
 
             $killXp = $currentxp;
-            $level = $attack['level'];
-            echo 'no xp won';
+            echo  ($killXp - $currentxp) . 'xp won';
         }
 
         $attackant->xp = $killXp;
-        $attackant->level = $level;
         $fighterTable->save($attackant);
     }
 
@@ -375,8 +357,10 @@ class FightersTable extends Table {
         $fighter = $this->find("all", ["conditions" => ["Fighters.id" => $id]]);
         return $fighter->toArray();
     }
-    
-     function getFighterByName($name) {
+
+
+    function getFighterByName($name) {
+
         $fighter = $this->find("all", ["conditions" => ["Fighters.name" => $name]]);
         return $fighter->toArray();
     }
@@ -416,23 +400,33 @@ class FightersTable extends Table {
         return $averageSkills;
     }
 
-    function getFightersPerTopGuilds () {   //Use this to create another statistic table in HallOfFame
-        // $Query = $this->find();
-        // $Query->select([
-        //     'guild_id',
-        //     'members' => $Query->func()->count('*')
-        // ])
-        // ->limit('2')
-        // ->order('members' => 'DESC')
-        // ->group('guild_id');
-        // $Data = $Query->toArray();
-        // for ($i=0; $i < $Query->count(); $i++) {
-        //     $fightersPerGuild[$i][0] = $Data[$i]->guild_id;
-        //     $fightersPerGuild[$i][1] = $Data[$i]->members;
-        // }
-        // pr($fightersPerGuild);
-        // return $fightersPerGuild;
+
+    function getFightersPerTopGuilds () {
+        $Query = $this->find();
+        $Query->select([
+            'members' => $Query->func()->count('*'),
+            'guild_id' => 'Fighters.guild_id'
+        ])
+        ->limit('4')
+        ->where(['not' => ['Fighters.guild_id' => 'null']])
+        ->group('guild_id')
+        ->order(['members' => 'DESC']);
+        $fightersPerTopGuildArray = $Query->toArray();
+        for ($i=0; $i < 4; $i++) {
+            $fightersPerTopGuild[$i] = $fightersPerTopGuildArray[$i]->members;
+        }
+        pr($fightersPerTopGuild);
+        return $fightersPerTopGuild;
     }
+
+    function getLeveledUpList () {
+        $Query = $this->find();
+        $Query->select(['name', 'xp'])->where(['xp >=' => '4']);
+        $leveledUpList = $Query->toArray();
+        pr($leveledUpList);
+        return $leveledUpList;
+    }
+
 }
 
 ?>

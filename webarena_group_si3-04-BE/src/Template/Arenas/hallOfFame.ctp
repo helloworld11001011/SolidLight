@@ -6,7 +6,7 @@
         <?php
         echo $this->Html->css('hallOfFame');
         echo $this->Html->css('jquery.jqplot.min.css');
-        echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', 'jqplot.pieRenderer.js', 'jqplot.dateAxisRenderer.js', 'jqplot.logAxisRenderer.js', 'jqplot.canvasTextRenderer.js', 'jqplot.canvasAxisTickRenderer.js', 'jqplot.highlighter.js', 'jqplot.barRenderer.js', 'jqplot.categoryAxisRenderer.js', 'jqplot.pointLabels.js']);
+        echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', 'jqplot.pieRenderer.js', 'jqplot.dateAxisRenderer.js', 'jqplot.logAxisRenderer.js', 'jqplot.canvasTextRenderer.js', 'jqplot.canvasAxisTickRenderer.js', 'jqplot.highlighter.js', 'jqplot.barRenderer.js', 'jqplot.categoryAxisRenderer.js', 'jqplot.pointLabels.js', 'jqplot.DonutRenderer.js', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js']);
         ?>
 
         <script type="text/javascript">
@@ -156,6 +156,56 @@
                     highlighter: { show: false }
                 });
             });
+
+            //Guild chart using jqplot - use only if necessary, chart.js is superior
+
+            // $(document).ready(function(){
+            //     //TODO: get name of guild on mouse hover?
+            //         var data = [
+            //             ['', <?php echo $fightersPerTopGuild[0]; ?>],['', <?php echo $fightersPerTopGuild[1]; ?>], ['', <?php echo $fightersPerTopGuild[2]; ?>], ['', <?php echo $fightersPerTopGuild[3]; ?>]
+            //         ];
+            //
+            //         var plot4 = $.jqplot('top-guilds-chart', [data], {
+            //         seriesDefaults: {
+            //             // make this a donut chart.
+            //             renderer:$.jqplot.DonutRenderer,
+            //             rendererOptions:{
+            //                 // Donut's can be cut into slices like pies.
+            //                 sliceMargin: 3,
+            //                 // Pies and donuts can start at any arbitrary angle.
+            //                 startAngle: -90,
+            //                 showDataLabels: true,
+            //                 // By default, data labels show the percentage of the donut/pie.
+            //                 // You can show the data 'value' or data 'label' instead.
+            //                 dataLabels: 'value',
+            //                 // "totalLabel=true" uses the centre of the donut for the total amount
+            //                 totalLabel: false
+            //             }
+            //         }
+            //     });
+            // });
+
+            $(document).ready(function(){
+                var ctx = document.getElementById("top-guilds-chart").getContext('2d');
+                data = {
+                    datasets: [{
+                        data: [<?php echo $fightersPerTopGuild[0]; ?>, <?php echo $fightersPerTopGuild[1]; ?>, <?php echo $fightersPerTopGuild[2]; ?>, <?php echo $fightersPerTopGuild[3]; ?>]
+                    }],
+
+                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: [
+                        'Red',
+                        'Yellow',
+                        'Blue',
+                        'Green'
+                    ]
+                };
+                var myDoughnutChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data
+                    // options: options
+                });
+            });
         </script>
     </head>
 
@@ -169,10 +219,13 @@
 
             </div>
             <div id="death-count-chart">
-
+                <!-- Also set the amount of created fighters per month? -->
             </div>
             <div id="averag-skills-chart">
 
+            </div>
+            <div id="chart.js">
+                <canvas id="top-guilds-chart"></canvas>
             </div>
         </div>
     </body>

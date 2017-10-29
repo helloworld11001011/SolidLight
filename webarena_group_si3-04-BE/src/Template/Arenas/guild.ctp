@@ -8,9 +8,9 @@
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 			  crossorigin="anonymous"', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
         <script type="text/javascript">
-          $(document).ready(function () {
-              $('#guilds-table').DataTable();
-          });
+            $(document).ready(function () {
+                $('#guilds-table').DataTable();
+            });
         </script>
     </head>
 
@@ -45,5 +45,32 @@
         <div id="guild-members">
 
         </div>
+
+        <h2> Create your guild ! </h2>
+            <?php
+            if(isset($guildNameInDb))
+                echo $guildNameInDb;
+            ?>
+        <div class="create fighter">
+                <?php echo $this->Form->create('Create guild');?>
+            <fieldset>
+                <legend><?php echo __('Create guild'); ?></legend>
+                    <?php echo $this->Form->input('name');
+                    echo 'Class';
+                    ?>
+            </fieldset>
+        </div>
+
+            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->end() ?>
+        <?php
+        }
+        else {
+            echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
+            ?>
+        <button onclick="location.href = 'login'" type="button">LOGIN</button>
+            <?php
+        }
+        ?>
     </body>
 </html>
