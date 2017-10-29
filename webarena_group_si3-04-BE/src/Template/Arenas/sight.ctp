@@ -73,7 +73,6 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     }
     //$s= "<td onmouseover='hoverOver(0, " . strval($isTooFar) . ", -1, -1, -1, -1)'>";
     
-    
     for($i=0; $i<$fighterCount; $i++){
         if($fighterList[$i]->id == $id){
             
