@@ -15,10 +15,12 @@
     </head>
 
     <body>
+       
         <h1>Guilds</h1>
 
-        <div id="guild-list">
-            <?php
+         <?php
+         echo '<div id="guild-list">';
+            
             echo "<table class='cake-table' id='guilds-table'>";
             echo "<thead><tr>
             <th>Guild Name</th>
@@ -64,13 +66,8 @@
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
         <?php
-        }
-        else {
-            echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
-            ?>
-        <button onclick="location.href = 'login'" type="button">LOGIN</button>
-            <?php
-        }
+         
+        
         ?>
     </body>
 </html>
