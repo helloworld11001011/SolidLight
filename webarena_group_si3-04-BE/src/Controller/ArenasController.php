@@ -154,23 +154,25 @@ class ArenasController extends AppController {
             $fightersArray = $fighters->toArray();
 
             if (isset($newFighter['name'])) {  //What is being tested?
-                for ($i = 0; $i < count($fightersArray); $i++) {
-                    if ($fightersArray[$i]['name'] == $newFighter['name']) {
+                if($newFighter['name'] != '') {
+                    for ($i = 0; $i < count($fightersArray); $i++) {
+                        if ($fightersArray[$i]['name'] == $newFighter['name']) {
 
-                        $nameInDb = 1;
+                            $nameInDb = 1;
+                        }
                     }
+                    if ($nameInDb != 1) {
+                        $this->Fighters->addANewFighter($this->request->getData(), $playerIdLogin);
+                        $fighterEvent = $this->Fighters->getFighterByName($newFighter['name'])[0];
+                        $this->Events->addNewPlayerEvent($fighterEvent);
+                    }
+                    if ($nameInDb == 1) {
+                        $nameInDb = 'A fighter of this name already exists';
+                    } else {
+                        $nameInDb = 'Your fighter has been created!';
+                    }
+                    $this->set('nameInDb', $nameInDb);
                 }
-                if ($nameInDb != 1) {
-                    $this->Fighters->addANewFighter($this->request->getData(), $playerIdLogin);
-                    $fighterEvent = $this->Fighters->getFighterByName($newFighter['name'])[0];
-                    $this->Events->addNewPlayerEvent($fighterEvent);
-                }
-                if ($nameInDb == 1) {
-                    $nameInDb = 'A fighter of this name already exists';
-                } else {
-                    $nameInDb = 'Your fighter has been created!';
-                }
-                $this->set('nameInDb', $nameInDb);
             }
 
             $this->set('playerIsLogin', 1);
