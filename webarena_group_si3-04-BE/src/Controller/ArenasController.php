@@ -69,7 +69,9 @@ class ArenasController extends AppController {
     public function hallOfFame() {
         $this->loadModel('Fighters');
         $this->loadModel('Events');
+        $this->loadModel('Guilds');
 
+        $this->set('fightersPerTopGuild', $this->Fighters->getFightersPerTopGuilds());
         $this->set('fighterDistribution', $this->Fighters->getFighterDistribution());
         $this->set('deadFighterDistribution', $this->Events->getDeadFighters());
         $this->set('deadFighterCount', $this->Events->getDeadFightersAmount());
@@ -216,14 +218,14 @@ class ArenasController extends AppController {
             } else { // Else, if this is an attack, fight()
                 // Get the targeted case from the sight data
                 $targetedCase = $data["targetedCase"];
-                
+
                 // Call the fight() function with the contenders as parameters if the targeted case is in fact a fighter
                 if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])){
                     $attack = $this->Fighters->getFighterById($currentFighterId)[0];
                     $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
                     $this->Events->addNewFightEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
                 }
-                    
+
             }
         }
 
@@ -255,7 +257,9 @@ class ArenasController extends AppController {
         $this->loadModel('Fighters');
 
         $this->set('guildCount', $this->Guilds->find('all')->count());
-        // $this->set('fightersPerGuild', $this->Fighters->getFightersPerGuild());
+
+        //Function that counts how many fighters there are per guild AND shows all guilds (even when there are no fighters. Much harder to do than the idea suggests...)
+        //Ideally, put function in GuildsTable, but impossible to link Guilds and Fighters to make the associated tables query
         $fighterPerGuildCounter = 0;
         for ($i=0; $i < $this->Guilds->find('all')->count(); $i++) {
             $guildCountTable[$i][0] = $this->Guilds->find('all')->toArray()[$i]->name;

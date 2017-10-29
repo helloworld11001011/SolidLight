@@ -375,7 +375,7 @@ class FightersTable extends Table {
         $fighter = $this->find("all", ["conditions" => ["Fighters.id" => $id]]);
         return $fighter->toArray();
     }
-    
+
      function getFighterByName($name) {
         $fighter = $this->find("all", ["conditions" => ["Fighters.name" => $name]]);
         return $fighter->toArray();
@@ -416,22 +416,22 @@ class FightersTable extends Table {
         return $averageSkills;
     }
 
-    function getFightersPerTopGuilds () {   //Use this to create another statistic table in HallOfFame
-        // $Query = $this->find();
-        // $Query->select([
-        //     'guild_id',
-        //     'members' => $Query->func()->count('*')
-        // ])
-        // ->limit('2')
-        // ->order('members' => 'DESC')
-        // ->group('guild_id');
-        // $Data = $Query->toArray();
-        // for ($i=0; $i < $Query->count(); $i++) {
-        //     $fightersPerGuild[$i][0] = $Data[$i]->guild_id;
-        //     $fightersPerGuild[$i][1] = $Data[$i]->members;
-        // }
-        // pr($fightersPerGuild);
-        // return $fightersPerGuild;
+    function getFightersPerTopGuilds () {
+        $Query = $this->find();
+        $Query->select([
+            'members' => $Query->func()->count('*'),
+            'guild_id' => 'Fighters.guild_id'
+        ])
+        ->limit('4')
+        ->where(['not' => ['Fighters.guild_id' => 'null']])
+        ->group('guild_id')
+        ->order(['members' => 'DESC']);
+        $fightersPerTopGuildArray = $Query->toArray();
+        for ($i=0; $i < 4; $i++) {
+            $fightersPerTopGuild[$i] = $fightersPerTopGuildArray[$i]->members;
+        }
+        pr($fightersPerTopGuild);
+        return $fightersPerTopGuild;
     }
 }
 
