@@ -8,7 +8,27 @@
         echo $this->Html->css('jquery.jqplot.min.css');
         echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', 'jqplot.pieRenderer.js', 'jqplot.dateAxisRenderer.js', 'jqplot.logAxisRenderer.js', 'jqplot.canvasTextRenderer.js', 'jqplot.canvasAxisTickRenderer.js', 'jqplot.highlighter.js', 'jqplot.barRenderer.js', 'jqplot.categoryAxisRenderer.js', 'jqplot.pointLabels.js', 'jqplot.DonutRenderer.js', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js']);
         ?>
+    </head>
 
+    <body>
+
+        <h1>
+            Hall of Fame
+        </h1>
+        <div class="main-container">
+            <div id="levels-chart">
+
+            </div>
+            <div id="death-count-chart">
+                <!-- Also set the amount of created fighters per month? -->
+            </div>
+            <div id="averag-skills-chart">
+
+            </div>
+            <div id="chart.js">
+                <canvas id="top-guilds-chart"></canvas>
+            </div>
+        </div>
         <script type="text/javascript">
             $(document).ready(function(){
                 var data = [
@@ -162,44 +182,38 @@
                 var ctx = document.getElementById("top-guilds-chart").getContext('2d');
                 data = {
                     datasets: [{
-                        data: [<?php echo $guildCountTable[0][0]; ?>, <?php echo $guildCountTable[1][0]; ?>, <?php echo $guildCountTable[2][0]; ?>, <?php echo $guildCountTable[3][0]; ?>]
+                        data: [
+                            <?php echo $guildCountTable[0][0]; ?>, <?php echo $guildCountTable[1][0]; ?>, <?php echo $guildCountTable[2][0]; ?>, <?php echo $guildCountTable[3][0]; ?>
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
                     }],
 
                     // These labels appear in the legend and in the tooltips when hovering different arcs
                     labels: [
-                        <?php echo $guildCountTable[0][1]; ?>,
-                        <?php echo $guildCountTable[0][1]; ?>,
-                        <?php echo $guildCountTable[0][1]; ?>,
-                        <?php echo $guildCountTable[0][1]; ?>
+                        <?php echo "'"; echo $guildCountTable[0][1]; echo "'"; ?>,
+                        <?php echo "'"; echo $guildCountTable[1][1]; echo "'"; ?>,
+                        <?php echo "'"; echo $guildCountTable[2][1]; echo "'"; ?>,
+                        <?php echo "'"; echo $guildCountTable[3][1]; echo "'"; ?>
                     ]
                 };
                 var myDoughnutChart = new Chart(ctx, {
                     type: 'doughnut',
-                    data: data
-                    // options: options
+                    data: data,
                 });
             });
         </script>
-    </head>
-
-    <body>
-
-        <h1>
-            Hall of Fame
-        </h1>
-        <div class="main-container">
-            <div id="levels-chart">
-
-            </div>
-            <div id="death-count-chart">
-                <!-- Also set the amount of created fighters per month? -->
-            </div>
-            <div id="averag-skills-chart">
-
-            </div>
-            <div id="chart.js">
-                <canvas id="top-guilds-chart"></canvas>
-            </div>
-        </div>
     </body>
 </html>

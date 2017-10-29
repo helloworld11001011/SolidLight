@@ -92,7 +92,6 @@ class ArenasController extends AppController {
                 }
             }
         }
-        pr($guildCountTable);
         $this->set('guildCountTable', $guildCountTable);
     }
 
@@ -326,24 +325,24 @@ class ArenasController extends AppController {
                 }
                 $this->set('guildNameInDb', $guildNameInDb);
             }
-            
-            
+
+
             $data = $this->request->getData();
-            
+
             $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
             $this->set('playerFighterList', $playerFighterList);
-            
+
             $guildList = $this->Guilds->getGuildList();
             $this->set('guildList', $guildList);
-           
+
             if (isset($data['fighterChosenForGuild']) && isset ($data['guildChosenForFighter'] )) {
                 $fighterChosen = $playerFighterList[$data['fighterChosenForGuild']];
                 $guildChosen =  $guildList[$data['guildChosenForFighter']];
-                
+
                 $this->Fighters->joinGuild($guildChosen, $fighterChosen);
             }
-            
-            
+
+
         }
     }
 
