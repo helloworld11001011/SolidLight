@@ -183,7 +183,7 @@ class FightersTable extends Table {
         } else if ($case == 3) {
 
             $killXp = $currentxp;
-            echo  ($killXp - $currentxp) . 'xp won';
+            echo ($killXp - $currentxp) . 'xp won';
         }
 
         $attackant->xp = $killXp;
@@ -358,7 +358,6 @@ class FightersTable extends Table {
         return $fighter->toArray();
     }
 
-
     function getFighterByName($name) {
 
         $fighter = $this->find("all", ["conditions" => ["Fighters.name" => $name]]);
@@ -400,31 +399,40 @@ class FightersTable extends Table {
         return $averageSkills;
     }
 
-
-    function getFightersPerTopGuilds () {
+    function getFightersPerTopGuilds() {
         $Query = $this->find();
         $Query->select([
-            'members' => $Query->func()->count('*'),
-            'guild_id' => 'Fighters.guild_id'
-        ])
-        ->limit('4')
-        ->where(['not' => ['Fighters.guild_id' => 'null']])
-        ->group('guild_id')
-        ->order(['members' => 'DESC']);
+                    'members' => $Query->func()->count('*'),
+                    'guild_id' => 'Fighters.guild_id'
+                ])
+                ->limit('4')
+                ->where(['not' => ['Fighters.guild_id' => 'null']])
+                ->group('guild_id')
+                ->order(['members' => 'DESC']);
         $fightersPerTopGuildArray = $Query->toArray();
-        for ($i=0; $i < 4; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $fightersPerTopGuild[$i] = $fightersPerTopGuildArray[$i]->members;
         }
-        pr($fightersPerTopGuild);
         return $fightersPerTopGuild;
     }
 
-    function getLeveledUpList () {
+    function getLeveledUpList() {
         $Query = $this->find();
         $Query->select(['name', 'xp'])->where(['xp >=' => '4']);
         $leveledUpList = $Query->toArray();
-        pr($leveledUpList);
         return $leveledUpList;
+    }
+
+    function joinGuild($guild, $selectedFighter) {
+
+        $fighterId = $selectedFighter['id'];
+
+        $fighterTable = TableRegistry::get('fighters');
+        $guildFighter = $fighterTable->get($fighterId);
+
+        $guildFighter->guild_id = $guild["id"];
+
+        $fighterTable->save($guildFighter);
     }
 
 }

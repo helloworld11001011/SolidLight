@@ -256,9 +256,11 @@ class ArenasController extends AppController {
         $this->loadModel('Guilds');
         $this->loadModel('Fighters');
 
+        
         $session = $this->request->session();
         if ($session->check('playerEmailLogin')) {
             $playerIdLogin = $session->read('playerIdLogin');
+            $this->set('playerFighterList', $this->Fighters->getPlayerFighterList($playerIdLogin));
 
             $this->set('guildCount', $this->Guilds->find('all')->count());
             //Function that counts how many fighters there are per guild AND shows all guilds (even when there are no fighters. Much harder to do than the idea suggests...)
