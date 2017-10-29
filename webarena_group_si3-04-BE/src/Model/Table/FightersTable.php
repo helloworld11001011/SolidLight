@@ -433,6 +433,14 @@ class FightersTable extends Table {
         pr($fightersPerTopGuild);
         return $fightersPerTopGuild;
     }
+
+    function getLeveledUpList () {
+        $Query = $this->find();
+        $Query->select(['name', 'xp'])->where(['xp >=' => '4']);
+        $leveledUpList = $Query->toArray();
+        pr($leveledUpList);
+        return $leveledUpList;
+    }
 }
 
 ?>

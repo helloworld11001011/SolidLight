@@ -157,34 +157,36 @@
                 });
             });
 
-            $(document).ready(function(){
-                //TODO: get name of guild on mouse hover?
-                    var data = [
-                        ['', <?php echo $fightersPerTopGuild[0]; ?>],['', <?php echo $fightersPerTopGuild[1]; ?>], ['', <?php echo $fightersPerTopGuild[2]; ?>], ['', <?php echo $fightersPerTopGuild[3]; ?>]
-                    ];
+            //Guild chart using jqplot - use only if necessary, chart.js is superior
 
-                    var plot4 = $.jqplot('top-guilds-chart', [data], {
-                    seriesDefaults: {
-                        // make this a donut chart.
-                        renderer:$.jqplot.DonutRenderer,
-                        rendererOptions:{
-                            // Donut's can be cut into slices like pies.
-                            sliceMargin: 3,
-                            // Pies and donuts can start at any arbitrary angle.
-                            startAngle: -90,
-                            showDataLabels: true,
-                            // By default, data labels show the percentage of the donut/pie.
-                            // You can show the data 'value' or data 'label' instead.
-                            dataLabels: 'value',
-                            // "totalLabel=true" uses the centre of the donut for the total amount
-                            totalLabel: false
-                        }
-                    }
-                });
-            });
+            // $(document).ready(function(){
+            //     //TODO: get name of guild on mouse hover?
+            //         var data = [
+            //             ['', <?php echo $fightersPerTopGuild[0]; ?>],['', <?php echo $fightersPerTopGuild[1]; ?>], ['', <?php echo $fightersPerTopGuild[2]; ?>], ['', <?php echo $fightersPerTopGuild[3]; ?>]
+            //         ];
+            //
+            //         var plot4 = $.jqplot('top-guilds-chart', [data], {
+            //         seriesDefaults: {
+            //             // make this a donut chart.
+            //             renderer:$.jqplot.DonutRenderer,
+            //             rendererOptions:{
+            //                 // Donut's can be cut into slices like pies.
+            //                 sliceMargin: 3,
+            //                 // Pies and donuts can start at any arbitrary angle.
+            //                 startAngle: -90,
+            //                 showDataLabels: true,
+            //                 // By default, data labels show the percentage of the donut/pie.
+            //                 // You can show the data 'value' or data 'label' instead.
+            //                 dataLabels: 'value',
+            //                 // "totalLabel=true" uses the centre of the donut for the total amount
+            //                 totalLabel: false
+            //             }
+            //         }
+            //     });
+            // });
 
             $(document).ready(function(){
-                var ctx = document.getElementById("myChart").getContext('2d');
+                var ctx = document.getElementById("top-guilds-chart").getContext('2d');
                 data = {
                     datasets: [{
                         data: [<?php echo $fightersPerTopGuild[0]; ?>, <?php echo $fightersPerTopGuild[1]; ?>, <?php echo $fightersPerTopGuild[2]; ?>, <?php echo $fightersPerTopGuild[3]; ?>]
@@ -222,11 +224,8 @@
             <div id="averag-skills-chart">
 
             </div>
-            <div id="top-guilds-chart">
-
-            </div>
-            <div id="test">
-                <canvas id="myChart"></canvas>
+            <div id="chart.js">
+                <canvas id="top-guilds-chart"></canvas>
             </div>
         </div>
     </body>

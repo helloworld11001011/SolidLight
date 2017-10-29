@@ -84,7 +84,7 @@ class ArenasController extends AppController {
         //Retrieving every fighter currently in the game (for leaderboards)
         $this->set('fighterList', $this->Fighters->getFighterList());
         $this->set('fighterCount', $this->Fighters->find('all')->count());
-        $this->set('fighterTableWidth', $this->Fighters->getFighterTableWidth());
+        // $this->set('fighterTableWidth', $this->Fighters->getFighterTableWidth());
     }
 
     public function login() {
@@ -187,6 +187,8 @@ class ArenasController extends AppController {
         } else {
             $this->set('playerIsLogin', 0);
         }
+
+        $this->set('leveledUpList', $this->Fighters->getLeveledUpList());
     }
 
     public function sight() {
