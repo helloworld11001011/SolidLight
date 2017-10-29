@@ -3,7 +3,7 @@ function hoverOver(mat, isTooFar, name, level, strenght, health) {
         if(mat == 0){
             $("#info").text("Just some grass.");
         }else{
-            $("#info").text(health);
+            $("#info").text(name+" "+level+" "+strenght+" "+health);
         }
         
     }else{
