@@ -68,11 +68,25 @@ class ArenasController extends AppController {
         $this->loadModel('Events');
         $this->loadModel('Guilds');
 
-        $this->set('fightersPerTopGuild', $this->Fighters->getFightersPerTopGuilds());
         $this->set('fighterDistribution', $this->Fighters->getFighterDistribution());
         $this->set('deadFighterDistribution', $this->Events->getDeadFighters());
         $this->set('deadFighterCount', $this->Events->getDeadFightersAmount());
         $this->set('averageSkills', $this->Fighters->getAverageForSkills());
+
+        $fighterPerGuildCounter = 0;
+        for ($i = 0; $i < $this->Guilds->find('all')->count(); $i++) {
+            for ($j = 0; $j < $this->Fighters->find('all')->count(); $j++) {
+                if ($this->Fighters->find('all')->toArray()[$j]->guild_id == $this->Guilds->find('all')->toArray()[$i]->id) {
+                    $fighterPerGuildCounter++;
+                }
+                $guildCountTable[$i][0] = $fighterPerGuildCounter;
+            }
+            $fighterPerGuildCounter = 0;
+            $guildCountTable[$i][1] = $this->Guilds->find('all')->toArray()[$i]->name;
+            $guildCountTable[$i][2] = $this->Guilds->find('all')->toArray()[$i]->id;
+        }
+        pr($guildCountTable);
+        $this->set('$guildCountTable', $guildCountTable);
     }
 
     public function index() {

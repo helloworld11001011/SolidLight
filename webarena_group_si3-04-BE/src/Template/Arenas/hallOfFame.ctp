@@ -158,6 +158,7 @@
             });
 
             //Guild chart using jqplot - use only if necessary, chart.js is superior
+            //Not $fightersPerTopGuild anymore!!!
 
             // $(document).ready(function(){
             //     //TODO: get name of guild on mouse hover?
@@ -186,25 +187,26 @@
             // });
 
             $(document).ready(function(){
-                var ctx = document.getElementById("top-guilds-chart").getContext('2d');
-                data = {
-                    datasets: [{
-                        data: [<?php echo $fightersPerTopGuild[0]; ?>, <?php echo $fightersPerTopGuild[1]; ?>, <?php echo $fightersPerTopGuild[2]; ?>, <?php echo $fightersPerTopGuild[3]; ?>]
-                    }],
-
-                    // These labels appear in the legend and in the tooltips when hovering different arcs
-                    labels: [
-                        'Red',
-                        'Yellow',
-                        'Blue',
-                        'Green'
-                    ]
-                };
-                var myDoughnutChart = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: data
-                    // options: options
-                });
+                console.log(<?php echo $guildCountTable[9][0]; ?>);
+                // var ctx = document.getElementById("top-guilds-chart").getContext('2d');
+                // data = {
+                //     datasets: [{
+                //         data: [<?php echo $guildCountTable[0][0]; ?>, <?php echo $guildCountTable[1][0]; ?>, <?php echo $guildCountTable[2][0]; ?>, <?php echo $guildCountTable[3][0]; ?>]
+                //     }],
+                //
+                //     // These labels appear in the legend and in the tooltips when hovering different arcs
+                //     labels: [
+                //         'Red',
+                //         'Yellow',
+                //         'Blue',
+                //         'Green'
+                //     ]
+                // };
+                // var myDoughnutChart = new Chart(ctx, {
+                //     type: 'doughnut',
+                //     data: data
+                //     // options: options
+                // });
             });
         </script>
     </head>
