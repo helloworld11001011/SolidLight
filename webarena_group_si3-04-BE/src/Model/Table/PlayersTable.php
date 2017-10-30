@@ -18,7 +18,8 @@ class PlayersTable extends Table
         $players = $playersTable->newEntity();
 
         $players->email = $playerData['email'];
-        $players->password = $playerData['password'];
+        $players->password = password_hash($playerData['password'], PASSWORD_DEFAULT);
+        
 
         $playersTable->save($players);
     }

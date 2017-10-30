@@ -117,7 +117,7 @@ class ArenasController extends AppController {
         if ($this->request->is('post')) {
             if (isset($data['emailLogin']) && isset($data['password'])) {
                 for ($i = 0; $i < count($playersArray); $i++) {
-                    if ($playersArray[$i]['email'] == $data['emailLogin'] && $playersArray[$i]['password'] == $data['password']) {
+                    if ($playersArray[$i]['email'] == $data['emailLogin'] && password_verify($data['password'], $playersArray[$i]['password'])) {
                         $goodToGo = 1;
                         $playerLogin = $data['emailLogin'];
                         $session->write('playerEmailLogin', $playerLogin);
