@@ -102,7 +102,7 @@ class FightersTable extends Table {
 
             if ($newHealth <= 0) {
                 $success["success"] = 1;
-                
+
                 //changes the current health of defender in db
                 $defender->current_health = $newHealth;
                 $fighterTable->save($defender);
@@ -136,7 +136,7 @@ class FightersTable extends Table {
 
         $fighterTable = TableRegistry::get('fighters');
         $attackant = $fighterTable->get($attackId);
-        
+
         $message="";
 
 //xp if the defense is killed
@@ -171,7 +171,7 @@ class FightersTable extends Table {
 
         $attackant->xp = $killXp;
         $fighterTable->save($attackant);
-        
+
         return $message;
     }
 
@@ -399,8 +399,7 @@ class FightersTable extends Table {
     }
 
     function joinGuild($guild, $selectedFighter) {
-
-        $fighterId = $selectedFighter['id'];
+        $fighterId = $selectedFighter;
 
         $fighterTable = TableRegistry::get('fighters');
         $guildFighter = $fighterTable->get($fighterId);
@@ -409,21 +408,21 @@ class FightersTable extends Table {
 
         $fighterTable->save($guildFighter);
     }
-    
+
     function levelUp($arg, $fighterChosen){
-        
+
         $fighterData = $arg;
-        
+
         $fighterTable = TableRegistry::get('fighters');
-        
+
         $fighter = $fighterTable->get($fighterChosen['id']);
-        
+
         if($fighterData['Class'] == 0){
-            
+
             echo 'riennnn';
-            
+
         }
-            
+
 
         if ($fighterData['Class'] == 1) {
             $fighter->skill_strength = $fighter['skill_strength']  + 1;
@@ -441,14 +440,14 @@ class FightersTable extends Table {
            echo ' + 3 health';
 
         }
-        
+
         $fighter->xp = $fighter['xp'] - 4;
         $fighter->level = $fighter['level'] + 1;
 
         $fighterTable->save($fighter);
-        
+
         $fighter->current_health = $fighter['skill_health'];
-        
+
         $fighterTable->save($fighter);
     }
 

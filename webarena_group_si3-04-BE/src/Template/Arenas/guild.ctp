@@ -80,12 +80,14 @@
                     array_push($guildListName, $guildList[$i]->name);
                 }
 
+                echo $this->Form->create('Choose guild');
                 echo $this->Form->select(
                     'guildChosenForFighter',
                     $guildListName,
                     ['empty' => '(choisissez)']
                 );
-                echo $this->Form->submit(__('CHOOSE'));
+                echo $this->Form->button(__('Submit'));
+                echo $this->Form->end();
          }
         else {
             if($playerIsLogin) {
