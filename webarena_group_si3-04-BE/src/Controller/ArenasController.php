@@ -238,6 +238,7 @@ class ArenasController extends AppController {
         $this->loadModel('Fighters');
         $this->set('matX', $this->Fighters->getMatrixX());
         $this->set('matY', $this->Fighters->getMatrixY());
+        $this->set('message', "Nothing of interest happened.");
 
 // For testing only, has to be replaced
         $currentFighterId = $session->read("fighterChosenId");
@@ -259,6 +260,7 @@ class ArenasController extends AppController {
                     $attack = $this->Fighters->getFighterById($currentFighterId)[0];
                     $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
                     $message= $this->Events->addNewFightEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
+                    $this->set('message', $message["message"]);
                 }
             }
         }
