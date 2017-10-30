@@ -49,6 +49,21 @@
                 <!-- End of events table div -->
 
         </div>
+        
+        <h2> Scream action </h2>
+           
+        <div class="scream action">
+                <?php echo $this->Form->create('scream action');?>
+            <fieldset>
+                <legend><?php echo __('scream action'); ?></legend>
+                    <?php echo $this->Form->input('message');
+                    ?>
+            </fieldset>
+        </div>
+
+            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->end() ?>
+        
 
         <navigation>
             <h5>Navigation</h5>

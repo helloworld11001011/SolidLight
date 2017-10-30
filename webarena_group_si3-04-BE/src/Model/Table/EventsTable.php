@@ -129,6 +129,20 @@ class EventsTable extends Table {
 
         $eventTable->save($event);
     }
+    
+    function addNewScreamEvent($fighterChosen, $arg) {
+
+        $eventTable = TableRegistry::get('events');
+        $event = $eventTable->newEntity();
+
+        $event->name = $fighterChosen . " screams " . $arg;
+        $event->date = Time::now();
+        $event->coordinate_x = 0;
+        $event->coordinate_y = 0;
+
+        $eventTable->save($event);
+    }
+    
 
     function getEventsList () {
         $Query = $this->find('all')->order(['date' => 'DESC']);
