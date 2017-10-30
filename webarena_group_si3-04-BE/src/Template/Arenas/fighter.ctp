@@ -102,7 +102,29 @@
 
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
+        
+        
+        <h2> Level up Fighter </h2>
+            <?php
+            if(isset($nameInDb))
+                echo $nameInDb;
+            ?>
+            <div class="level up fighter">
+                <?php echo $this->Form->create('level up fighter');?>
+                <fieldset>
+                    <legend><?php echo __('Level up Fighter'); ?></legend>
+                    <?php 
+                    echo 'Upgrade';
+                    
+                    echo $this->Form->radio('Upgrade', [' + 1 Strength ', ' + 1 Sight', ' + 3 Health']);
+                    ?>
+                </fieldset>
+            </div>
+
+            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->end() ?>
         <?php
+        
         }
         else {
             echo "YOU ARE NOT CONNECTED MOTHERFUCKER";

@@ -181,6 +181,7 @@ class ArenasController extends AppController {
             $newFighter = $this->request->getData();
 
             $nameInDb = 0;  //Variable testing if fighter name already exists
+            $LevelUpPossible = 0; //to check afterwards if your fighter can level up
             $fighters = $this->Fighters->find('all');
             $fightersArray = $fighters->toArray();
 
@@ -213,7 +214,20 @@ class ArenasController extends AppController {
                 $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
                 $session->write('fighterChosenName', $fighterChosen['name']);
                 $session->write('fighterChosenId', $fighterChosen['id']);
+                
+                if($fighterChosen['xp'] >= 4){
+                    
+                    $this->Fighters->levelUp($this->request->getData(), $fighterChosen);
+                    $LevelUpPossible = 0;
+                    
+                } else {
+                    
+                    echo ' You cannot level up this fighter, not enough xp ';
+                    
+                }
             }
+         
+            
         } else {
             $this->set('playerIsLogin', 0);
         }
