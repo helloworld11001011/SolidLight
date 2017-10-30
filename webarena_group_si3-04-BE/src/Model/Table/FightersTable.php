@@ -414,31 +414,32 @@ class FightersTable extends Table {
 
     function levelUp($arg, $fighterChosen){
 
+        
+        
         $fighterData = $arg;
 
         $fighterTable = TableRegistry::get('fighters');
 
         $fighter = $fighterTable->get($fighterChosen['id']);
 
-        if($fighterData['Class'] == 0){
+        if($fighterData['Upgrade'] == 0){
 
             echo 'riennnn';
 
         }
 
-
-        if ($fighterData['Class'] == 1) {
+        if ($fighterData == 1) {
             $fighter->skill_strength = $fighter['skill_strength']  + 1;
             echo ' + 1 strength';
         }
 
-        if ($fighterData['Class'] == 2) {
+        if ($fighterData == 2) {
            $fighter->skill_sight = $fighter['skill_sight']  + 1;
            echo ' + 1 sight';
 
         }
 
-        if ($fighterData['Class'] == 3) {
+        if ($fighterData == 3) {
            $fighter->skill_health = $fighter['skill_health']  + 3;
            echo ' + 3 health';
 
