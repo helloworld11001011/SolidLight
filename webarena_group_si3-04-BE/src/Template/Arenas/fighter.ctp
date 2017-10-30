@@ -104,11 +104,6 @@
             <?= $this->Form->end() ?>
 
 
-        <?php
-            if(isset($levelUpPossible)){
-                if($levelUpPossible){
-        ?>
-
         <h2> Level up Fighter </h2>
 
 
@@ -118,20 +113,15 @@
                 <legend><?php echo __('Level up Fighter'); ?></legend>
                     <?php 
                     echo 'Upgrade';
-                    
-                    echo $this->Form->radio('Upgrade', [' + 1 Strength ', ' + 1 Sight', ' + 3 Health']);
+                    //trouver un moyen de ne pas afficher 'nothing'
+                    echo $this->Form->radio('Upgrade', ['nothing' , ' + 1 Strength ', ' + 1 Sight', ' + 3 Health']);
                     ?>
             </fieldset>
         </div>
 
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
-        <?php
-                }
-            
-            }                
-                
-         ?>
+      
 <?php
         } 
          
