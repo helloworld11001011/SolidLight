@@ -219,17 +219,25 @@ class ArenasController extends AppController {
                 $session->write('fighterChosenId', $fighterChosen['id']);
                 $session->write('fighterChosenGuild', $fighterChosen['guild_id']);
 
-                if($fighterChosen['xp'] >= 4){
+            }
 
-                   $LevelUpPossible = 1;
-                   $this->Fighters->levelUp($this->request->getData(), $fighterChosen);
+            $currentFighterId = $session->read("fighterChosenId");
+            $fighterChosen = $this->Fighters->getFighterById($currentFighterId);
+
+            if(($session->check('fighterChosenId') && ($fighterChosen[0]->xp >= 4))){
+
+                $this->set('levelUpPossible', 1);
+                $data = $this->request->getData('Upgrade');
+
+                if($data != 0){
+                    $this->Fighters->levelUp($data, $fighterChosen[0]);
+                }
 
                 } else {
 
-                    echo ' You cannot level up this fighter, not enough xp ';
-
+                    $this->set('levelUpPossible', 0);
                 }
-            }
+
 
 
         } else {
@@ -237,6 +245,13 @@ class ArenasController extends AppController {
         }
 
         $this->set('leveledUpList', $this->Fighters->getLeveledUpList());
+
+        $session = $this->request->session();
+        $currentFighterId = $session->read("fighterChosenId");
+        $avatarId = strval($currentFighterId.'.png');
+        $chosenFighterName = $this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()[0]->name;
+        $this->set('avatarId', $avatarId);
+        $this->set('chosenFighterName', $chosenFighterName);
     }
 
     public function sight() {
@@ -307,11 +322,14 @@ class ArenasController extends AppController {
 
         $fighterChosen = $session->read("fighterChosenName");
         $screamMessage = $this->request->getData();
+        if(isset($screamMessage['message']))
         $this->Events->addNewScreamEvent($fighterChosen, $screamMessage['message']);
 
 
         $this->set('eventsList', $this->Events->getEventsList());
         $this->set('eventsCount', $this->Events->find('all')->count());
+
+
     }
 
     public function guild() {

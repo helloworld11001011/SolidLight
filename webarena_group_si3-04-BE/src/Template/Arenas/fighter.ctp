@@ -18,7 +18,8 @@
 
     <body>
         <h1>Your Fighters</h1>
-
+        <h3>Chosen fighter: <?php echo $chosenFighterName; ?></h3>
+        <?php echo $this->Html->image($avatarId, array('class' => 'test')); ?>
         <?php
         if($playerIsLogin) {
             echo "<table class='cake-table' id='fighters-table'>";
@@ -103,7 +104,11 @@
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
 
+        <?php
+        if(isset($levelUpPossible)){
+        ?>
 
+          
         <h2> Level up Fighter </h2>
 
 
@@ -111,7 +116,7 @@
                 <?php echo $this->Form->create('level up fighter');?>
             <fieldset>
                 <legend><?php echo __('Level up Fighter'); ?></legend>
-                    <?php 
+                    <?php
                     echo 'Upgrade';
                     //trouver un moyen de ne pas afficher 'nothing'
                     echo $this->Form->radio('Upgrade', ['nothing' , ' + 1 Strength ', ' + 1 Sight', ' + 3 Health']);
@@ -122,9 +127,14 @@
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
       
+     <?php
+        }
+        ?>
+        
+
 <?php
-        } 
-         
+        }
+
         else {
         echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
         ?>
