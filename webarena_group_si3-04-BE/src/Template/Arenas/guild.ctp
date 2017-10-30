@@ -86,7 +86,7 @@
                 ['empty' => '(choisissez)']
             );
         
-            echo "<h3> Choose a fighter </h3>";
+            echo "<h3> Choose a guild </h3>";
   
             $guildListName = [];
             for($i=0; $i < count($guildList); $i++) {
