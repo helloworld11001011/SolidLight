@@ -434,6 +434,41 @@ class FightersTable extends Table {
 
         $fighterTable->save($guildFighter);
     }
+    
+    function levelUp($arg, $fighterChosen){
+        
+        $fighterData = $arg;
+        
+        $fighterTable = TableRegistry::get('fighters');
+        
+        $fighter = $fighterTable->get($fighterChosen['id']);
+
+        if ($fighterData['Class'] == 0) {
+            $fighter->skill_strength = $fighter['skill_strength']  + 1;
+            echo ' + 1 strength';
+        }
+
+        if ($fighterData['Class'] == 1) {
+           $fighter->skill_sight = $fighter['skill_sight']  + 1;
+           echo ' + 1 sight';
+
+        }
+
+        if ($fighterData['Class'] == 2) {
+           $fighter->skill_health = $fighter['skill_health']  + 3;
+           echo ' + 3 health';
+
+        }
+        
+        $fighter->xp = $fighter['xp'] - 4;
+        $fighter->level = $fighter['level'] + 1;
+
+        $fighterTable->save($fighter);
+        
+        $fighter->current_health = $fighter['skill_health'];
+        
+        $fighterTable->save($fighter);
+    }
 
 }
 
