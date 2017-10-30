@@ -103,7 +103,11 @@
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
 
+        <?php
+        if(isset($levelUpPossible)){
+        ?>
 
+          
         <h2> Level up Fighter </h2>
 
 
@@ -122,6 +126,10 @@
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
       
+     <?php
+        }
+        ?>
+        
 <?php
         } 
          

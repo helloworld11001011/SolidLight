@@ -217,17 +217,27 @@ class ArenasController extends AppController {
                 $session->write('fighterChosenName', $fighterChosen['name']);
                 $session->write('fighterChosenId', $fighterChosen['id']);
 
-                if($fighterChosen['xp'] >= 4){
+            }
+            
+            $currentFighterId = $session->read("fighterChosenId");
+            $fighterChosen = $this->Fighters->getFighterById($currentFighterId);
+            
+            if(($session->check('fighterChosenId') && ($fighterChosen[0]->xp >= 4))){
 
-                   $LevelUpPossible = 1;
-                   $this->Fighters->levelUp($this->request->getData(), $fighterChosen);
-
+                $this->set('levelUpPossible', 1);
+                $data = $this->request->getData('Upgrade');
+                
+                if($data != 0){
+                    $this->Fighters->levelUp($data, $fighterChosen[0]);
+                }    
+                
                 } else {
 
+                    $this->set('levelUpPossible', 0);
                     echo ' You cannot level up this fighter, not enough xp ';
 
                 }
-            }
+            
 
 
         } else {
