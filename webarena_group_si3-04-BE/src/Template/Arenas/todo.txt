@@ -9,7 +9,6 @@ ON FORMS
     Auto-reload page on submit (create fighter, level up...)
 
 ON GUILDS
-    Show guild (players, name, inbox) (JULIEN)
     Guild level (sum of fighter levels in guild) (AXEL?)
 
 ON FIGHTER
@@ -27,8 +26,6 @@ ON SIGHT
 ---CSS---
 
 Index (AXEL)
-Singup/Signin (JULIEN)
-Guild (JULIEN)
 Fighter
 Sight (ELIOTT)
 Events

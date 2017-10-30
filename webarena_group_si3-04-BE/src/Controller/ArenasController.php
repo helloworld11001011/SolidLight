@@ -328,8 +328,6 @@ class ArenasController extends AppController {
 
         $this->set('eventsList', $this->Events->getEventsList());
         $this->set('eventsCount', $this->Events->find('all')->count());
-
-
     }
 
     public function guild() {
@@ -345,17 +343,15 @@ class ArenasController extends AppController {
             $guild = $this->Guilds->find('all');
             $guildArray = $guild->toArray();
 
-            if (isset($newGuild['name'])) {  //What is being tested?
+            if (isset($data['name'])) {  //What is being tested?
                 for ($i = 0; $i < count($guildArray); $i++) {
-                    if ($guildArray[$i]['name'] == $newGuild['name']) {
+                    if ($guildArray[$i]['name'] == $data['name']) {
 
                         $guildNameInDb = 1;
                     }
                 }
                 if ($guildNameInDb != 1) {
                     $this->Guilds->addANewGuild($data);
-                    //$fighterEvent = $this->Fighters->getFighterByName($newFighter['name'])[0];
-                    //$this->Events->addNewPlayerEvent($fighterEvent);
                 }
                 if ($guildNameInDb == 1) {
                     $guildNameInDb = 'A guild of this name already exists';
@@ -368,7 +364,6 @@ class ArenasController extends AppController {
             $guildList = $this->Guilds->getGuildList();
 
             $this->set('fighterIsChosen', 1);
-
             if (isset($data['guildChosenForFighter'])) {
                 $fighterChosen = $session->read('fighterChosenId');
                 $guildChosen =  $guildList[$data['guildChosenForFighter']];
@@ -381,7 +376,7 @@ class ArenasController extends AppController {
                 $allFightersArray = $this->Fighters->find('all')->toArray();
                 $guildFighters = [];
                 for($i=0; $i<count($allFightersArray); $i++) {
-                    if($allFightersArray[$i]['guild_id'] == $session->read('fighterChosenGuild')) {
+                    if($allFightersArray[$i]['guild_id'] == $session->read('fighterChosenGuild')['id']) {
                         array_push($guildFighters, $allFightersArray[$i]);
                     }
                 }
@@ -389,7 +384,7 @@ class ArenasController extends AppController {
 
                 if(isset($guildList)) {
                     for($i=0; $i<count($guildList); $i++) {
-                        if($guildList[$i]['id'] == $session->read('fighterChosenGuild')) {
+                        if($guildList[$i]['id'] == $session->read('fighterChosenGuild')['id']) {
                             $guildName = $guildList[$i]['name'];
                         }
                     }

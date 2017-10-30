@@ -92,41 +92,34 @@
 
             <div id='guildListDiv'>
                 <h3>Create your guild</h3>
-                    <?php
-                    if(isset($guildNameInDb))
-                        echo $guildNameInDb;
-                    ?>
-                    <div class="create fighter">
-                            <?php echo $this->Form->create('Create guild');?>
-                        <fieldset>
-                            <legend><?php echo __('Create guild'); ?></legend>
-                                <?php echo $this->Form->input('name');
-                                echo 'Class';
-                                ?>
-                        </fieldset>
-                    </div>
+                <?php
+                if(isset($guildNameInDb))
+                    echo $guildNameInDb;
+                ?>
+                <?php echo $this->Form->create('Create guild');?>
+                <?php echo $this->Form->input('name');?>
 
-                        <?= $this->Form->button(__('Submit')) ?>
-                        <?= $this->Form->end() ?>
+                <?= $this->Form->button(__('Submit')) ?>
+                <?= $this->Form->end() ?>
             </div>
 
-                    <h2> Make your fighter join a guild </h2>
-                    <h3> Choose a guild </h3>
+            <div id='guildListDiv'>
+                <h3> Choose a guild </h3>
 
-                        <?php
-                        $guildListName = [];
-                        for($i=0; $i < count($guildList); $i++) {
-                            array_push($guildListName, $guildList[$i]->name);
-                        }
+                <?php
+                $guildListName = [];
+                for($i=0; $i < count($guildList); $i++) {
+                    array_push($guildListName, $guildList[$i]->name);
+                }
 
-                        echo $this->Form->create('Choose guild');
-                        echo $this->Form->select(
-                            'guildChosenForFighter',
-                            $guildListName,
-                            ['empty' => '(choisissez)']
-                        );
-                        echo $this->Form->button(__('Submit'));
-                        echo $this->Form->end();
+                echo $this->Form->create('Choose guild');
+                echo $this->Form->select(
+                    'guildChosenForFighter',
+                    $guildListName,
+                    ['empty' => '(choisissez)']
+                );
+                echo $this->Form->button(__('Submit'));
+                echo $this->Form->end();
                 }
                 else {
                     if($playerIsLogin) {
