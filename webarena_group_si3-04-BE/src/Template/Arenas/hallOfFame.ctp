@@ -50,14 +50,6 @@
                         }]
                     },
                     options: {
-                        animation: {
-                            duration: {
-                                1000
-                            },
-                            easing: {
-                                'linear'
-                            }
-                        },
                         legend: {
                             display: false
                         },
@@ -223,39 +215,6 @@
                         tooltipAxes: 'y',
                         sizeAdjust: 7.5 , tooltipLocation : 'ne'
                     }
-                });
-            });
-
-            $(document).ready(function(){
-                $.jqplot.config.enablePlugins = true;
-                var s1 = [<?php echo $averageSkills[0]->avg_sight; ?>, <?php echo $averageSkills[0]->avg_strength; ?>, <?php echo $averageSkills[0]->avg_health; ?>];
-                var ticks = ['Sight Skill', 'Strength Skill', 'Health Skill'];
-
-                plot1 = $.jqplot('averag-skills-chart', [s1], {
-                    // Only animate if we're not using excanvas (not in IE 7 or IE 8)..
-                    animate: !$.jqplot.use_excanvas,
-                    seriesDefaults:{
-                        renderer:$.jqplot.BarRenderer,
-                        pointLabels: {
-                            show: true,
-                            formatString: '%#.1f'
-                        }
-                    },
-                    axes: {
-                        xaxis: {
-                            renderer: $.jqplot.CategoryAxisRenderer,
-                            ticks: ticks,
-                            drawMajorGridlines: false,
-                            drawMinorGridlines: false,
-                            drawMajorTickMarks: false,
-                        },
-                        yaxis: {
-                            drawMajorGridlines: false,
-                            drawMinorGridlines: false,
-                            drawMajorTickMarks: false,
-                        }
-                    },
-                    highlighter: { show: false }
                 });
             });
 

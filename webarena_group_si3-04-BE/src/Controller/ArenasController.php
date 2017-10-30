@@ -70,6 +70,7 @@ class ArenasController extends AppController {
 
         $this->set('fighterDistribution', $this->Fighters->getFighterDistribution());
         $this->set('deadFighterDistribution', $this->Events->getDeadFighters());
+        $this->set('createdFighterDistribution', $this->Events->getCreatedFighters());
         $this->set('deadFighterCount', $this->Events->getDeadFightersAmount());
         $this->set('averageSkills', $this->Fighters->getAverageForSkills());
 
@@ -203,20 +204,20 @@ class ArenasController extends AppController {
                 $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
                 $session->write('fighterChosenName', $fighterChosen['name']);
                 $session->write('fighterChosenId', $fighterChosen['id']);
-                
+
                 if($fighterChosen['xp'] >= 4){
-                    
+
                    $LevelUpPossible = 1;
                    $this->Fighters->levelUp($this->request->getData(), $fighterChosen);
-                    
+
                 } else {
-                    
+
                     echo ' You cannot level up this fighter, not enough xp ';
-                    
+
                 }
             }
-         
-            
+
+
         } else {
             $this->set('playerIsLogin', 0);
         }
