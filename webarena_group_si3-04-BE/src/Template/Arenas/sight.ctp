@@ -31,18 +31,23 @@ for($i=0; $i<$matY; $i++){
         
         // Don't show the cases that are futher away than the sight skill of the fighter
         if($isTooFar){
-            echo $this->Html->image('fog_square.png', ['alt' => 'square_img']);
+            echo $this->Html->image('rust.png', ['alt' => 'square_img']);
         }else{
             // Show the case that is curently being targeted except if there is a fighter on it
             if($i == $targetedCase["y"] && $j == $targetedCase["x"] && !$matrix[$i][$j]){
-                echo $this->Html->image('red_square.png', ['alt' => 'square_img']);
+                echo $this->Html->image('green_square_target.png', ['alt' => 'square_img']);
             }else{
                 // Show the fighter if there is one there
                 if($matrix[$i][$j]){
-                    $pic= strval($matrix[$i][$j]) .'.png';
+                    $pic= strval($matrix[$i][$j]).'.png';
                     echo $this->Html->image($pic, ['alt' => 'square_img']);
                 }else{
-                    echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
+                    if( ($i==1 && $j==2) || ($i==3 && $j==0) || ($i==8 && $j==4) || ($i==13 && $j==6) || ($i==8 && $j==5) || ($i==5 && $j==9) || ($i==4 && $j==7) || ($i==12 && $j==2) || ($i==3 && $j==6) || ($i==1 && $j==7)){
+                        echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
+                    } else{
+                        echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
+                    }
+                    
                 }
             }
         }
