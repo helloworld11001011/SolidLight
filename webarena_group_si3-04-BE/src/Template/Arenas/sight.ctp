@@ -62,7 +62,9 @@ echo "</td></tr><tr><td></td><td>";
 echo $this->Form->postButton('DOWN', null, [ "data" => [ "direction" => "down", "id" => $currentFighter[0]->id, "attack" => "no"]]);
 echo "</td><td></td></tr></table>";
 echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
-echo "<div id='info'>Hover info</div> </div></div>";
+echo "<div id='info'>";
+echo $message;
+echo "</div> </div></div>";
 
 function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     if($isTooFar) {
