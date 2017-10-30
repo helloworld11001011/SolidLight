@@ -295,10 +295,22 @@ class ArenasController extends AppController {
     }
 
     public function diary() {
+        
+         
         $this->loadModel('Events');
+        $this->loadModel('Fighters');
+        
+        $session = $this->request->session();
+        
+        $fighterChosen = $session->read("fighterChosenName");
+        $screamMessage = $this->request->getData();
+        $this->Events->addNewScreamEvent($fighterChosen, $screamMessage['message']);
+       
 
         $this->set('eventsList', $this->Events->getEventsList());
         $this->set('eventsCount', $this->Events->find('all')->count());
+        
+       
     }
 
     public function guild() {
