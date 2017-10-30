@@ -70,7 +70,7 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     if($isTooFar) {
         $s= "<td title=\"Doesn't look like anything to me...\">";
     }else {
-        $s= "<td title=\"Just some grass, no worries.\">";
+        $s= "<td title=\"Nothing there, no worries.\">";
     }
 
     for($i=0; $i<$fighterCount; $i++){
