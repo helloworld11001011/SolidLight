@@ -34,6 +34,8 @@ Sight (ELIOTT)
 Events
 Hall of Fame (AXEL)
 
+!!!Don't try and change the navigation pane and the CakePHP symbol at the bottom right, it's managed in cake.css file (AXEL)!!!
+
 ---BONUSES---
 
 ON SITE HOSTING
