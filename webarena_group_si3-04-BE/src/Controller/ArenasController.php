@@ -235,6 +235,13 @@ class ArenasController extends AppController {
         }
 
         $this->set('leveledUpList', $this->Fighters->getLeveledUpList());
+
+        $session = $this->request->session();
+        $currentFighterId = $session->read("fighterChosenId");
+        $avatarId = strval($currentFighterId.'.png');
+        $chosenFighterName = $this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()[0]->name;
+        $this->set('avatarId', $avatarId);
+        $this->set('chosenFighterName', $chosenFighterName);
     }
 
     public function sight() {
@@ -296,22 +303,22 @@ class ArenasController extends AppController {
     }
 
     public function diary() {
-        
-         
+
+
         $this->loadModel('Events');
         $this->loadModel('Fighters');
-        
+
         $session = $this->request->session();
-        
+
         $fighterChosen = $session->read("fighterChosenName");
         $screamMessage = $this->request->getData();
         $this->Events->addNewScreamEvent($fighterChosen, $screamMessage['message']);
-       
+
 
         $this->set('eventsList', $this->Events->getEventsList());
         $this->set('eventsCount', $this->Events->find('all')->count());
-        
-       
+
+
     }
 
     public function guild() {
