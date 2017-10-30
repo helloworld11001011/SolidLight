@@ -26,8 +26,7 @@ for($i=0; $i<$matY; $i++){
         // Boolean, true if the current case is too far to be seen
         $isTooFar= abs($currentFighter[0]->coordinate_y - $i) + abs($currentFighter[0]->coordinate_x - $j) > $currentFighter[0]->skill_sight;
         
-        // Call js function hoverOver when the mouse hovers over the case
-        // This also creates the opening <td> tag 
+        // Creates the opening <td> tag and sets the title to the info
         echo getFighterInfo($matrix[$i][$j], $isTooFar, $fighterList, $fighterCount);
         
         // Don't show the cases that are futher away than the sight skill of the fighter
@@ -71,8 +70,7 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     }else {
         $s= "<td title=\"Just some grass, no worries.\">";
     }
-    //$s= "<td onmouseover='hoverOver(0, " . strval($isTooFar) . ", -1, -1, -1, -1)'>";
-    
+
     for($i=0; $i<$fighterCount; $i++){
         if($fighterList[$i]->id == $id){
             
@@ -82,8 +80,6 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
             }
             
             $s= "<td title='$name\nLevel: ".strval($fighterList[$i]->level)."\nStrength: ".strval($fighterList[$i]->skill_strength)."\nHealth: ". strval($fighterList[$i]->current_health)." '>";
-            
-            //$s="<td onmouseover=\"hoverOver(" . strval($id) . ", " . strval($isTooFar). ", '" . $name . "', " . strval($fighterList[$i]->level) . ", " . strval($fighterList[$i]->skill_strength). ", " . strval($fighterList[$i]->skill_health) . ")\">" ;
         }
     }
     return $s;
