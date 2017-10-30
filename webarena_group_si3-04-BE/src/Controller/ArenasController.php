@@ -234,8 +234,6 @@ class ArenasController extends AppController {
                 } else {
 
                     $this->set('levelUpPossible', 0);
-                    echo ' You cannot level up this fighter, not enough xp ';
-
                 }
             
 
@@ -322,6 +320,7 @@ class ArenasController extends AppController {
 
         $fighterChosen = $session->read("fighterChosenName");
         $screamMessage = $this->request->getData();
+        if(isset($screamMessage['message']))
         $this->Events->addNewScreamEvent($fighterChosen, $screamMessage['message']);
 
 
