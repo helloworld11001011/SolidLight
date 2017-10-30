@@ -112,6 +112,7 @@ class ArenasController extends AppController {
 
         $session->write('fighterChosenName', null);
         $session->write('fighterChosenId', null);
+        $session->write('fighterChosenGuild', null);
 
         $goodToGo = 0;
         $playerLogin = 0;
@@ -216,6 +217,7 @@ class ArenasController extends AppController {
                 $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
                 $session->write('fighterChosenName', $fighterChosen['name']);
                 $session->write('fighterChosenId', $fighterChosen['id']);
+                $session->write('fighterChosenGuild', $fighterChosen['guild_id']);
 
                 if($fighterChosen['xp'] >= 4){
 
@@ -296,22 +298,20 @@ class ArenasController extends AppController {
     }
 
     public function diary() {
-        
-         
+
+
         $this->loadModel('Events');
         $this->loadModel('Fighters');
-        
+
         $session = $this->request->session();
-        
+
         $fighterChosen = $session->read("fighterChosenName");
         $screamMessage = $this->request->getData();
         $this->Events->addNewScreamEvent($fighterChosen, $screamMessage['message']);
-       
+
 
         $this->set('eventsList', $this->Events->getEventsList());
         $this->set('eventsCount', $this->Events->find('all')->count());
-        
-       
     }
 
     public function guild() {
@@ -351,11 +351,33 @@ class ArenasController extends AppController {
 
             $this->set('fighterIsChosen', 1);
 
-            if (isset ($data['guildChosenForFighter'] )) {
+            if (isset($data['guildChosenForFighter'])) {
                 $fighterChosen = $session->read('fighterChosenId');
                 $guildChosen =  $guildList[$data['guildChosenForFighter']];
-
+                $session->write('fighterChosenGuild', $guildChosen);
                 $this->Fighters->joinGuild($guildChosen, $fighterChosen);
+            }
+
+            if($session->check('fighterChosenGuild')) {
+                $allFightersArray = [];
+                $allFightersArray = $this->Fighters->find('all')->toArray();
+                $guildFighters = [];
+                for($i=0; $i<count($allFightersArray); $i++) {
+                    if($allFightersArray[$i]['guild_id'] == $session->read('fighterChosenGuild')) {
+                        array_push($guildFighters, $allFightersArray[$i]);
+                    }
+                }
+                $this->set('guildFighters', $guildFighters);
+
+                if(isset($guildList)) {
+                    for($i=0; $i<count($guildList); $i++) {
+                        if($guildList[$i]['id'] == $session->read('fighterChosenGuild')) {
+                            $guildName = $guildList[$i]['name'];
+                        }
+                    }
+
+                    $this->set('guildName', $guildName);
+                }
             }
 
             $this->set('guildList', $guildList);

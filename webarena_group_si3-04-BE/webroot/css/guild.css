@@ -1,6 +1,6 @@
 body {
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
    /*  background-color: #E0E0E0; */
      background: linear-gradient(to right,#757575, #BDBDBD);
 }
@@ -13,17 +13,51 @@ body {
     justify-content: center;
     align-items: center;
     padding: 15px;
-    border: 1px solid black;
 }
 
 #mainDivOwnGuild {
+    margin-top: 50px;
     width: 1000px;
     height: 1000px;
-    border: 1px solid red;
+    border-radius: 10px;
+    background: linear-gradient(to right,#BDBDBD, #EEEEEE);
 }
 
 #coverPic {
     height: 45%;
     width: 100%;
+    border-radius: 10px 10px 0px 0px;
     background-image: url('CoverGuild.PNG');
+}
+
+#guildFighters {
+    height: 300px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 170px;
+}
+
+#guildName {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 70px;
+    margin-top: 30px;
+}
+
+h3 {
+    font-size: 50px;
+    font-weight: 500;
+    font-family: fantasy;
+}
+
+#guildListDiv {
+    margin-bottom: 30px;
+    border-radius: 10px;
+    padding: 20px;
+    background: linear-gradient(to right,#BDBDBD, #EEEEEE);
 }
