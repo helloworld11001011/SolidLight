@@ -251,6 +251,7 @@ class ArenasController extends AppController {
         $this->loadModel('Fighters');
         $this->set('matX', $this->Fighters->getMatrixX());
         $this->set('matY', $this->Fighters->getMatrixY());
+        $this->set('fighterCount', $this->Fighters->find('all')->count());
         $this->set('message', "Nothing of interest happened.");
 
         // For testing only, has to be replaced
@@ -295,10 +296,22 @@ class ArenasController extends AppController {
     }
 
     public function diary() {
+        
+         
         $this->loadModel('Events');
+        $this->loadModel('Fighters');
+        
+        $session = $this->request->session();
+        
+        $fighterChosen = $session->read("fighterChosenName");
+        $screamMessage = $this->request->getData();
+        $this->Events->addNewScreamEvent($fighterChosen, $screamMessage['message']);
+       
 
         $this->set('eventsList', $this->Events->getEventsList());
         $this->set('eventsCount', $this->Events->find('all')->count());
+        
+       
     }
 
     public function guild() {
@@ -308,29 +321,7 @@ class ArenasController extends AppController {
 
         if ($session->check('fighterChosenId')) {
             $playerIdLogin = $session->read('playerIdLogin');
-            $this->set('playerFighterList', $this->Fighters->getPlayerFighterList($playerIdLogin));
-            $this->set('guildList', $this->Guilds->getGuildList());
 
-            $this->set('guildCount', $this->Guilds->find('all')->count());
-            //Function that counts how many fighters there are per guild AND shows all guilds (even when there are no fighters. Much harder to do than the idea suggests...)
-            //Ideally, put function in GuildsTable, but impossible to link Guilds and Fighters to make the associated tables query
-            $fighterPerGuildCounter = 0;
-            for ($i = 0; $i < $this->Guilds->find('all')->count(); $i++) {
-                $guildCountTable[$i][0] = $this->Guilds->find('all')->toArray()[$i]->name;
-                $guildCountTable[$i][1] = $this->Guilds->find('all')->toArray()[$i]->id;
-                for ($j = 0; $j < $this->Fighters->find('all')->count(); $j++) {
-                    if ($this->Fighters->find('all')->toArray()[$j]->guild_id == $this->Guilds->find('all')->toArray()[$i]->id) {
-                        $fighterPerGuildCounter++;
-                    }
-                    $guildCountTable[$i][2] = $fighterPerGuildCounter;
-                }
-                $fighterPerGuildCounter = 0;
-            }
-            if(isset($guildCountTable)) {
-                $this->set('guildCountTable', $guildCountTable);
-            }
-
-            $newGuild = $this->request->getData();
 
             $guildNameInDb = 0;  //Variable testing if fighter name already exists
             $guild = $this->Guilds->find('all');
@@ -357,18 +348,36 @@ class ArenasController extends AppController {
             }
 
 
-            $data = $this->request->getData();
+            $this->set('guildList', $this->Guilds->getGuildList());
 
-            $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
-            $this->set('playerFighterList', $playerFighterList);
+            $this->set('guildCount', $this->Guilds->find('all')->count());
+            //Function that counts how many fighters there are per guild AND shows all guilds (even when there are no fighters. Much harder to do than the idea suggests...)
+            //Ideally, put function in GuildsTable, but impossible to link Guilds and Fighters to make the associated tables query
+            $fighterPerGuildCounter = 0;
+            for ($i = 0; $i < $this->Guilds->find('all')->count(); $i++) {
+                $guildCountTable[$i][0] = $this->Guilds->find('all')->toArray()[$i]->name;
+                $guildCountTable[$i][1] = $this->Guilds->find('all')->toArray()[$i]->id;
+                for ($j = 0; $j < $this->Fighters->find('all')->count(); $j++) {
+                    if ($this->Fighters->find('all')->toArray()[$j]->guild_id == $this->Guilds->find('all')->toArray()[$i]->id) {
+                        $fighterPerGuildCounter++;
+                    }
+                    $guildCountTable[$i][2] = $fighterPerGuildCounter;
+                }
+                $fighterPerGuildCounter = 0;
+            }
+            if(isset($guildCountTable)) {
+                $this->set('guildCountTable', $guildCountTable);
+            }
+
+            $data = $this->request->getData();
 
             $guildList = $this->Guilds->getGuildList();
             $this->set('guildList', $guildList);
 
             $this->set('fighterIsChosen', 1);
 
-            if (isset($data['fighterChosenForGuild']) && isset ($data['guildChosenForFighter'] )) {
-                $fighterChosen = $playerFighterList[$data['fighterChosenForGuild']];
+            if (isset ($data['guildChosenForFighter'] )) {
+                $fighterChosen = $session->read('fighterChosenId');
                 $guildChosen =  $guildList[$data['guildChosenForFighter']];
 
                 $this->Fighters->joinGuild($guildChosen, $fighterChosen);

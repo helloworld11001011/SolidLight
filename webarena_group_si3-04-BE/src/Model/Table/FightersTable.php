@@ -97,12 +97,16 @@ class FightersTable extends Table {
 
 
             $success["message"].= "The attack succeeded ! <br>";
-
-            $newHealth = $defense['current_health'] - $attack['skill_strength'];
-
+            
+            if($this->checkGuildBonus($defense, $attack)){
+                $newHealth = $defense['current_health'] - ( $attack['skill_strength'] + $this->checkGuildBonus($defense, $attack) );
+            }else{
+                $newHealth = $defense['current_health'] - $attack['skill_strength'];
+            }
+            
             if ($newHealth <= 0) {
                 $success["success"] = 1;
-                
+
                 //changes the current health of defender in db
                 $defender->current_health = $newHealth;
                 $fighterTable->save($defender);
@@ -136,7 +140,7 @@ class FightersTable extends Table {
 
         $fighterTable = TableRegistry::get('fighters');
         $attackant = $fighterTable->get($attackId);
-        
+
         $message="";
 
 //xp if the defense is killed
@@ -171,7 +175,7 @@ class FightersTable extends Table {
 
         $attackant->xp = $killXp;
         $fighterTable->save($attackant);
-        
+
         return $message;
     }
 
@@ -214,12 +218,11 @@ class FightersTable extends Table {
                 break;
         }
     }
-
-    //Allows the player to create his fighter
-    //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
-    //TODO: X and Y position must be decided when the fighter joins the arena
+  
     function addANewFighter($arg, $playerIdLogin) {
-
+        //Allows the player to create his fighter
+        //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
+        //TODO: X and Y position must be decided when the fighter joins the arena
         $fighterData = $arg;
         $fighterTable = TableRegistry::get('fighters');
         $fighter = $fighterTable->newEntity();
@@ -399,8 +402,7 @@ class FightersTable extends Table {
     }
 
     function joinGuild($guild, $selectedFighter) {
-
-        $fighterId = $selectedFighter['id'];
+        $fighterId = $selectedFighter;
 
         $fighterTable = TableRegistry::get('fighters');
         $guildFighter = $fighterTable->get($fighterId);
@@ -409,21 +411,21 @@ class FightersTable extends Table {
 
         $fighterTable->save($guildFighter);
     }
-    
+
     function levelUp($arg, $fighterChosen){
-        
+
         $fighterData = $arg;
-        
+
         $fighterTable = TableRegistry::get('fighters');
-        
+
         $fighter = $fighterTable->get($fighterChosen['id']);
-        
+
         if($fighterData['Class'] == 0){
-            
+
             echo 'riennnn';
-            
+
         }
-            
+
 
         if ($fighterData['Class'] == 1) {
             $fighter->skill_strength = $fighter['skill_strength']  + 1;
@@ -441,17 +443,42 @@ class FightersTable extends Table {
            echo ' + 3 health';
 
         }
-        
+
         $fighter->xp = $fighter['xp'] - 4;
         $fighter->level = $fighter['level'] + 1;
 
         $fighterTable->save($fighter);
-        
+
         $fighter->current_health = $fighter['skill_health'];
-        
+
         $fighterTable->save($fighter);
+    }
+    
+    function checkGuildBonus($defense, $attack){
+        
+        $fighterList= $this->getFighterList();
+        $x= $defense["coordinate_x"];
+        $y= $defense["coordinate_y"];
+        $guild= $attack["guild_id"];
+        $bonus= -1;
+        
+        if($this->getCase($x  , $y-1)){
+            if( $this->getCase($x  , $y-1)[0]->guild_id == $guild){ $bonus++; }
+        }
+        if($this->getCase($x+1, $y  )){
+            if( $this->getCase($x+1, $y  )[0]->guild_id == $guild){ $bonus++; }
+        }
+        if($this->getCase($x  , $y+1)){
+            if( $this->getCase($x  , $y+1)[0]->guild_id == $guild){ $bonus++; }
+        }
+        if($this->getCase($x-1, $y  )){
+            if( $this->getCase($x-1, $y  )[0]->guild_id == $guild){ $bonus++; }
+        }
+        
+        return $bonus;
     }
 
 }
+
 
 ?>
