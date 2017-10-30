@@ -26,11 +26,49 @@ class EventsTable extends Table {
         $Array = $Query->toArray();
 
         //Converting the CakePHP Object Array into a regular array
-        for ($i = 0; $i < $Query->count(); $i++) {
-            $deadFightersArray[$i][0] = $Array[$i]->month;
-            $deadFightersArray[$i][1] = $Array[$i]->count;
+        $j = 0;
+        for ($i = 0; $i < 12; $i++) {
+            if ($i+1 != $Array[$i+$j]->month) {
+                $deadFightersArray[$i][0] = $i+1;
+                $deadFightersArray[$i][1] = 0;
+                $j--;
+            } else {
+                $deadFightersArray[$i][0] = $Array[$i+$j]->month;
+                $deadFightersArray[$i][1] = $Array[$i+$j]->count;
+            }
         }
         return $deadFightersArray;
+    }
+
+    function getCreatedFighters () {
+        $Query = $this->find();
+        $month = $Query->func()->month([
+            'date' => 'identifier'
+        ]);
+        // pr($month);
+        $Query->select([
+                    'month' => $month,
+                    'count' => $Query->func()->count('*')
+                ])
+                ->where(['name LIKE "%entered%"'])
+                ->group('MONTH(Events.date)');
+
+        $Array = $Query->toArray();
+        // pr($Array);
+
+        //Converting the CakePHP Object Array into a regular array
+        $j = 0;
+        for ($i = 0; $i < 12; $i++) {
+            if ($i+1 != $Array[$i+$j]->month) {
+                $createdFightersArray[$i][0] = $i+1;
+                $createdFightersArray[$i][1] = 0;
+                $j--;
+            } else {
+                $createdFightersArray[$i][0] = $Array[$i+$j]->month;
+                $createdFightersArray[$i][1] = $Array[$i+$j]->count;
+            }
+        }
+        return $createdFightersArray;
     }
 
     function getDeadFightersAmount() {
@@ -44,7 +82,7 @@ class EventsTable extends Table {
 
         $eventTable = TableRegistry::get('events');
         $event = $eventTable->newEntity();
-        
+
         $message="";
 
         if ($arg == 1) {
@@ -74,7 +112,7 @@ class EventsTable extends Table {
             $message.= "event block ";
         }
         $eventTable->save($event);
-        
+
         echo $message;
     }
 
