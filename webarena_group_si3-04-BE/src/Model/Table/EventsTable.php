@@ -78,14 +78,14 @@ class EventsTable extends Table {
         return $deadFighterCountAmount;
     }
 
-    function addNewFightEvent($arg, $attack, $defense) {
+    function addNewFightEvent($success, $attack, $defense) {
 
         $eventTable = TableRegistry::get('events');
         $event = $eventTable->newEntity();
 
         $message="";
 
-        if ($arg == 1) {
+        if ($success["success"] == 1) {
 
             $event->name = "Death of " . $defense['name'] . " by " . $attack['name'] . " ! ";
             $event->date = Time::now();
@@ -93,7 +93,7 @@ class EventsTable extends Table {
             $event->coordinate_y = $defense["coordinate_y"];
             $message.= "<br>";
             $message.= "event kill";
-        } else if ($arg == 2) {
+        } else if ($success["success"] == 2) {
 
 
             $event->name = $attack['name'] . " acttaks " . $defense['name'] . " but he survived ! ";
@@ -102,7 +102,7 @@ class EventsTable extends Table {
             $event->coordinate_y = $defense["coordinate_y"];
             $message.= "<br>";
             $message.= "event no kill";
-        } else if ($arg == 3) {
+        } else if ($success["success"] == 3) {
 
             $event->name = $attack['name'] . " acttaks " . $defense['name'] . " but misses him ! ";
             $event->date = Time::now();
@@ -113,7 +113,8 @@ class EventsTable extends Table {
         }
         $eventTable->save($event);
 
-        echo $message;
+        //$success["message"].= $message;
+        return $success;
     }
 
     function addNewPlayerEvent($newfighter) {

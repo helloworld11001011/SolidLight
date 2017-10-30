@@ -81,7 +81,7 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
                 $name = "Fantome";
             }
             
-            $s= "<td title='$name\nLevel: ".strval($fighterList[$i]->level)."\nStrength: ".strval($fighterList[$i]->skill_strength)."\nHealth: ". strval($fighterList[$i]->skill_health)." '>";
+            $s= "<td title='$name\nLevel: ".strval($fighterList[$i]->level)."\nStrength: ".strval($fighterList[$i]->skill_strength)."\nHealth: ". strval($fighterList[$i]->current_health)." '>";
             
             //$s="<td onmouseover=\"hoverOver(" . strval($id) . ", " . strval($isTooFar). ", '" . $name . "', " . strval($fighterList[$i]->level) . ", " . strval($fighterList[$i]->skill_strength). ", " . strval($fighterList[$i]->skill_health) . ")\">" ;
         }
