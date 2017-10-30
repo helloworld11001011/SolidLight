@@ -97,9 +97,13 @@ class FightersTable extends Table {
 
 
             $success["message"].= "The attack succeeded ! <br>";
-
-            $newHealth = $defense['current_health'] - $attack['skill_strength'];
-
+            
+            if($this->checkGuildBonus($defense, $attack)){
+                $newHealth = $defense['current_health'] - ( $attack['skill_strength'] + $this->checkGuildBonus($defense, $attack) );
+            }else{
+                $newHealth = $defense['current_health'] - $attack['skill_strength'];
+            }
+            
             if ($newHealth <= 0) {
                 $success["success"] = 1;
 
@@ -214,12 +218,11 @@ class FightersTable extends Table {
                 break;
         }
     }
-
-    //Allows the player to create his fighter
-    //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
-    //TODO: X and Y position must be decided when the fighter joins the arena
+  
     function addANewFighter($arg, $playerIdLogin) {
-
+        //Allows the player to create his fighter
+        //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
+        //TODO: X and Y position must be decided when the fighter joins the arena
         $fighterData = $arg;
         $fighterTable = TableRegistry::get('fighters');
         $fighter = $fighterTable->newEntity();
@@ -450,7 +453,32 @@ class FightersTable extends Table {
 
         $fighterTable->save($fighter);
     }
+    
+    function checkGuildBonus($defense, $attack){
+        
+        $fighterList= $this->getFighterList();
+        $x= $defense["coordinate_x"];
+        $y= $defense["coordinate_y"];
+        $guild= $attack["guild_id"];
+        $bonus= -1;
+        
+        if($this->getCase($x  , $y-1)){
+            if( $this->getCase($x  , $y-1)[0]->guild_id == $guild){ $bonus++; }
+        }
+        if($this->getCase($x+1, $y  )){
+            if( $this->getCase($x+1, $y  )[0]->guild_id == $guild){ $bonus++; }
+        }
+        if($this->getCase($x  , $y+1)){
+            if( $this->getCase($x  , $y+1)[0]->guild_id == $guild){ $bonus++; }
+        }
+        if($this->getCase($x-1, $y  )){
+            if( $this->getCase($x-1, $y  )[0]->guild_id == $guild){ $bonus++; }
+        }
+        
+        return $bonus;
+    }
 
 }
+
 
 ?>

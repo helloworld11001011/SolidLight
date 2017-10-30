@@ -70,7 +70,7 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     if($isTooFar) {
         $s= "<td title=\"Doesn't look like anything to me...\">";
     }else {
-        $s= "<td title=\"Just some grass, no worries.\">";
+        $s= "<td title=\"Nothing there, no worries.\">";
     }
 
     for($i=0; $i<$fighterCount; $i++){
@@ -81,7 +81,7 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
                 $name = "Fantome";
             }
             
-            $s= "<td title='$name\nLevel: ".strval($fighterList[$i]->level)."\nStrength: ".strval($fighterList[$i]->skill_strength)."\nHealth: ". strval($fighterList[$i]->current_health)." '>";
+            $s= "<td title='$name\nLevel: ".strval($fighterList[$i]->level)."\nStrength: ".strval($fighterList[$i]->skill_strength)."\nHealth: ". strval($fighterList[$i]->current_health)."\nSight: ".strval($fighterList[$i]->skill_sight)."\nGuild id: ".strval($fighterList[$i]->guild_id)." '>";
         }
     }
     return $s;

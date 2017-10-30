@@ -251,6 +251,7 @@ class ArenasController extends AppController {
         $this->loadModel('Fighters');
         $this->set('matX', $this->Fighters->getMatrixX());
         $this->set('matY', $this->Fighters->getMatrixY());
+        $this->set('fighterCount', $this->Fighters->find('all')->count());
         $this->set('message', "Nothing of interest happened.");
 
         // For testing only, has to be replaced
@@ -295,10 +296,22 @@ class ArenasController extends AppController {
     }
 
     public function diary() {
+        
+         
         $this->loadModel('Events');
+        $this->loadModel('Fighters');
+        
+        $session = $this->request->session();
+        
+        $fighterChosen = $session->read("fighterChosenName");
+        $screamMessage = $this->request->getData();
+        $this->Events->addNewScreamEvent($fighterChosen, $screamMessage['message']);
+       
 
         $this->set('eventsList', $this->Events->getEventsList());
         $this->set('eventsCount', $this->Events->find('all')->count());
+        
+       
     }
 
     public function guild() {
