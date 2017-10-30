@@ -70,6 +70,7 @@ class ArenasController extends AppController {
 
         $this->set('fighterDistribution', $this->Fighters->getFighterDistribution());
         $this->set('deadFighterDistribution', $this->Events->getDeadFighters());
+        $this->set('createdFighterDistribution', $this->Events->getCreatedFighters());
         $this->set('deadFighterCount', $this->Events->getDeadFightersAmount());
         $this->set('averageSkills', $this->Fighters->getAverageForSkills());
 
