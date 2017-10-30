@@ -70,6 +70,7 @@ class ArenasController extends AppController {
 
         $this->set('fighterDistribution', $this->Fighters->getFighterDistribution());
         $this->set('deadFighterDistribution', $this->Events->getDeadFighters());
+        $this->set('createdFighterDistribution', $this->Events->getCreatedFighters());
         $this->set('deadFighterCount', $this->Events->getDeadFightersAmount());
         $this->set('averageSkills', $this->Fighters->getAverageForSkills());
 
@@ -180,6 +181,7 @@ class ArenasController extends AppController {
             $newFighter = $this->request->getData();
 
             $nameInDb = 0;  //Variable testing if fighter name already exists
+            $LevelUpPossible = 0; //to check afterwards if your fighter can level up
             $fighters = $this->Fighters->find('all');
             $fightersArray = $fighters->toArray();
 
@@ -212,7 +214,20 @@ class ArenasController extends AppController {
                 $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
                 $session->write('fighterChosenName', $fighterChosen['name']);
                 $session->write('fighterChosenId', $fighterChosen['id']);
+                
+                if($fighterChosen['xp'] >= 4){
+                    
+                    $this->Fighters->levelUp($this->request->getData(), $fighterChosen);
+                    $LevelUpPossible = 0;
+                    
+                } else {
+                    
+                    echo ' You cannot level up this fighter, not enough xp ';
+                    
+                }
             }
+         
+            
         } else {
             $this->set('playerIsLogin', 0);
         }
@@ -234,6 +249,7 @@ class ArenasController extends AppController {
         $this->loadModel('Fighters');
         $this->set('matX', $this->Fighters->getMatrixX());
         $this->set('matY', $this->Fighters->getMatrixY());
+        $this->set('message', "Nothing of interest happened.");
 
 // For testing only, has to be replaced
         $currentFighterId = $session->read("fighterChosenId");
@@ -255,6 +271,8 @@ class ArenasController extends AppController {
                     $attack = $this->Fighters->getFighterById($currentFighterId)[0];
                     $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
                     $message= $this->Events->addNewFightEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
+                    //echo $message["message"];
+                    $this->set('message', $message["message"]);
                 }
             }
         }

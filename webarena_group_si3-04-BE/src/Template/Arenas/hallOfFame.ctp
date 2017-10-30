@@ -16,38 +16,94 @@
             Hall of Fame
         </h1>
         <div class="main-container">
-            <div id="levels-chart">
-
+            <div id="chart.js">
+                <canvas id="levels-chart"></canvas>
             </div>
             <div id="death-count-chart">
-                <!-- Also set the amount of created fighters per month? -->
-            </div>
-            <div id="averag-skills-chart">
 
+            </div>
+            <div id="chart.js">
+                <canvas id="averag-skills-chart"></canvas>
             </div>
             <div id="chart.js">
                 <canvas id="top-guilds-chart"></canvas>
             </div>
         </div>
         <script type="text/javascript">
-            $(document).ready(function(){
-                var data = [
-                        ['>10', <?php echo $fighterDistribution[0]; ?>],['8 - 10', <?php  echo $fighterDistribution[1]; ?>], ['6 - 8', <?php  echo $fighterDistribution[2]; ?>],
-                        ['4 - 6', <?php echo $fighterDistribution[3] ?>],['2 - 4', <?php  echo $fighterDistribution[4]; ?>], ['Newbie (<2)', <?php  echo $fighterDistribution[5]; ?>]
-                    ];
 
-                var plot1 = jQuery.jqplot ('levels-chart', [data],
-                {
-                  seriesDefaults: {
-                    // Make this a pie chart.
-                    renderer: jQuery.jqplot.PieRenderer,
-                    rendererOptions: {
-                      // Put data labels on the pie slices.
-                      // By default, labels show the percentage of the slice.
-                      showDataLabels: true
+            $(document).ready(function () {
+                var ctx = document.getElementById("averag-skills-chart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ["Sight Skill", "Strength Skill", "Health Skill"],
+                        datasets: [{
+                            data: [
+                                <?php echo round($averageSkills[0]->avg_sight, 2); ?>, <?php echo round($averageSkills[0]->avg_strength, 2); ?>, <?php echo round($averageSkills[0]->avg_health, 2); ?>
+                            ],
+                            backgroundColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            xAxes: [{
+                                gridLines: {
+                                    display: false
+                                }
+                            }],
+                            yAxes: [{
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
                     }
-                  },
-                  legend: { show:true, location: 'e' }
+                });
+            });
+
+            $(document).ready(function(){
+                //TODO: VERIFY NULL VALUES
+                var ctx = document.getElementById("levels-chart").getContext('2d');
+                data = {
+                    datasets: [{
+                        data: [
+                            <?php echo $fighterDistribution[0]; ?>, <?php echo $fighterDistribution[1]; ?>,<?php echo $fighterDistribution[2]; ?>, <?php echo $fighterDistribution[3]; ?>, <?php echo $fighterDistribution[4]; ?>, <?php echo $fighterDistribution[5]; ?>
+                        ],
+                        backgroundColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }],
+
+                    // These labels appear in the legend and in the tooltips when hovering different arcs
+                    labels: [
+                        '>10',
+                        '8 - 10',
+                        '6 - 8',
+                        '4 - 6',
+                        '2 - 4',
+                        'Newbie (<2)'
+                        ]
+                };
+                var myDoughnutChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: data,
                 });
             });
 
@@ -57,7 +113,7 @@
                 ];
 
                 var s2 = [
-                    [<?php echo $deadFighterDistribution[0][0]; ?>, <?php echo $deadFighterDistribution[0][1]; ?>], [<?php echo $deadFighterDistribution[1][0]; ?>, <?php echo $deadFighterDistribution[1][1]; ?>], [<?php echo $deadFighterDistribution[2][0]; ?>, <?php echo $deadFighterDistribution[2][1]; ?>], [<?php echo $deadFighterDistribution[3][0]; ?>, <?php echo $deadFighterDistribution[3][1]; ?>], [<?php echo $deadFighterDistribution[4][0]; ?>, <?php echo $deadFighterDistribution[4][1]; ?>], [<?php echo $deadFighterDistribution[5][0]; ?>, <?php echo $deadFighterDistribution[5][1]; ?>], [<?php echo $deadFighterDistribution[6][0]; ?>, <?php echo $deadFighterDistribution[6][1]; ?>], [<?php echo $deadFighterDistribution[7][0]; ?>, <?php echo $deadFighterDistribution[7][1]; ?>], [<?php echo $deadFighterDistribution[8][0]; ?>, <?php echo $deadFighterDistribution[8][1]; ?>], [<?php echo $deadFighterDistribution[9][0]; ?>, <?php echo $deadFighterDistribution[9][1]; ?>], [<?php echo $deadFighterDistribution[10][0]; ?>, <?php echo $deadFighterDistribution[10][1]; ?>], [<?php echo $deadFighterDistribution[11][0]; ?>, <?php echo $deadFighterDistribution[11][1]; ?>]
+                    [<?php echo $createdFighterDistribution[0][0]; ?>, <?php echo $createdFighterDistribution[0][1]; ?>], [<?php echo $createdFighterDistribution[1][0]; ?>, <?php echo $createdFighterDistribution[1][1]; ?>], [<?php echo $createdFighterDistribution[2][0]; ?>, <?php echo $createdFighterDistribution[2][1]; ?>], [<?php echo $createdFighterDistribution[3][0]; ?>, <?php echo $createdFighterDistribution[3][1]; ?>], [<?php echo $createdFighterDistribution[4][0]; ?>, <?php echo $createdFighterDistribution[4][1]; ?>], [<?php echo $createdFighterDistribution[5][0]; ?>, <?php echo $createdFighterDistribution[5][1]; ?>], [<?php echo $createdFighterDistribution[6][0]; ?>, <?php echo $createdFighterDistribution[6][1]; ?>], [<?php echo $createdFighterDistribution[7][0]; ?>, <?php echo $createdFighterDistribution[7][1]; ?>], [<?php echo $createdFighterDistribution[8][0]; ?>, <?php echo $createdFighterDistribution[8][1]; ?>], [<?php echo $createdFighterDistribution[9][0]; ?>, <?php echo $createdFighterDistribution[9][1]; ?>], [<?php echo $createdFighterDistribution[10][0]; ?>, <?php echo $createdFighterDistribution[10][1]; ?>], [<?php echo $createdFighterDistribution[11][0]; ?>, <?php echo $createdFighterDistribution[11][1]; ?>]
                 ];
 
                 plot1 = $.jqplot("death-count-chart", [s2, s1], {
@@ -69,12 +125,12 @@
                         show: true,
                         zoom: false,
                         looseZoom: false,
-                        showTooltip: false
+                        showTooltip: true
                     },
                     series:[
                         {
                             pointLabels: {
-                                show: false
+                                show: true
                             },
                             renderer: $.jqplot.BarRenderer,
                             yaxis: 'y2axis',
@@ -86,7 +142,7 @@
                                 animation: {
                                     speed: 2500
                                 },
-                                barWidth: 0,
+                                barWidth: 25,
                                 barPadding: -15,
                                 barMargin: 0,
                                 highlightMouseOver: false
@@ -115,8 +171,8 @@
                             min: 1,
                             max: 12,
                             tickInterval: 1,
-                            drawMajorGridlines: true,
-                            drawMinorGridlines: true,
+                            drawMajorGridlines: false,
+                            drawMinorGridlines: false,
                             drawMajorTickMarks: true,
                             rendererOptions: {
                                 // tickInset: 0,
@@ -124,9 +180,13 @@
                             }
                         },
                         yaxis: {
+                            min: 0,
                             tickInterval: 1,
+                            drawMajorGridlines: false,
+                            drawMinorGridlines: false,
+                            drawMajorTickMarks: false,
                             tickOptions: {
-                                formatString: "%d dead"
+                                // formatString: "%d dead"
                             },
                             rendererOptions: {
                                 tickInset: 0,
@@ -134,13 +194,16 @@
                             }
                         },
                         y2axis: {
+                            min: 0,
                             tickInterval: 1,
+                            drawMajorGridlines: false,
+                            drawMinorGridlines: false,
+                            drawMajorTickMarks: false,
                             tickOptions: {
-                                formatString: "%d dead"
+                                // formatString: "%d created"
                             },
                             rendererOptions: {
                                 // align the ticks on the y2 axis with the y axis.
-                                alignTicks: true,
                                 tickInset: 0,
                                 forceTickAt0: false
                             }
@@ -165,12 +228,23 @@
                     animate: !$.jqplot.use_excanvas,
                     seriesDefaults:{
                         renderer:$.jqplot.BarRenderer,
-                        pointLabels: { show: true }
+                        pointLabels: {
+                            show: true,
+                            formatString: '%#.1f'
+                        }
                     },
                     axes: {
                         xaxis: {
                             renderer: $.jqplot.CategoryAxisRenderer,
-                            ticks: ticks
+                            ticks: ticks,
+                            drawMajorGridlines: false,
+                            drawMinorGridlines: false,
+                            drawMajorTickMarks: false,
+                        },
+                        yaxis: {
+                            drawMajorGridlines: false,
+                            drawMinorGridlines: false,
+                            drawMajorTickMarks: false,
                         }
                     },
                     highlighter: { show: false }
@@ -186,17 +260,10 @@
                             <?php echo $guildCountTable[0][0]; ?>, <?php echo $guildCountTable[1][0]; ?>, <?php echo $guildCountTable[2][0]; ?>, <?php echo $guildCountTable[3][0]; ?>
                         ],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)'
-                        ],
-                        borderColor: [
                             'rgba(255,99,132,1)',
                             'rgba(54, 162, 235, 1)',
                             'rgba(255, 206, 86, 1)',
                             'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)'
                         ],
                         borderWidth: 1
                     }],

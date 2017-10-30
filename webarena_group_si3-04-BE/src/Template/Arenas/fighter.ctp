@@ -67,7 +67,7 @@
             echo "</table>";
             ?>
 
-            <h2> Choose your fighter </h2>
+        <h2> Choose your fighter </h2>
 
             <?php
             $playerFighterListName = [];
@@ -84,30 +84,61 @@
             echo $this->Form->submit(__('CHOOSE'));
             ?>
 
-            <h2> Create fighter </h2>
+        <h2> Create fighter </h2>
             <?php
             if(isset($nameInDb))
                 echo $nameInDb;
             ?>
-            <div class="create fighter">
+        <div class="create fighter">
                 <?php echo $this->Form->create('Create fighter');?>
-                <fieldset>
-                    <legend><?php echo __('Create fighter'); ?></legend>
+            <fieldset>
+                <legend><?php echo __('Create fighter'); ?></legend>
                     <?php echo $this->Form->input('name');
                     echo 'Class';
                     echo $this->Form->radio('Class', ['Classic', 'Archer','Giant', 'Destructor']);
                     ?>
-                </fieldset>
-            </div>
+            </fieldset>
+        </div>
+
+            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->end() ?>
+
+
+        <?php
+            if(isset($levelUpPossible)){
+                if($levelUpPossible){
+        ?>
+
+        <h2> Level up Fighter </h2>
+
+
+        <div class="level up fighter">
+                <?php echo $this->Form->create('level up fighter');?>
+            <fieldset>
+                <legend><?php echo __('Level up Fighter'); ?></legend>
+                    <?php 
+                    echo 'Upgrade';
+                    
+                    echo $this->Form->radio('Upgrade', [' + 1 Strength ', ' + 1 Sight', ' + 3 Health']);
+                    ?>
+            </fieldset>
+        </div>
 
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
         <?php
-        }
+                }
+            
+            }                
+                
+         ?>
+<?php
+        } 
+         
         else {
-            echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
-            ?>
-            <button onclick="location.href='login'" type="button">LOGIN</button>
+        echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
+        ?>
+        <button onclick="location.href = 'login'" type="button">LOGIN</button>
             <?php
         }
         ?>

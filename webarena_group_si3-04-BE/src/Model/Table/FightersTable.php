@@ -85,22 +85,10 @@ class FightersTable extends Table {
 
     //fonction qui fait se battre 2 fighter avec les modif (dans la base de données) qui vont avec
     function fight($attack, $defense) {
-
-        //$fighterList = $this->find('all');
-        //$fighterListArray = $fighterList->toArray();
-        //$attack = $fighterListArray[0];
-        //$defense = $fighterListArray[1];
-
         $defenseId = $defense['id'];
         $random = rand(0, 20);
-        $success = 0;
-
-        echo $attack['name'];
-        echo " attacks ";
-        echo $defense['name'];
-        echo " with a total attack of ";
-        echo $attack['skill_strength'];
-        echo "<br>";
+        $success = array("success" => 0, "message" => "");
+        $success["message"].= $attack['name']." attacks ".$defense['name']." with a total attack of ".$attack['skill_strength']."<br>";
 
         $fighterTable = TableRegistry::get('fighters');
         $defender = $fighterTable->get($defenseId);
@@ -108,27 +96,23 @@ class FightersTable extends Table {
         if ($random > (10 + $defense['level'] - $attack['level'])) {
 
 
-            echo "The attack succeeded ! ";
-            echo "<br>";
+            $success["message"].= "The attack succeeded ! <br>";
 
             $newHealth = $defense['current_health'] - $attack['skill_strength'];
 
             if ($newHealth == 0) {
-
-                $success = 1;
-
-//changes the current health of defender in db
+                $success["success"] = 1;
+                
+                //changes the current health of defender in db
                 $defender->current_health = $newHealth;
                 $fighterTable->save($defender);
 
-                echo $defense['name'];
-                echo " is dead :'( ; ";
+                $success["message"].= $defense['name']." is dead :'( ; ";
             } else if ($newHealth != 0) {
 
-                echo $defense['name'];
-                echo " did not die ! ";
+                $success["message"].= $defense['name']." did not die ! ";
 
-                $success = 2;
+                $success["success"] = 2;
 
                 $defender->current_health = $newHealth;
                 $fighterTable->save($defender);
@@ -136,11 +120,10 @@ class FightersTable extends Table {
 
             return $success;
         } else {
+            $success["success"] = 3;
 
-            $success = 3;
-
-            echo $defense['name'];
-            echo " blocked the attack ! ";
+            $success["message"].= $defense['name'];
+            $success["message"].= " blocked the attack ! ";
 
             return $success;
         }
@@ -153,14 +136,14 @@ class FightersTable extends Table {
 
         $fighterTable = TableRegistry::get('fighters');
         $attackant = $fighterTable->get($attackId);
+        
+        $message="";
 
 //xp if the defense is killed
         if ($case == 1) {
 
-
-
             $killXp = $currentxp + $defense['level'] + 1;
-            echo ($killXp - $currentxp) . " xp won ! ";
+            $message.= strval($killXp - $currentxp) . " xp won ! ";
             //$level = $attack['level'];
 
             /*  while ($killXp > 4) {
@@ -179,15 +162,17 @@ class FightersTable extends Table {
         } else if ($case == 2) {
 
             $killXp = ($currentxp) + 1;
-            echo ($killXp - $currentxp) . 'xp won';
+            $message.=  strval($killXp - $currentxp) . 'xp won';
         } else if ($case == 3) {
 
             $killXp = $currentxp;
-            echo ($killXp - $currentxp) . 'xp won';
+            $message.=  strval($killXp - $currentxp) . 'xp won';
         }
 
         $attackant->xp = $killXp;
         $fighterTable->save($attackant);
+        
+        return $message;
     }
 
     function deleteFighter($defense) {
@@ -206,36 +191,26 @@ class FightersTable extends Table {
         $fighterTable->delete($defender);
     }
 
-    function totalFight($arg, $attack, $defense) {
-
-        switch ($arg) {
+    function totalFight($success, $attack, $defense) {
+        switch ($success["success"]) {
 
             case 1:
-                $this->xp(1, $attack, $defense);
+                $success["message"].= $this->xp(1, $attack, $defense);
                 //$this->Events->addNewEvent(1);
                 $this->deleteFighter($defense);
-
-                $event = 1;
-                return $event;
-
+                return $success;
                 break;
 
             case 2:
-                $this->xp(2, $attack, $defense);
+                $success["message"].= $this->xp(2, $attack, $defense);
                 //$this->Events->addNewEvent(2);
-
-                $event = 2;
-                return $event;
-
+                return $success;
                 break;
 
             case 3:
-                $this->xp(3, $attack, $defense);
+                $success["message"].= $this->xp(3, $attack, $defense);
                 //$this->Events->addNewEvent(3);
-
-                $event = 3;
-                return $event;
-
+                return $success;
                 break;
         }
     }
@@ -433,6 +408,41 @@ class FightersTable extends Table {
         $guildFighter->guild_id = $guild["id"];
 
         $fighterTable->save($guildFighter);
+    }
+    
+    function levelUp($arg, $fighterChosen){
+        
+        $fighterData = $arg;
+        
+        $fighterTable = TableRegistry::get('fighters');
+        
+        $fighter = $fighterTable->get($fighterChosen['id']);
+
+        if ($fighterData['Class'] == 0) {
+            $fighter->skill_strength = $fighter['skill_strength']  + 1;
+            echo ' + 1 strength';
+        }
+
+        if ($fighterData['Class'] == 1) {
+           $fighter->skill_sight = $fighter['skill_sight']  + 1;
+           echo ' + 1 sight';
+
+        }
+
+        if ($fighterData['Class'] == 2) {
+           $fighter->skill_health = $fighter['skill_health']  + 3;
+           echo ' + 3 health';
+
+        }
+        
+        $fighter->xp = $fighter['xp'] - 4;
+        $fighter->level = $fighter['level'] + 1;
+
+        $fighterTable->save($fighter);
+        
+        $fighter->current_health = $fighter['skill_health'];
+        
+        $fighterTable->save($fighter);
     }
 
 }
