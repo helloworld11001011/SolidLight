@@ -1,0 +1,61 @@
+body {
+    height: 100%;
+    width: 100%;
+    background-image: url("imageBackground.jpg")
+}
+
+#mainDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    height: 100%;
+    width: 100%;
+}
+
+#loginDiv {
+    width: 700px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 235, 59, 0.4);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#submitDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+#textDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+p {
+    font-size: 30px;
+    font-weight: 400;
+}
+
+#signUpBtn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 15px;
+    width: 700px;
+    background: rgba(255, 152, 0, 0.6);
+    border-radius: 10px;
+}
+
+#textSubscribe {
+    font-size: 25px;
+}
+
+
