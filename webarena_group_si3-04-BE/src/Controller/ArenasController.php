@@ -245,6 +245,13 @@ class ArenasController extends AppController {
         }
 
         $this->set('leveledUpList', $this->Fighters->getLeveledUpList());
+
+        $session = $this->request->session();
+        $currentFighterId = $session->read("fighterChosenId");
+        $avatarId = strval($currentFighterId.'.png');
+        $chosenFighterName = $this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()[0]->name;
+        $this->set('avatarId', $avatarId);
+        $this->set('chosenFighterName', $chosenFighterName);
     }
 
     public function sight() {
@@ -306,22 +313,22 @@ class ArenasController extends AppController {
     }
 
     public function diary() {
-        
-         
+
+
         $this->loadModel('Events');
         $this->loadModel('Fighters');
-        
+
         $session = $this->request->session();
-        
+
         $fighterChosen = $session->read("fighterChosenName");
         $screamMessage = $this->request->getData();
         $this->Events->addNewScreamEvent($fighterChosen, $screamMessage['message']);
-       
+
 
         $this->set('eventsList', $this->Events->getEventsList());
         $this->set('eventsCount', $this->Events->find('all')->count());
-        
-       
+
+
     }
 
     public function guild() {
@@ -331,7 +338,7 @@ class ArenasController extends AppController {
 
         if ($session->check('fighterChosenId')) {
             $playerIdLogin = $session->read('playerIdLogin');
-
+            $data = $this->request->getData();
 
             $guildNameInDb = 0;  //Variable testing if fighter name already exists
             $guild = $this->Guilds->find('all');
@@ -345,7 +352,7 @@ class ArenasController extends AppController {
                     }
                 }
                 if ($guildNameInDb != 1) {
-                    $this->Guilds->addANewGuild($this->request->getData());
+                    $this->Guilds->addANewGuild($data);
                     //$fighterEvent = $this->Fighters->getFighterByName($newFighter['name'])[0];
                     //$this->Events->addNewPlayerEvent($fighterEvent);
                 }
@@ -357,8 +364,18 @@ class ArenasController extends AppController {
                 $this->set('guildNameInDb', $guildNameInDb);
             }
 
+            $guildList = $this->Guilds->getGuildList();
 
-            $this->set('guildList', $this->Guilds->getGuildList());
+            $this->set('fighterIsChosen', 1);
+
+            if (isset ($data['guildChosenForFighter'] )) {
+                $fighterChosen = $session->read('fighterChosenId');
+                $guildChosen =  $guildList[$data['guildChosenForFighter']];
+
+                $this->Fighters->joinGuild($guildChosen, $fighterChosen);
+            }
+
+            $this->set('guildList', $guildList);
 
             $this->set('guildCount', $this->Guilds->find('all')->count());
             //Function that counts how many fighters there are per guild AND shows all guilds (even when there are no fighters. Much harder to do than the idea suggests...)
@@ -377,20 +394,6 @@ class ArenasController extends AppController {
             }
             if(isset($guildCountTable)) {
                 $this->set('guildCountTable', $guildCountTable);
-            }
-
-            $data = $this->request->getData();
-
-            $guildList = $this->Guilds->getGuildList();
-            $this->set('guildList', $guildList);
-
-            $this->set('fighterIsChosen', 1);
-
-            if (isset ($data['guildChosenForFighter'] )) {
-                $fighterChosen = $session->read('fighterChosenId');
-                $guildChosen =  $guildList[$data['guildChosenForFighter']];
-
-                $this->Fighters->joinGuild($guildChosen, $fighterChosen);
             }
         }
         //fighter not chosen

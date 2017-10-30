@@ -7,7 +7,9 @@
         <?php echo $this->Html->script(['https://code.jquery.com/jquery-3.2.1.min.js"
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 			  crossorigin="anonymous"', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
-
+        <style>
+            .mySlides {display: none; height:160px; width: 160px;}
+        </style>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#leaderboard-table').DataTable();
@@ -17,7 +19,32 @@
 
     <body>
         <div class="main-container">
-
+            <div class="avatar-slider">
+                <?php echo $this->Html->image('1.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('2.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('3.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('4.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('5.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('6.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('7.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('8.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('9.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('10.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('11.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('12.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('13.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('14.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('15.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('16.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('17.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('18.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('19.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('20.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('21.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('22.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('23.png', array('class' => 'mySlides')); ?>
+                <?php echo $this->Html->image('24.png', array('class' => 'mySlides')); ?>
+            </div>
             <div class="title presentation-pane">
                 <h1>Welcome to SolidLight</h1>
                 <div class="left-box">
@@ -83,19 +110,24 @@
                 ?>
             </div>
             <!-- End of leaderboards div -->
-
         </div>
         <!-- End of main container -->
 
-        <navigation>
-            <h5>Navigation</h5>
-            <ul>
-                <li> <?php echo $this->Html->link("Index", ["controller"=>"Arenas", "action"=>"index"]); ?> </li>
-                <li> <?php echo $this->Html->link("Login", ["controller"=>"Arenas", "action"=>"login"]); ?> </li>
-                <li> <?php echo $this->Html->link("Fighter", ["controller"=>"Arenas", "action"=>"fighter"]); ?> </li>
-                <li> <?php echo $this->Html->link("Sight", ["controller"=>"Arenas", "action"=>"sight"]); ?> </li>
-                <li> <?php echo $this->Html->link("Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
-            </ul>
-        </navigation>
+        <script>
+            var myIndex = 0;
+            carousel();
+
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                   x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) {myIndex = 1}
+                x[myIndex-1].style.display = "block";
+                setTimeout(carousel, 2000); // Change image every 2 seconds
+            }
+        </script>
     </body>
 </html>
