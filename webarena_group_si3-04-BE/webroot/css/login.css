@@ -1,0 +1,60 @@
+body {
+    height: 100%;
+    width: 100%;
+}
+
+#mainDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    height: 100%;
+    width: 100%;
+}
+
+#loginDiv {
+    width: 700px;
+    margin-bottom: 10px;
+    background: linear-gradient(#FFE082, #FFC107);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#submitDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+#textDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+p {
+    font-size: 30px;
+    font-weight: 400;
+}
+
+#signUpBtn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 15px;
+    width: 700px;
+    background: linear-gradient(#FFB74D, #FF9800);
+    border-radius: 10px;
+}
+
+#textSubscribe {
+    font-size: 25px;
+}
+
+

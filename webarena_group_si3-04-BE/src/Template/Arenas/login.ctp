@@ -1,26 +1,43 @@
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Inbox</title>
+        <?php echo $this->Html->css('login'); ?>
+    </head>
 
-<?php
+    <body>
+        <div id='mainDiv'>
 
-if(isset($goodToGo))
-    echo $goodToGo;
-echo " ";
-?>;
+            <div id='loginDiv'>
+                <?php echo $this->Form->create('Login');?>
+                <h2>Login</h2>
+                <?php echo $this->Form->input('emailLogin');
+                echo $this->Form->input('passwordLogin');
+                ?>
+                <div id='submitDiv'>
+                    <?= $this->Form->button(__('Submit')) ?>
+                </div>
+                <?= $this->Form->end() ?>
 
-<?php echo $this->Form->create('Login');?>
-<fieldset>
-    <legend><?php echo __('Login'); ?></legend>
-    <?php echo $this->Form->input('emailLogin');
-    echo $this->Form->input('passwordLogin');
-    ?>
-</fieldset>
-<?= $this->Form->button(__('Submit')) ?>
+                <div id='textDiv'>
+                    <?php
+                    if(isset($goodToGo)) {
+                    ?><p><?php echo $goodToGo; ?></p>
+                    <button onclick="location.href='fighter'" type="button">Go to Fighter</button>
+                    <?php
+                    }
+                    ?>
+                </div>
+            </div>
 
-<?= $this->Form->end() ?>
+            <div id='signUpBtn'>
+                <p id='textSubscribe'>Subscribe Now to Solid light</p>
+                <button onclick="location.href='sign_up'" type="button">SIGN UP</button>
+            </div>
 
-<button onclick="location.href='fighter'" type="button">Go to Fighter</button>
-
-<button onclick="location.href='sign_up'" type="button">SIGN UP</button>
-
-</br>
+            </br>
+        </div>
+    </body>
+</html>
 
