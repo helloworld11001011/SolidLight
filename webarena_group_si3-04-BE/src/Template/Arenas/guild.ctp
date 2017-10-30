@@ -15,91 +15,107 @@
     </head>
 
     <body>
-       
+
         <h1>Guilds</h1>
 
          <?php
-         echo '<div id="guild-list">';
-            
-            echo "<table class='cake-table' id='guilds-table'>";
-            echo "<thead><tr>
-            <th>Guild Name</th>
-            <th>Guild ID</th>
-            <th>Number of Fighters</th>
-            </tr></thead><tbody>";
-            for ($i=0; $i < $guildCount; $i++) {
-                echo "<tr>";
-                echo "<td>";
-                echo $guildCountTable[$i][0];
-                echo "</td>";
-                echo "<td>";
-                echo $guildCountTable[$i][1];
-                echo "</td>";
-                echo "<td>";
-                echo $guildCountTable[$i][2];
-                echo "</td>";
-                echo "</tr>";
-            }
-            echo "</tbody></table>";
-            ?>
-        </div>
+         if($fighterIsChosen) {
+            echo '<div id="guild-list">';
 
-        <div id="guild-members">
+                echo "<table class='cake-table' id='guilds-table'>";
+                echo "<thead><tr>
+                <th>Guild Name</th>
+                <th>Guild ID</th>
+                <th>Number of Fighters</th>
+                </tr></thead><tbody>";
+                for ($i=0; $i < $guildCount; $i++) {
+                    echo "<tr>";
+                    echo "<td>";
+                    echo $guildCountTable[$i][0];
+                    echo "</td>";
+                    echo "<td>";
+                    echo $guildCountTable[$i][1];
+                    echo "</td>";
+                    echo "<td>";
+                    echo $guildCountTable[$i][2];
+                    echo "</td>";
+                    echo "</tr>";
+                }
+                echo "</tbody></table>";
+                ?>
+            </div>
 
-        </div>
+            <div id="guild-members">
 
-        <h2> Create your guild ! </h2>
+            </div>
+
+            <h2> Create your guild ! </h2>
+                <?php
+                if(isset($guildNameInDb))
+                    echo $guildNameInDb;
+                ?>
+            <div class="create fighter">
+                    <?php echo $this->Form->create('Create guild');?>
+                <fieldset>
+                    <legend><?php echo __('Create guild'); ?></legend>
+                        <?php echo $this->Form->input('name');
+                        echo 'Class';
+                        ?>
+                </fieldset>
+            </div>
+
+                <?= $this->Form->button(__('Submit')) ?>
+                <?= $this->Form->end() ?>
             <?php
-            if(isset($guildNameInDb))
-                echo $guildNameInDb;
-            ?>
-        <div class="create fighter">
-                <?php echo $this->Form->create('Create guild');?>
-            <fieldset>
-                <legend><?php echo __('Create guild'); ?></legend>
-                    <?php echo $this->Form->input('name');
-                    echo 'Class';
-                    ?>
-            </fieldset>
-        </div>
 
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        <?php
-         
-        
+
+            ?>
+
+            <h2> Make your fighters join guilds </h2>
+            <h3> Choose a fighter </h3>
+
+                <?php
+                $playerFighterListName = [];
+                for($i=0; $i < count($playerFighterList); $i++) {
+                    array_push($playerFighterListName, $playerFighterList[$i]->name);
+                }
+
+                echo $this->Form->create('ChooseFighterAndGuild');
+                echo $this->Form->select(
+                    'fighterChosenForGuild',
+                    $playerFighterListName,
+                    ['empty' => '(choisissez)']
+                );
+
+                echo "<h3> Choose a guild </h3>";
+
+                $guildListName = [];
+                for($i=0; $i < count($guildList); $i++) {
+                    array_push($guildListName, $guildList[$i]->name);
+                }
+
+                echo $this->Form->select(
+                    'guildChosenForFighter',
+                    $guildListName,
+                    ['empty' => '(choisissez)']
+                );
+                echo $this->Form->submit(__('CHOOSE'));
+         }
+        else {
+            if($playerIsLogin) {
+                echo "YOU DID NOT CHOOSE YOUR FIGHTER MOTHERFUCKER";
+                ?>
+                <button onclick="location.href='fighter'" type="button">FIGHTER</button>
+                <?php
+            }
+            else {
+                echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
+                ?>
+                <button onclick="location.href='login'" type="button">LOGIN</button>
+                <?php
+            }
+        }
         ?>
-        
-        <h2> Make your fighters join guilds </h2>
-        <h3> Choose a fighter </h3>
 
-            <?php
-            $playerFighterListName = [];
-            for($i=0; $i < count($playerFighterList); $i++) {
-                array_push($playerFighterListName, $playerFighterList[$i]->name);
-            }
-
-            echo $this->Form->create('ChooseFighterAndGuild');
-            echo $this->Form->select(
-                'fighterChosenForGuild',
-                $playerFighterListName,
-                ['empty' => '(choisissez)']
-            );
-        
-            echo "<h3> Choose a guild </h3>";
-  
-            $guildListName = [];
-            for($i=0; $i < count($guildList); $i++) {
-                array_push($guildListName, $guildList[$i]->name);
-            }
-
-            echo $this->Form->select(
-                'guildChosenForFighter',
-                $guildListName,
-                ['empty' => '(choisissez)']
-            );
-            echo $this->Form->submit(__('CHOOSE'));
-            ?>
-        
     </body>
 </html>

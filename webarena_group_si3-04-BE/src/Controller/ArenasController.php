@@ -109,6 +109,9 @@ class ArenasController extends AppController {
         $data = $this->request->getData();
         $session = $this->request->session();
 
+        $session->write('fighterChosenName', null);
+        $session->write('fighterChosenId', null);
+
         $goodToGo = 0;
         $playerLogin = 0;
         $players = $this->Players->find('all');
@@ -300,10 +303,9 @@ class ArenasController extends AppController {
     public function guild() {
         $this->loadModel('Guilds');
         $this->loadModel('Fighters');
-
-
         $session = $this->request->session();
-        if ($session->check('playerEmailLogin')) {
+
+        if ($session->check('fighterChosenId')) {
             $playerIdLogin = $session->read('playerIdLogin');
             $this->set('playerFighterList', $this->Fighters->getPlayerFighterList($playerIdLogin));
             $this->set('guildList', $this->Guilds->getGuildList());
@@ -323,7 +325,9 @@ class ArenasController extends AppController {
                 }
                 $fighterPerGuildCounter = 0;
             }
-            $this->set('guildCountTable', $guildCountTable);
+            if(isset($guildCountTable)) {
+                $this->set('guildCountTable', $guildCountTable);
+            }
 
             $newGuild = $this->request->getData();
 
@@ -360,14 +364,23 @@ class ArenasController extends AppController {
             $guildList = $this->Guilds->getGuildList();
             $this->set('guildList', $guildList);
 
+            $this->set('fighterIsChosen', 1);
+
             if (isset($data['fighterChosenForGuild']) && isset ($data['guildChosenForFighter'] )) {
                 $fighterChosen = $playerFighterList[$data['fighterChosenForGuild']];
                 $guildChosen =  $guildList[$data['guildChosenForFighter']];
 
                 $this->Fighters->joinGuild($guildChosen, $fighterChosen);
             }
-
-
+        }
+        //fighter not chosen
+        else {
+            if ($session->check('playerEmailLogin')) {
+                $this->set('playerIsLogin', 1);
+            } else {
+                $this->set('playerIsLogin', 0);
+            }
+            $this->set('fighterIsChosen', 0);
         }
     }
 
