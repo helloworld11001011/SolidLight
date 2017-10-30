@@ -106,21 +106,20 @@ class ArenasController extends AppController {
 
     public function login() {
         $this->loadModel('Players');
-        $newPlayer = $this->request->getData();
+        $data = $this->request->getData();
         $session = $this->request->session();
 
         $goodToGo = 0;
-        $emailInDB = 0;
         $playerLogin = 0;
         $players = $this->Players->find('all');
         $playersArray = $players->toArray();
 
         if ($this->request->is('post')) {
-            if ($newPlayer['emailLogin']) {
+            if ($data['emailLogin']) {
                 for ($i = 0; $i < count($playersArray); $i++) {
-                    if ($playersArray[$i]['email'] == $newPlayer['emailLogin'] && $playersArray[$i]['password'] == $newPlayer['passwordLogin']) {
+                    if ($playersArray[$i]['email'] == $data['emailLogin'] && $playersArray[$i]['password'] == $data['passwordLogin']) {
                         $goodToGo = 1;
-                        $playerLogin = $newPlayer['emailLogin'];
+                        $playerLogin = $data['emailLogin'];
                         $session->write('playerEmailLogin', $playerLogin);
                         $session->write('playerIdLogin', $playersArray[$i]['id']);
                         $playerEmailLogin = $session->read('playerEmailLogin');
@@ -137,10 +136,21 @@ class ArenasController extends AppController {
             }
 
             $this->set('goodToGo', $goodToGo);
+        }
+    }
 
-            if ($newPlayer['email'] && $newPlayer['password']) {
+    public function signUp() {
+        $this->loadModel('Players');
+        $data = $this->request->getData();
+        $emailInDB = 0;
+
+        $players = $this->Players->find('all');
+        $playersArray = $players->toArray();
+
+        if ($this->request->is('post')) {
+            if (isset($data['email']) && isset($data['password'])) {
                 for ($i = 0; $i < count($playersArray); $i++) {
-                    if ($playersArray[$i]['email'] == $newPlayer['email']) {
+                    if ($playersArray[$i]['email'] == $data['email']) {
                         $emailInDB = 1;
                     }
                 }
