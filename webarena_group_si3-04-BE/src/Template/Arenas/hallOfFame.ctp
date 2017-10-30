@@ -20,16 +20,58 @@
                 <canvas id="levels-chart"></canvas>
             </div>
             <div id="death-count-chart">
-                <!-- Also set the amount of created fighters per month? -->
-            </div>
-            <div id="averag-skills-chart">
 
+            </div>
+            <div id="chart.js">
+                <canvas id="averag-skills-chart"></canvas>
             </div>
             <div id="chart.js">
                 <canvas id="top-guilds-chart"></canvas>
             </div>
         </div>
         <script type="text/javascript">
+
+            $(document).ready(function () {
+                var ctx = document.getElementById("averag-skills-chart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ["Sight Skill", "Strength Skill", "Health Skill"],
+                        datasets: [{
+                            data: [
+                                <?php echo round($averageSkills[0]->avg_sight, 2); ?>, <?php echo round($averageSkills[0]->avg_strength, 2); ?>, <?php echo round($averageSkills[0]->avg_health, 2); ?>
+                            ],
+                            backgroundColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            xAxes: [{
+                                gridLines: {
+                                    display: false
+                                }
+                            }],
+                            yAxes: [{
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            });
+
             $(document).ready(function(){
                 //TODO: VERIFY NULL VALUES
                 var ctx = document.getElementById("levels-chart").getContext('2d');
