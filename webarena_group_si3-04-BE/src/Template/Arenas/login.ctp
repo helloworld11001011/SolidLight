@@ -13,7 +13,7 @@
                 <?php echo $this->Form->create('Login');?>
                 <h2>Login</h2>
                 <?php echo $this->Form->input('emailLogin');
-                echo $this->Form->input('passwordLogin');
+                echo $this->Form->input('password');
                 ?>
                 <div id='submitDiv'>
                     <?= $this->Form->button(__('Submit')) ?>
@@ -23,9 +23,11 @@
                 <div id='textDiv'>
                     <?php
                     if(isset($goodToGo)) {
-                    ?><p><?php echo $goodToGo; ?></p>
-                    <button onclick="location.href='fighter'" type="button">Go to Fighter</button>
-                    <?php
+                        ?><p><?php echo $goodToGo; ?></p>
+                        <?php
+                        if($goodToGo == 'You are ready to play') {
+                            ?><button onclick="location.href='fighter'" type="button">Go to Fighter</button><?php
+                        }
                     }
                     ?>
                 </div>
