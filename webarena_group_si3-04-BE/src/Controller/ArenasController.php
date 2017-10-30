@@ -245,6 +245,8 @@ class ArenasController extends AppController {
                     $attack = $this->Fighters->getFighterById($currentFighterId)[0];
                     $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
                     $message= $this->Events->addNewFightEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
+                    //$message= $this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense);
+                    echo $message["message"];
                 }
             }
         }
