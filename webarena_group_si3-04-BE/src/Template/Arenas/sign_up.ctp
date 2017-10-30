@@ -1,18 +1,40 @@
-<h2>Sign Up</h2>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Inbox</title>
+        <?php echo $this->Html->css('login'); ?>
+    </head>
 
-<?php echo $this->Form->create('SignUp');?>
-<fieldset>
-    <legend><?php echo __('Sign up'); ?></legend>
-    <?php echo $this->Form->input('email');
-    echo $this->Form->input('password');
-    ?>
-</fieldset>
-<?= $this->Form->button(__('Submit')) ?>
-<?= $this->Form->end() ?>
+    <body>
+        <div id='mainDiv'>
 
-<?php
-if(isset($emailInDB))
-    echo $emailInDB;
-?>
-</br>
-<button onclick="location.href='login'" type="button">LOGIN</button>
+            <div id='loginDiv'>
+                <?php echo $this->Form->create('SignUp');?>
+                <h2>Sign Up</h2>
+                <?php echo $this->Form->input('email');
+                echo $this->Form->input('password');
+                ?>
+                <div id='submitDiv'>
+                    <?= $this->Form->button(__('Submit')) ?>
+                </div>
+                <?= $this->Form->end() ?>
+
+                <div id='textDiv'>
+                    <?php
+                    if(isset($emailInDB)) {
+                    ?><p><?php echo $emailInDB; ?></p>
+                    <?php
+                    }
+                    ?>
+                </div>
+            </div>
+
+            <div id='signUpBtn'>
+                <p id='textSubscribe'>Already Sign Up ? Go to Login to play !</p>
+                <button onclick="location.href='login'" type="button">LOGIN</button>
+            </div>
+
+        </div>
+    </body>
+</html>

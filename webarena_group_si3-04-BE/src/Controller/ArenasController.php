@@ -129,11 +129,11 @@ class ArenasController extends AppController {
             }
 
             if ($goodToGo == 1) {
-                $goodToGo = 'Good to go';
+                $goodToGo = 'You are ready to play';
             } else {
                 $session->write('playerEmailLogin', null);
                 $playerEmailLogin = $session->read('playerEmailLogin');
-                $goodToGo = 'Not good to go';
+                $goodToGo = 'Bad user identification';
             }
 
             $this->set('goodToGo', $goodToGo);
