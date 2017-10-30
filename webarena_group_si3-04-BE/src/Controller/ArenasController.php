@@ -251,6 +251,7 @@ class ArenasController extends AppController {
         $this->loadModel('Fighters');
         $this->set('matX', $this->Fighters->getMatrixX());
         $this->set('matY', $this->Fighters->getMatrixY());
+        $this->set('fighterCount', $this->Fighters->find('all')->count());
         $this->set('message', "Nothing of interest happened.");
 
         // For testing only, has to be replaced
