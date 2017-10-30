@@ -236,35 +236,35 @@ class ArenasController extends AppController {
     public function sight() {
 
         $this->loadModel('Events');
-//session
+        //session
         $session = $this->request->session();
 
 
-// Default for the initial aparition and whenever you reload the page
+        // Default for the initial aparition and whenever you reload the page
         $data["direction"] = "right";
 
-// Load model and set the matrix's size
+        // Load model and set the matrix's size
         $this->loadModel('Fighters');
         $this->set('matX', $this->Fighters->getMatrixX());
         $this->set('matY', $this->Fighters->getMatrixY());
         $this->set('message', "Nothing of interest happened.");
 
-// For testing only, has to be replaced
+        // For testing only, has to be replaced
         $currentFighterId = $session->read("fighterChosenId");
 
-// Call the move function
+        // Call the move function
         if ($this->request->is("post")) {
             $data = $this->request->getData();
 
-// If this is not an attack
+            // If this is not an attack
             if ($data["attack"] == "no") {
-// Then move()
+                // Then move()
                 $this->Fighters->move($data);
             } else { // Else, if this is an attack, fight()
-// Get the targeted case from the sight data
+                // Get the targeted case from the sight data
                 $targetedCase = $data["targetedCase"];
 
-// Call the fight() function with the contenders as parameters if the targeted case is in fact a fighter
+                // Call the fight() function with the contenders as parameters if the targeted case is in fact a fighter
                 if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])) {
                     $attack = $this->Fighters->getFighterById($currentFighterId)[0];
                     $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
