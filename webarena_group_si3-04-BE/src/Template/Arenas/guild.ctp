@@ -71,24 +71,10 @@
 
             ?>
 
-            <h2> Make your fighters join guilds </h2>
-            <h3> Choose a fighter </h3>
+            <h2> Make your fighter join a guild </h2>
+            <h3> Choose a guild </h3>
 
                 <?php
-                $playerFighterListName = [];
-                for($i=0; $i < count($playerFighterList); $i++) {
-                    array_push($playerFighterListName, $playerFighterList[$i]->name);
-                }
-
-                echo $this->Form->create('ChooseFighterAndGuild');
-                echo $this->Form->select(
-                    'fighterChosenForGuild',
-                    $playerFighterListName,
-                    ['empty' => '(choisissez)']
-                );
-
-                echo "<h3> Choose a guild </h3>";
-
                 $guildListName = [];
                 for($i=0; $i < count($guildList); $i++) {
                     array_push($guildListName, $guildList[$i]->name);
