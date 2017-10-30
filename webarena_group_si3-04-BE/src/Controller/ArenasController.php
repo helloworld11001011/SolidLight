@@ -110,6 +110,9 @@ class ArenasController extends AppController {
         $data = $this->request->getData();
         $session = $this->request->session();
 
+        $session->write('fighterChosenName', null);
+        $session->write('fighterChosenId', null);
+
         $goodToGo = 0;
         $playerLogin = 0;
         $players = $this->Players->find('all');
@@ -118,7 +121,7 @@ class ArenasController extends AppController {
         if ($this->request->is('post')) {
             if (isset($data['emailLogin']) && isset($data['password'])) {
                 for ($i = 0; $i < count($playersArray); $i++) {
-                    if ($playersArray[$i]['email'] == $data['emailLogin'] && $playersArray[$i]['password'] == $data['password']) {
+                    if ($playersArray[$i]['email'] == $data['emailLogin'] && password_verify($data['password'], $playersArray[$i]['password'])) {
                         $goodToGo = 1;
                         $playerLogin = $data['emailLogin'];
                         $session->write('playerEmailLogin', $playerLogin);
@@ -237,35 +240,35 @@ class ArenasController extends AppController {
     public function sight() {
 
         $this->loadModel('Events');
-//session
+        //session
         $session = $this->request->session();
 
 
-// Default for the initial aparition and whenever you reload the page
+        // Default for the initial aparition and whenever you reload the page
         $data["direction"] = "right";
 
-// Load model and set the matrix's size
+        // Load model and set the matrix's size
         $this->loadModel('Fighters');
         $this->set('matX', $this->Fighters->getMatrixX());
         $this->set('matY', $this->Fighters->getMatrixY());
         $this->set('message', "Nothing of interest happened.");
 
-// For testing only, has to be replaced
+        // For testing only, has to be replaced
         $currentFighterId = $session->read("fighterChosenId");
 
-// Call the move function
+        // Call the move function
         if ($this->request->is("post")) {
             $data = $this->request->getData();
 
-// If this is not an attack
+            // If this is not an attack
             if ($data["attack"] == "no") {
-// Then move()
+                // Then move()
                 $this->Fighters->move($data);
             } else { // Else, if this is an attack, fight()
-// Get the targeted case from the sight data
+                // Get the targeted case from the sight data
                 $targetedCase = $data["targetedCase"];
 
-// Call the fight() function with the contenders as parameters if the targeted case is in fact a fighter
+                // Call the fight() function with the contenders as parameters if the targeted case is in fact a fighter
                 if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])) {
                     $attack = $this->Fighters->getFighterById($currentFighterId)[0];
                     $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
@@ -301,10 +304,9 @@ class ArenasController extends AppController {
     public function guild() {
         $this->loadModel('Guilds');
         $this->loadModel('Fighters');
-
-
         $session = $this->request->session();
-        if ($session->check('playerEmailLogin')) {
+
+        if ($session->check('fighterChosenId')) {
             $playerIdLogin = $session->read('playerIdLogin');
             $this->set('playerFighterList', $this->Fighters->getPlayerFighterList($playerIdLogin));
             $this->set('guildList', $this->Guilds->getGuildList());
@@ -324,7 +326,9 @@ class ArenasController extends AppController {
                 }
                 $fighterPerGuildCounter = 0;
             }
-            $this->set('guildCountTable', $guildCountTable);
+            if(isset($guildCountTable)) {
+                $this->set('guildCountTable', $guildCountTable);
+            }
 
             $newGuild = $this->request->getData();
 
@@ -361,14 +365,23 @@ class ArenasController extends AppController {
             $guildList = $this->Guilds->getGuildList();
             $this->set('guildList', $guildList);
 
+            $this->set('fighterIsChosen', 1);
+
             if (isset($data['fighterChosenForGuild']) && isset ($data['guildChosenForFighter'] )) {
                 $fighterChosen = $playerFighterList[$data['fighterChosenForGuild']];
                 $guildChosen =  $guildList[$data['guildChosenForFighter']];
 
                 $this->Fighters->joinGuild($guildChosen, $fighterChosen);
             }
-
-
+        }
+        //fighter not chosen
+        else {
+            if ($session->check('playerEmailLogin')) {
+                $this->set('playerIsLogin', 1);
+            } else {
+                $this->set('playerIsLogin', 0);
+            }
+            $this->set('fighterIsChosen', 0);
         }
     }
 
