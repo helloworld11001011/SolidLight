@@ -1,6 +1,7 @@
 body {
     height: 100%;
     width: 100%;
+    background-image: url("imageBackground.jpg")
 }
 
 #mainDiv {
@@ -16,7 +17,7 @@ body {
 #loginDiv {
     width: 700px;
     margin-bottom: 10px;
-    background: linear-gradient(#FFE082, #FFC107);
+    background-color: rgba(255, 235, 59, 0.4);
     padding: 20px;
     border-radius: 10px;
 }
@@ -49,7 +50,7 @@ p {
     margin-top: 20px;
     padding: 15px;
     width: 700px;
-    background: linear-gradient(#FFB74D, #FF9800);
+    background: rgba(255, 152, 0, 0.6);
     border-radius: 10px;
 }
 
