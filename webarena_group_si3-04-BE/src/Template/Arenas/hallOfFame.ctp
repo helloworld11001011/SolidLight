@@ -50,6 +50,14 @@
                         }]
                     },
                     options: {
+                        animation: {
+                            duration: {
+                                1000
+                            },
+                            easing: {
+                                'linear'
+                            }
+                        },
                         legend: {
                             display: false
                         },
