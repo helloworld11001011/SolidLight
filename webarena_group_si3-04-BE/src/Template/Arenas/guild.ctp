@@ -71,23 +71,37 @@
 
             ?>
 
-            <h2> Make your fighter join a guild </h2>
-            <h3> Choose a guild </h3>
+            <h2> Make your fighters join guilds </h2>
+            <h3> Choose a fighter </h3>
 
-                <?php
-                $guildListName = [];
-                for($i=0; $i < count($guildList); $i++) {
-                    array_push($guildListName, $guildList[$i]->name);
-                }
+            <?php
+            $playerFighterListName = [];
+            for($i=0; $i < count($playerFighterList); $i++) {
+                array_push($playerFighterListName, $playerFighterList[$i]->name);
+            }
 
-                echo $this->Form->create('Choose guild');
-                echo $this->Form->select(
-                    'guildChosenForFighter',
-                    $guildListName,
-                    ['empty' => '(choisissez)']
-                );
-                echo $this->Form->button(__('Submit'));
-                echo $this->Form->end();
+            echo $this->Form->create('ChooseFighterAndGuild');
+            echo $this->Form->select(
+                'fighterChosenForGuild',
+                $playerFighterListName,
+                ['empty' => '(choisissez)']
+            );
+        
+            echo "<h3> Choose a guild </h3>";
+  
+            $guildListName = [];
+            for($i=0; $i < count($guildList); $i++) {
+                array_push($guildListName, $guildList[$i]->name);
+            }
+
+            echo $this->Form->select(
+                'guildChosenForFighter',
+                $guildListName,
+                ['empty' => '(choisissez)']
+            );
+            echo $this->Form->submit(__('CHOOSE'));
+            ?>
+        
          }
         else {
             if($playerIsLogin) {
