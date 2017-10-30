@@ -328,7 +328,7 @@ class ArenasController extends AppController {
 
         if ($session->check('fighterChosenId')) {
             $playerIdLogin = $session->read('playerIdLogin');
-
+            $data = $this->request->getData();
 
             $guildNameInDb = 0;  //Variable testing if fighter name already exists
             $guild = $this->Guilds->find('all');
@@ -342,7 +342,7 @@ class ArenasController extends AppController {
                     }
                 }
                 if ($guildNameInDb != 1) {
-                    $this->Guilds->addANewGuild($this->request->getData());
+                    $this->Guilds->addANewGuild($data);
                     //$fighterEvent = $this->Fighters->getFighterByName($newFighter['name'])[0];
                     //$this->Events->addNewPlayerEvent($fighterEvent);
                 }
@@ -354,8 +354,18 @@ class ArenasController extends AppController {
                 $this->set('guildNameInDb', $guildNameInDb);
             }
 
+            $guildList = $this->Guilds->getGuildList();
 
-            $this->set('guildList', $this->Guilds->getGuildList());
+            $this->set('fighterIsChosen', 1);
+
+            if (isset ($data['guildChosenForFighter'] )) {
+                $fighterChosen = $session->read('fighterChosenId');
+                $guildChosen =  $guildList[$data['guildChosenForFighter']];
+
+                $this->Fighters->joinGuild($guildChosen, $fighterChosen);
+            }
+
+            $this->set('guildList', $guildList);
 
             $this->set('guildCount', $this->Guilds->find('all')->count());
             //Function that counts how many fighters there are per guild AND shows all guilds (even when there are no fighters. Much harder to do than the idea suggests...)
@@ -374,20 +384,6 @@ class ArenasController extends AppController {
             }
             if(isset($guildCountTable)) {
                 $this->set('guildCountTable', $guildCountTable);
-            }
-
-            $data = $this->request->getData();
-
-            $guildList = $this->Guilds->getGuildList();
-            $this->set('guildList', $guildList);
-
-            $this->set('fighterIsChosen', 1);
-
-            if (isset ($data['guildChosenForFighter'] )) {
-                $fighterChosen = $session->read('fighterChosenId');
-                $guildChosen =  $guildList[$data['guildChosenForFighter']];
-
-                $this->Fighters->joinGuild($guildChosen, $fighterChosen);
             }
         }
         //fighter not chosen
