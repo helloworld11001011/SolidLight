@@ -214,7 +214,7 @@ class ArenasController extends AppController {
             $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
             $this->set('playerFighterList', $playerFighterList);
 
-            if (isset($newFighter['fighterChosen']) && $newFighter['fighterChosen']) {
+            if (isset($newFighter['fighterChosen'])) {
                 $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
                 $session->write('fighterChosenName', $fighterChosen['name']);
                 $session->write('fighterChosenId', $fighterChosen['id']);
