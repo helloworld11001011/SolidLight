@@ -7,9 +7,6 @@
         <?php echo $this->Html->script(['https://code.jquery.com/jquery-3.2.1.min.js"
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 			  crossorigin="anonymous"', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
-        <style>
-            .mySlides {display: none; height:160px; width: 160px;}
-        </style>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#leaderboard-table').DataTable({
@@ -46,6 +43,11 @@
             </div>
             <!-- End of presentation pane -->
 
+            <div class="buttons-div">
+                <div class="link-button"><?php echo $this->Html->link("LOGIN", ["controller"=>"Arenas", "action"=>"login"]); ?></div>
+                <div class="link-button"><?php echo $this->Html->link("SIGN UP", ["controller"=>"Arenas", "action"=>"sign_up"]); ?></div>
+            </div>
+
             <div class="leaderboards">
                 <div class="avatar-slider">
                     <?php echo $this->Html->image('1.png', array('class' => 'mySlides')); ?>
@@ -72,50 +74,52 @@
                     <?php echo $this->Html->image('22.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('23.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('24.png', array('class' => 'mySlides')); ?>
+                    <p class="h3-class">Top <br> Fighters</p>
                 </div>
-                <span class="h3-class">Top Fighters</span>
-                <?php
-                echo "<table class='cake-table' id='leaderboard-table'>";
-                echo "<thead><tr>
-                <th>Fighter Name</th>
-                <th>Fighter Level</th>
-                <th>Current Health</th>
-                <th>Position (X/Y)</th>
-                <th>Sight Skill</th>
-                <th>Strength Skill</th>
-                <th>Health Skill</th>
-                </tr></thead><tbody>";
-                for ($i=0; $i < $fighterCount; $i++) {
-                    echo "<tr>";
-                    echo "<td>";
-                    echo $fighterList[$i]->name;
-                    echo "</td>";
-                    echo "<td>";
-                    echo $fighterList[$i]->level;
-                    echo "</td>";
-                    echo "<td>";
-                    echo $fighterList[$i]->current_health;
-                    echo "</td>";
-                    echo "<td>";
-                    echo "(";
-                    echo $fighterList[$i]->coordinate_x;
-                    echo ",";
-                    echo $fighterList[$i]->coordinate_y;
-                    echo ")";
-                    echo "</td>";
-                    echo "<td>";
-                    echo $fighterList[$i]->skill_sight;
-                    echo "</td>";
-                    echo "<td>";
-                    echo $fighterList[$i]->skill_strength;
-                    echo "</td>";
-                    echo "<td>";
-                    echo $fighterList[$i]->skill_health;
-                    echo "</td>";
-                    echo "</tr>";
-                }
-                echo "</tbody></table>";
-                ?>
+                <div class="leaderboard-table-div">
+                    <?php
+                    echo "<table class='cake-table' id='leaderboard-table'>";
+                    echo "<thead><tr>
+                    <th>Fighter Name</th>
+                    <th>Fighter Level</th>
+                    <th>Current Health</th>
+                    <th>Position (X/Y)</th>
+                    <th>Sight Skill</th>
+                    <th>Strength Skill</th>
+                    <th>Health Skill</th>
+                    </tr></thead><tbody>";
+                    for ($i=0; $i < $fighterCount; $i++) {
+                        echo "<tr>";
+                        echo "<td>";
+                        echo $fighterList[$i]->name;
+                        echo "</td>";
+                        echo "<td>";
+                        echo $fighterList[$i]->level;
+                        echo "</td>";
+                        echo "<td>";
+                        echo $fighterList[$i]->current_health;
+                        echo "</td>";
+                        echo "<td>";
+                        echo "(";
+                        echo $fighterList[$i]->coordinate_x;
+                        echo ",";
+                        echo $fighterList[$i]->coordinate_y;
+                        echo ")";
+                        echo "</td>";
+                        echo "<td>";
+                        echo $fighterList[$i]->skill_sight;
+                        echo "</td>";
+                        echo "<td>";
+                        echo $fighterList[$i]->skill_strength;
+                        echo "</td>";
+                        echo "<td>";
+                        echo $fighterList[$i]->skill_health;
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+                    echo "</tbody></table>";
+                    ?>
+                </div>
             </div>
             <!-- End of leaderboards div -->
         </div>
