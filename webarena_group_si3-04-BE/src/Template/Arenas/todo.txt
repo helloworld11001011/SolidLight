@@ -63,3 +63,5 @@ ON SITE HOSTING
 
 ON GAMEPLAY
     Automatically defend by attacking (with lower hit chance?), even when disconnected
+
+The event table in diary does not order by dates correctly, the entry of aragorn is shown as the latest event event thought it's from 2014
