@@ -28,6 +28,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
+    <?= $this->Html->css('https://fonts.googleapis.com/css?family=Orbitron:700') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -37,7 +38,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <nav class="top-bar expanded" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
-                <h1>Solid Light</h1>
+                <span>Solid Light</span>
             </li>
         </ul>
         <div class="top-bar-section">
@@ -47,6 +48,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <li> <?php echo $this->Html->link("Hall Of Fame", ["controller"=>"Arenas", "action"=>"halloffame"]); ?> </li>
                 <li> <?php echo $this->Html->link("Fighter", ["controller"=>"Arenas", "action"=>"fighter"]); ?> </li>
                 <li> <?php echo $this->Html->link("Guilds", ["controller"=>"Arenas", "action"=>"guild"]); ?> </li>
+                <li> <?php echo $this->Html->link("Inbox", ["controller"=>"Arenas", "action"=>"inbox"]); ?> </li>
                 <li> <?php echo $this->Html->link("Arena", ["controller"=>"Arenas", "action"=>"sight"]); ?> </li>
                 <li> <?php echo $this->Html->link("Fight Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
             </ul>
