@@ -21,11 +21,32 @@
 
     <body>
         <div class="main-container">
-            <div class="title presentation-pane">
+            <div class="black-background">
                 <div class="neon-effect">
                     <span id="intro-text">WELCOME TO</span><br>
                     <span class="flickering">S</span><span class="flickering" id="offset">O</span><span class="flickering">LID LIGHT ARENA</span>
                 </div>
+            </div>
+
+            <div class="title presentation-pane">
+                <div class="left-box">
+                    <p class="h3-class">Fight the world!</p>
+                    <p>Join your friends in glorious and bloody arena fights. In the SolidLight Arena, you may form alliances, but in the end, there is only one winner!</p>
+                </div>
+
+                <div class="center-box">
+                    <p class="h3-class">Taunt friend like foe</p>
+                    <p>Use our instant messaging system to easily taunt your opponent before, during or after the battle. Watch out - you're at his mercy if he is declared the winner!</p>
+                </div>
+
+                <div class="right-box">
+                    <p class="h3-class">Become a legend</p>
+                    <p>Fight. Overcome. Achieve greatness. Become a true arena legend by defeating all your opponents - top the scoreboards! Gain experience by fighting and, more importantly, winning. Be careful however - the stronger you grow, the higher the fall...</p>
+                </div>
+            </div>
+            <!-- End of presentation pane -->
+
+            <div class="leaderboards">
                 <div class="avatar-slider">
                     <?php echo $this->Html->image('1.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('2.png', array('class' => 'mySlides')); ?>
@@ -52,28 +73,10 @@
                     <?php echo $this->Html->image('23.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('24.png', array('class' => 'mySlides')); ?>
                 </div>
-                <div class="left-box">
-                    <h3>Fight the world!</h3>
-                    <p>Join your friends in glorious and bloody arena fights. In the SolidLight Arena, you may form alliances, but in the end, there is only one winner!</p>
-                </div>
-
-                <div class="right-box">
-                    <h3>Become a legend</h3>
-                    <p>Fight. Overcome. Achieve greatness. Become a true arena legend by defeating all your opponents - top the scoreboards! Gain experience by fighting and, more importantly, winning. Be careful however - the stronger you grow, the higher the fall...</p>
-                </div>
-
-                <div class="center-box">
-                    <h3>Taunt friend like foe</h3>
-                    <p>Use our instant messaging system to easily taunt your opponent before, during or after the battle. Watch out - you're at his mercy if he is declared the winner!</p>
-                </div>
-            </div>
-            <!-- End of presentation pane -->
-
-            <div class="leaderboards">
-                <h3>Top Fighters</h3>
+                <span class="h3-class">Top Fighters</span>
                 <?php
-    echo "<table class='cake-table' id='leaderboard-table'>";
-        echo "<thead><tr>
+                echo "<table class='cake-table' id='leaderboard-table'>";
+                echo "<thead><tr>
                 <th>Fighter Name</th>
                 <th>Fighter Level</th>
                 <th>Current Health</th>
@@ -82,36 +85,36 @@
                 <th>Strength Skill</th>
                 <th>Health Skill</th>
                 </tr></thead><tbody>";
-        for ($i=0; $i < $fighterCount; $i++) {
-            echo "<tr>";
-            echo "<td>";
-            echo $fighterList[$i]->name;
-            echo "</td>";
-            echo "<td>";
-            echo $fighterList[$i]->level;
-            echo "</td>";
-            echo "<td>";
-            echo $fighterList[$i]->current_health;
-            echo "</td>";
-            echo "<td>";
-            echo "(";
-            echo $fighterList[$i]->coordinate_x;
-            echo ",";
-            echo $fighterList[$i]->coordinate_y;
-            echo ")";
-            echo "</td>";
-            echo "<td>";
-            echo $fighterList[$i]->skill_sight;
-            echo "</td>";
-            echo "<td>";
-            echo $fighterList[$i]->skill_strength;
-            echo "</td>";
-            echo "<td>";
-            echo $fighterList[$i]->skill_health;
-            echo "</td>";
-            echo "</tr>";
-        }
-        echo "</tbody></table>";
+                for ($i=0; $i < $fighterCount; $i++) {
+                    echo "<tr>";
+                    echo "<td>";
+                    echo $fighterList[$i]->name;
+                    echo "</td>";
+                    echo "<td>";
+                    echo $fighterList[$i]->level;
+                    echo "</td>";
+                    echo "<td>";
+                    echo $fighterList[$i]->current_health;
+                    echo "</td>";
+                    echo "<td>";
+                    echo "(";
+                    echo $fighterList[$i]->coordinate_x;
+                    echo ",";
+                    echo $fighterList[$i]->coordinate_y;
+                    echo ")";
+                    echo "</td>";
+                    echo "<td>";
+                    echo $fighterList[$i]->skill_sight;
+                    echo "</td>";
+                    echo "<td>";
+                    echo $fighterList[$i]->skill_strength;
+                    echo "</td>";
+                    echo "<td>";
+                    echo $fighterList[$i]->skill_health;
+                    echo "</td>";
+                    echo "</tr>";
+                }
+                echo "</tbody></table>";
                 ?>
             </div>
             <!-- End of leaderboards div -->

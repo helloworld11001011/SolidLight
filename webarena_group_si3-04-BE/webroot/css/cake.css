@@ -1,3 +1,9 @@
+.top-bar {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
 .top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button) {
     font-family: 'Orbitron', sans-serif;
     color: #18FFFF;
@@ -6,9 +12,7 @@
 }
 
 .top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button):hover {
-    font-family: 'Orbitron', sans-serif;
     color: #18FFFF;
-    text-shadow: 0 0 20px #18FFFF;
 }
 
 .title-area {
@@ -20,10 +24,4 @@
     text-shadow: 0 0 5px #18FFFF;
     border-radius: 2px;
     transition: 0.5s;
-}
-
-.top-bar.expanded .title-area:hover {
-    /*box-shadow: 0px 0px 20px 10px #4DD0E1;*/
-    text-shadow: 0 0 10px #18FFFF;
-    /*color: #18FFFF;*/
 }
