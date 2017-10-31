@@ -1,35 +1,54 @@
 ON DATATABLES (AXEL)
-    order data on given field (date for events, level for fighters, etc)
+   
+order data on given field (date for events, level for fighters, etc)
+
 
 Choose avatar on character create (AXEL)
 
+
+
 ON FORMS
-    Clear form on submit
-    Submit forms independantly?
-    Auto-reload page on submit (create fighter, level up...)
+    
+Clear form on submit
+    
+Submit forms independantly?
+    
+Auto-reload page on submit (create fighter, level up...)
+
+
 
 ON GUILDS
-    Guild level (sum of fighter levels in guild) (AXEL?)
-    Add chart.js guild on the page (AXEL)
+    
+Show guild (players, name, inbox) (JULIEN)
+   
+Guild level (sum of fighter levels in guild) (AXEL?)
+
+
 
 ON FIGHTER
-    Fucking bugged as hell
-        Stop trying to win xp all the time
-        Stop testing if fighter is selected all the time
-    Do the CSS
+    
+Fucking bugged as hell
+        
+Stop trying to win xp all the time
+        
+Stop testing if fighter is selected all the time
+
+
 
 ON NAVIGATION
-    Automatically send to Fighter page on sign in (JULIEN)
-    Add (AXEL)
+    
+Automatically send to Fighter page on sign in
 
 ON SIGHT
-    Check what happens if you die while in Sight
+    
+Check what happens if you die while in Sight
     --> Delete fighter session
-    Don't hit fighters from same guild?
 
 ---CSS---
 
 Index (AXEL)
+Singup/Signin (JULIEN)
+Guild (JULIEN)
 Fighter
 Sight (ELIOTT)
 Events
