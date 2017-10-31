@@ -10,14 +10,17 @@ ON FORMS
 
 ON GUILDS
     Guild level (sum of fighter levels in guild) (AXEL?)
+    Add chart.js guild on the page (AXEL)
 
 ON FIGHTER
     Fucking bugged as hell
         Stop trying to win xp all the time
         Stop testing if fighter is selected all the time
+    Do the CSS
 
 ON NAVIGATION
-    Automatically send to Fighter page on sign in
+    Automatically send to Fighter page on sign in (JULIEN)
+    Add (AXEL)
 
 ON SIGHT
     Check what happens if you die while in Sight
