@@ -400,16 +400,20 @@ class ArenasController extends AppController {
             //Function that counts how many fighters there are per guild AND shows all guilds (even when there are no fighters. Much harder to do than the idea suggests...)
             //Ideally, put function in GuildsTable, but impossible to link Guilds and Fighters to make the associated tables query
             $fighterPerGuildCounter = 0;
+            $guildLevel = 0;
             for ($i = 0; $i < $this->Guilds->find('all')->count(); $i++) {
                 $guildCountTable[$i][0] = $this->Guilds->find('all')->toArray()[$i]->name;
                 $guildCountTable[$i][1] = $this->Guilds->find('all')->toArray()[$i]->id;
                 for ($j = 0; $j < $this->Fighters->find('all')->count(); $j++) {
                     if ($this->Fighters->find('all')->toArray()[$j]->guild_id == $this->Guilds->find('all')->toArray()[$i]->id) {
                         $fighterPerGuildCounter++;
+                        $guildLevel += $this->Fighters->find('all')->toArray()[$j]->level;
                     }
                     $guildCountTable[$i][2] = $fighterPerGuildCounter;
+                    $guildCountTable[$i][3] = $guildLevel;
                 }
                 $fighterPerGuildCounter = 0;
+                $guildLevel = 0;
             }
             if(isset($guildCountTable)) {
                 $this->set('guildCountTable', $guildCountTable);

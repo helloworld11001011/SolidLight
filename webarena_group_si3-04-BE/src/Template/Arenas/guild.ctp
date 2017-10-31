@@ -25,7 +25,17 @@
                     if(isset($guildName)) {
                         ?>
                         <div id='guildName'>
-                            <h3><?php echo $guildName ?></h3>
+                            <h3>
+                                <?php
+                                echo $guildName;
+                                echo " (Level ";
+                                for ($i=0; $i < $guildCount; $i++) {
+                                    if ($guildName == $guildCountTable[$i][0]) {
+                                        echo $guildCountTable[$i][3];
+                                    }
+                                }
+                                echo ")"; ?>
+                            </h3>
                         </div>
                         <?php
                     }
@@ -45,16 +55,12 @@
                             echo "<table class='cake-table' id='guilds-table'>";
                             echo "<thead><tr>
                             <th>Fighter Name</th>
-                            <th>Fighter ID</th>
                             <th>Fighter Level</th>
                             </tr></thead><tbody>";
                             for ($i=0; $i < count($guildFighters); $i++) {
                                 echo "<tr>";
                                 echo "<td>";
                                 echo $guildFighters[$i]['name'];
-                                echo "</td>";
-                                echo "<td>";
-                                echo $guildFighters[$i]['id'];
                                 echo "</td>";
                                 echo "<td>";
                                 echo $guildFighters[$i]['level'];
@@ -76,8 +82,8 @@
                         echo "<table class='cake-table' id='guilds-tables'>";
                         echo "<thead><tr>
                         <th>Guild Name</th>
-                        <th>Guild ID</th>
                         <th>Number of Fighters</th>
+                        <th>Guild Level</th>
                         </tr></thead><tbody>";
                         for ($i=0; $i < $guildCount; $i++) {
                             echo "<tr>";
@@ -85,10 +91,10 @@
                             echo $guildCountTable[$i][0];
                             echo "</td>";
                             echo "<td>";
-                            echo $guildCountTable[$i][1];
+                            echo $guildCountTable[$i][2];
                             echo "</td>";
                             echo "<td>";
-                            echo $guildCountTable[$i][2];
+                            echo $guildCountTable[$i][3];
                             echo "</td>";
                             echo "</tr>";
                         }

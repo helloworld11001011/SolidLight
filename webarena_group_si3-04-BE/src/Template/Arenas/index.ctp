@@ -12,7 +12,9 @@
         </style>
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#leaderboard-table').DataTable();
+                $('#leaderboard-table').DataTable({
+                    "order": [[1, 'DESC']]
+                });
             });
         </script>
     </head>

@@ -11,7 +11,9 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#fighters-table').DataTable();
+                $('#fighters-table').DataTable({
+                    'order': [[1, 'DESC']]
+                });
             });
         </script>
     </head>
@@ -108,7 +110,7 @@
         if(isset($levelUpPossible)){
         ?>
 
-          
+
         <h2> Level up Fighter </h2>
 
 
@@ -126,11 +128,11 @@
 
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
-      
+
      <?php
         }
         ?>
-        
+
 
 <?php
         }
