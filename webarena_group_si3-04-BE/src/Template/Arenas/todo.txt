@@ -23,6 +23,7 @@ ON NAVIGATION
 ON SIGHT
     Check what happens if you die while in Sight
     --> Delete fighter session
+    Don't hit fighters from same guild?
 
 ---CSS---
 
