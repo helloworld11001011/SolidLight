@@ -388,8 +388,9 @@ class ArenasController extends AppController {
                             $guildName = $guildList[$i]['name'];
                         }
                     }
-
-                    $this->set('guildName', $guildName);
+                    if(isset($guildName)) {
+                       $this->set('guildName', $guildName);
+                    }
                 }
             }
 

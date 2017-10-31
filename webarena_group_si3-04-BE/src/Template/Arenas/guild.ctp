@@ -29,33 +29,40 @@
                         </div>
                         <?php
                     }
-                ?>
-                <div id='guildFighters'>
-                    <?php
-                    if(isset($guildFighters)) {
-                        echo '<div id="guild-list">';
-
-                        echo "<table class='cake-table' id='guilds-table'>";
-                        echo "<thead><tr>
-                        <th>Fighter Name</th>
-                        <th>Fighter ID</th>
-                        <th>Fighter Level</th>
-                        </tr></thead><tbody>";
-                        for ($i=0; $i < count($guildFighters); $i++) {
-                            echo "<tr>";
-                            echo "<td>";
-                            echo $guildFighters[$i]['name'];
-                            echo "</td>";
-                            echo "<td>";
-                            echo $guildFighters[$i]['id'];
-                            echo "</td>";
-                            echo "<td>";
-                            echo $guildFighters[$i]['level'];
-                            echo "</td>";
-                            echo "</tr>";
-                        }
-                        echo "</tbody></table>";
+                    else {
+                        ?>
+                        <div id='guildName'>
+                            <h3>You have no Guild</h3>
+                        </div>
+                        <?php
                     }
+                    ?>
+                    <div id='guildFighters'>
+                        <?php
+                        if(isset($guildFighters)) {
+                            echo '<div id="guild-list">';
+
+                            echo "<table class='cake-table' id='guilds-table'>";
+                            echo "<thead><tr>
+                            <th>Fighter Name</th>
+                            <th>Fighter ID</th>
+                            <th>Fighter Level</th>
+                            </tr></thead><tbody>";
+                            for ($i=0; $i < count($guildFighters); $i++) {
+                                echo "<tr>";
+                                echo "<td>";
+                                echo $guildFighters[$i]['name'];
+                                echo "</td>";
+                                echo "<td>";
+                                echo $guildFighters[$i]['id'];
+                                echo "</td>";
+                                echo "<td>";
+                                echo $guildFighters[$i]['level'];
+                                echo "</td>";
+                                echo "</tr>";
+                            }
+                            echo "</tbody></table>";
+                        }
                     ?>
                 </div>
             </div>
