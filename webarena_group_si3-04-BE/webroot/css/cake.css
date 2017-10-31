@@ -1,23 +1,29 @@
-.top-bar.expanded .title-area {
+.top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button) {
+    font-family: 'Orbitron', sans-serif;
     color: #18FFFF;
-    background-color: #4DD0E1;
-    box-shadow: 0px 0px 10px 5px #4DD0E1;
-    border-radius: 2px;
-    transition: 1s;
-}
-
-.top-bar.expanded .title-area:hover {
-    box-shadow: 0px 0px 20px 10px #4DD0E1;
-    color: #18FFFF;
-}
-
-.top-bar.expanded, .top-bar,.top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button) {
-    color: #18FFFF;
-    text-shadow: 0 0 3px #18FFFF;
+    text-shadow: 0 0 0.5px #18FFFF;
     transition: 0.5s;
 }
 
-.top-bar.expanded, .top-bar,.top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button):hover {
+.top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button):hover {
+    font-family: 'Orbitron', sans-serif;
     color: #18FFFF;
-    text-shadow: 0 0 7px #18FFFF;
+    text-shadow: 0 0 20px #18FFFF;
+}
+
+.title-area {
+    font-family: 'Orbitron', sans-serif;
+    color: #18FFFF;
+    font-style: italic;
+    /*background-color: #18FFFF;*/
+    /*box-shadow: 0px 0px 10px 5px #4DD0E1;*/
+    text-shadow: 0 0 5px #18FFFF;
+    border-radius: 2px;
+    transition: 0.5s;
+}
+
+.top-bar.expanded .title-area:hover {
+    /*box-shadow: 0px 0px 20px 10px #4DD0E1;*/
+    text-shadow: 0 0 10px #18FFFF;
+    /*color: #18FFFF;*/
 }
