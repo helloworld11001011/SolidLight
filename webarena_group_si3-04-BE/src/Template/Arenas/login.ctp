@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Inbox</title>
+        <title>Login</title>
         <?php echo $this->Html->css('login'); ?>
     </head>
 
