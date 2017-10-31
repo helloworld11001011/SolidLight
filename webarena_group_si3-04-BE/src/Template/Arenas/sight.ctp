@@ -76,9 +76,8 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
         $s= "<td title=\"Doesn't look like anything to me...\">";
     }else {
         $s= "<td title=\"Nothing there, no worries.\">";
-    }
-
-    for($i=0; $i<$fighterCount; $i++){
+        
+        for($i=0; $i<$fighterCount; $i++){
         if($fighterList[$i]->id == $id){
             
             $name= $fighterList[$i]->name;
@@ -89,6 +88,9 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
             $s= "<td title='$name\nLevel: ".strval($fighterList[$i]->level)."\nStrength: ".strval($fighterList[$i]->skill_strength)."\nHealth: ". strval($fighterList[$i]->current_health)."\nSight: ".strval($fighterList[$i]->skill_sight)."\nGuild id: ".strval($fighterList[$i]->guild_id)." '>";
         }
     }
+    }
+
+    
     return $s;
 }
 

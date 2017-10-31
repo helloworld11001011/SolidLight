@@ -249,7 +249,10 @@ class ArenasController extends AppController {
         $session = $this->request->session();
         $currentFighterId = $session->read("fighterChosenId");
         $avatarId = strval($currentFighterId.'.png');
-        $chosenFighterName = $this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()[0]->name;
+        if($this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()){
+            $chosenFighterName = $this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()[0]->name;
+        }else { $chosenFighterName = "Chose or create a fighter";}
+            
         $this->set('avatarId', $avatarId);
         $this->set('chosenFighterName', $chosenFighterName);
     }
