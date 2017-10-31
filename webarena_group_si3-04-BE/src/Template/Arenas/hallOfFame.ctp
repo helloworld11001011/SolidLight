@@ -12,21 +12,29 @@
 
     <body>
 
-        <h1>
-            Hall of Fame
-        </h1>
         <div class="main-container">
-            <div id="chart.js">
-                <canvas id="levels-chart"></canvas>
+            <div class="black-background">
+                <div class="neon-effect">
+                    <span class="flickering">HALL </span><span class="flickering" id="offset">O</span><span class="flickering">F FAME</span>
+                </div>
             </div>
-            <div id="death-count-chart">
+            <div class="chart-wrapper">
+                <div class="top-chart-row">
+                    <div class="chartjs">
+                        <span class="chart-title">Level Distribution</span>
+                        <canvas id="levels-chart"></canvas>
+                    </div>
+                    <div class="chartjs">
+                        <span class="chart-title">Top Guilds</span>
+                        <canvas id="top-guilds-chart"></canvas>
+                    </div>
+                </div>
+                <div id="death-count-chart">
 
-            </div>
-            <div id="chart.js">
-                <canvas id="averag-skills-chart"></canvas>
-            </div>
-            <div id="chart.js">
-                <canvas id="top-guilds-chart"></canvas>
+                </div>
+                <div id="chart.js">
+                    <canvas id="averag-skills-chart"></canvas>
+                </div>
             </div>
         </div>
         <script type="text/javascript">
@@ -88,7 +96,15 @@
                             'rgba(153, 102, 255, 1)',
                             'rgba(255, 159, 64, 1)'
                         ],
-                        borderWidth: 1
+                        borderColor: [
+                            'rgba(24,255,255,1)',
+                            'rgba(24,255,255,1)',
+                            'rgba(24,255,255,1)',
+                            'rgba(24,255,255,1)',
+                            'rgba(24,255,255,1)',
+                            'rgba(24,255,255,1)'
+                        ],
+                        borderWidth: 2
                     }],
 
                     // These labels appear in the legend and in the tooltips when hovering different arcs
@@ -227,12 +243,18 @@
                             <?php echo $guildCountTable[0][0]; ?>, <?php echo $guildCountTable[1][0]; ?>, <?php echo $guildCountTable[2][0]; ?>, <?php echo $guildCountTable[3][0]; ?>
                         ],
                         backgroundColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
+                            '#FF355E',
+                            'rgba(255,193,7, 1)',
+                            '#FF00CC',
+                            'rgba(24,255,255,1)'
                         ],
-                        borderWidth: 1
+                        borderColor: [
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)'
+                        ],
+                        borderWidth: 2
                     }],
 
                     // These labels appear in the legend and in the tooltips when hovering different arcs
@@ -246,6 +268,11 @@
                 var myDoughnutChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: data,
+                    options: {
+                        legend: {
+                            fontColot: '#18FFFF'
+                        }
+                    }
                 });
             });
         </script>
