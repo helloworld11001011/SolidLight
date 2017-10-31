@@ -7,7 +7,7 @@
 .top-bar-section ul li,.top-bar-section li:not(.has-form) a:not(.button) {
     font-family: 'Orbitron', sans-serif;
     color: #18FFFF;
-    text-shadow: 0 0 0.5px #18FFFF;
+    /*text-shadow: 0 0 10px #18FFFF;*/
     transition: 0.25s;
 }
 
@@ -18,10 +18,11 @@
 .title-area {
     font-family: 'Orbitron', sans-serif;
     color: #18FFFF;
+    width: 150px;
     font-style: italic;
     /*background-color: #18FFFF;*/
     /*box-shadow: 0px 0px 10px 5px #4DD0E1;*/
-    text-shadow: 0 0 5px #18FFFF;
+    text-shadow: 0 0 20px #18FFFF;
     border-radius: 2px;
     transition: 0.5s;
 }

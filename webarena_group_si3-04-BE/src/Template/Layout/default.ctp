@@ -47,10 +47,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <li> <?php echo $this->Html->link("Login", ["controller"=>"Arenas", "action"=>"login"]); ?> </li>
                 <li> <?php echo $this->Html->link("Hall Of Fame", ["controller"=>"Arenas", "action"=>"halloffame"]); ?> </li>
                 <li> <?php echo $this->Html->link("Fighter", ["controller"=>"Arenas", "action"=>"fighter"]); ?> </li>
-                <li> <?php echo $this->Html->link("Guilds", ["controller"=>"Arenas", "action"=>"guild"]); ?> </li>
-                <li> <?php echo $this->Html->link("Inbox", ["controller"=>"Arenas", "action"=>"inbox"]); ?> </li>
                 <li> <?php echo $this->Html->link("Arena", ["controller"=>"Arenas", "action"=>"sight"]); ?> </li>
                 <li> <?php echo $this->Html->link("Fight Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
+                <li> <?php echo $this->Html->link("Guilds", ["controller"=>"Arenas", "action"=>"guild"]); ?> </li>
+                <li> <?php echo $this->Html->link("Inbox", ["controller"=>"Arenas", "action"=>"inbox"]); ?> </li>
             </ul>
         </div>
     </nav>

@@ -3,10 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Index</title>
-        <?php echo $this->Html->css(['index.css', 'https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css']) ?>
-        <?php echo $this->Html->script(['https://code.jquery.com/jquery-3.2.1.min.js"
-			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-			  crossorigin="anonymous"', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
+        <?php echo $this->Html->css(['index.css']) ?>
+        <?php echo $this->Html->script(['jquery.min.js', 'datatables.js']) ?>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#leaderboard-table').DataTable({
@@ -20,7 +18,7 @@
         <div class="main-container">
             <div class="black-background">
                 <div class="neon-effect">
-                    <span id="intro-text">WELCOME TO</span><br>
+                    <span id="intro-text">ENTER</span><br>
                     <span class="flickering">S</span><span class="flickering" id="offset">O</span><span class="flickering">LID LIGHT ARENA</span>
                 </div>
             </div>
@@ -74,7 +72,7 @@
                     <?php echo $this->Html->image('22.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('23.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('24.png', array('class' => 'mySlides')); ?>
-                    <p class="h3-class">Top <br> Fighters</p>
+                    <p class="h3-class">Leaderboard</p>
                 </div>
                 <div class="leaderboard-table-div">
                     <?php
@@ -100,11 +98,11 @@
                         echo $fighterList[$i]->current_health;
                         echo "</td>";
                         echo "<td>";
-                        echo "(";
+                        echo "( ";
                         echo $fighterList[$i]->coordinate_x;
                         echo ",";
                         echo $fighterList[$i]->coordinate_y;
-                        echo ")";
+                        echo " )";
                         echo "</td>";
                         echo "<td>";
                         echo $fighterList[$i]->skill_sight;
