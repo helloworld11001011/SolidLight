@@ -152,7 +152,7 @@
                 ];
 
                 plot1 = $.jqplot("death-count-chart", [s2, s1], {
-                    title: 'Deaths VS Fighter creations',
+                    title: 'Deaths (orange) VS New Fighters (blue)',
                     // Turns on animatino for all series in this plot.
                     animate: true,
                     // Will animate plot on calls to plot1.replot({resetAxes:true})
@@ -167,7 +167,9 @@
                         background: 'rgba(33,33,33,0)',
                         borderWidth: 0,
                         borderColor: '#FFC107',
-                        shadow: false
+                        shadow: false,
+                        drawBorder: false,
+                        drawGridlines: false
                     },
                     series:[
                         {
@@ -206,7 +208,8 @@
                         tickInterval: 1,
                         tickOptions: {
                             formatString: '%d',
-                            fontSize: '10px'
+                            fontSize: '10px',
+                            showGridline: false
                         }
                     },
                     seriesColors: ['#18FFFF', '#FFC107'],
@@ -222,6 +225,9 @@
                             rendererOptions: {
                                 // tickInset: 0,
                                 forceTickAt0: false
+                            },
+                            tickOptions: {
+                                showGridline: false
                             }
                         },
                         yaxis: {
@@ -231,12 +237,12 @@
                             drawMinorGridlines: false,
                             drawMajorTickMarks: false,
                             tickOptions: {
-                                // formatString: "%d dead"
+                                showGridline: false
                             },
                             rendererOptions: {
                                 tickInset: 0,
                                 forceTickAt0: false
-                            }
+                            },
                         },
                         y2axis: {
                             min: 0,
@@ -245,7 +251,7 @@
                             drawMinorGridlines: false,
                             drawMajorTickMarks: false,
                             tickOptions: {
-                                // formatString: "%d created"
+                                showGridline: false
                             },
                             rendererOptions: {
                                 // align the ticks on the y2 axis with the y axis.

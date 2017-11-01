@@ -56,6 +56,14 @@ body {
     justify-content: center;
 }
 
+.jqplot-yaxis {
+    margin-right: 6px;
+}
+
+.jqplot-xaxis {
+    margin-top: 6px;
+}
+
 .bottom-chart-row .right-chart {
     padding-left: 20px;
 }
