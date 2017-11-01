@@ -119,6 +119,40 @@
 
                     <?= $this->Form->button(__('Submit')) ?>
                     <?= $this->Form->end() ?>
+                    
+                    <div class="avatar-slider">
+                        <?php echo $this->Html->image('A1.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A2.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A3.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A4.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A5.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A6.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A7.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A8.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A9.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A10.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A11.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A12.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A13.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A14.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A15.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A16.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A17.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A18.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A19.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A20.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A21.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A22.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A23.png', array('class' => 'mySlides')); ?>
+                        <?php echo $this->Html->image('A24.png', array('class' => 'mySlides')); ?>
+                        
+                        <?php echo "<button onclick='carousel( -1 )'> Left </button>"; ?>
+                        <?php echo "<button onclick='carousel( 1 )'> Right </button>"; ?>
+                        
+                        <?php echo "<span id='avatarID'> avatarID </span>"; ?>
+
+                </div>
+
 
 
                 <div class="level-up-fighter" id="level-up-fighter">
@@ -175,9 +209,34 @@
                 }
 
             });
-
+            
         </script>
 
+        <script>
+            carousel(0);
+            function carousel( dir ) {
+                
+                var i;
+                if ( typeof myIndex == 'undefined' ) {
+                    myIndex = 1;
+                }
+                
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                   x[i].style.display = "none";
+                }
+                
+                myIndex += dir;
+                
+                if (myIndex > x.length) {myIndex = 1}
+                if (myIndex < 1) {myIndex = 24}
+                x[myIndex-1].style.display = "block";
+                $("#avatarID").text(myIndex);
+            }
+	   
+        </script>
+
+        
 
 
     </body>
