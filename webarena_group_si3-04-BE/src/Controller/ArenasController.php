@@ -175,8 +175,8 @@ class ArenasController extends AppController {
         $this->loadModel('Fighters');
         $this->loadModel('Events');
 
-//Retrieving the fighter list (for displaying a player's fighters)
-//TODO: get list based on current player ID
+        //Retrieving the fighter list (for displaying a player's fighters)
+        //TODO: get list based on current player ID
         $session = $this->request->session();
         if ($session->check('playerEmailLogin')) {
             $playerIdLogin = $session->read('playerIdLogin');
@@ -245,18 +245,23 @@ class ArenasController extends AppController {
 
 
         } else {
+            
+            
             $this->set('playerIsLogin', 0);
+            
+            $this->redirect('/arenas/login');
+        
         }
 
         $this->set('leveledUpList', $this->Fighters->getLeveledUpList());
 
         $session = $this->request->session();
         $currentFighterId = $session->read("fighterChosenId");
-        $avatarId = strval($currentFighterId.'.png');
+        $avatarId = strval($currentFighterId) . '.PNG';
         if($this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()){
             $chosenFighterName = $this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()[0]->name;
         }else { $chosenFighterName = "Chose or create a fighter";}
-
+        
         $this->set('avatarId', $avatarId);
         $this->set('chosenFighterName', $chosenFighterName);
     }
@@ -324,6 +329,7 @@ class ArenasController extends AppController {
         $this->set('fighterCount', $this->Fighters->find('all')->count());
     }
     else {
+        
          if ($session->check('playerEmailLogin')) {
             $this->set('playerIsLogin', 1);
          }
@@ -336,9 +342,10 @@ class ArenasController extends AppController {
          } else {
              $this->set('fighterIsChosen', 0);
          }
-        }
     }
+   }
     
+
  
 
     public function diary() {

@@ -278,7 +278,9 @@ class FightersTable extends Table {
 
 
         $fighterTable->save($fighter);
-        $file = new File('img/A1.PNG');
+        
+        $file = new File('img/A'. $fighterData["imgNum"] .'.PNG'); // change here
+        
         $file->copy('img/'.$fighter->id.'.PNG', true);
     }
 
