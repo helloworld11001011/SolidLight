@@ -132,7 +132,7 @@
                             <?php
                             echo 'Upgrade';
                             //trouver un moyen de ne pas afficher 'nothing'
-                            echo $this->Form->radio('Upgrade', ['nothing' , ' + 1 Strength ', ' + 1 Sight', ' + 3 Health']);
+                            echo $this->Form->radio('Upgrade', [ ' + 1 Strength ', ' + 1 Sight', ' + 3 Health']);
                             ?>
                     </fieldset>
                      <?= $this->Form->button(__('Submit')) ?>
