@@ -19,7 +19,7 @@ body {
 #mainDivOwnGuild {
     margin-top: 50px;
     width: 1000px;
-    /*height: 1000px;*/
+    height: 1000px;
     border-radius: 10px;
     background-color: rgba(33,33,33, 0.9);
     box-shadow: 0px 0px 10px 4px #FFC107;
@@ -191,34 +191,29 @@ h3 {
     float: right;
 }
 
+.dataTables_paginate a {
+    color: #18FFFF;
+    transition: 0.2s;
+}
+
 .dataTables_paginate a:hover {
     color: #18FFFF;
     text-shadow: 0 0 8px #18FFFF;
 }
 
 .previous {
-    /*margin-right: 4px;*/
-}
-
-.dataTables_paginate a {
-    color: #18FFFF;
     margin-right: 4px;
-    margin-left: 4px;
-    transition: 0.2s;
 }
 
 .dataTables_paginate .current {
     color: #FFC107;
-    /*text-shadow: 0 0 4px #FFC107;*/
+    margin-right: 4px;
+    transition: 0.2s;
 }
 
 .dataTables_paginate .current:hover {
     color: #FFC107;
     text-shadow: 0 0 8px #FFC107;
-}
-
-.next {
-    margin-left: 4px;
 }
 
 .form button {
