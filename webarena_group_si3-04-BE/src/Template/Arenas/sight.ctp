@@ -34,7 +34,7 @@ for($i=0; $i<$matY; $i++){
         
         // Don't show the cases that are futher away than the sight skill of the fighter
         if($isTooFar){
-            echo $this->Html->image('rust.png', ['alt' => 'square_img']);
+            echo $this->Html->image('rust.PNG', ['alt' => 'square_img']);
         }else{
             // Show the case that is curently being targeted except if there is a fighter on it
             if($i == $targetedCase["y"] && $j == $targetedCase["x"] && !$matrix[$i][$j]){
@@ -42,10 +42,10 @@ for($i=0; $i<$matY; $i++){
             }else{
                 // Show the fighter if there is one there
                 if($matrix[$i][$j]){
-                    $pic= strval($matrix[$i][$j]).'.png';
+                    $pic= strval($matrix[$i][$j]).'.PNG';
                     echo $this->Html->image($pic, ['alt' => 'square_img']);
                 }else{
-                    echo $this->Html->image('green_square.png', ['alt' => 'square_img']);                   
+                    echo $this->Html->image('green_square.PNG', ['alt' => 'square_img']);                   
                 }
             }
         }

@@ -100,6 +100,8 @@
                     <?php echo $this->Form->input('name');
                     echo 'Class';
                     echo $this->Form->radio('Class', ['Classic', 'Archer','Giant', 'Destructor']);
+                    echo 'Avatar';
+                    echo $this->Form->input('imgNum');
                     ?>
             </fieldset>
         </div>
