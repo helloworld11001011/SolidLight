@@ -45,12 +45,7 @@ for($i=0; $i<$matY; $i++){
                     $pic= strval($matrix[$i][$j]).'.png';
                     echo $this->Html->image($pic, ['alt' => 'square_img']);
                 }else{
-                    if( ($i==1 && $j==2) || ($i==3 && $j==0) || ($i==8 && $j==4) || ($i==13 && $j==6) || ($i==8 && $j==5) || ($i==5 && $j==9) || ($i==4 && $j==7) || ($i==12 && $j==2) || ($i==3 && $j==6) || ($i==1 && $j==7)){
-                        echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
-                    } else{
-                        echo $this->Html->image('green_square.png', ['alt' => 'square_img']);
-                    }
-                    
+                    echo $this->Html->image('green_square.png', ['alt' => 'square_img']);                   
                 }
             }
         }
@@ -60,17 +55,17 @@ for($i=0; $i<$matY; $i++){
 }
 echo "</table>\n</div>\n";
 
-echo "<div id='navdiv'> <table class='nav'> <tr> <td> </td> <td>";
+echo "<div id='navdiv'> <table class='nav'> \n<tr> \n<td> </td> \n<td>";
 echo $this->Form->postButton('UP', null, [ "data" => [ "direction" => "up", "id" => $currentFighter[0]->id, "attack" => "no"]]);
-echo "</td><td></td></tr><tr><td>";
+echo "</td>\n<td></td>\n</tr>\n<tr>\n<td>";
 echo $this->Form->postButton('LEFT', null, [ "data" => [ "direction" => "left", "id" => $currentFighter[0]->id, "attack" => "no"]]);
-echo "</td><td></td><td>";
+echo "</td>\n<td></td>\n<td>";
 echo $this->Form->postButton('RIGHT', null, [ "data" => [ "direction" => "right", "id" => $currentFighter[0]->id, "attack" => "no"]]);
-echo "</td></tr><tr><td></td><td>";
+echo "</td>\n</tr>\n<tr>\n<td></td>\n<td>";
 echo $this->Form->postButton('DOWN', null, [ "data" => [ "direction" => "down", "id" => $currentFighter[0]->id, "attack" => "no"]]);
-echo "</td><td></td></tr></table>";
+echo "</td>\n<td></td>\n</tr>\n</table>\n";
 echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
-echo "<div id='info'>";
+echo "\n<div id='info'>";
 echo $message;
 echo "</div> </div></div>";
 }
@@ -107,6 +102,8 @@ else {
  }
  
  
+echo "\n</div> </div></div>";
+
 
 function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     if($isTooFar) {

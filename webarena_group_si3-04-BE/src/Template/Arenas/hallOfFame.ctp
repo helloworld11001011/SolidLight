@@ -144,6 +144,7 @@
                 ];
 
                 plot1 = $.jqplot("death-count-chart", [s2, s1], {
+                    title: 'Deaths VS Fighter creations',
                     // Turns on animatino for all series in this plot.
                     animate: true,
                     // Will animate plot on calls to plot1.replot({resetAxes:true})
@@ -167,7 +168,7 @@
                             },
                             renderer: $.jqplot.BarRenderer,
                             // yaxis: 'y2axis',
-                            showHighlight: true,
+                            showHighlight: false,
                             rendererOptions: {
                                 // Speed up the animation a little bit.
                                 // This is a number of milliseconds.
@@ -196,7 +197,7 @@
                         tickInterval: 1,
                         tickOptions: {
                             formatString: '%d',
-                            fontSize: '8px'
+                            fontSize: '10px'
                         }
                     },
                     axes: {
@@ -207,7 +208,7 @@
                             tickInterval: 1,
                             drawMajorGridlines: false,
                             drawMinorGridlines: false,
-                            drawMajorTickMarks: true,
+                            drawMajorTickMarks: false,
                             rendererOptions: {
                                 // tickInset: 0,
                                 forceTickAt0: false

@@ -213,13 +213,16 @@ class ArenasController extends AppController {
             $this->set('playerIsLogin', 1);
             $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
             $this->set('playerFighterList', $playerFighterList);
+            
+            
+            if( isset( $newFighter['fighterChosen'] ) ){    // check that the CHOOSE btn is pushed (i think)
+                if( $newFighter['fighterChosen'] != "" ) {  // Check that it's not the default value of the select form
+                    $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
+                    $session->write('fighterChosenName', $fighterChosen['name']);
+                    $session->write('fighterChosenId', $fighterChosen['id']);
+                    $session->write('fighterChosenGuild', $fighterChosen['guild_id']);
 
-            if (isset($newFighter['fighterChosen'])) {
-                $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
-                $session->write('fighterChosenName', $fighterChosen['name']);
-                $session->write('fighterChosenId', $fighterChosen['id']);
-                $session->write('fighterChosenGuild', $fighterChosen['guild_id']);
-
+                }
             }
 
             $currentFighterId = $session->read("fighterChosenId");
@@ -253,7 +256,7 @@ class ArenasController extends AppController {
         if($this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()){
             $chosenFighterName = $this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()[0]->name;
         }else { $chosenFighterName = "Chose or create a fighter";}
-            
+
         $this->set('avatarId', $avatarId);
         $this->set('chosenFighterName', $chosenFighterName);
     }
