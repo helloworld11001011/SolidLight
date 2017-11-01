@@ -1,9 +1,12 @@
 <?php
 // refs to the css and js files in webroot
-echo $this->Html->css('sight');
+echo $this->Html->css('sight.css');
 echo $this->Html->script('http://code.jquery.com/jquery.min.js');
 echo $this->Html->script('sightScript');
 
+echo " <br> <br> ";
+
+if($playerIsLogin == 1 && $fighterIsChosen == 1) {
 
 // Initialises a matrix of the size of the board
 for($i=0; $i<$matY; $i++){
@@ -70,6 +73,40 @@ echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => 
 echo "<div id='info'>";
 echo $message;
 echo "</div> </div></div>";
+}
+
+
+
+else {
+     
+    if($playerIsLogin == 0) {
+        echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
+        
+        echo '<div class="buttons-div">
+                <div class="link-button">';
+        
+        echo $this->Html->link("LOGIN", ["controller"=>"Arenas", "action"=>"login"]); 
+        echo '</div> 
+             <div class="link-button">';
+        
+        echo $this->Html->link("SIGN UP", ["controller"=>"Arenas", "action"=>"sign_up"]);
+        echo '</div>
+        </div>';
+        
+     }
+     
+    if($fighterIsChosen == 0) {
+        echo "YOU DIDNT SELECT A FIGHTER MOTHERFUCKER";
+
+        echo '<div class="buttons-div">
+                <div class="link-button">';
+        echo $this->Html->link("FIGHTER", ["controller"=>"Arenas", "action"=>"fighter"]); 
+        echo '</div>
+        </div>';
+      }
+ }
+ 
+ 
 
 function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     if($isTooFar) {
@@ -94,18 +131,8 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     return $s;
 }
 
+ 
 ?>
 
 
 
-
-<navigation>
-    <h5>Navigation</h5>
-    <ul>
-        <li> <?php echo $this->Html->link("Index", ["controller"=>"Arenas", "action"=>"index"]); ?> </li>
-        <li> <?php echo $this->Html->link("Login", ["controller"=>"Arenas", "action"=>"login"]); ?> </li>
-        <li> <?php echo $this->Html->link("Fighter", ["controller"=>"Arenas", "action"=>"fighter"]); ?> </li>
-        <li> <?php echo $this->Html->link("Sight", ["controller"=>"Arenas", "action"=>"sight"]); ?> </li>
-        <li> <?php echo $this->Html->link("Diary", ["controller"=>"Arenas", "action"=>"diary"]); ?> </li>
-    </ul>
-</navigation>

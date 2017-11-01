@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <!-- cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css -->
         <!-- TODO: get datatables working -->
+         <?php echo $this->Html->css('fighter'); ?>
         <?php echo $this->Html->css('https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css') ?>
         <?php echo $this->Html->script(['https://code.jquery.com/jquery-3.2.1.min.js"
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -106,15 +107,12 @@
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
 
-        <?php
-        if(isset($levelUpPossible)){
-        ?>
+
+       
 
 
-        <h2> Level up Fighter </h2>
-
-
-        <div class="level up fighter">
+        <div class="level-up-fighter" id="level-up-fighter">
+            <h2> Level up Fighter </h2>
                 <?php echo $this->Form->create('level up fighter');?>
             <fieldset>
                 <legend><?php echo __('Level up Fighter'); ?></legend>
@@ -124,14 +122,19 @@
                     echo $this->Form->radio('Upgrade', ['nothing' , ' + 1 Strength ', ' + 1 Sight', ' + 3 Health']);
                     ?>
             </fieldset>
+             <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->end() ?>
+        </div>
+        
+        
+        <div class="cannot-level-up-fighter" id="cannot-level-up-fighter">
+            <h2> The chosen fighter cannot level up</h2>
+            <h3> To level up your fighter, you have to gain 4xp, see you in the arena ! </h3>
         </div>
 
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+           
 
-     <?php
-        }
-        ?>
+ 
 
 
 <?php
@@ -145,5 +148,26 @@
         }
         ?>
 
+        
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                
+                if(<?php echo $levelUpPossible; ?> == 0){
+            
+                    document.getElementById('level-up-fighter').style.display="none";
+                    
+                } else {
+                    
+                    document.getElementById('cannot-level-up-fighter').style.display="none";
+                    
+                }
+            
+            });
+                
+        </script>
+                
+            
+        
     </body>
 </html>

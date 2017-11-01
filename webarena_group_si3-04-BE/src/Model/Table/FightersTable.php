@@ -416,7 +416,7 @@ class FightersTable extends Table {
 
         $fighter = $fighterTable->get($fighterChosen['id']);
 
-        if($fighterData['Upgrade'] == 0){
+        if($fighterData == 0){
 
             echo 'riennnn';
 
