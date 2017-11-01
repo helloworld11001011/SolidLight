@@ -4,7 +4,6 @@
         <meta charset="utf-8">
         <title>Guilds</title>
         <?php echo $this->Html->css('guild'); ?>
-        <?php echo $this->Html->css('https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css') ?>
         <?php echo $this->Html->script(['https://code.jquery.com/jquery-3.2.1.min.js"
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 			  crossorigin="anonymous"', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
@@ -109,11 +108,13 @@
                 if(isset($guildNameInDb))
                     echo $guildNameInDb;
                 ?>
-                <?php echo $this->Form->create('Create guild');?>
-                <?php echo $this->Form->input('name');?>
+                <div class='form'>
+                    <?php echo $this->Form->create('Create guild');?>
+                    <?php echo $this->Form->input('name');?>
 
-                <?= $this->Form->button(__('Submit')) ?>
-                <?= $this->Form->end() ?>
+                    <?= $this->Form->button(__('Submit')) ?>
+                    <?= $this->Form->end() ?>
+                </div>
             </div>
 
             <div id='guildListDiv'>
@@ -124,15 +125,20 @@
                 for($i=0; $i < count($guildList); $i++) {
                     array_push($guildListName, $guildList[$i]->name);
                 }
-
-                echo $this->Form->create('Choose guild');
-                echo $this->Form->select(
-                    'guildChosenForFighter',
-                    $guildListName,
-                    ['empty' => '(choisissez)']
-                );
-                echo $this->Form->button(__('Submit'));
-                echo $this->Form->end();
+                ?>
+                <div class='form'>
+                <?php
+                    echo $this->Form->create('Choose guild');
+                    echo $this->Form->select(
+                        'guildChosenForFighter',
+                        $guildListName,
+                        ['empty' => '(choisissez)']
+                    );
+                    echo $this->Form->button(__('Submit'));
+                    echo $this->Form->end();
+                    ?>
+                </div>
+                <?php
                 }
                 else {
                     if($playerIsLogin) {
