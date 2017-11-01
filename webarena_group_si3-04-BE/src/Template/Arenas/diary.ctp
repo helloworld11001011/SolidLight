@@ -52,20 +52,25 @@
         </div>
         
        
-           
-        <div class="main-container">
-            <div class="leaderboards">
-             <h2> Scream action </h2>
+        <div class='main-container' >
+             <div class="leaderboards">
+        <div class="mainDiv">
+            <div class="loginDiv">
+             
                 <?php echo $this->Form->create('scream action');?>
-            <fieldset>
-                <legend><?php echo __('scream action'); ?></legend>
+                <h2> Scream action </h2>
+                <?php echo __('scream action'); ?>
                     <?php echo $this->Form->input('message');
                     ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+                <div id='submitDiv'>
+                <?= $this->Form->button(__('Submit')) ?>
+                </div>
             <?= $this->Form->end() ?>
             </div>
         </div>
+        </div>
+        </div>
+      
 
         
 

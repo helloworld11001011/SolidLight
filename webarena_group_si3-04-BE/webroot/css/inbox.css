@@ -6,6 +6,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 50px;
 }
 
 .maxiContainer {
@@ -18,12 +19,12 @@
 }
 
 #fightersContainer {
-    display: flex;
-    flex-direction: column;
     height: 550px;
     width: 220px;
-    border-right: 1px solid grey;
-    background-color: rgba(238, 239, 182, 0.5);
+    background-color: rgba(72, 81, 96, 0.5);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 0px;
 }
 
 .boxDialog {
@@ -42,10 +43,10 @@ body {
 
 .messagesBox {
     height: 90%;
+    max-height: 90%;
     width: 100%;
-    background-color: rgba(255, 250, 204, 0.5);
-    display: flex;
-    flex-direction: column;
+    background-color: rgba(33,33,33, 0.8);
+    overflow: auto;
 }
 
 .writeBox {
@@ -61,16 +62,17 @@ body {
 }
 
 input[type="text"] {
-    background-color: #ffd299;
+    background-color: rgba(113, 123, 140, 0.5);
     height: 100px;
     width: 330px;
     font-size: 15px;
+    border: none;
 }
 
 #btnSend {
     height: 300px;
     width: 100%;
-    background-color: #ffb251;
+    background-color: #12034f;
     padding-left: 25px;
 }
 
@@ -82,7 +84,7 @@ input[type="text"] {
 .sendBtnDiv {
     height: 100%;
     width: 20%;
-    background-color: #ffb251;
+    background-color: #12034f;
 }
 
 .messageBubbleDiv {
@@ -93,7 +95,9 @@ input[type="text"] {
     padding-left: 15px;
     padding-right: 15px;
     width: 100%;
-    height: 60px;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .messageBubbleDivMine {
@@ -104,7 +108,9 @@ input[type="text"] {
     padding-right: 15px;
     padding-left: 15px;
     width: 100%;
-    height: 60px;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .messageBubble {
@@ -112,7 +118,7 @@ input[type="text"] {
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 10px;
-    background-color: #e2b57c;
+    background-color: #497c7c;
 }
 
 .messageBubbleMine {
@@ -120,7 +126,16 @@ input[type="text"] {
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 10px;
-    background-color: #baa891;
+    max-width: 350px;
+    background-color: #615068;
+}
+
+.msgText {
+    color: white;
+    font-size: 13px;
+    font-weight: 100;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 0px;
 }
 
 .coco {
@@ -132,16 +147,21 @@ input[type="text"] {
 input[type="submit"] {
     width: 150px;
     height: 100%;
-    border: none;
-    background-color: #acad83;
+    color: #FFC107;
+    background-color: #212121;
+    border:0.5px solid #FFC107;
+    box-shadow: 0px 0px 20px 4px #FFC107;
+    font-family: 'Orbitron', sans-serif;
+    transition: 1s;
+}
+
+input[type="submit"]:hover {
+    box-shadow: 0px 0px 30px 15px #FFC107;
 }
 
 #fighterDiv {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 3px;
     width: 100%;
     height: 70px;
     border-bottom: 1px solid grey;
@@ -150,38 +170,259 @@ input[type="submit"] {
 #fighterChosenDiv {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 3px;
-    background-color: rgba(104, 104, 84, 0.5);
+    background-color: rgba(72, 81, 96, 0.8);
     width: 100%;
     height: 70px;
     border-bottom: 1px solid grey;
 }
 
 img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+    width: 70px;
+    height: 70px;
+
 }
 
-button {
+.btnTalk {
     padding-right: 30px;
-    width: 40px;
-    height: 40px;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 10px;
-    font-size: 10px;
+    width: 150px;
+    height: 70px;
+    padding-right: 30px;
+    line-height: 25px;
+    font-size: 15px;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
     text-align: center;
     background-color: rgba(104, 104, 84, 0);
+    float: left;
 }
 
-h2 {
-    font-size: 40px;
-    font-family: fantasy;
+.btnTalk:hover {
+    background-color: rgba(255, 187, 0, 0.5);
 }
 
+.black-background {
+    background-color: black;
+    margin-top: 30px;
+    flex-grow: 1;
+    width: 500px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.neon-effect {
+    background-color: #212121;
+    color:#FFC107;
+    font-family: 'Raleway', sans-serif;
+    text-align:center;
+    box-shadow: 0px 0px 20px 4px #FFC107;
+    border-radius:20px;
+}
+
+.flickering {
+    color:#18FFFF;
+    font-family: 'Orbitron', sans-serif;
+    font-style: italic;
+    font-size:26px;
+    letter-spacing:10px;
+    animation: text-flicker 3s linear infinite;
+}
+
+#normal {
+    color:#18FFFF;
+    font-family: 'Orbitron', sans-serif;
+    font-style: italic;
+    font-size:26px;
+    letter-spacing:10px;
+}
+
+#offset {
+  animation: letter-flicker 2s linear infinite;
+}
+
+@keyframes text-flicker {
+  0% {
+    opacity:0.1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+
+  2% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  8% {
+    opacity:0.1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  9% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  12% {
+    opacity:0.1;
+    text-shadow: 0px 0px #18FFFF;
+  }
+  20% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF
+  }
+  25% {
+    opacity:0.3;
+    text-shadow: 0px 0px 29px #18FFFF
+  }
+  30% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF
+  }
+
+  70% {
+    opacity:0.7;
+    text-shadow: 0px 0px 29px #18FFFF
+  }
+
+  72% {
+    opacity:0.2;
+    text-shadow:0px 0px 29px #18FFFF
+  }
+
+  77% {
+    opacity:.9;
+    text-shadow: 0px 0px 29px #18FFFF
+  }
+  100% {
+    opacity:.9;
+    text-shadow: 0px 0px 29px #18FFFF
+  }
+}
+
+@keyframes border-flicker {
+  0% {
+    opacity:0.1;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+  2% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+  4% {
+    opacity:0.1;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+
+  8% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+  70% {
+    opacity:0.7;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+  100% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+}
+
+@keyframes letter-flicker {
+  0% {
+    opacity:0.1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  2% {
+    opacity:0.1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  4% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
 
 
+  19% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  21% {
+    opacity:0.1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  23% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
 
+  80% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  83% {
+    opacity:0.4;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  87% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+}
+
+.nameFighter {
+    color: black;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: 'Orbitron', sans-serif;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.errorDiv {
+    margin-top: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgba(33,33,33,0.9);
+    box-shadow: 0px 0px 20px 4px #FFC107;
+    height: 350px;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.errorMsg {
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 30px;
+}
+
+.errorBtn {
+    background-color: rgba(0,0,0,0);
+    font-family: 'Orbitron', sans-serif;
+    border-radius: 20px;
+    margin-top: 30px;
+    box-shadow: 0px 0px 20px 4px #FFC107;
+    transition: 0.5s;
+}
+
+.errorBtn:focus {
+    outline: none;
+}
+
+.errorBtn:hover {
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 10px #FFC107;
+}

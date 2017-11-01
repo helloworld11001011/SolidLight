@@ -27,11 +27,13 @@
                         <canvas id="top-guilds-chart"></canvas>
                     </div>
                 </div>
-                <div class="test">
-                    <div id="death-count-chart"></div>
-                </div>
-                <div class="bottom-chart-row">
-                    <canvas id="averag-skills-chart"></canvas>
+                <div class="bottom-row">
+                    <div class="test">
+                        <div id="death-count-chart"></div>
+                    </div>
+                    <div class="bottom-chart-row">
+                        <canvas id="averag-skills-chart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

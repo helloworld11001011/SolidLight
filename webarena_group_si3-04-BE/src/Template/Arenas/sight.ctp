@@ -3,7 +3,7 @@
 echo $this->Html->css('sight.css');
 
 
-if($playerIsLogin == 1 && $fighterIsChosen == 1) {
+if($fighterIsChosen) {
 
     // Initialises a matrix of the size of the board
     for($i=0; $i<$matY; $i++){
@@ -42,7 +42,7 @@ if($playerIsLogin == 1 && $fighterIsChosen == 1) {
                         $pic= strval($matrix[$i][$j]).'.PNG';
                         echo $this->Html->image($pic, ['alt' => 'square_img']);
                     }else{
-                        echo $this->Html->image('green_square.PNG', ['alt' => 'square_img']);                   
+                        echo $this->Html->image('green_square.PNG', ['alt' => 'square_img']);
                     }
                 }
             }
@@ -66,34 +66,30 @@ if($playerIsLogin == 1 && $fighterIsChosen == 1) {
     echo $message;
     echo "\n</div></div></div>";
 }
-
 else {
-
-    if($playerIsLogin == 0) {
-
-        echo "YOU ARE NOT CONNECTED !";
-
-        echo '<div class="buttons-div">
-                <div class="link-button">';
-
-        echo $this->Html->link("LOGIN", ["controller"=>"Arenas", "action"=>"login"]); 
-        echo '</div> 
-             <div class="link-button">';
-
-        echo $this->Html->link("SIGN UP", ["controller"=>"Arenas", "action"=>"sign_up"]);
-        echo '</div>
-        </div>';
-
+    if($playerIsLogin) {
+        ?>
+        <div class='errorDiv'>
+            <p class='errorMsg'>
+            <?php
+                echo "YOU NEED TO CHOOSE A FIGHTER TO ACCESS THIS PAGE";
+            ?>
+            </p>
+            <button class='errorBtn' onclick="location.href='fighter'" type="button">FIGHTER</button>
+        </div>
+        <?php
     }
-
-    if($fighterIsChosen == 0 && $playerIsLogin == 1 ) {
-        echo "YOU DIDN'T SELECT A FIGHTER !";
-
-        echo '<div class="buttons-div">
-                <div class="link-button">';
-        echo $this->Html->link("FIGHTER", ["controller"=>"Arenas", "action"=>"fighter"]); 
-        echo '</div>
-        </div>';
+    else {
+        ?>
+        <div class='errorDiv'>
+            <p class='errorMsg'>
+            <?php
+                echo "YOU NEED TO BE LOGGED IN TO ACCESS THIS PAGE";
+            ?>
+            </p>
+            <button class='errorBtn' onclick="location.href='login'" type="button">LOGIN</button>
+        </div>
+        <?php
     }
 }
 

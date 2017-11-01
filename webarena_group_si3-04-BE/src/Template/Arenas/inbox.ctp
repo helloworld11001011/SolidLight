@@ -11,7 +11,11 @@
         if($fighterIsChosen) {
             ?>
             <div class="mainContainer">
-                <h2>INBOX</h2>
+                <div class="black-background">
+                    <div class="neon-effect">
+                        <span class="flickering">I</span><span class="flickering" id="offset">N</span><span id='normal'>BOX</span>
+                    </div>
+                </div>
                 <div class='maxiContainer'>
                 <div id='fightersContainer'>
                     <?php
@@ -23,8 +27,7 @@
                                     <?php
                                     $pic= strval($otherFightersList[$i]['id']) .'.png';
                                     echo $this->Html->image($pic);
-                                    echo $otherFightersList[$i]['name'];
-                                    echo $this->Form->postButton('', null, [ "class"=>"btnTalk", "data" => [ "fighterWithId" => $otherFightersList[$i]['id']]]);
+                                    echo $this->Form->postButton($otherFightersList[$i]['name'], null, [ "class"=>"btnTalk", "data" => [ "fighterWithId" => $otherFightersList[$i]['id']]]);
                                     ?>
                                 </div>
                             <?php
@@ -35,8 +38,7 @@
                                         <?php
                                         $pic= strval($otherFightersList[$i]['id']) .'.png';
                                         echo $this->Html->image($pic);
-                                        echo $otherFightersList[$i]['name'];
-                                        echo $this->Form->postButton('', null, [ "class"=>"btnTalk", "data" => [ "fighterWithId" => $otherFightersList[$i]['id']]]);
+                                        echo $this->Form->postButton($otherFightersList[$i]['name'], null, [ "class"=>"btnTalk", "data" => [ "fighterWithId" => $otherFightersList[$i]['id']]]);
                                         ?>
                                     </div>
                                 <?php
@@ -55,14 +57,26 @@
                                 if($messagesArray[$i]["fighter_id_from"] == $fighterChosenId){
                                     echo "<div class='messageBubbleDivMine'>";
                                         echo "<div class='messageBubbleMine'>";
-                                            echo $messagesArray[$i]["message"];
+                                            ?>
+                                            <p class='msgText'>
+                                            <?php
+                                                echo $messagesArray[$i]["message"];
+                                            ?>
+                                            </p>
+                                            <?php
                                         echo "</div>";
                                     echo "</div>";
                                 }
                                 else {
                                     echo "<div class='messageBubbleDiv'>";
                                         echo "<div class='messageBubble'>";
-                                            echo $messagesArray[$i]["message"];
+                                            ?>
+                                            <p class='msgText'>
+                                            <?php
+                                                echo $messagesArray[$i]["message"];
+                                            ?>
+                                            </p>
+                                            <?php
                                         echo "</div>";
                                     echo "</div>";
                                 }
@@ -89,15 +103,27 @@
         }
         else {
             if($playerIsLogin) {
-                echo "YOU DID NOT CHOOSE YOUR FIGHTER MOTHERFUCKER";
                 ?>
-                <button onclick="location.href='fighter'" type="button">FIGHTER</button>
+                <div class='errorDiv'>
+                    <p class='errorMsg'>
+                    <?php
+                        echo "YOU NEED TO CHOOSE A FIGHTER TO ACCESS THIS PAGE";
+                    ?>
+                    </p>
+                    <button class='errorBtn' onclick="location.href='fighter'" type="button">FIGHTER</button>
+                </div>
                 <?php
             }
             else {
-                echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
                 ?>
-                <button onclick="location.href='login'" type="button">LOGIN</button>
+                <div class='errorDiv'>
+                    <p class='errorMsg'>
+                    <?php
+                        echo "YOU NEED TO BE LOGGED IN TO ACCESS THIS PAGE";
+                    ?>
+                    </p>
+                    <button class='errorBtn' onclick="location.href='login'" type="button">LOGIN</button>
+                </div>
                 <?php
             }
         }
