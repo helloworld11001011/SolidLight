@@ -231,7 +231,7 @@ class ArenasController extends AppController {
             if(($session->check('fighterChosenId') && ($fighterChosen[0]->xp >= 4))){
 
                 $this->set('levelUpPossible', 1);
-                $data = $this->request->getData('Upgrade');
+                $data = $this->request->getData();
 
                 if($data != 0){
                     $this->Fighters->levelUp($data, $fighterChosen[0]);
@@ -267,6 +267,11 @@ class ArenasController extends AppController {
         //session
         $session = $this->request->session();
 
+
+        if ($session->check('playerEmailLogin') && $session->check('fighterChosenId') ) {
+            $this->set('playerIsLogin', 1);
+            $this->set('fighterIsChosen', 1);
+            $playerIdLogin = $session->read('playerIdLogin');
 
         // Default for the initial aparition and whenever you reload the page
         $data["direction"] = "right";
@@ -318,6 +323,23 @@ class ArenasController extends AppController {
         $this->set('fighterList', $this->Fighters->getFighterList());
         $this->set('fighterCount', $this->Fighters->find('all')->count());
     }
+    else {
+         if ($session->check('playerEmailLogin')) {
+            $this->set('playerIsLogin', 1);
+         }
+         else {
+             $this->set('playerIsLogin', 0);
+         }
+         
+         if ($session->check('fighterChosenId') ) {
+             $this->set('fighterIsChosen', 1);
+         } else {
+             $this->set('fighterIsChosen', 0);
+         }
+        }
+    }
+    
+ 
 
     public function diary() {
 
