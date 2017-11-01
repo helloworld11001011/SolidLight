@@ -278,8 +278,12 @@ class FightersTable extends Table {
 
 
         $fighterTable->save($fighter);
+        $imgId= rand(1, 24);
+        if( $fighterData["imgNum"] != ""){
+            $imgId= $fighterData["imgNum"];
+        }
         
-        $file = new File('img/A'. $fighterData["imgNum"] .'.PNG'); // change here
+        $file = new File('img/A'. $imgId .'.PNG'); // change here
         
         $file->copy('img/'.$fighter->id.'.PNG', true);
     }
