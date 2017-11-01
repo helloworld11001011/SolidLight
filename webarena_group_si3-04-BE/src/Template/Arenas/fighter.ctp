@@ -121,9 +121,6 @@
                     <?= $this->Form->end() ?>
 
 
-
-
-
                 <div class="level-up-fighter" id="level-up-fighter">
                     <h2> Level up Fighter </h2>
                         <?php echo $this->Form->create('level up fighter');?>
