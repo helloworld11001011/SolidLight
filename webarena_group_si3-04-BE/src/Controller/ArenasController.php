@@ -175,8 +175,8 @@ class ArenasController extends AppController {
         $this->loadModel('Fighters');
         $this->loadModel('Events');
 
-//Retrieving the fighter list (for displaying a player's fighters)
-//TODO: get list based on current player ID
+        //Retrieving the fighter list (for displaying a player's fighters)
+        //TODO: get list based on current player ID
         $session = $this->request->session();
         if ($session->check('playerEmailLogin')) {
             $playerIdLogin = $session->read('playerIdLogin');
@@ -252,11 +252,11 @@ class ArenasController extends AppController {
 
         $session = $this->request->session();
         $currentFighterId = $session->read("fighterChosenId");
-        $avatarId = strval($currentFighterId.'.png');
+        $avatarId = strval($currentFighterId) . '.PNG';
         if($this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()){
             $chosenFighterName = $this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()[0]->name;
         }else { $chosenFighterName = "Chose or create a fighter";}
-
+        
         $this->set('avatarId', $avatarId);
         $this->set('chosenFighterName', $chosenFighterName);
     }
