@@ -4,6 +4,8 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 
 class FightersTable extends Table {
 
@@ -276,6 +278,10 @@ class FightersTable extends Table {
 
 
         $fighterTable->save($fighter);
+        
+        $file = new File('img/A'. $fighterData["imgNum"] .'.PNG'); // change here
+        
+        $file->copy('img/'.$fighter->id.'.PNG', true);
     }
 
     function move($data) {
@@ -416,7 +422,7 @@ class FightersTable extends Table {
 
         $fighter = $fighterTable->get($fighterChosen['id']);
 
-        if($fighterData['Upgrade'] == 0){
+        if($fighterData == 0){
 
             echo 'riennnn';
 

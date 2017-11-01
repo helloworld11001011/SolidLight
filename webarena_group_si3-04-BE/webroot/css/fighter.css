@@ -1,49 +1,43 @@
 body {
     background-color: #212121;
     color: #18FFFF;
-    background-image: url("index-background.png");
+    font-family: 'Orbitron', sans-serif;
+    background-image: url("fighter-background.jpg");
     background-attachment: fixed;
     background-size: cover;
 }
 
-.main-container {
-    display: flex;
-    padding: 40px;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.black-background {
-    background-color: black;
-    margin-top: 60px;
-    margin-bottom: 80px;
-    flex-grow: 1;
-    width: 500px;
-    border-radius: 20px;
-}
-
 .presentation-pane {
-    display: flex;
-    padding: 20px;
+    width: 100%;
+    background-color: rgba(33,33,33,0.9);
     border-radius: 20px;
-    background-color: rgba(33,33,33, 0.9);
     border:3.5px solid #FFC107;
     box-shadow: 0px 0px 10px 4px #FFC107;
+    padding: 20px;
 }
 
-.presentation-pane > div {
+.top-row {
+    display: flex;
     text-align: center;
-    width: 33%;
+    align-items: center;
+    /*padding-right: 600px;*/
 }
 
-.center-box {
-    border-right: 1px solid #18FFFF;
-    border-left: 1px solid #18FFFF;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+.subtitle-text {
+    font-size: 35px;
+    flex-grow: 2;
+}
+
+.avatar-picture {
+    border-radius: 20px;
+    border:3.5px solid #18FFFF;
+    box-shadow: 0px 0px 10px 4px #18FFFF;
+    margin-bottom: 20px;
+    transition: 1s;
+}
+
+.avatar-picture:hover {
+    box-shadow: 0px 0px 15px 10px #18FFFF;
 }
 
 .h3-class {
@@ -53,77 +47,15 @@ body {
     margin-bottom: 20px;
 }
 
-.buttons-div {
-    font-family: 'Orbitron', sans-serif;
-    color: #18FFFF;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    height: 60px;
-    width: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.link-button, .link-button > a {
-    background-color: rgba(33,33,33, 0.9);
-    height: 100%;
-    width: 140px;
-    text-align: center;
-    line-height: 60px;
-    border-radius: 20px;
-    transition: 0.5s;
-}
-
-.link-button > a {
-    color: #18FFFF;
-    text-shadow: 0 0 0.5px #18FFFF;
-    display: block;
-    height: 100%;
-}
-
-.link-button:hover, .link-button > a:hover {
-    border-radius: 40px;
-    text-shadow: 0 0 10px #18FFFF;
-    background-color: rgba(33,33,33, 1);
-    cursor: pointer;
-}
-
-.leaderboards {
-    color: #18FFFF;
+.bottom-row {
     width: 100%;
-    background-color: rgba(33,33,33, 0.9);
+    background-color: rgba(33,33,33,0.9);
     border-radius: 20px;
-    padding: 20px;
     border:3.5px solid #FFC107;
     box-shadow: 0px 0px 10px 4px #FFC107;
-}
+    padding: 20px;
+    margin-top: 40px;
 
-.avatar-slider {
-    text-align: left;
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.mySlides {
-    display: none;
-    height:160px;
-    width: 160px;
-    border-radius: 10px;
-    border:3.5px solid #18FFFF;
-    box-shadow: 0px 0px 10px 4px #18FFFF;
-}
-
-.avatar-slider > .h3-class {
-    margin-bottom: 0;
-    flex-grow: 4;
-    margin-left: 20px;
-    text-align: center;
-    font-style: italic;
-    text-decoration: underline;
-    text-shadow: 0 0 10px #18FFFF;
-    font-size: 40px;
 }
 
 .dataTables_length {
@@ -213,7 +145,8 @@ body {
 .cake-table td:nth-child(3),
 .cake-table td:nth-child(4),
 .cake-table td:nth-child(5),
-.cake-table td:nth-child(6) {
+.cake-table td:nth-child(6),
+.cake-table td:nth-child(7) {
     border-right: solid 1px #FFC107;
 }
 
@@ -222,7 +155,8 @@ body {
 .cake-table td:nth-child(3),
 .cake-table td:nth-child(4),
 .cake-table td:nth-child(5),
-.cake-table td:nth-child(6) {
+.cake-table td:nth-child(6),
+.cake-table td:nth-child(8) {
     text-align: center;
 }
 
@@ -281,21 +215,39 @@ body {
     margin-left: 4px;
 }
 
+.main-container {
+    display: flex;
+    padding: 40px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.black-background {
+    background-color: black;
+    margin-top: 60px;
+    margin-bottom: 80px;
+    flex-grow: 1;
+    width: 500px;
+    border-radius: 20px;
+}
+
 .neon-effect {
     background-color: #212121;
-    color:#FFC107;
+    color:#18FFFF;
     font-family: 'Raleway', sans-serif;
     text-align:center;
     border:3.5px solid #FFC107;
     border-radius:20px;
-    animation: border-flicker 2s linear infinite;
+    box-shadow: 0px 0px 78px 4px #FFC107;
+    /*animation: border-flicker 2s linear infinite;*/
  }
 
 #intro-text {
     font-family: 'Orbitron', sans-serif;
     letter-spacing: 4px;
     font-size: 25px;
-    text-shadow: 0px 0px 29px #FFC107;
+    text-shadow: 0px 0px 20px #18FFFF;
 }
 
  .flickering {
@@ -304,7 +256,8 @@ body {
     font-style: italic;
     font-size:26px;
     letter-spacing:10px;
-    animation: text-flicker 3s linear infinite;
+    text-shadow: 0px 0px 29px #18FFFF;
+    /*animation: text-flicker 3s linear infinite;*/
 }
 
 #offset {
@@ -314,55 +267,55 @@ body {
 @keyframes text-flicker {
   0% {
     opacity:0.1;
-    text-shadow: 0px 0px 29px #18FFFF;
+    text-shadow: 0px 0px 29px #FFC107;
   }
 
   2% {
     opacity:1;
-    text-shadow: 0px 0px 29px #18FFFF;
+    text-shadow: 0px 0px 29px #FFC107;
   }
   8% {
     opacity:0.1;
-    text-shadow: 0px 0px 29px #18FFFF;
+    text-shadow: 0px 0px 29px #FFC107;
   }
   9% {
     opacity:1;
-    text-shadow: 0px 0px 29px #18FFFF;
+    text-shadow: 0px 0px 29px #FFC107;
   }
   12% {
     opacity:0.1;
-    text-shadow: 0px 0px #18FFFF;
+    text-shadow: 0px 0px #FFC107;
   }
   20% {
     opacity:1;
-    text-shadow: 0px 0px 29px #18FFFF
+    text-shadow: 0px 0px 29px #FFC107
   }
   25% {
     opacity:0.3;
-    text-shadow: 0px 0px 29px #18FFFF
+    text-shadow: 0px 0px 29px #FFC107
   }
   30% {
     opacity:1;
-    text-shadow: 0px 0px 29px #18FFFF
+    text-shadow: 0px 0px 29px #FFC107
   }
 
   70% {
     opacity:0.7;
-    text-shadow: 0px 0px 29px #18FFFF
+    text-shadow: 0px 0px 29px #FFC107
   }
 
   72% {
     opacity:0.2;
-    text-shadow:0px 0px 29px #18FFFF
+    text-shadow:0px 0px 29px #FFC107
   }
 
   77% {
     opacity:.9;
-    text-shadow: 0px 0px 29px #18FFFF
+    text-shadow: 0px 0px 29px #FFC107
   }
   100% {
     opacity:.9;
-    text-shadow: 0px 0px 29px #18FFFF
+    text-shadow: 0px 0px 29px #FFC107
   }
 }
 

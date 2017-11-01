@@ -175,8 +175,8 @@ class ArenasController extends AppController {
         $this->loadModel('Fighters');
         $this->loadModel('Events');
 
-//Retrieving the fighter list (for displaying a player's fighters)
-//TODO: get list based on current player ID
+        //Retrieving the fighter list (for displaying a player's fighters)
+        //TODO: get list based on current player ID
         $session = $this->request->session();
         if ($session->check('playerEmailLogin')) {
             $playerIdLogin = $session->read('playerIdLogin');
@@ -213,13 +213,16 @@ class ArenasController extends AppController {
             $this->set('playerIsLogin', 1);
             $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
             $this->set('playerFighterList', $playerFighterList);
+            
+            
+            if( isset( $newFighter['fighterChosen'] ) ){    // check that the CHOOSE btn is pushed (i think)
+                if( $newFighter['fighterChosen'] != "" ) {  // Check that it's not the default value of the select form
+                    $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
+                    $session->write('fighterChosenName', $fighterChosen['name']);
+                    $session->write('fighterChosenId', $fighterChosen['id']);
+                    $session->write('fighterChosenGuild', $fighterChosen['guild_id']);
 
-            if (isset($newFighter['fighterChosen'])) {
-                $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
-                $session->write('fighterChosenName', $fighterChosen['name']);
-                $session->write('fighterChosenId', $fighterChosen['id']);
-                $session->write('fighterChosenGuild', $fighterChosen['guild_id']);
-
+                }
             }
 
             $currentFighterId = $session->read("fighterChosenId");
@@ -228,7 +231,7 @@ class ArenasController extends AppController {
             if(($session->check('fighterChosenId') && ($fighterChosen[0]->xp >= 4))){
 
                 $this->set('levelUpPossible', 1);
-                $data = $this->request->getData('Upgrade');
+                $data = $this->request->getData();
 
                 if($data != 0){
                     $this->Fighters->levelUp($data, $fighterChosen[0]);
@@ -242,18 +245,23 @@ class ArenasController extends AppController {
 
 
         } else {
+            
+            
             $this->set('playerIsLogin', 0);
+            
+            $this->redirect('/arenas/login');
+        
         }
 
         $this->set('leveledUpList', $this->Fighters->getLeveledUpList());
 
         $session = $this->request->session();
         $currentFighterId = $session->read("fighterChosenId");
-        $avatarId = strval($currentFighterId.'.png');
+        $avatarId = strval($currentFighterId) . '.PNG';
         if($this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()){
             $chosenFighterName = $this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()[0]->name;
         }else { $chosenFighterName = "Chose or create a fighter";}
-            
+        
         $this->set('avatarId', $avatarId);
         $this->set('chosenFighterName', $chosenFighterName);
     }
@@ -264,6 +272,11 @@ class ArenasController extends AppController {
         //session
         $session = $this->request->session();
 
+
+        if ($session->check('playerEmailLogin') && $session->check('fighterChosenId') ) {
+            $this->set('playerIsLogin', 1);
+            $this->set('fighterIsChosen', 1);
+            $playerIdLogin = $session->read('playerIdLogin');
 
         // Default for the initial aparition and whenever you reload the page
         $data["direction"] = "right";
@@ -315,6 +328,25 @@ class ArenasController extends AppController {
         $this->set('fighterList', $this->Fighters->getFighterList());
         $this->set('fighterCount', $this->Fighters->find('all')->count());
     }
+    else {
+        
+         if ($session->check('playerEmailLogin')) {
+            $this->set('playerIsLogin', 1);
+         }
+         else {
+             $this->set('playerIsLogin', 0);
+         }
+         
+         if ($session->check('fighterChosenId') ) {
+             $this->set('fighterIsChosen', 1);
+         } else {
+             $this->set('fighterIsChosen', 0);
+         }
+    }
+   }
+    
+
+ 
 
     public function diary() {
 
