@@ -369,8 +369,14 @@ class ArenasController extends AppController {
 
         $this->loadModel('Events');
         $this->loadModel('Fighters');
+        $canScream = 0;
 
         $session = $this->request->session();
+        if($session->check('fighterChosenId')){
+            $this->set('canScream', 1);
+        } else {
+            $this->set('canScream', 0);
+        }
 
         $fighterChosen = $session->read("fighterChosenName");
         $screamMessage = $this->request->getData();

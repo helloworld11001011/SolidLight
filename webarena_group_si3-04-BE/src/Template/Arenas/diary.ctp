@@ -52,7 +52,7 @@
         </div>
         
        
-        <div class='main-container' >
+        <div class='main-container'id='canScream' >
              <div class="leaderboards">
         <div class="mainDiv">
             <div class="loginDiv">
@@ -70,8 +70,29 @@
         </div>
         </div>
         </div>
+        
+        <div class="cannot-scream" id="cannotScream">
+                    <h2> You need to choose a fighter to scream a message ! </h2>
+        </div>
       
 
+         <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                if(<?php echo $canScream; ?> == 0){
+
+                    document.getElementById('canScream').style.display="none";
+
+                } else {
+
+                    document.getElementById('cannotScream').style.display="none";
+
+                }
+
+            });
+
+        </script>
         
 
     </body>
