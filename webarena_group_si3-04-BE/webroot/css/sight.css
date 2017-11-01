@@ -16,14 +16,14 @@ td {
     width: 70px;
     height: 70px;
     position: relative;
-    padding: 0px; 
+    padding: 0px;
     margin: 0px;
     border-width: 0px;
 }
 
 tr{
     height: 70px;
-    padding: 0px; 
+    padding: 0px;
     margin: 0px;
     border-width: 0px;
     border-bottom: 0px !important;
@@ -46,10 +46,6 @@ table.nav{
     }
 button{
     width: 100%;
-}
-
-.attack-btn{
-    
 }
 
 #matdiv{
@@ -105,4 +101,47 @@ button{
     text-shadow: 0 0 10px #18FFFF;
     background-color: rgba(33,33,33, 1);
     cursor: pointer;
+}
+
+.errorDiv {
+    margin-top: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgba(33,33,33,0.9);
+    box-shadow: 0px 0px 20px 4px #FFC107;
+    height: 350px;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.errorMsg {
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 30px;
+}
+
+.errorBtn {
+    background-color: rgba(0,0,0,0);
+    font-family: 'Orbitron', sans-serif;
+    border-radius: 20px;
+    margin-top: 30px;
+    width: 140px;
+    box-shadow: 0px 0px 20px 4px #FFC107;
+    transition: 0.5s;
+}
+
+.errorBtn:focus {
+    outline: none;
+}
+
+.errorBtn:hover {
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 10px #FFC107;
 }
