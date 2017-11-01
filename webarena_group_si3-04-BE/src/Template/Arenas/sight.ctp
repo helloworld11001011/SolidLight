@@ -68,14 +68,14 @@ echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => 
 echo "\n<div id='info'>";
 echo $message;
 echo "</div> </div></div>";
+echo "\n</div> </div></div>";
 }
-
-
 
 else {
      
     if($playerIsLogin == 0) {
-        echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
+        
+        echo "YOU ARE NOT CONNECTED !";
         
         echo '<div class="buttons-div">
                 <div class="link-button">';
@@ -90,8 +90,8 @@ else {
         
      }
      
-    if($fighterIsChosen == 0) {
-        echo "YOU DIDNT SELECT A FIGHTER MOTHERFUCKER";
+    if($fighterIsChosen == 0 && $playerIsLogin == 1 ) {
+        echo "YOU DIDN'T SELECT A FIGHTER !";
 
         echo '<div class="buttons-div">
                 <div class="link-button">';
@@ -101,8 +101,8 @@ else {
       }
  }
  
- 
-echo "\n</div> </div></div>";
+
+
 
 
 function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){

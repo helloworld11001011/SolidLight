@@ -245,7 +245,12 @@ class ArenasController extends AppController {
 
 
         } else {
+            
+            
             $this->set('playerIsLogin', 0);
+            
+            $this->redirect('/arenas/login');
+        
         }
 
         $this->set('leveledUpList', $this->Fighters->getLeveledUpList());
@@ -324,6 +329,7 @@ class ArenasController extends AppController {
         $this->set('fighterCount', $this->Fighters->find('all')->count());
     }
     else {
+        
          if ($session->check('playerEmailLogin')) {
             $this->set('playerIsLogin', 1);
          }
@@ -336,9 +342,10 @@ class ArenasController extends AppController {
          } else {
              $this->set('fighterIsChosen', 0);
          }
-        }
     }
+   }
     
+
  
 
     public function diary() {
