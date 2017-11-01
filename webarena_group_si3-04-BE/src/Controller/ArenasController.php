@@ -184,14 +184,17 @@ class ArenasController extends AppController {
             $newFighter = $this->request->getData();
 
             $nameInDb = 0;  //Variable testing if fighter name already exists
-            $LevelUpPossible = 0; //to check afterwards if your fighter can level up
             
+            $this->set('playerIsLogin', 1);
+            $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
+            $this->set('playerFighterList', $playerFighterList);
             
             $currentFighterId = $session->read("fighterChosenId");
             $fighterChosen = $this->Fighters->getFighterById($currentFighterId);
-
+          
             if(($session->check('fighterChosenId') && ($fighterChosen[0]->xp >= 4))){
 
+                $LevelUpPossible = 1;
                 $this->set('levelUpPossible', 1);
                 $data = $this->request->getData('Upgrade');
                  
@@ -200,6 +203,7 @@ class ArenasController extends AppController {
 
                 } else {
 
+                    $LevelUpPossible = 0;
                     $this->set('levelUpPossible', 0);
                 }
 
@@ -229,11 +233,8 @@ class ArenasController extends AppController {
                 }
             }
 
-            $this->set('playerIsLogin', 1);
-            $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
-            $this->set('playerFighterList', $playerFighterList);
-            
-            
+        
+                      
             if( isset( $newFighter['fighterChosen'] ) ){    // check that the CHOOSE btn is pushed (i think)
                 if( $newFighter['fighterChosen'] != "" ) {  // Check that it's not the default value of the select form
                     $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
@@ -244,7 +245,20 @@ class ArenasController extends AppController {
                 }
             }
 
+            $currentFighterId = $session->read("fighterChosenId");
+            $fighterChosen = $this->Fighters->getFighterById($currentFighterId);
 
+            if(($session->check('fighterChosenId') && ($fighterChosen[0]->xp >= 4))){
+
+                $LevelUpPossible = 1;
+                $this->set('levelUpPossible', 1);
+            
+            } else {
+                
+                $LevelUpPossible = 0;
+                $this->set('levelUpPossible', 0);
+                
+            }
 
         } else {
             
