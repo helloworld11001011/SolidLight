@@ -176,6 +176,7 @@ body {
 .dataTables_filter input:focus {
     background-color: #212121;
     color: #FFC107;
+    border:0.5px solid #FFC107;
 }
 
 .cake-table {

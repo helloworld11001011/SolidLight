@@ -20,24 +20,25 @@
             </div>
             <div class="chart-wrapper">
                 <div class="top-chart-row">
-                    <div class="chartjs">
-                        <span class="chart-title">Level Distribution</span>
+                    <div class="chartjs left-chart">
                         <canvas id="levels-chart"></canvas>
                     </div>
-                    <div class="chartjs">
-                        <span class="chart-title">Top Guilds</span>
+                    <div class="chartjs right-chart">
                         <canvas id="top-guilds-chart"></canvas>
                     </div>
                 </div>
-                <div id="death-count-chart">
-
+                <div class="test">
+                    <div id="death-count-chart"></div>
                 </div>
-                <div id="chart.js">
+                <div class="bottom-chart-row">
                     <canvas id="averag-skills-chart"></canvas>
                 </div>
             </div>
         </div>
         <script type="text/javascript">
+
+            Chart.defaults.global.defaultFontColor = '#18FFFF';
+            Chart.defaults.global.defaultFontFamily = 'Orbitron';
 
             $(document).ready(function () {
                 var ctx = document.getElementById("averag-skills-chart").getContext('2d');
@@ -50,11 +51,16 @@
                                 <?php echo round($averageSkills[0]->avg_sight, 2); ?>, <?php echo round($averageSkills[0]->avg_strength, 2); ?>, <?php echo round($averageSkills[0]->avg_health, 2); ?>
                             ],
                             backgroundColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)'
+                                '#FF355E',
+                                'rgba(255,193,7, 1)',
+                                '#18FFFF'
                             ],
-                            borderWidth: 1
+                            borderColor: [
+                                'rgba(33, 33, 33, 1)',
+                                'rgba(33, 33, 33, 1)',
+                                'rgba(33, 33, 33, 1)'
+                            ],
+                            borderWidth: 2
                         }]
                     },
                     options: {
@@ -86,40 +92,45 @@
                 data = {
                     datasets: [{
                         data: [
-                            <?php echo $fighterDistribution[0]; ?>, <?php echo $fighterDistribution[1]; ?>,<?php echo $fighterDistribution[2]; ?>, <?php echo $fighterDistribution[3]; ?>, <?php echo $fighterDistribution[4]; ?>, <?php echo $fighterDistribution[5]; ?>
+                            <?php echo $fighterDistribution[0]; ?>, <?php echo $fighterDistribution[1]; ?>,<?php echo $fighterDistribution[2]; ?>, <?php echo $fighterDistribution[3]; ?>
                         ],
                         backgroundColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
+                            '#FF355E',
+                            'rgba(255,193,7, 1)',
+                            '#FF00CC',
+                            'rgba(24,255,255,1)'
                         ],
                         borderColor: [
-                            'rgba(24,255,255,1)',
-                            'rgba(24,255,255,1)',
-                            'rgba(24,255,255,1)',
-                            'rgba(24,255,255,1)',
-                            'rgba(24,255,255,1)',
-                            'rgba(24,255,255,1)'
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)'
                         ],
                         borderWidth: 2
                     }],
 
                     // These labels appear in the legend and in the tooltips when hovering different arcs
                     labels: [
-                        '>10',
-                        '8 - 10',
-                        '6 - 8',
-                        '4 - 6',
-                        '2 - 4',
-                        'Newbie (<2)'
+                        '> 20',
+                        '15 - 20',
+                        '10 - 15',
+                        'Newbie ( > 10 )'
                         ]
                 };
                 var myDoughnutChart = new Chart(ctx, {
                     type: 'pie',
                     data: data,
+                    options: {
+                        title: {
+                            display: true,
+                            text: 'Level Distribution',
+                            position: 'bottom',
+                            fontSize: 15
+                        },
+                        legend: {
+                            position: 'left'
+                        }
+                    }
                 });
             });
 
@@ -143,13 +154,19 @@
                         looseZoom: false,
                         showTooltip: true
                     },
+                    grid: {
+                        background: 'rgba(33,33,33,0)',
+                        borderWidth: 0,
+                        borderColor: '#FFC107',
+                        shadow: false
+                    },
                     series:[
                         {
                             pointLabels: {
                                 show: true
                             },
                             renderer: $.jqplot.BarRenderer,
-                            yaxis: 'y2axis',
+                            // yaxis: 'y2axis',
                             showHighlight: true,
                             rendererOptions: {
                                 // Speed up the animation a little bit.
@@ -178,7 +195,8 @@
                     axesDefaults: {
                         tickInterval: 1,
                         tickOptions: {
-                            formatString: '%d'
+                            formatString: '%d',
+                            fontSize: '8px'
                         }
                     },
                     axes: {
@@ -269,8 +287,18 @@
                     type: 'doughnut',
                     data: data,
                     options: {
+                        title: {
+                            display: true,
+                            text: 'Top Guilds',
+                            fontSize: 15,
+                            position: 'bottom'
+                        },
                         legend: {
-                            fontColot: '#18FFFF'
+                            position: 'left',
+                            labels: {
+                                // boxWidth: 20,
+                                // fontSize: 10,
+                            }
                         }
                     }
                 });

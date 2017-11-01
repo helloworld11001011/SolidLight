@@ -20,22 +20,16 @@ class FightersTable extends Table {
     function getFighterDistribution() {
         $fighterDistribution = [
             $this->find('all', array(
-                'conditions' => array('Fighters.level >= 10')
+                'conditions' => array('Fighters.level > 20')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array('Fighters.level BETWEEN 8.1 AND 10')
+                'conditions' => array('Fighters.level BETWEEN 15.1 AND 20')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array('Fighters.level BETWEEN 6.1 AND 8')
+                'conditions' => array('Fighters.level BETWEEN 10.1 AND 15')
             ))->count(),
             $this->find('all', array(
-                'conditions' => array('Fighters.level BETWEEN 4.1 AND 6')
-            ))->count(),
-            $this->find('all', array(
-                'conditions' => array('Fighters.level BETWEEN 2.1 AND 4')
-            ))->count(),
-            $this->find('all', array(
-                'conditions' => array('Fighters.level BETWEEN 0 AND 2')
+                'conditions' => array('Fighters.level BETWEEN 0 AND 10')
             ))->count()
         ];
         return $fighterDistribution;
@@ -97,13 +91,13 @@ class FightersTable extends Table {
 
 
             $success["message"].= "The attack succeeded ! <br>";
-            
+
             if($this->checkGuildBonus($defense, $attack)){
                 $newHealth = $defense['current_health'] - ( $attack['skill_strength'] + $this->checkGuildBonus($defense, $attack) );
             }else{
                 $newHealth = $defense['current_health'] - $attack['skill_strength'];
             }
-            
+
             if ($newHealth <= 0) {
                 $success["success"] = 1;
 
@@ -218,7 +212,7 @@ class FightersTable extends Table {
                 break;
         }
     }
-  
+
     function addANewFighter($arg, $playerIdLogin) {
         //Allows the player to create his fighter
         //TODO: get the fighter to automatically start level 1, with all skills at 1 and health at maximum (10?)
@@ -414,8 +408,8 @@ class FightersTable extends Table {
 
     function levelUp($arg, $fighterChosen){
 
-        
-        
+
+
         $fighterData = $arg;
 
         $fighterTable = TableRegistry::get('fighters');
@@ -454,15 +448,15 @@ class FightersTable extends Table {
 
         $fighterTable->save($fighter);
     }
-    
+
     function checkGuildBonus($defense, $attack){
-        
+
         $fighterList= $this->getFighterList();
         $x= $defense["coordinate_x"];
         $y= $defense["coordinate_y"];
         $guild= $attack["guild_id"];
         $bonus= -1;
-        
+
         if($this->getCase($x  , $y-1)){
             if( $this->getCase($x  , $y-1)[0]->guild_id == $guild){ $bonus++; }
         }
@@ -475,7 +469,7 @@ class FightersTable extends Table {
         if($this->getCase($x-1, $y  )){
             if( $this->getCase($x-1, $y  )[0]->guild_id == $guild){ $bonus++; }
         }
-        
+
         return $bonus;
     }
 
