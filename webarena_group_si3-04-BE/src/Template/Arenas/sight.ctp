@@ -4,6 +4,8 @@ echo $this->Html->css('sight.css');
 echo $this->Html->script('http://code.jquery.com/jquery.min.js');
 echo $this->Html->script('sightScript');
 
+echo " <br> <br> ";
+
 if($playerIsLogin == 1 && $fighterIsChosen == 1) {
 
 // Initialises a matrix of the size of the board
@@ -65,15 +67,15 @@ echo "</td>\n<td></td>\n</tr>\n</table>\n";
 echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
 echo "\n<div id='info'>";
 echo $message;
-echo "</div></div></div>";
+echo "</div> </div></div>";
+echo "\n</div> </div></div>";
 }
-
-
 
 else {
      
     if($playerIsLogin == 0) {
-        echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
+        
+        echo "YOU ARE NOT CONNECTED !";
         
         echo '<div class="buttons-div">
                 <div class="link-button">';
@@ -88,8 +90,8 @@ else {
         
      }
      
-    if($fighterIsChosen == 0) {
-        echo "YOU DIDNT SELECT A FIGHTER MOTHERFUCKER";
+    if($fighterIsChosen == 0 && $playerIsLogin == 1 ) {
+        echo "YOU DIDN'T SELECT A FIGHTER !";
 
         echo '<div class="buttons-div">
                 <div class="link-button">';
@@ -98,6 +100,10 @@ else {
         </div>';
       }
  }
+ 
+
+
+
 
 function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     if($isTooFar) {
