@@ -139,7 +139,7 @@ class FightersTable extends Table {
 
         $message="";
 
-//xp if the defense is killed
+        //xp if the defense is killed
         if ($case == 1) {
 
             $killXp = $currentxp + $defense['level'] + 1;
@@ -282,9 +282,9 @@ class FightersTable extends Table {
         if( $fighterData["imgNum"] != ""){
             $imgId= $fighterData["imgNum"];
         }
-        
+
         $file = new File('img/A'. $imgId .'.PNG'); // change here
-        
+
         $file->copy('img/'.$fighter->id.'.PNG', true);
     }
 
@@ -331,7 +331,7 @@ class FightersTable extends Table {
     function getCase($x, $y) {
 
         $case = $this->find("all", ["conditions" => ["Fighters.coordinate_x" => $x,
-                "Fighters.coordinate_y" => $y]]);
+                                                     "Fighters.coordinate_y" => $y]]);
         return $case->toArray();
     }
 
@@ -384,13 +384,13 @@ class FightersTable extends Table {
     function getFightersPerTopGuilds() {
         $Query = $this->find();
         $Query->select([
-                    'members' => $Query->func()->count('*'),
-                    'guild_id' => 'Fighters.guild_id'
-                ])
-                ->limit('4')
-                ->where(['not' => ['Fighters.guild_id' => 'null']])
-                ->group('guild_id')
-                ->order(['members' => 'DESC']);
+            'members' => $Query->func()->count('*'),
+            'guild_id' => 'Fighters.guild_id'
+        ])
+            ->limit('4')
+            ->where(['not' => ['Fighters.guild_id' => 'null']])
+            ->group('guild_id')
+            ->order(['members' => 'DESC']);
         $fightersPerTopGuildArray = $Query->toArray();
         for ($i = 0; $i < 4; $i++) {
             $fightersPerTopGuild[$i] = $fightersPerTopGuildArray[$i]->members;
@@ -438,14 +438,14 @@ class FightersTable extends Table {
         }
 
         if ($fighterData == 2) {
-           $fighter->skill_sight = $fighter['skill_sight']  + 1;
-           echo ' + 1 sight';
+            $fighter->skill_sight = $fighter['skill_sight']  + 1;
+            echo ' + 1 sight';
 
         }
 
         if ($fighterData == 3) {
-           $fighter->skill_health = $fighter['skill_health']  + 3;
-           echo ' + 3 health';
+            $fighter->skill_health = $fighter['skill_health']  + 3;
+            echo ' + 3 health';
 
         }
 

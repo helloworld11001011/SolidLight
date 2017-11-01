@@ -68,28 +68,28 @@ if($fighterIsChosen) {
 }
 else {
     if($playerIsLogin) {
-        ?>
-        <div class='errorDiv'>
-            <p class='errorMsg'>
-            <?php
-                echo "YOU NEED TO CHOOSE A FIGHTER TO ACCESS THIS PAGE";
-            ?>
-            </p>
-            <button class='errorBtn' onclick="location.href='fighter'" type="button">FIGHTER</button>
-        </div>
+?>
+<div class='errorDiv'>
+    <p class='errorMsg'>
         <?php
+        echo "YOU NEED TO CHOOSE A FIGHTER TO ACCESS THIS PAGE";
+        ?>
+    </p>
+    <button class='errorBtn' onclick="location.href='fighter'" type="button">FIGHTER</button>
+</div>
+<?php
     }
     else {
-        ?>
-        <div class='errorDiv'>
-            <p class='errorMsg'>
-            <?php
-                echo "YOU NEED TO BE LOGGED IN TO ACCESS THIS PAGE";
-            ?>
-            </p>
-            <button class='errorBtn' onclick="location.href='login'" type="button">LOGIN</button>
-        </div>
+?>
+<div class='errorDiv'>
+    <p class='errorMsg'>
         <?php
+        echo "YOU NEED TO BE LOGGED IN TO ACCESS THIS PAGE";
+        ?>
+    </p>
+    <button class='errorBtn' onclick="location.href='login'" type="button">LOGIN</button>
+</div>
+<?php
     }
 }
 

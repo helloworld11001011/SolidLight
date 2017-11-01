@@ -25,10 +25,10 @@
                 <div id='textDiv'>
                     <?php
                     if(isset($goodToGo)) {
-                        ?><p><?php echo $goodToGo; ?></p>
-                        <?php
+                                    ?><p><?php echo $goodToGo; ?></p>
+                                    <?php
                         if($goodToGo == 'You are ready to play') {
-                            ?><button id='btn' onclick="location.href='fighter'" type="button">Go to Fighter</button><?php
+                                    ?><button id='btn' onclick="location.href='fighter'" type="button">Go to Fighter</button><?php
                         }
                     }
                     ?>

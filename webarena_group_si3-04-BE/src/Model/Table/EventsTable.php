@@ -17,11 +17,11 @@ class EventsTable extends Table {
         ]);
         // pr($month);
         $Query->select([
-                    'month' => $month,
-                    'count' => $Query->func()->count('*')
-                ])
-                ->where(['name LIKE "Death %"'])
-                ->group('MONTH(Events.date)');
+            'month' => $month,
+            'count' => $Query->func()->count('*')
+        ])
+            ->where(['name LIKE "Death %"'])
+            ->group('MONTH(Events.date)');
 
         $Array = $Query->toArray();
 
@@ -43,11 +43,11 @@ class EventsTable extends Table {
             'date' => 'identifier'
         ]);
         $Query->select([
-                    'month' => $month,
-                    'count' => $Query->func()->count('*')
-                ])
-                ->where(['name LIKE "%entered%"'])
-                ->group('MONTH(Events.date)');
+            'month' => $month,
+            'count' => $Query->func()->count('*')
+        ])
+            ->where(['name LIKE "%entered%"'])
+            ->group('MONTH(Events.date)');
 
         $Array = $Query->toArray();
 
@@ -65,8 +65,8 @@ class EventsTable extends Table {
 
     function getDeadFightersAmount() {
         $deadFighterCountAmount = $this->find('all', array(
-                    'conditions' => array('name like "Death %"')
-                ))->count();
+            'conditions' => array('name like "Death %"')
+        ))->count();
         return $deadFighterCountAmount;
     }
 

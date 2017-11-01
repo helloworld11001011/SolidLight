@@ -39,11 +39,11 @@ img {
 }
 
 table.nav{
-        width: 500px;
-        padding: 0px;
-        border: 0px solid black;
-        margin-top: 20px;
-    }
+    width: 500px;
+    padding: 0px;
+    border: 0px solid black;
+    margin-top: 20px;
+}
 button{
     width: 100%;
 }

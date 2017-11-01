@@ -21,62 +21,62 @@
             <div class="leaderboards">
                 <h2>Events</h2>
                 <?php
-                echo "<table class='cake-table' id='events-table'>";
-                    echo "<thead><tr>
+    echo "<table class='cake-table' id='events-table'>";
+        echo "<thead><tr>
                             <th>Event</th>
                             <th>Date</th>
                             <th>Position (X/Y)</th>
                             </tr></thead><tbody>";
-                    for ($i=0; $i < $eventsCount; $i++) {
-                        echo "<tr>";
-                        echo "<td>";
-                        echo $eventsList[$i]->name;
-                        echo "</td>";
-                        echo "<td>";
-                        echo $eventsList[$i]->date;
-                        echo "</td>";
-                        echo "<td>";
-                        echo "(";
-                        echo $eventsList[$i]->coordinate_x;
-                        echo ",";
-                        echo $eventsList[$i]->coordinate_y;
-                        echo ")";
-                        echo "</td>";
-                        echo "</tr>";
-                    }
-                echo "</tbody></table>";
+        for ($i=0; $i < $eventsCount; $i++) {
+            echo "<tr>";
+            echo "<td>";
+            echo $eventsList[$i]->name;
+            echo "</td>";
+            echo "<td>";
+            echo $eventsList[$i]->date;
+            echo "</td>";
+            echo "<td>";
+            echo "(";
+            echo $eventsList[$i]->coordinate_x;
+            echo ",";
+            echo $eventsList[$i]->coordinate_y;
+            echo ")";
+            echo "</td>";
+            echo "</tr>";
+        }
+        echo "</tbody></table>";
                 ?>
-                </div>
-                <!-- End of events table div -->
+            </div>
+            <!-- End of events table div -->
 
         </div>
-        
-       
+
+
         <div class='main-container'id='canScream' >
-             <div class="leaderboards">
-        <div class="mainDiv">
-            <div class="loginDiv">
-             
-                <?php echo $this->Form->create('scream action');?>
-                <h2> Scream action </h2>
-                <?php echo __('scream action'); ?>
-                    <?php echo $this->Form->input('message');
-                    ?>
-                <div id='submitDiv'>
-                <?= $this->Form->button(__('Submit')) ?>
+            <div class="leaderboards">
+                <div class="mainDiv">
+                    <div class="loginDiv">
+
+                        <?php echo $this->Form->create('scream action');?>
+                        <h2> Scream action </h2>
+                        <?php echo __('scream action'); ?>
+                        <?php echo $this->Form->input('message');
+                        ?>
+                        <div id='submitDiv'>
+                            <?= $this->Form->button(__('Submit')) ?>
+                        </div>
+                        <?= $this->Form->end() ?>
+                    </div>
                 </div>
-            <?= $this->Form->end() ?>
             </div>
         </div>
-        </div>
-        </div>
-        
-        <div class="cannot-scream" id="cannotScream">
-                    <h2> You need to choose a fighter to scream a message ! </h2>
-        </div>
-      
 
-         <script type="text/javascript">
+        <div class="cannot-scream" id="cannotScream">
+            <h2> You need to choose a fighter to scream a message ! </h2>
+        </div>
+
+
+        <script type="text/javascript">
 
             $(document).ready(function () {
 
@@ -93,7 +93,7 @@
             });
 
         </script>
-        
+
 
     </body>
 </html>

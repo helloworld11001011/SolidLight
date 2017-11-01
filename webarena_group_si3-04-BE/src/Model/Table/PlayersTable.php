@@ -19,7 +19,7 @@ class PlayersTable extends Table
 
         $players->email = $playerData['email'];
         $players->password = password_hash($playerData['password'], PASSWORD_DEFAULT);
-        
+
 
         $playersTable->save($players);
     }

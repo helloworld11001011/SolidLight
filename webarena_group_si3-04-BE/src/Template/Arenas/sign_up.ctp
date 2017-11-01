@@ -22,7 +22,7 @@
 
                 <div id='textDiv'>
                     <?php
-                    if(isset($emailInDB)) {
+    if              (isset($emailInDB)) {
                     ?><p><?php echo $emailInDB; ?></p>
                     <?php
                     }
