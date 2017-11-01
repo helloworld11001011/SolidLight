@@ -57,19 +57,19 @@ for($i=0; $i<$matY; $i++){
 }
 echo "</table>\n</div>\n";
 
-echo "<div id='navdiv'> <table class='nav'> <tr> <td> </td> <td>";
+echo "<div id='navdiv'> <table class='nav'> \n<tr> \n<td> </td> \n<td>";
 echo $this->Form->postButton('UP', null, [ "data" => [ "direction" => "up", "id" => $currentFighter[0]->id, "attack" => "no"]]);
-echo "</td><td></td></tr><tr><td>";
+echo "</td>\n<td></td>\n</tr>\n<tr>\n<td>";
 echo $this->Form->postButton('LEFT', null, [ "data" => [ "direction" => "left", "id" => $currentFighter[0]->id, "attack" => "no"]]);
-echo "</td><td></td><td>";
+echo "</td>\n<td></td>\n<td>";
 echo $this->Form->postButton('RIGHT', null, [ "data" => [ "direction" => "right", "id" => $currentFighter[0]->id, "attack" => "no"]]);
-echo "</td></tr><tr><td></td><td>";
+echo "</td>\n</tr>\n<tr>\n<td></td>\n<td>";
 echo $this->Form->postButton('DOWN', null, [ "data" => [ "direction" => "down", "id" => $currentFighter[0]->id, "attack" => "no"]]);
-echo "</td><td></td></tr></table>";
+echo "</td>\n<td></td>\n</tr>\n</table>\n";
 echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
-echo "<div id='info'>";
+echo "\n<div id='info'>";
 echo $message;
-echo "</div> </div></div>";
+echo "\n</div> </div></div>";
 
 function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     if($isTooFar) {

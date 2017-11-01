@@ -213,13 +213,16 @@ class ArenasController extends AppController {
             $this->set('playerIsLogin', 1);
             $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
             $this->set('playerFighterList', $playerFighterList);
+            
+            
+            if( isset( $newFighter['fighterChosen'] ) ){    // check that the CHOOSE btn is pushed (i think)
+                if( $newFighter['fighterChosen'] != "" ) {  // Check that it's not the default value of the select form
+                    $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
+                    $session->write('fighterChosenName', $fighterChosen['name']);
+                    $session->write('fighterChosenId', $fighterChosen['id']);
+                    $session->write('fighterChosenGuild', $fighterChosen['guild_id']);
 
-            if (isset($newFighter['fighterChosen'])) {
-                $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
-                $session->write('fighterChosenName', $fighterChosen['name']);
-                $session->write('fighterChosenId', $fighterChosen['id']);
-                $session->write('fighterChosenGuild', $fighterChosen['guild_id']);
-
+                }
             }
 
             $currentFighterId = $session->read("fighterChosenId");
