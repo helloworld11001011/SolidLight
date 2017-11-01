@@ -4,6 +4,8 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 
 class FightersTable extends Table {
 
@@ -276,6 +278,8 @@ class FightersTable extends Table {
 
 
         $fighterTable->save($fighter);
+        $file = new File('img/A1.PNG');
+        $file->copy('img/'.$fighter->id.'.PNG', true);
     }
 
     function move($data) {
