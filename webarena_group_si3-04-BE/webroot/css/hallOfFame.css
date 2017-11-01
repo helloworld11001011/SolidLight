@@ -1,6 +1,7 @@
 body {
     background-color: #212121;
     color: #18FFFF;
+    font-family: 'Orbitron', sans-serif;
     background-image: url("halloffame.jpg");
     background-attachment: fixed;
     background-size: cover;

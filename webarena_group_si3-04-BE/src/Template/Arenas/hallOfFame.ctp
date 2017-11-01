@@ -39,6 +39,9 @@
         </div>
         <script type="text/javascript">
 
+            Chart.defaults.global.defaultFontColor = '#18FFFF';
+            Chart.defaults.global.defaultFontFamily = 'Orbitron';
+
             $(document).ready(function () {
                 var ctx = document.getElementById("averag-skills-chart").getContext('2d');
                 var myChart = new Chart(ctx, {
@@ -97,12 +100,12 @@
                             'rgba(255, 159, 64, 1)'
                         ],
                         borderColor: [
-                            'rgba(24,255,255,1)',
-                            'rgba(24,255,255,1)',
-                            'rgba(24,255,255,1)',
-                            'rgba(24,255,255,1)',
-                            'rgba(24,255,255,1)',
-                            'rgba(24,255,255,1)'
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)',
+                            'rgba(33, 33, 33, 1)'
                         ],
                         borderWidth: 2
                     }],
