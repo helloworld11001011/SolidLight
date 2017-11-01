@@ -23,10 +23,6 @@ Auto-reload page on submit (create fighter, level up...)
 
 ON GUILDS
 
-Show guild (players, name, inbox) (JULIEN)
-
-Guild level (sum of fighter levels in guild) (AXEL?)
-
 
 
 ON FIGHTER
@@ -41,7 +37,8 @@ Stop testing if fighter is selected all the time
 
 ON NAVIGATION
 
-Automatically send to Fighter page on sign in
+
+
 
 ON SIGHT
 
@@ -50,13 +47,6 @@ Check what happens if you die while in Sight
 
 ---CSS---
 
-Index (AXEL)
-Singup/Signin (JULIEN)
-Guild (JULIEN)
-Fighter
-Sight (ELIOTT)
-Events
-Hall of Fame (AXEL)
 
 !!!Don't try and change the navigation pane and the CakePHP symbol at the bottom right, it's managed in cake.css file (AXEL)!!!
 

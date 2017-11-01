@@ -108,6 +108,7 @@ class ArenasController extends AppController {
     public function login() {
         $this->loadModel('Players');
         $data = $this->request->getData();
+        $this->request->getData()['emailLogin'] = null;
         $session = $this->request->session();
 
         $session->write('fighterChosenName', null);
@@ -204,7 +205,6 @@ class ArenasController extends AppController {
 
 
                 } else {
-
                     $LevelUpPossible = 0;
                     $this->set('levelUpPossible', 0);
                 }

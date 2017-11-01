@@ -398,9 +398,11 @@ box-shadow: 0px 0px 78px 4px #FFC107;
     width: 50%;
     margin-right: auto;
     margin-left: auto;
-}
+    padding: 10px;
+    }
 
 .errorMsg {
+    text-align: center;
     color: white;
     font-size: 20px;
     font-weight: 100;

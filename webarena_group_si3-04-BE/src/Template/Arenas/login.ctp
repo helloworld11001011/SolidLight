@@ -10,7 +10,9 @@
         <div id='mainDiv'>
 
             <div id='loginDiv'>
-                <?php echo $this->Form->create('Login');?>
+
+                <?php
+                echo $this->Form->create('Login');?>
                 <h2>Login</h2>
                 <?php echo $this->Form->input('emailLogin');
                 echo $this->Form->input('password');
