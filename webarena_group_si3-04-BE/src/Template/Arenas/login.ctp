@@ -16,7 +16,7 @@
                 echo $this->Form->input('password');
                 ?>
                 <div id='submitDiv'>
-                    <?= $this->Form->button(__('Submit')) ?>
+                    <?= $this->Form->button(__('SUBMIT')) ?>
                 </div>
                 <?= $this->Form->end() ?>
 
@@ -26,7 +26,7 @@
                         ?><p><?php echo $goodToGo; ?></p>
                         <?php
                         if($goodToGo == 'You are ready to play') {
-                            ?><button onclick="location.href='fighter'" type="button">Go to Fighter</button><?php
+                            ?><button id='btn' onclick="location.href='fighter'" type="button">Go to Fighter</button><?php
                         }
                     }
                     ?>
