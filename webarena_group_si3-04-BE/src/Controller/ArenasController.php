@@ -136,6 +136,8 @@ class ArenasController extends AppController {
         $session->write('fighterChosenName', null);
         $session->write('fighterChosenId', null);
         $session->write('fighterChosenGuild', null);
+        $session->write('playerEmailLogin', null);
+        $session->write('playerIdLogin', null);
 
         $goodToGo = 0;
         $playerLogin = 0;
