@@ -50,6 +50,12 @@ body {
     padding: 40px;
 }
 
+.bottom-row {
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
 .chartjs-size-monitor canvas {
     height: 100%;
 }
@@ -98,7 +104,7 @@ body {
     text-shadow: 0px 0px 20px #18FFFF;
 }
 
- .flickering {
+.flickering {
     color:#18FFFF;
     font-family: 'Orbitron', sans-serif;
     font-style: italic;

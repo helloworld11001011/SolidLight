@@ -26,17 +26,15 @@ class EventsTable extends Table {
         $Array = $Query->toArray();
 
         //Converting the CakePHP Object Array into a regular array
-        $j = 0;
-        for ($i = 0; $i < 12; $i++) {
-            if ($i+1 != $Array[$i+$j]->month) {
-                $deadFightersArray[$i][0] = $i+1;
-                $deadFightersArray[$i][1] = 0;
-                $j--;
-            } else {
-                $deadFightersArray[$i][0] = $Array[$i+$j]->month;
-                $deadFightersArray[$i][1] = $Array[$i+$j]->count;
-            }
+        for ($i=0; $i < 12; $i++) {
+            $deadFightersArray[$i][0] = 0;
+            $deadFightersArray[$i][1] = 0;
         }
+        for ($i=0; $i < $Query->count(); $i++) {
+            $deadFightersArray[$Array[$i]->month-1][0] = $Array[$i]->month;
+            $deadFightersArray[$Array[$i]->month-1][1] = $Array[$i]->count;
+        }
+        pr($deadFightersArray);
         return $deadFightersArray;
     }
 
@@ -45,7 +43,6 @@ class EventsTable extends Table {
         $month = $Query->func()->month([
             'date' => 'identifier'
         ]);
-        // pr($month);
         $Query->select([
                     'month' => $month,
                     'count' => $Query->func()->count('*')
@@ -54,20 +51,17 @@ class EventsTable extends Table {
                 ->group('MONTH(Events.date)');
 
         $Array = $Query->toArray();
-        // pr($Array);
 
         //Converting the CakePHP Object Array into a regular array
-        $j = 0;
-        for ($i = 0; $i < 12; $i++) {
-            if ($i+1 != $Array[$i+$j]->month) {
-                $createdFightersArray[$i][0] = $i+1;
-                $createdFightersArray[$i][1] = 0;
-                $j--;
-            } else {
-                $createdFightersArray[$i][0] = $Array[$i+$j]->month;
-                $createdFightersArray[$i][1] = $Array[$i+$j]->count;
-            }
+        for ($i=0; $i < 12; $i++) {
+            $createdFightersArray[$i][0] = 0;
+            $createdFightersArray[$i][1] = 0;
         }
+        for ($i=0; $i < $Query->count(); $i++) {
+            $createdFightersArray[$Array[$i]->month-1][0] = $Array[$i]->month;
+            $createdFightersArray[$Array[$i]->month-1][1] = $Array[$i]->count;
+        }
+        pr($createdFightersArray);
         return $createdFightersArray;
     }
 
@@ -129,7 +123,7 @@ class EventsTable extends Table {
 
         $eventTable->save($event);
     }
-    
+
     function addNewScreamEvent($fighterChosen, $arg) {
 
         $eventTable = TableRegistry::get('events');
@@ -142,7 +136,7 @@ class EventsTable extends Table {
 
         $eventTable->save($event);
     }
-    
+
 
     function getEventsList () {
         $Query = $this->find('all')->order(['date' => 'DESC']);
