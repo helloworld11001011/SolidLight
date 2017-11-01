@@ -84,13 +84,35 @@ class ArenasController extends AppController {
         ->order(['members' => 'DESC']);
         $QueryArray = $Query->toArray();
 
-        for ($i=0; $i < 4; $i++) {
-            $guildCountTable[$i][0] = $QueryArray[$i]->members;
-            for ($j=0; $j < $this->Guilds->find('all')->count(); $j++) {
-                if ($QueryArray[$i]->guild_id == $this->Guilds->find('all')->toArray()[$j]->id) {
-                    $guildName = strval($this->Guilds->find('all')->toArray()[$j]->name);
-                    $guildCountTable[$i][1] = $guildName;
+        if ($Query->count() >= 4) {
+            for ($i=0; $i < 4; $i++) {
+                $guildCountTable[$i][0] = $QueryArray[$i]->members;
+                for ($j=0; $j < $this->Guilds->find('all')->count(); $j++) {
+                    if ($QueryArray[$i]->guild_id == $this->Guilds->find('all')->toArray()[$j]->id) {
+                        $guildName = strval($this->Guilds->find('all')->toArray()[$j]->name);
+                        $guildCountTable[$i][1] = $guildName;
+                    }
                 }
+            }
+        } else if ($Query->count() == 0){
+            for ($i=0; $i < 4; $i++) {
+                $guildCountTable[$i][0] = 0;
+                $guildCountTable[$i][1] = '';
+            }
+        } else {
+            for ($i=0; $i < $Query->count(); $i++) {
+                $guildCountTable[$i][0] = $QueryArray[$i]->members;
+                for ($j=0; $j < $this->Guilds->find('all')->count(); $j++) {
+                    if ($QueryArray[$i]->guild_id == $this->Guilds->find('all')->toArray()[$j]->id) {
+                        $guildName = strval($this->Guilds->find('all')->toArray()[$j]->name);
+                        $guildCountTable[$i][1] = $guildName;
+                    }
+                }
+            }
+
+            for ($i=$Query->count(); $i < 4; $i++) {
+                $guildCountTable[$i][0] = 0;
+                $guildCountTable[$i][1] = '';
             }
         }
         $this->set('guildCountTable', $guildCountTable);

@@ -116,7 +116,7 @@
                         '> 20',
                         '15 - 20',
                         '10 - 15',
-                        'Newbie ( > 10 )'
+                        'Newbie ( < 10 )'
                         ]
                 };
                 var myDoughnutChart = new Chart(ctx, {
