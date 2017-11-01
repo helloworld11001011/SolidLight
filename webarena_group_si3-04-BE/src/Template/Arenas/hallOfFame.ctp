@@ -27,11 +27,11 @@
                         <canvas id="top-guilds-chart"></canvas>
                     </div>
                 </div>
-                <div class="bottom-row">
-                    <div class="test">
+                <div class="bottom-chart-row">
+                    <div class="chartjs left-chart jqplot">
                         <div id="death-count-chart"></div>
                     </div>
-                    <div class="bottom-chart-row">
+                    <div class="chartjs right-chart">
                         <canvas id="averag-skills-chart"></canvas>
                     </div>
                 </div>
@@ -66,6 +66,12 @@
                         }]
                     },
                     options: {
+                        title: {
+                            display: true,
+                            text: 'Average Skills',
+                            position: 'top',
+                            fontSize: 15
+                        },
                         legend: {
                             display: false
                         },
@@ -181,7 +187,8 @@
                                 barWidth: 25,
                                 barPadding: -15,
                                 barMargin: 0,
-                                highlightMouseOver: false
+                                highlightMouseOver: false,
+                                shadow: false,
                             }
                         },
                         {
@@ -202,6 +209,7 @@
                             fontSize: '10px'
                         }
                     },
+                    seriesColors: ['#18FFFF', '#FFC107'],
                     axes: {
                         // These options will set up the x axis like a category axis.
                         xaxis: {
