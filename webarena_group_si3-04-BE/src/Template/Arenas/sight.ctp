@@ -1,8 +1,6 @@
 <?php
 // refs to the css and js files in webroot
 echo $this->Html->css('sight.css');
-echo $this->Html->script('http://code.jquery.com/jquery.min.js');
-echo $this->Html->script('sightScript');
 
 
 if($playerIsLogin == 1 && $fighterIsChosen == 1) {
@@ -122,10 +120,11 @@ function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
         }
     }
 
-
     return $s;
 }
 
+echo $this->Html->script('http://code.jquery.com/jquery.min.js');
+echo $this->Html->script('sightScript');
 
 ?>
 
