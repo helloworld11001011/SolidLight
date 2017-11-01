@@ -1,15 +1,402 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 1 nov. 2017, 13:28:03
-    Author     : Baptiste
-*/
+body {
+    background-color: #212121;
+    color: #18FFFF;
+    font-family: 'Orbitron', sans-serif;
+    background-image: url("fighter-background.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.presentation-pane {
+    width: 100%;
+    background-color: rgba(33,33,33,0.9);
+    border-radius: 20px;
+    border:3.5px solid #FFC107;
+    box-shadow: 0px 0px 10px 4px #FFC107;
+    padding: 20px;
+}
+
+.top-row {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    /*padding-right: 600px;*/
+}
+
+.subtitle-text {
+    font-size: 35px;
+    flex-grow: 2;
+}
+
+.avatar-picture {
+    border-radius: 20px;
+    border:3.5px solid #18FFFF;
+    box-shadow: 0px 0px 10px 4px #18FFFF;
+    margin-bottom: 20px;
+    transition: 1s;
+}
+
+.avatar-picture:hover {
+    box-shadow: 0px 0px 15px 10px #18FFFF;
+}
+
+.h3-class {
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 20px;
+}
+
+.bottom-row {
+    width: 100%;
+    background-color: rgba(33,33,33,0.9);
+    border-radius: 20px;
+    border:3.5px solid #FFC107;
+    box-shadow: 0px 0px 10px 4px #FFC107;
+    padding: 20px;
+    margin-top: 40px;
+
+}
+
+.dataTables_length {
+    width: 60px;
+    text-align: center;
+    float: left;
+}
+
+.dataTables_length label {
+    color: #FFC107;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.dataTables_length select {
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    background-color: #FFC107;
+    border:0.5px solid #212121;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 4px #FFC107;
+    transition: 0.2s;
+}
+
+.dataTables_length select:hover {
+    /*background-color: #18FFFF;*/
+    box-shadow: 0px 0px 10px 4px #FFC107;
+}
+
+.dataTables_filter label {
+    color: #FFC107;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 30px;
+}
+
+.dataTables_filter {
+    text-align: center;
+    float: right;
+}
+
+.dataTables_filter input {
+    margin-top: 5px;
+    color: #FFC107;
+    background-color: #212121;
+    border:0.5px solid #FFC107;
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 4px #FFC107;
+}
+
+.dataTables_filter input:focus {
+    background-color: #212121;
+    color: #FFC107;
+    border:0.5px solid #FFC107;
+}
+
+.cake-table {
+    width: 100%;
+    font-family: 'Orbitron', sans-serif;
+    color: red;
+    border:0.5px solid #FFC107;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 4px #FFC107;
+    margin-bottom: 8px;
+}
+
+.cake-table th {
+    color: #18FFFF;
+    text-shadow: 0 0 10px #18FFFF;
+    text-align: center;
+}
+
+.cake-table td {
+    color: #18FFFF;
+}
+
+.cake-table th:nth-child(1),
+.cake-table th:nth-child(2),
+.cake-table th:nth-child(3),
+.cake-table th:nth-child(4),
+.cake-table th:nth-child(5),
+.cake-table th:nth-child(6) {
+    border-right: solid 1px #FFC107;
+}
+
+.cake-table td:nth-child(1),
+.cake-table td:nth-child(2),
+.cake-table td:nth-child(3),
+.cake-table td:nth-child(4),
+.cake-table td:nth-child(5),
+.cake-table td:nth-child(6),
+.cake-table td:nth-child(7) {
+    border-right: solid 1px #FFC107;
+}
+
+.cake-table td:nth-child(7),
+.cake-table td:nth-child(2),
+.cake-table td:nth-child(3),
+.cake-table td:nth-child(4),
+.cake-table td:nth-child(5),
+.cake-table td:nth-child(6),
+.cake-table td:nth-child(8) {
+    text-align: center;
+}
+
+.cake-table thead {
+    background-color: rgb(33,33,33);
+    border-bottom: solid 2px #FFC107;
+}
+
+.cake-table tbody {
+    background-color: rgb(33,33,33);
+}
+
+.cake-table .even, .cake-table .odd {
+    background-color: rgb(33,33,33);
+}
+
+.dataTables_info {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    float: left;
+}
+
+.dataTables_paginate {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    float: right;
+}
+
+.dataTables_paginate a:hover {
+    color: #18FFFF;
+    text-shadow: 0 0 8px #18FFFF;
+}
+
+.previous {
+    /*margin-right: 4px;*/
+}
+
+.dataTables_paginate a {
+    color: #18FFFF;
+    margin-right: 4px;
+    margin-left: 4px;
+    transition: 0.2s;
+}
+
+.dataTables_paginate .current {
+    color: #FFC107;
+    /*text-shadow: 0 0 4px #FFC107;*/
+}
+
+.dataTables_paginate .current:hover {
+    color: #FFC107;
+    text-shadow: 0 0 8px #FFC107;
+}
+
+.next {
+    margin-left: 4px;
+}
+
+.main-container {
+    display: flex;
+    padding: 40px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.black-background {
+    background-color: black;
+    margin-top: 60px;
+    margin-bottom: 80px;
+    flex-grow: 1;
+    width: 500px;
+    border-radius: 20px;
+}
+
+.neon-effect {
+    background-color: #212121;
+    color:#18FFFF;
+    font-family: 'Raleway', sans-serif;
+    text-align:center;
+    border:3.5px solid #FFC107;
+    border-radius:20px;
+    box-shadow: 0px 0px 78px 4px #FFC107;
+    /*animation: border-flicker 2s linear infinite;*/
+ }
+
+#intro-text {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 4px;
+    font-size: 25px;
+    text-shadow: 0px 0px 20px #18FFFF;
+}
+
+ .flickering {
+    color:#18FFFF;
+    font-family: 'Orbitron', sans-serif;
+    font-style: italic;
+    font-size:26px;
+    letter-spacing:10px;
+    text-shadow: 0px 0px 29px #18FFFF;
+    /*animation: text-flicker 3s linear infinite;*/
+}
+
+#offset {
+  animation: letter-flicker 2s linear infinite;
+}
+
+@keyframes text-flicker {
+  0% {
+    opacity:0.1;
+    text-shadow: 0px 0px 29px #FFC107;
+  }
+
+  2% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #FFC107;
+  }
+  8% {
+    opacity:0.1;
+    text-shadow: 0px 0px 29px #FFC107;
+  }
+  9% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #FFC107;
+  }
+  12% {
+    opacity:0.1;
+    text-shadow: 0px 0px #FFC107;
+  }
+  20% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #FFC107
+  }
+  25% {
+    opacity:0.3;
+    text-shadow: 0px 0px 29px #FFC107
+  }
+  30% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #FFC107
+  }
+
+  70% {
+    opacity:0.7;
+    text-shadow: 0px 0px 29px #FFC107
+  }
+
+  72% {
+    opacity:0.2;
+    text-shadow:0px 0px 29px #FFC107
+  }
+
+  77% {
+    opacity:.9;
+    text-shadow: 0px 0px 29px #FFC107
+  }
+  100% {
+    opacity:.9;
+    text-shadow: 0px 0px 29px #FFC107
+  }
+}
+
+@keyframes border-flicker {
+  0% {
+    opacity:0.1;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+  2% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+  4% {
+    opacity:0.1;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+
+  8% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+  70% {
+    opacity:0.7;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+  100% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px #FFC107;
+-moz-box-shadow: 0px 0px 78px 4px #FFC107;
+box-shadow: 0px 0px 78px 4px #FFC107;
+  }
+}
+
+@keyframes letter-flicker {
+  0% {
+    opacity:0.1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  2% {
+    opacity:0.1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  4% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
 
 
-.level-up-fighter {
-    
-    
+  19% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  21% {
+    opacity:0.1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  23% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+
+  80% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  83% {
+    opacity:0.4;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
+  87% {
+    opacity:1;
+    text-shadow: 0px 0px 29px #18FFFF;
+  }
 }
