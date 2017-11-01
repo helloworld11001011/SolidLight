@@ -4,8 +4,6 @@ echo $this->Html->css('sight.css');
 echo $this->Html->script('http://code.jquery.com/jquery.min.js');
 echo $this->Html->script('sightScript');
 
-echo " <br> <br> ";
-
 if($playerIsLogin == 1 && $fighterIsChosen == 1) {
 
 // Initialises a matrix of the size of the board
@@ -67,7 +65,7 @@ echo "</td>\n<td></td>\n</tr>\n</table>\n";
 echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
 echo "\n<div id='info'>";
 echo $message;
-echo "</div> </div></div>";
+echo "</div></div></div>";
 }
 
 
@@ -100,10 +98,6 @@ else {
         </div>';
       }
  }
- 
- 
-echo "\n</div> </div></div>";
-
 
 function getFighterInfo($id, $isTooFar, $fighterList, $fighterCount){
     if($isTooFar) {
