@@ -84,7 +84,7 @@ class FightersTable extends Table {
         $defenseId = $defense['id'];
         $random = rand(0, 20);
         $success = array("success" => 0, "message" => "");
-        $success["message"].= $attack['name']." attacks ".$defense['name']." with a total attack of ".$attack['skill_strength']."<br>";
+        $success["message"] .= $attack['name'] . " attacks " . $defense['name'] . " with a total attack of " . $attack['skill_strength'] . "<br>";
 
         $fighterTable = TableRegistry::get('fighters');
         $defender = $fighterTable->get($defenseId);
@@ -92,11 +92,11 @@ class FightersTable extends Table {
         if ($random > (10 + $defense['level'] - $attack['level'])) {
 
 
-            $success["message"].= "The attack succeeded ! <br>";
+            $success["message"] .= "The attack succeeded ! <br>";
 
-            if($this->checkGuildBonus($defense, $attack)){
+            if ($this->checkGuildBonus($defense, $attack)) {
                 $newHealth = $defense['current_health'] - ( $attack['skill_strength'] + $this->checkGuildBonus($defense, $attack) );
-            }else{
+            } else {
                 $newHealth = $defense['current_health'] - $attack['skill_strength'];
             }
 
@@ -107,10 +107,10 @@ class FightersTable extends Table {
                 $defender->current_health = $newHealth;
                 $fighterTable->save($defender);
 
-                $success["message"].= $defense['name']." is dead :'( ; ";
+                $success["message"] .= $defense['name'] . " is dead :'( ; ";
             } else if ($newHealth != 0) {
 
-                $success["message"].= $defense['name']." did not die ! ";
+                $success["message"] .= $defense['name'] . " did not die ! ";
 
                 $success["success"] = 2;
 
@@ -122,8 +122,8 @@ class FightersTable extends Table {
         } else {
             $success["success"] = 3;
 
-            $success["message"].= $defense['name'];
-            $success["message"].= " blocked the attack ! ";
+            $success["message"] .= $defense['name'];
+            $success["message"] .= " blocked the attack ! ";
 
             return $success;
         }
@@ -137,13 +137,13 @@ class FightersTable extends Table {
         $fighterTable = TableRegistry::get('fighters');
         $attackant = $fighterTable->get($attackId);
 
-        $message="";
+        $message = "";
 
 //xp if the defense is killed
         if ($case == 1) {
 
             $killXp = $currentxp + $defense['level'] + 1;
-            $message.= strval($killXp - $currentxp) . " xp won ! ";
+            $message .= strval($killXp - $currentxp) . " xp won ! ";
             //$level = $attack['level'];
 
             /*  while ($killXp > 4) {
@@ -162,11 +162,11 @@ class FightersTable extends Table {
         } else if ($case == 2) {
 
             $killXp = ($currentxp) + 1;
-            $message.=  strval($killXp - $currentxp) . 'xp won';
+            $message .= strval($killXp - $currentxp) . 'xp won';
         } else if ($case == 3) {
 
             $killXp = $currentxp;
-            $message.=  strval($killXp - $currentxp) . 'xp won';
+            $message .= strval($killXp - $currentxp) . 'xp won';
         }
 
         $attackant->xp = $killXp;
@@ -195,20 +195,20 @@ class FightersTable extends Table {
         switch ($success["success"]) {
 
             case 1:
-                $success["message"].= $this->xp(1, $attack, $defense);
+                $success["message"] .= $this->xp(1, $attack, $defense);
                 //$this->Events->addNewEvent(1);
                 $this->deleteFighter($defense);
                 return $success;
                 break;
 
             case 2:
-                $success["message"].= $this->xp(2, $attack, $defense);
+                $success["message"] .= $this->xp(2, $attack, $defense);
                 //$this->Events->addNewEvent(2);
                 return $success;
                 break;
 
             case 3:
-                $success["message"].= $this->xp(3, $attack, $defense);
+                $success["message"] .= $this->xp(3, $attack, $defense);
                 //$this->Events->addNewEvent(3);
                 return $success;
                 break;
@@ -278,10 +278,10 @@ class FightersTable extends Table {
 
 
         $fighterTable->save($fighter);
-        
-        $file = new File('img/A'. $fighterData["imgNum"] .'.PNG'); // change here
-        
-        $file->copy('img/'.$fighter->id.'.PNG', true);
+
+        $file = new File('img/A' . $fighterData["imgNum"] . '.PNG'); // change here
+
+        $file->copy('img/' . $fighter->id . '.PNG', true);
     }
 
     function move($data) {
@@ -412,74 +412,70 @@ class FightersTable extends Table {
         $fighterTable->save($guildFighter);
     }
 
-    function levelUp($arg, $fighterChosen){
-
-
+    function levelUp($arg, $fighterChosen) {
 
         $fighterData = $arg;
 
         $fighterTable = TableRegistry::get('fighters');
 
         $fighter = $fighterTable->get($fighterChosen['id']);
+        
+           
+            if ($fighterData == 0) {
+                $fighter->skill_strength = $fighter['skill_strength'] + 1;
+                $fighter->xp = $fighter['xp'] - 4;
+                $fighter->level = $fighter['level'] + 1;
+            }
 
-        if($fighterData == 0){
+            if ($fighterData == 1) {
+                $fighter->skill_sight = $fighter['skill_sight'] + 1;
+                $fighter->xp = $fighter['xp'] - 4;
+                $fighter->level = $fighter['level'] + 1;
+            }
 
-            echo 'riennnn';
+            if ($fighterData == 2) {
+                $fighter->skill_health = $fighter['skill_health'] + 3;
+                $fighter->current_health = $fighter['skill_health'];
+                $fighter->xp = $fighter['xp'] - 4;
+                $fighter->level = $fighter['level'] + 1;
+            }
 
+            $fighterTable->save($fighter);
         }
+    
 
-        if ($fighterData == 1) {
-            $fighter->skill_strength = $fighter['skill_strength']  + 1;
-            echo ' + 1 strength';
+    function checkGuildBonus($defense, $attack) {
+
+        $fighterList = $this->getFighterList();
+        $x = $defense["coordinate_x"];
+        $y = $defense["coordinate_y"];
+        $guild = $attack["guild_id"];
+        $bonus = -1;
+
+        if ($this->getCase($x, $y - 1)) {
+            if ($this->getCase($x, $y - 1)[0]->guild_id == $guild) {
+                $bonus++;
+            }
         }
-
-        if ($fighterData == 2) {
-           $fighter->skill_sight = $fighter['skill_sight']  + 1;
-           echo ' + 1 sight';
-
+        if ($this->getCase($x + 1, $y)) {
+            if ($this->getCase($x + 1, $y)[0]->guild_id == $guild) {
+                $bonus++;
+            }
         }
-
-        if ($fighterData == 3) {
-           $fighter->skill_health = $fighter['skill_health']  + 3;
-           echo ' + 3 health';
-
+        if ($this->getCase($x, $y + 1)) {
+            if ($this->getCase($x, $y + 1)[0]->guild_id == $guild) {
+                $bonus++;
+            }
         }
-
-        $fighter->xp = $fighter['xp'] - 4;
-        $fighter->level = $fighter['level'] + 1;
-
-        $fighterTable->save($fighter);
-
-        $fighter->current_health = $fighter['skill_health'];
-
-        $fighterTable->save($fighter);
-    }
-
-    function checkGuildBonus($defense, $attack){
-
-        $fighterList= $this->getFighterList();
-        $x= $defense["coordinate_x"];
-        $y= $defense["coordinate_y"];
-        $guild= $attack["guild_id"];
-        $bonus= -1;
-
-        if($this->getCase($x  , $y-1)){
-            if( $this->getCase($x  , $y-1)[0]->guild_id == $guild){ $bonus++; }
-        }
-        if($this->getCase($x+1, $y  )){
-            if( $this->getCase($x+1, $y  )[0]->guild_id == $guild){ $bonus++; }
-        }
-        if($this->getCase($x  , $y+1)){
-            if( $this->getCase($x  , $y+1)[0]->guild_id == $guild){ $bonus++; }
-        }
-        if($this->getCase($x-1, $y  )){
-            if( $this->getCase($x-1, $y  )[0]->guild_id == $guild){ $bonus++; }
+        if ($this->getCase($x - 1, $y)) {
+            if ($this->getCase($x - 1, $y)[0]->guild_id == $guild) {
+                $bonus++;
+            }
         }
 
         return $bonus;
     }
 
 }
-
 
 ?>
