@@ -27,14 +27,13 @@ class EventsTable extends Table {
 
         //Converting the CakePHP Object Array into a regular array
         for ($i=0; $i < 12; $i++) {
-            $deadFightersArray[$i][0] = 0;
+            $deadFightersArray[$i][0] = $i+1;
             $deadFightersArray[$i][1] = 0;
         }
         for ($i=0; $i < $Query->count(); $i++) {
             $deadFightersArray[$Array[$i]->month-1][0] = $Array[$i]->month;
             $deadFightersArray[$Array[$i]->month-1][1] = $Array[$i]->count;
         }
-        pr($deadFightersArray);
         return $deadFightersArray;
     }
 
@@ -54,14 +53,13 @@ class EventsTable extends Table {
 
         //Converting the CakePHP Object Array into a regular array
         for ($i=0; $i < 12; $i++) {
-            $createdFightersArray[$i][0] = 0;
+            $createdFightersArray[$i][0] = $i+1;
             $createdFightersArray[$i][1] = 0;
         }
         for ($i=0; $i < $Query->count(); $i++) {
             $createdFightersArray[$Array[$i]->month-1][0] = $Array[$i]->month;
             $createdFightersArray[$Array[$i]->month-1][1] = $Array[$i]->count;
         }
-        pr($createdFightersArray);
         return $createdFightersArray;
     }
 
