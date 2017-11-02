@@ -282,7 +282,7 @@ class FightersTable extends Table {
         if( $fighterData["imgNum"] != ""){
             $imgId= $fighterData["imgNum"];
         }
-
+        
         $file = new File('img/A'. $imgId .'.PNG'); // change here
 
         $file->copy('img/'.$fighter->id.'.PNG', true);

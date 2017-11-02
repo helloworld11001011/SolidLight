@@ -111,8 +111,9 @@
                         <?php echo $this->Form->input('name');
                         echo 'Class';
                         echo $this->Form->radio('Class', ['Classic', 'Archer','Giant', 'Destructor']);
-                        echo 'Avatar';
-                        echo $this->Form->input('imgNum');
+                        //echo 'Avatar';
+                        //echo $this->Form->input('imgNum');
+                        echo $this->Form->input('imgNum', ['type' => 'hidden', 'id' => 'imgNum']);
                         ?>
                     </fieldset>
                 </div>
@@ -149,7 +150,7 @@
                     <?php echo "<button onclick='carousel( -1 )'> Left </button>"; ?>
                     <?php echo "<button onclick='carousel( 1 )'> Right </button>"; ?>
 
-                    <?php echo "<span id='avatarID'> avatarID </span>"; ?>
+                    <?php echo "<span id='avatarID'> avatarID </span>/24"; ?>
 
                 </div>
 
@@ -231,6 +232,7 @@
                 if (myIndex > x.length) {myIndex = 1}
                 if (myIndex < 1) {myIndex = 24}
                 x[myIndex-1].style.display = "block";
+                $("#imgNum").attr('value', myIndex);
                 $("#avatarID").text(myIndex);
             }
 

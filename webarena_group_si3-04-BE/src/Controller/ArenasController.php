@@ -212,7 +212,7 @@ class ArenasController extends AppController {
             
             $this->set('playerIsLogin', 1);
             $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
-            $this->set('playerFighterList', $playerFighterList);
+            //$this->set('playerFighterList', $playerFighterList);
             
             $currentFighterId = $session->read("fighterChosenId");
             $fighterChosen = $this->Fighters->getFighterById($currentFighterId);
@@ -305,6 +305,9 @@ class ArenasController extends AppController {
         
         $this->set('avatarId', $avatarId);
         $this->set('chosenFighterName', $chosenFighterName);
+        
+        $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
+        $this->set('playerFighterList', $playerFighterList);
     }
 
 
@@ -434,6 +437,86 @@ class ArenasController extends AppController {
             $this->set('fighterIsChosen', 0);
         }
     }
+    
+        public function sight() {
+
+        $this->loadModel('Events');
+        //session
+        $session = $this->request->session();
+
+
+        if ($session->check('playerEmailLogin') && $session->check('fighterChosenId') ) {
+            $this->set('playerIsLogin', 1);
+            $this->set('fighterIsChosen', 1);
+            $playerIdLogin = $session->read('playerIdLogin');
+
+            // Default for the initial aparition and whenever you reload the page
+            $data["direction"] = "right";
+
+            // Load model and set the matrix's size
+            $this->loadModel('Fighters');
+            $this->set('matX', $this->Fighters->getMatrixX());
+            $this->set('matY', $this->Fighters->getMatrixY());
+            $this->set('fighterCount', $this->Fighters->find('all')->count());
+            $this->set('message', "Nothing of interest happened.");
+
+            // For testing only, has to be replaced
+            $currentFighterId = $session->read("fighterChosenId");
+
+            // Call the move function
+            if ($this->request->is("post")) {
+                $data = $this->request->getData();
+
+                // If this is not an attack
+                if ($data["attack"] == "no") {
+                    // Then move()
+                    $this->Fighters->move($data);
+                } else { // Else, if this is an attack, fight()
+                    // Get the targeted case from the sight data
+                    $targetedCase = $data["targetedCase"];
+
+                    // Call the fight() function with the contenders as parameters if the targeted case is in fact a fighter
+                    if ($this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])) {
+                        $attack = $this->Fighters->getFighterById($currentFighterId)[0];
+                        $defense = $this->Fighters->getCase($targetedCase["x"], $targetedCase["y"])[0];
+                        $message= $this->Events->addNewFightEvent($this->Fighters->totalFight($this->Fighters->fight($attack, $defense), $attack, $defense), $attack, $defense);
+                        $this->set('message', $message["message"]);
+                    }
+                }
+            }
+
+            // Get the current fighter after it's position has been updated by move()
+            $currentFighter = $this->Fighters->getFighterById($currentFighterId);
+
+            // Get the case that is being targeted and send it to the view for displaying
+            $targetedCase = $this->Fighters->getTargetedCase($data, $currentFighter);
+            $this->set('targetedCase', $targetedCase);
+
+            // Send the current fighter to the view for displaying the war fog
+            $this->set('currentFighter', $currentFighter);
+
+
+            //Retrieving every fighter currently in the game (for positions)
+            $this->set('fighterList', $this->Fighters->getFighterList());
+            $this->set('fighterCount', $this->Fighters->find('all')->count());
+        }
+        else {
+
+            if ($session->check('playerEmailLogin')) {
+                $this->set('playerIsLogin', 1);
+            }
+            else {
+                $this->set('playerIsLogin', 0);
+            }
+
+            if ($session->check('fighterChosenId') ) {
+                $this->set('fighterIsChosen', 1);
+            } else {
+                $this->set('fighterIsChosen', 0);
+            }
+        }
+    }
+
 
 }
 
