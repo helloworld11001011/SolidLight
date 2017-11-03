@@ -6,11 +6,13 @@
         <?php echo $this->Html->css(['diary.css']) ?>
         <?php echo $this->Html->script(['https://code.jquery.com/jquery-3.2.1.min.js"
 			  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-			  crossorigin="anonymous"', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
+			  crossorigin="anonymous"', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js', 'moment-with-locales.js']) ?>
 
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#events-table').DataTable();
+                $('#events-table').DataTable({
+                    'order': [[1, 'ASC']]
+                });
             });
         </script>
     </head>
@@ -35,7 +37,7 @@
                         echo $eventsList[$i]->name;
                         echo "</td>";
                         echo "<td>";
-                        echo $eventsList[$i]->date;
+                        echo $eventsList[$i]->date->i18nFormat('yy-MM-dd HH:mm');
                         echo "</td>";
                         echo "<td>";
                         echo "( ";

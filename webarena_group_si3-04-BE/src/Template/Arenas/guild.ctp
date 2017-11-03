@@ -9,8 +9,12 @@
 			  crossorigin="anonymous"', 'https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js']) ?>
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#guilds-table').DataTable();
-                $('#guilds-tables').DataTable();
+                $('#guilds-table').DataTable({
+                    'order': [[1, 'DESC']]
+                });
+                $('#guilds-tables').DataTable({
+                    'order': [[2, 'DESC']]
+                });
             });
         </script>
     </head>
