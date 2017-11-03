@@ -6,7 +6,7 @@
         <?php
         echo $this->Html->css('hallOfFame');
         echo $this->Html->css('jquery.jqplot.min.css');
-        echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', 'jqplot.pieRenderer.js', 'jqplot.dateAxisRenderer.js', 'jqplot.logAxisRenderer.js', 'jqplot.canvasTextRenderer.js', 'jqplot.canvasAxisTickRenderer.js', 'jqplot.highlighter.js', 'jqplot.barRenderer.js', 'jqplot.categoryAxisRenderer.js', 'jqplot.pointLabels.js', 'jqplot.DonutRenderer.js', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js']);
+        echo $this->Html->script(['jquery.min.js', 'jquery.jqplot.min.js', 'jqplot.highlighter.js', 'jqplot.barRenderer.js', 'jqplot.pointLabels.js', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js']);
         ?>
     </head>
 

@@ -85,10 +85,11 @@ body {
 }
 
 .link-button:hover, .link-button > a:hover {
-    border-radius: 40px;
+    /*border-radius: 40px;*/
     text-shadow: 0 0 10px #18FFFF;
     background-color: rgba(33,33,33, 1);
     cursor: pointer;
+    box-shadow: 0px 0px 10px 10px #18FFFF;
 }
 
 .leaderboards {

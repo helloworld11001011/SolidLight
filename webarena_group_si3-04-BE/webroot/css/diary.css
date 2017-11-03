@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 1 nov. 2017, 17:01:57
     Author     : Baptiste
 */
@@ -224,7 +224,8 @@ body {
 .cake-table td:nth-child(3),
 .cake-table td:nth-child(4),
 .cake-table td:nth-child(5),
-.cake-table td:nth-child(6) {
+.cake-table td:nth-child(6),
+.cake-table td:nth-child(7) {
     border-right: solid 1px #FFC107;
 }
 
@@ -233,7 +234,8 @@ body {
 .cake-table td:nth-child(3),
 .cake-table td:nth-child(4),
 .cake-table td:nth-child(5),
-.cake-table td:nth-child(6) {
+.cake-table td:nth-child(6),
+.cake-table td:nth-child(8) {
     text-align: center;
 }
 
@@ -262,29 +264,82 @@ body {
     float: right;
 }
 
-.dataTables_paginate a {
-    color: #18FFFF;
-    transition: 0.2s;
-}
-
 .dataTables_paginate a:hover {
     color: #18FFFF;
     text-shadow: 0 0 8px #18FFFF;
 }
 
 .previous {
+    /*margin-right: 4px;*/
+}
+
+.dataTables_paginate a {
+    color: #18FFFF;
     margin-right: 4px;
+    margin-left: 4px;
+    transition: 0.2s;
 }
 
 .dataTables_paginate .current {
     color: #FFC107;
-    margin-right: 4px;
-    transition: 0.2s;
+    /*text-shadow: 0 0 4px #FFC107;*/
 }
 
 .dataTables_paginate .current:hover {
     color: #FFC107;
     text-shadow: 0 0 8px #FFC107;
+}
+
+.next {
+    margin-left: 4px;
+}
+
+.scream-div {
+    display: flex;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgba(33,33,33, 0.9);
+    border:3.5px solid #FFC107;
+    box-shadow: 0px 0px 10px 4px #FFC107;
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+}
+
+#canScream {
+    width: 100%;
+}
+
+#canScream input {
+    margin-top: 5px;
+    margin-bottom: 30px;
+    color: #FFC107;
+    background-color: #212121;
+    border:0.5px solid #FFC107;
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 4px #FFC107;
+}
+
+#canScream label {
+    display: none;
+}
+
+#canScream input:focus {
+    background-color: #212121;
+    color: #FFC107;
+    border:0.5px solid #FFC107;
+}
+
+#cannotScream {
+    width: 100%;
+}
+
+.h3-class {
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 20px;
 }
 
 .neon-effect {
@@ -516,10 +571,9 @@ box-shadow: 0px 0px 78px 4px #FFC107;
     color: #FFC107;
 }
 
-
-
 #submitDiv button {
     background-color: rgba(0,0,0,0);
+    color: #FFC107;
     font-family: 'Orbitron', sans-serif;
     border-radius: 20px;
     box-shadow: 0px 0px 10px 4px #FFC107;
@@ -531,8 +585,10 @@ box-shadow: 0px 0px 78px 4px #FFC107;
 }
 
 #submitDiv button:hover {
-    border-radius: 40px;
+    text-shadow: 0 0 10px #FFC107;
+    background-color: rgba(33,33,33, 1);
     cursor: pointer;
+    box-shadow: 0px 0px 10px 10px #FFC107;
 }
 
 
