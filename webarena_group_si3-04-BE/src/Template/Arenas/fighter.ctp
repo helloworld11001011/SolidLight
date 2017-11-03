@@ -94,9 +94,9 @@
                         echo $this->Form->select(
                             'fighterChosen',
                             $playerFighterListName,
-                            ['empty' => '(choisissez)']
+                            ['empty' => '(Select fighter)', 'class'=>'fighter-selector']
                         );
-                        echo $this->Form->submit(__('CHOOSE'));
+                        echo $this->Form->submit(__('Select'), ['class'=>'submit-btn']);
                 ?>
 
                 <div class="h3-class second-title">Create your fighter</div>
@@ -112,7 +112,7 @@
                         echo '<div class="form-selector-column">';
                         echo "<div class='left-column'>";
                             echo '<div class="left-column-title">Class</div>';
-                            echo $this->Form->radio('Class', ['Decker (basic)', 'Rigger (+1 sight)','Goliath (+3 health)', 'Street Samuraï (+1 strength)']);
+                            echo $this->Form->radio('Class', ['Decker (basic)', 'Rigger (+1 sight)','Goliath (+2 health)', 'Street Samuraï (+1 strength)']);
                             echo $this->Form->input('imgNum', ['type' => 'hidden', 'id' => 'imgNum']);
                         ?></div>
 
@@ -150,36 +150,25 @@
 
                 </div>
                 </div>
-                <?= $this->Form->button(__('Submit'), ['class'=>'submit-btn']) ?>
-                <?= $this->Form->end() ?>
+                <div class="submit-btn-row">
+                    <?= $this->Form->button(__('Submit'), ['class'=>'submit-btn']) ?>
+                    <?= $this->Form->end() ?>
+                </div>
                 </fieldset>
                 </div>
 
-
-
-
-
-
-
                 <div class="level-up-fighter" id="level-up-fighter">
-                    <h2> Level up Fighter </h2>
+                    <div class="h3-class">Level up</div>
                     <?php echo $this->Form->create('level up fighter');?>
                     <fieldset>
-                        <legend><?php echo __('Level up Fighter'); ?></legend>
                         <?php
-                        echo 'Upgrade';
+                        echo '<div class="level-up-title">Upgrade</div>';
                         //trouver un moyen de ne pas afficher 'nothing'
-                        echo $this->Form->radio('Upgrade', [ ' + 1 Strength ', ' + 1 Sight', ' + 2 Health']);
+                        echo $this->Form->radio('Upgrade', [ ' + 1 Strength ', ' + 1 Sight', ' + 3 Health']);
                         ?>
                     </fieldset>
-                    <?= $this->Form->button(__('Submit')) ?>
+                    <?= $this->Form->button(__('Submit'), ['class'=>'submit-btn']) ?>
                     <?= $this->Form->end() ?>
-                </div>
-
-
-                <div class="cannot-level-up-fighter" id="cannot-level-up-fighter">
-                    <h2> The chosen fighter cannot level up</h2>
-                    <h3> To level up your fighter, you have to gain 4xp, see you in the arena ! </h3>
                 </div>
 
 

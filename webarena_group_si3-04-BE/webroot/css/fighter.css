@@ -6,11 +6,16 @@
     /*justify-content: center;*/
 }
 
+.left-column-title {
+    margin-bottom: 6px;
+}
+
 .avatar-slider {
     text-align: left;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     height: 100%;
 }
 
@@ -21,7 +26,7 @@
 
 .avatar-buttons-div button:first-child {
     margin-right: 15px;
-    margin-left: 25px;
+    /*margin-left: 25px;*/
 }
 
 .avatar-buttons-div button {
@@ -48,8 +53,15 @@
     box-shadow: 0px 0px 10px 10px #FFC107;
 }
 
+.submit-btn-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .submit-btn {
-    margin-top: 30px;
+    margin-top: 15px;
     font-family: 'Orbitron', sans-serif;
     background-color: rgba(33,33,33, 0.7);
     text-align: center;
@@ -75,6 +87,7 @@
     border-radius: 10px;
     border:3.5px solid #FFC107;
     box-shadow: 0px 0px 10px 4px #FFC107;
+    margin-top: 6px;
 }
 
 .avatar-slider > .h3-class {
@@ -91,7 +104,7 @@
 .form-selector-column {
     display: flex;
     width: 100%;
-    height: 200px;
+    height: 254px;
     justify-content: space-around;
     align-items: center;
 }
@@ -210,6 +223,69 @@ body {
     box-shadow: 0px 0px 10px 10px #FFC107;
 }
 
+#level-up-fighter {
+    border-top: solid 2px #FFC107;
+}
+
+.level-up-fighter fieldset {
+    border: none;
+    margin-bottom: 0px;
+}
+
+.level-up-fighter .h3-class {
+    margin-bottom: -15px;
+}
+
+.level-up-fighter fieldset label {
+    color: #FFC107;
+}
+
+.level-up-title {
+    margin-bottom: 10px;
+}
+
+.level-up-fighter form .submit-btn {
+    margin-top: 0px;
+}
+
+.fighter-selector {
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    background-color: #FFC107;
+    border:0.5px solid #212121;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 4px #FFC107;
+    transition: 0.2s;
+}
+
+.fighter-selector:hover {
+    background-color: #FFC107;
+    box-shadow: 0px 0px 10px 4px #FFC107;
+}
+
+.submit input {
+    margin-top: 15px;
+    font-family: 'Orbitron', sans-serif;
+    background-color: rgba(33,33,33, 0.7);
+    text-align: center;
+    border-radius: 20px;
+    transition: 0.5s;
+    border: solid 2px #FFC107;
+    box-shadow: 0px 0px 10px 4px #FFC107;
+    color: #FFC107;
+    text-shadow: 0 0 0.5px #FFC107;
+    padding: 1rem 2rem 1.0625rem 2rem;;
+}
+
+.submit input:hover {
+    text-shadow: 0 0 10px #FFC107;
+    background-color: rgba(33,33,33, 1);
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 10px #FFC107;
+    color: #FFC107;
+}
+
 .dataTables_length {
     width: 60px;
     text-align: center;
@@ -290,7 +366,8 @@ body {
 .cake-table th:nth-child(3),
 .cake-table th:nth-child(4),
 .cake-table th:nth-child(5),
-.cake-table th:nth-child(6) {
+.cake-table th:nth-child(6),
+.cake-table th:nth-child(7) {
     border-right: solid 1px #FFC107;
 }
 
