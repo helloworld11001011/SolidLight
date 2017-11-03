@@ -31,7 +31,7 @@
             </div>
 
             <div id='signUpBtn'>
-                <p id='textSubscribe'>Already Sign Up ? Go to Login to play !</p>
+                <p id='textSubscribe'>Already Signed Up ? Log In and start playing!</p>
                 <button onclick="location.href='login'" type="button">LOGIN</button>
             </div>
 

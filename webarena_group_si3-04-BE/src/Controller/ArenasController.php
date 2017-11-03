@@ -159,10 +159,11 @@ class ArenasController extends AppController {
 
             if ($goodToGo == 1) {
                 $goodToGo = 'You are ready to play';
+                $this->redirect('/arenas/fighter');
             } else {
                 $session->write('playerEmailLogin', null);
                 $playerEmailLogin = $session->read('playerEmailLogin');
-                $goodToGo = 'Bad user identification';
+                $goodToGo = 'Invalid Email/Password combination';
             }
 
             $this->set('goodToGo', $goodToGo);
@@ -187,10 +188,10 @@ class ArenasController extends AppController {
                 }
                 if($emailInDB == 0) {
                     $this->Players->addANewPlayer($data);
-                    $this->set('emailInDB', 'Your player is saved');
+                    $this->set('emailInDB', 'Register Sucess!');
                 }
                 else {
-                    $this->set('emailInDB', 'Your player is already in Database');
+                    $this->set('emailInDB', 'Email already exists');
                 }
             }
         }

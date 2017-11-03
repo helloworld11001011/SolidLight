@@ -99,7 +99,7 @@
                         echo $this->Form->submit(__('CHOOSE'));
                 ?>
 
-                <div class="h3-class second-title">Create fighter</div>
+                <div class="h3-class second-title">Create your fighter</div>
                 <?php
                         if(isset($nameInDb))
                             echo $nameInDb;
@@ -107,14 +107,17 @@
                 <div class="create-fighter">
                     <?php echo $this->Form->create('Create fighter');?>
                     <fieldset>
-                        <legend><?php echo __('Create fighte'); ?></legend>
+                        <legend><?php echo __('Create fighter'); ?></legend>
                         <?php echo $this->Form->input('name');
-                        echo 'Class';
-                        echo $this->Form->radio('Class', ['Decker (basic)', 'Rigger (+1 sight)','Goliath (+3 health)', 'Street Samuraï (+1 strength)']);
-                        echo $this->Form->input('imgNum', ['type' => 'hidden', 'id' => 'imgNum']);
-                        ?>
-                <?php echo 'Avatar<br><br>'; ?>
+                        echo '<div class="form-selector-column">';
+                        echo "<div class='left-column'>";
+                            echo '<div class="left-column-title">Class</div>';
+                            echo $this->Form->radio('Class', ['Decker (basic)', 'Rigger (+1 sight)','Goliath (+3 health)', 'Street Samuraï (+1 strength)']);
+                            echo $this->Form->input('imgNum', ['type' => 'hidden', 'id' => 'imgNum']);
+                        ?></div>
+
                 <div class="avatar-slider">
+                    <?php echo '<div class="avatar-selector">Avatar'; ?>
                     <?php echo $this->Html->image('A1.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('A2.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('A3.png', array('class' => 'mySlides')); ?>
@@ -139,18 +142,21 @@
                     <?php echo $this->Html->image('A22.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('A23.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('A24.png', array('class' => 'mySlides')); ?>
-
-                    <?php echo "<button type='button' onclick='carousel( -1 )'> Previous </button>"; ?>
-                    <?php echo "<button type='button' onclick='carousel( 1 )'> Next </button>"; ?>
-
+                    </div>
+                    <div class="avatar-buttons-div">
+                        <?php echo "<button type='button' onclick='carousel( -1 )'><--</button>"; ?>
+                        <?php echo "<button type='button' onclick='carousel( 1 )'>--></button>"; ?>
+                    </div>
 
                 </div>
+                </div>
+                <?= $this->Form->button(__('Submit'), ['class'=>'submit-btn']) ?>
+                <?= $this->Form->end() ?>
                 </fieldset>
                 </div>
 
 
-                <?= $this->Form->button(__('Submit')) ?>
-                <?= $this->Form->end() ?>
+
 
 
 

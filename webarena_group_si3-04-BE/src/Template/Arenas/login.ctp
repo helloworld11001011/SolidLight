@@ -36,7 +36,7 @@
             </div>
 
             <div id='signUpBtn'>
-                <p id='textSubscribe'>Subscribe Now to Solid light</p>
+                <p id='textSubscribe'>Sign up now to Solid Light Arena!</p>
                 <button onclick="location.href='sign_up'" type="button">SIGN UP</button>
             </div>
 
@@ -44,4 +44,3 @@
         </div>
     </body>
 </html>
-
