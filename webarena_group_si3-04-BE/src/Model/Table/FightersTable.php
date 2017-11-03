@@ -282,7 +282,7 @@ class FightersTable extends Table {
         if( $fighterData["imgNum"] != ""){
             $imgId= $fighterData["imgNum"];
         }
-        
+
         $file = new File('img/A'. $imgId .'.PNG'); // change here
 
         $file->copy('img/'.$fighter->id.'.PNG', true);
@@ -423,8 +423,8 @@ class FightersTable extends Table {
         $fighterTable = TableRegistry::get('fighters');
 
         $fighter = $fighterTable->get($fighterChosen['id']);
-        
-           
+
+
             if ($fighterData == 0) {
                 $fighter->skill_strength = $fighter['skill_strength'] + 1;
                 $fighter->xp = $fighter['xp'] - 4;

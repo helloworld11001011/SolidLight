@@ -209,22 +209,22 @@ class ArenasController extends AppController {
             $newFighter = $this->request->getData();
 
             $nameInDb = 0;  //Variable testing if fighter name already exists
-            
+
             $this->set('playerIsLogin', 1);
             $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
             //$this->set('playerFighterList', $playerFighterList);
-            
+
             $currentFighterId = $session->read("fighterChosenId");
             $fighterChosen = $this->Fighters->getFighterById($currentFighterId);
-          
+
             if(($session->check('fighterChosenId') && ($fighterChosen[0]->xp >= 4))){
 
                 $LevelUpPossible = 1;
                 $this->set('levelUpPossible', 1);
                 $data = $this->request->getData('Upgrade');
-                 
+
                 $this->Fighters->levelUp($data, $fighterChosen[0]);
-                
+
 
                 } else {
 
@@ -232,7 +232,7 @@ class ArenasController extends AppController {
                     $this->set('levelUpPossible', 0);
                 }
 
-            
+
             $fighters = $this->Fighters->find('all');
             $fightersArray = $fighters->toArray();
 
@@ -255,11 +255,12 @@ class ArenasController extends AppController {
                         $nameInDb = 'Your fighter has been created!';
                     }
                     $this->set('nameInDb', $nameInDb);
+                    $this->redirect('/arenas/fighter'); //refresh form the hard way
                 }
             }
 
-        
-                      
+
+
             if( isset( $newFighter['fighterChosen'] ) ){    // check that the CHOOSE btn is pushed (i think)
                 if( $newFighter['fighterChosen'] != "" ) {  // Check that it's not the default value of the select form
                     $fighterChosen = $playerFighterList[$newFighter['fighterChosen']];
@@ -277,21 +278,21 @@ class ArenasController extends AppController {
 
                 $LevelUpPossible = 1;
                 $this->set('levelUpPossible', 1);
-            
+
             } else {
-                
+
                 $LevelUpPossible = 0;
                 $this->set('levelUpPossible', 0);
-                
+
             }
 
         } else {
-            
-            
+
+
             $this->set('playerIsLogin', 0);
-            
+
             $this->redirect('/arenas/login');
-        
+
         }
 
         $this->set('leveledUpList', $this->Fighters->getLeveledUpList());
@@ -302,10 +303,10 @@ class ArenasController extends AppController {
         if($this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()){
             $chosenFighterName = $this->Fighters->find('all')->where(['id =' => $avatarId])->toArray()[0]->name;
         }else { $chosenFighterName = "Chose or create a fighter";}
-        
+
         $this->set('avatarId', $avatarId);
         $this->set('chosenFighterName', $chosenFighterName);
-        
+
         $playerFighterList = $this->Fighters->getPlayerFighterList($playerIdLogin);
         $this->set('playerFighterList', $playerFighterList);
     }
@@ -437,7 +438,7 @@ class ArenasController extends AppController {
             $this->set('fighterIsChosen', 0);
         }
     }
-    
+
         public function sight() {
 
         $this->loadModel('Events');

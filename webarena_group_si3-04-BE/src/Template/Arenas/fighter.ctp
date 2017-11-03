@@ -82,7 +82,7 @@
             </div>
 
             <div class="bottom-row">
-                <div class="h3-class"> Choose your fighter </div>
+                <div class="h3-class">Choose your fighter</div>
 
                 <?php
                         $playerFighterListName = [];
@@ -99,20 +99,18 @@
                         echo $this->Form->submit(__('CHOOSE'));
                 ?>
 
-                <h2> Create fighter </h2>
+                <div class="h3-class second-title">Create fighter</div>
                 <?php
                         if(isset($nameInDb))
                             echo $nameInDb;
                 ?>
-                <div class="create fighter">
+                <div class="create-fighter">
                     <?php echo $this->Form->create('Create fighter');?>
                     <fieldset>
-                        <legend><?php echo __('Create fighter'); ?></legend>
+                        <legend><?php echo __('Create fighte'); ?></legend>
                         <?php echo $this->Form->input('name');
                         echo 'Class';
-                        echo $this->Form->radio('Class', ['Classic', 'Archer','Giant', 'Destructor']);
-                        //echo 'Avatar';
-                        //echo $this->Form->input('imgNum');
+                        echo $this->Form->radio('Class', ['Decker (basic)', 'Rigger (+1 sight)','Goliath (+3 health)', 'Street Samuraï (+1 strength)']);
                         echo $this->Form->input('imgNum', ['type' => 'hidden', 'id' => 'imgNum']);
                         ?>
                 <?php echo 'Avatar<br><br>'; ?>
@@ -142,10 +140,9 @@
                     <?php echo $this->Html->image('A23.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('A24.png', array('class' => 'mySlides')); ?>
 
-                    <?php echo "<button type='button' onclick='carousel( -1 )'> Left </button>"; ?>
-                    <?php echo "<button type='button' onclick='carousel( 1 )'> Right </button>"; ?>
+                    <?php echo "<button type='button' onclick='carousel( -1 )'> Previous </button>"; ?>
+                    <?php echo "<button type='button' onclick='carousel( 1 )'> Next </button>"; ?>
 
-                    <?php echo "<span id='avatarID'> avatarID </span>/24"; ?>
 
                 </div>
                 </fieldset>
@@ -154,8 +151,8 @@
 
                 <?= $this->Form->button(__('Submit')) ?>
                 <?= $this->Form->end() ?>
-                
-                
+
+
 
 
                 <div class="level-up-fighter" id="level-up-fighter">
@@ -166,7 +163,7 @@
                         <?php
                         echo 'Upgrade';
                         //trouver un moyen de ne pas afficher 'nothing'
-                        echo $this->Form->radio('Upgrade', [ ' + 1 Strength ', ' + 1 Sight', ' + 3 Health']);
+                        echo $this->Form->radio('Upgrade', [ ' + 1 Strength ', ' + 1 Sight', ' + 2 Health']);
                         ?>
                     </fieldset>
                     <?= $this->Form->button(__('Submit')) ?>
@@ -180,15 +177,11 @@
                 </div>
 
 
-
-
-
-
                 <?php
                     }
 
                     else {
-                        echo "YOU ARE NOT CONNECTED MOTHERFUCKER";
+                        echo "YOU ARE NOT CONNECTED ";
                 ?>
                 <button onclick="location.href = 'login'" type="button">LOGIN</button>
                 <?php
