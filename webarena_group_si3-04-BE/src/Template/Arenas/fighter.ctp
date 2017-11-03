@@ -111,15 +111,11 @@
                         <?php echo $this->Form->input('name');
                         echo 'Class';
                         echo $this->Form->radio('Class', ['Classic', 'Archer','Giant', 'Destructor']);
-                        echo 'Avatar';
-                        echo $this->Form->input('imgNum');
+                        //echo 'Avatar';
+                        //echo $this->Form->input('imgNum');
+                        echo $this->Form->input('imgNum', ['type' => 'hidden', 'id' => 'imgNum']);
                         ?>
-                    </fieldset>
-                </div>
-
-                <?= $this->Form->button(__('Submit')) ?>
-                <?= $this->Form->end() ?>
-
+                <?php echo 'Avatar<br><br>'; ?>
                 <div class="avatar-slider">
                     <?php echo $this->Html->image('A1.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('A2.png', array('class' => 'mySlides')); ?>
@@ -146,13 +142,20 @@
                     <?php echo $this->Html->image('A23.png', array('class' => 'mySlides')); ?>
                     <?php echo $this->Html->image('A24.png', array('class' => 'mySlides')); ?>
 
-                    <?php echo "<button onclick='carousel( -1 )'> Left </button>"; ?>
-                    <?php echo "<button onclick='carousel( 1 )'> Right </button>"; ?>
+                    <?php echo "<button type='button' onclick='carousel( -1 )'> Left </button>"; ?>
+                    <?php echo "<button type='button' onclick='carousel( 1 )'> Right </button>"; ?>
 
-                    <?php echo "<span id='avatarID'> avatarID </span>"; ?>
+                    <?php echo "<span id='avatarID'> avatarID </span>/24"; ?>
 
                 </div>
+                </fieldset>
+                </div>
 
+
+                <?= $this->Form->button(__('Submit')) ?>
+                <?= $this->Form->end() ?>
+                
+                
 
 
                 <div class="level-up-fighter" id="level-up-fighter">
@@ -231,6 +234,7 @@
                 if (myIndex > x.length) {myIndex = 1}
                 if (myIndex < 1) {myIndex = 24}
                 x[myIndex-1].style.display = "block";
+                $("#imgNum").attr('value', myIndex);
                 $("#avatarID").text(myIndex);
             }
 

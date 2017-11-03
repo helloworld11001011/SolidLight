@@ -282,7 +282,7 @@ class FightersTable extends Table {
         if( $fighterData["imgNum"] != ""){
             $imgId= $fighterData["imgNum"];
         }
-
+        
         $file = new File('img/A'. $imgId .'.PNG'); // change here
 
         $file->copy('img/'.$fighter->id.'.PNG', true);
@@ -416,48 +416,36 @@ class FightersTable extends Table {
         $fighterTable->save($guildFighter);
     }
 
-    function levelUp($arg, $fighterChosen){
-
-
+    function levelUp($arg, $fighterChosen) {
 
         $fighterData = $arg;
 
         $fighterTable = TableRegistry::get('fighters');
 
         $fighter = $fighterTable->get($fighterChosen['id']);
+        
+           
+            if ($fighterData == 0) {
+                $fighter->skill_strength = $fighter['skill_strength'] + 1;
+                $fighter->xp = $fighter['xp'] - 4;
+                $fighter->level = $fighter['level'] + 1;
+            }
 
-        if($fighterData == 0){
+            if ($fighterData == 1) {
+                $fighter->skill_sight = $fighter['skill_sight'] + 1;
+                $fighter->xp = $fighter['xp'] - 4;
+                $fighter->level = $fighter['level'] + 1;
+            }
 
-            echo 'riennnn';
+            if ($fighterData == 2) {
+                $fighter->skill_health = $fighter['skill_health'] + 3;
+                $fighter->current_health = $fighter['skill_health'];
+                $fighter->xp = $fighter['xp'] - 4;
+                $fighter->level = $fighter['level'] + 1;
+            }
 
+            $fighterTable->save($fighter);
         }
-
-        if ($fighterData == 1) {
-            $fighter->skill_strength = $fighter['skill_strength']  + 1;
-            echo ' + 1 strength';
-        }
-
-        if ($fighterData == 2) {
-            $fighter->skill_sight = $fighter['skill_sight']  + 1;
-            echo ' + 1 sight';
-
-        }
-
-        if ($fighterData == 3) {
-            $fighter->skill_health = $fighter['skill_health']  + 3;
-            echo ' + 3 health';
-
-        }
-
-        $fighter->xp = $fighter['xp'] - 4;
-        $fighter->level = $fighter['level'] + 1;
-
-        $fighterTable->save($fighter);
-
-        $fighter->current_health = $fighter['skill_health'];
-
-        $fighterTable->save($fighter);
-    }
 
     function checkGuildBonus($defense, $attack){
 
