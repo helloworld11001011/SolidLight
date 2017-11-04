@@ -163,7 +163,7 @@ class ArenasController extends AppController {
             } else {
                 $session->write('playerEmailLogin', null);
                 $playerEmailLogin = $session->read('playerEmailLogin');
-                $goodToGo = 'Invalid Email/Password combination';
+                $goodToGo = 'Invalid user authentification';
             }
 
             $this->set('goodToGo', $goodToGo);
