@@ -179,19 +179,24 @@ class ArenasController extends AppController {
 
         if ($this->request->is('post')) {
             if (isset($data['email']) && isset($data['password'])) {
-                $players = $this->Players->find('all');
-                $playersArray = $players->toArray();
-                for ($i = 0; $i < count($playersArray); $i++) {
-                    if ($playersArray[$i]['email'] == $data['email']) {
-                        $emailInDB = 1;
+                if($data['email']!='' && $data['password']!='') {
+                    $players = $this->Players->find('all');
+                    $playersArray = $players->toArray();
+                    for ($i = 0; $i < count($playersArray); $i++) {
+                        if ($playersArray[$i]['email'] == $data['email']) {
+                            $emailInDB = 1;
+                        }
+                    }
+                    if($emailInDB == 0) {
+                        $this->Players->addANewPlayer($data);
+                        $this->set('emailInDB', 'Register Sucess!');
+                    }
+                    else {
+                        $this->set('emailInDB', 'Email already exists');
                     }
                 }
-                if($emailInDB == 0) {
-                    $this->Players->addANewPlayer($data);
-                    $this->set('emailInDB', 'Register Sucess!');
-                }
                 else {
-                    $this->set('emailInDB', 'Email already exists');
+                    $this->set('emailInDB', 'You need to complete the form');
                 }
             }
         }
