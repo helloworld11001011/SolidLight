@@ -19,6 +19,7 @@ td {
     padding: 0px;
     margin: 0px;
     border-width: 0px;
+    background-color: #212121;
 }
 
 tr{
@@ -41,9 +42,10 @@ img {
 table.nav{
     width: 500px;
     padding: 0px;
-    border: 0px solid black;
     margin-top: 20px;
+    background-color: #212121;
 }
+
 button{
     width: 100%;
 }
@@ -51,19 +53,38 @@ button{
 #matdiv{
     display: flex;
     flex-direction: column;
+    margin-right: 15px;
 }
+
 #navdiv{
     display: flex;
     flex-direction: column;
-    float: right;
+    justify-content: flex-start;
+    background-color: #212121;
+    margin-top: 30px;
+    padding: 5px;
 }
+
 #maindiv{
     display: flex;
+    margin-top: 45px;
 }
 
 #info{
-    padding-bottom: 240px;
-    color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 90%;
+    height: auto;
+    padding-top: auto;
+    padding-bottom: auto;
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 20px;
+    background-color: #424242;
 }
 
 .buttons-div{
@@ -77,7 +98,6 @@ button{
     align-items: center;
     justify-content: space-around;
 }
-
 
 .link-button, .link-button > a {
     background-color: rgba(33,33,33, 0.9);
@@ -146,4 +166,50 @@ button{
     background-color: rgba(0,0,0,0);
     cursor: pointer;
     box-shadow: 0px 0px 20px 10px #FFC107;
+}
+
+body {
+    background-color: #212121;
+}
+
+table {
+    border: none;
+}
+
+button {
+    background-color: rgba(0,0,0,0);
+    font-family: 'Orbitron', sans-serif;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px 4px #FFC107;
+    transition: 0.5s;
+    width: 95%;
+}
+
+button:hover {
+    background-color: rgba(0,0,0,0);
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+button:focus {
+    background-color: rgba(0,0,0,0);
+    outline: none;
+}
+
+#surDivInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    width: 100%;
+}
+
+#message {
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: white;
 }

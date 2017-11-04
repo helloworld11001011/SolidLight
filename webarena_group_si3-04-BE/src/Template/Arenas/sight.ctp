@@ -51,7 +51,6 @@ if($fighterIsChosen) {
         echo "</tr>\n";
     }
     echo "</table>\n</div>\n";
-
     echo "<div id='navdiv'> <table class='nav'> \n<tr> \n<td> </td> \n<td>";
     echo $this->Form->postButton('UP', null, [ "data" => [ "direction" => "up", "id" => $currentFighter[0]->id, "attack" => "no"]]);
     echo "</td>\n<td></td>\n</tr>\n<tr>\n<td>";
@@ -61,10 +60,24 @@ if($fighterIsChosen) {
     echo "</td>\n</tr>\n<tr>\n<td></td>\n<td>";
     echo $this->Form->postButton('DOWN', null, [ "data" => [ "direction" => "down", "id" => $currentFighter[0]->id, "attack" => "no"]]);
     echo "</td>\n<td></td>\n</tr>\n</table>\n";
+    ?>
+    <div id='attackBtnDiv'>
+    <?php
     echo $this->Form->postButton('ATTACK', null, [ 'class'=>'attack-btn', "data" => [ "direction" => "null", "id" => $currentFighter[0]->id, "attack" => "yes", "targetedCase" =>["x" => $targetedCase["x"], "y" => $targetedCase["y"] ]]]);
+    ?>
+    </div>
+    <div id='surDivInfo'>
+    <?php
     echo "\n<div id='info'>";
+    ?>
+    <p id='message'>
+    <?php
     echo $message;
-    echo "\n</div></div></div>";
+    ?>
+    </p>
+    <?php
+    echo "\n</div></div></div></div>";
+
 }
 else {
     if($playerIsLogin) {
