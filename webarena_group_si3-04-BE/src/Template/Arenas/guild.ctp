@@ -77,11 +77,11 @@
                         ?>
                     </div>
                 </div>
+                </div>
 
                 <div id='guildListDiv'>
                     <h3>Guilds</h3>
                     <?php
-                    if($fighterIsChosen) {
                         echo '<div id="guild-list">';
 
                             echo "<table class='cake-table' id='guilds-tables'>";
@@ -107,6 +107,7 @@
                             ?>
                         </div>
                 </div>
+
 
                 <div id='guildListDiv'>
                     <h3>Create your guild</h3>
@@ -145,8 +146,8 @@
                         ?>
                     </div>
                     <?php
-                    }
             }
+
             else {
                 if($playerIsLogin) {
                     ?>
@@ -174,7 +175,6 @@
                 }
             }
             ?>
-            </div>
         </div>
     </body>
 </html>
