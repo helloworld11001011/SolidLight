@@ -359,21 +359,23 @@ class ArenasController extends AppController {
             $guildArray = $guild->toArray();
 
             if (isset($data['name'])) {  //What is being tested?
-                for ($i = 0; $i < count($guildArray); $i++) {
-                    if ($guildArray[$i]['name'] == $data['name']) {
+                if($data['name'] != '') {
+                    for ($i = 0; $i < count($guildArray); $i++) {
+                        if ($guildArray[$i]['name'] == $data['name']) {
 
-                        $guildNameInDb = 1;
+                            $guildNameInDb = 1;
+                        }
                     }
+                    if ($guildNameInDb != 1) {
+                        $this->Guilds->addANewGuild($data);
+                    }
+                    if ($guildNameInDb == 1) {
+                        $guildNameInDb = 'A guild of this name already exists';
+                    } else {
+                        $guildNameInDb = 'Your guild has been created!';
+                    }
+                    $this->set('guildNameInDb', $guildNameInDb);
                 }
-                if ($guildNameInDb != 1) {
-                    $this->Guilds->addANewGuild($data);
-                }
-                if ($guildNameInDb == 1) {
-                    $guildNameInDb = 'A guild of this name already exists';
-                } else {
-                    $guildNameInDb = 'Your guild has been created!';
-                }
-                $this->set('guildNameInDb', $guildNameInDb);
             }
 
             $guildList = $this->Guilds->getGuildList();
