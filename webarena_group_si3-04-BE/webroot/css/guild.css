@@ -18,11 +18,11 @@ body {
 
 #mainDivOwnGuild {
     margin-top: 50px;
-    margin-bottom: 100px;
+    margin-bottom: 30px;
     padding-bottom: 10px;
     width: 1000px;
-    height: auto;
-    min-height: 1000px;
+    /*height: auto;*/
+    /*min-height: 1000px;*/
     border-radius: 10px;
     background-color: rgba(33,33,33, 0.9);
     box-shadow: 0px 0px 10px 4px #FFC107;
@@ -36,12 +36,12 @@ body {
 }
 
 #guildFighters {
-    height: 300px;
+    /*height: 300px;*/
     width: 90%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
-    margin-bottom: 200px;
+    margin-bottom: 40px;
 }
 
 #guildName {
