@@ -6,6 +6,14 @@
     /*justify-content: center;*/
 }
 
+.left-column label {
+    transition: 0.2s;
+}
+
+.left-column label:hover {
+    text-shadow: 0 0 5px #FFC107;
+}
+
 .left-column-title {
     margin-bottom: 6px;
 }
@@ -60,8 +68,14 @@
     width: 100%;
 }
 
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .submit-btn {
-    margin-top: 15px;
+    margin-top: 25px;
     font-family: 'Orbitron', sans-serif;
     background-color: rgba(33,33,33, 0.7);
     text-align: center;
@@ -230,22 +244,37 @@ body {
 .level-up-fighter fieldset {
     border: none;
     margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .level-up-fighter .h3-class {
-    margin-bottom: -15px;
+    margin-bottom: 0px;
+    text-align: center;
 }
 
 .level-up-fighter fieldset label {
     color: #FFC107;
+    transition: 0.2s;
+}
+
+.level-up-fighter fieldset label:hover {
+    text-shadow: 0 0 5px #FFC107;
 }
 
 .level-up-title {
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .level-up-fighter form .submit-btn {
     margin-top: 0px;
+}
+
+.level-up-fighter form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .fighter-selector {
@@ -421,10 +450,6 @@ body {
     text-shadow: 0 0 8px #18FFFF;
 }
 
-.previous {
-    /*margin-right: 4px;*/
-}
-
 .dataTables_paginate a {
     color: #18FFFF;
     margin-right: 4px;
@@ -440,10 +465,6 @@ body {
 .dataTables_paginate .current:hover {
     color: #FFC107;
     text-shadow: 0 0 8px #FFC107;
-}
-
-.next {
-    margin-left: 4px;
 }
 
 .main-container {

@@ -265,8 +265,8 @@ class FightersTable extends Table {
         if ($fighterData['Class'] == 2) {
             $fighter->skill_sight = '2';
             $fighter->skill_strength = '1';
-            $fighter->skill_health = '7';
-            $fighter->current_health = '7';
+            $fighter->skill_health = '8';
+            $fighter->current_health = '8';
         }
 
         if ($fighterData['Class'] == 3) {

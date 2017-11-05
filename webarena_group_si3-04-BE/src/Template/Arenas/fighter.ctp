@@ -112,7 +112,7 @@
                         echo '<div class="form-selector-column">';
                         echo "<div class='left-column'>";
                             echo '<div class="left-column-title">Class</div>';
-                            echo $this->Form->radio('Class', ['Decker (basic)', 'Rigger (+1 sight)','Goliath (+2 health)', 'Street Samuraï (+1 strength)']);
+                            echo $this->Form->radio('Class', ['Decker (basic)', 'Rigger (+1 sight)','Goliath (+3 health)', 'Street Samuraï (+1 strength)']);
                             echo $this->Form->input('imgNum', ['type' => 'hidden', 'id' => 'imgNum']);
                         ?></div>
 
