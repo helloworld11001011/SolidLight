@@ -424,6 +424,7 @@ class FightersTable extends Table {
 
         $fighter = $fighterTable->get($fighterChosen['id']);
 
+        pr($arg);
 
             if ($fighterData == 0) {
                 $fighter->skill_strength = $fighter['skill_strength'] + 1;

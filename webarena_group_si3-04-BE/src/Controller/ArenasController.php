@@ -223,11 +223,12 @@ class ArenasController extends AppController {
             $currentFighterId = $session->read("fighterChosenId");
             $fighterChosen = $this->Fighters->getFighterById($currentFighterId);
 
-            if(($session->check('fighterChosenId') && ($fighterChosen[0]->xp >= 4))){
+            $data = $this->request->getData('Upgrade');
+            
+            if(($session->check('fighterChosenId') && ($fighterChosen[0]->xp >= 4) && ($data != ''))){
 
                 $LevelUpPossible = 1;
                 $this->set('levelUpPossible', 1);
-                $data = $this->request->getData('Upgrade');
 
                 $this->Fighters->levelUp($data, $fighterChosen[0]);
 
