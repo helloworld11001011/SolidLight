@@ -3,6 +3,7 @@
     <style media="screen">
         pre {
             margin-left: 20px;
+            font-size: 12px;
         }
     </style>
 </head>
