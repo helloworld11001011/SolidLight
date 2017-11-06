@@ -11,6 +11,10 @@ use App\Controller\AppController;
  */
 class ArenasController extends AppController {
 
+    public function gitlog() {
+        
+    }
+
     public function inbox() {
         $session = $this->request->session();
 

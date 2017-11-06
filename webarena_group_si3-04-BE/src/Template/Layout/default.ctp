@@ -58,6 +58,15 @@ $cakeDescription = 'SolidLight';
         footer .float-left {
             text-shadow: 0 0 10px #18FFFF;
         }
+
+        footer a {
+            color: #18FFFF;
+            transition: 0.2s;
+        }
+        footer a:hover {
+            text-shadow: 0 0 10px #18FFFF;
+            color: #18FFFF;
+        }
     </style>
 </head>
 <body>
@@ -86,7 +95,7 @@ $cakeDescription = 'SolidLight';
     </div>
     <footer>
         <div class="float-left">Cante / Duplan / Elkhiati / Segard</div>
-        <div class="float-center">Git Log as Word document inside project</div>
+        <div class="float-center"><?php echo $this->Html->link("Git Log", ["controller"=>"Arenas", "action"=>"gitlog"]); ?></div>
         <div class="float-right">Options B - E</div>
     </footer>
 </body>
