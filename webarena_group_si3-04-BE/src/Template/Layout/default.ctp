@@ -33,6 +33,32 @@ $cakeDescription = 'SolidLight';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+
+    <style>
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            font-family: 'Orbitron', sans-serif;
+            color: #18FFFF;
+            background-color: #333;
+            height: auto;
+            font-size: 12px;
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer .float-right {
+            /*float: right;*/
+        }
+
+        footer .float-left {
+            text-shadow: 0 0 10px #18FFFF;
+        }
+    </style>
 </head>
 <body>
     <nav class="top-bar expanded" data-topbar role="navigation">
@@ -59,6 +85,9 @@ $cakeDescription = 'SolidLight';
         <?= $this->fetch('content') ?>
     </div>
     <footer>
+        <div class="float-left">Cante / Duplan / Elkhiati / Segard</div>
+        <div class="float-center">Git Log as Word document inside project</div>
+        <div class="float-right">Options B - E</div>
     </footer>
 </body>
 </html>

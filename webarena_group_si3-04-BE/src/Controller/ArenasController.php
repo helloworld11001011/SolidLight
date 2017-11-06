@@ -224,7 +224,7 @@ class ArenasController extends AppController {
             $fighterChosen = $this->Fighters->getFighterById($currentFighterId);
 
             $data = $this->request->getData('Upgrade');
-            
+
             if(($session->check('fighterChosenId') && ($fighterChosen[0]->xp >= 4) && ($data != ''))){
 
                 $LevelUpPossible = 1;
@@ -359,7 +359,7 @@ class ArenasController extends AppController {
             $guild = $this->Guilds->find('all');
             $guildArray = $guild->toArray();
 
-            if (isset($data['name'])) {  //What is being tested?
+            if (isset($data['name'])) {  //test if the guild exists already in DB
                 if($data['name'] != '') {
                     for ($i = 0; $i < count($guildArray); $i++) {
                         if ($guildArray[$i]['name'] == $data['name']) {
@@ -385,16 +385,15 @@ class ArenasController extends AppController {
             if (isset($data['guildChosenForFighter'])) {
                 $fighterChosen = $session->read('fighterChosenId');
                 $guildChosen =  $guildList[$data['guildChosenForFighter']];
-                $session->write('fighterChosenGuild', $guildChosen);
+                $session->write('fighterChosenGuild', $guildChosen['id']);
                 $this->Fighters->joinGuild($guildChosen, $fighterChosen);
             }
-
             if($session->check('fighterChosenGuild')) {
                 $allFightersArray = [];
                 $allFightersArray = $this->Fighters->find('all')->toArray();
                 $guildFighters = [];
                 for($i=0; $i<count($allFightersArray); $i++) {
-                    if($allFightersArray[$i]['guild_id'] == $session->read('fighterChosenGuild')['id']) {
+                    if($allFightersArray[$i]['guild_id'] == $session->read('fighterChosenGuild')) {
                         array_push($guildFighters, $allFightersArray[$i]);
                     }
                 }
@@ -402,7 +401,7 @@ class ArenasController extends AppController {
 
                 if(isset($guildList)) {
                     for($i=0; $i<count($guildList); $i++) {
-                        if($guildList[$i]['id'] == $session->read('fighterChosenGuild')['id']) {
+                        if($guildList[$i]['id'] == $session->read('fighterChosenGuild')) {
                             $guildName = $guildList[$i]['name'];
                         }
                     }
